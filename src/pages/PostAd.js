@@ -389,19 +389,43 @@ const PostAd = () => {
         <Stack direction="row" spacing={2}>
           <Button
             variant="contained"
-            sx={{ borderRadius: "20px" }}
+            sx={{
+              borderRadius: "20px",
+              bgcolor: "orange",
+              "&:hover": {
+                "&:hover": {
+                  bgcolor: "#ff9900",
+                },
+              },
+            }}
             startIcon={<ImageInput />}
           >
             Gallery
           </Button>
           <Button
             variant="contained"
-            sx={{ borderRadius: "20px" }}
+            sx={{
+              borderRadius: "20px",
+              bgcolor: "orange",
+              "&:hover": {
+                "&:hover": {
+                  bgcolor: "#ff9900",
+                },
+              },
+            }}
             endIcon={<VideoInput />}
           ></Button>
           <Button
             variant="contained"
-            sx={{ borderRadius: "20px" }}
+            sx={{
+              borderRadius: "20px",
+              bgcolor: "orange",
+              "&:hover": {
+                "&:hover": {
+                  bgcolor: "#ff9900",
+                },
+              },
+            }}
             endIcon={<VideoInput />}
           ></Button>
         </Stack>
@@ -1490,7 +1514,19 @@ const PostAd = () => {
       </Grid>
 
       <Grid my={2}>
-        <Button onClick={handlePostAd} variant="contained">
+        <Button
+          onClick={handlePostAd}
+          sx={{
+            borderRadius: "20px",
+            bgcolor: "orange",
+            "&:hover": {
+              "&:hover": {
+                bgcolor: "#ff9900",
+              },
+            },
+          }}
+          variant="contained"
+        >
           Submit
         </Button>
       </Grid>
