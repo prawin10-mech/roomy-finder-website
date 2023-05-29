@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   propertyType: null,
-  minBudget: null,
-  maxBudget: null,
+  minBudget: "",
+  maxBudget: "",
 
   preferredRentType: null,
   gender: null,
@@ -44,8 +44,8 @@ const AdvancedSearchSlice = createSlice({
       state.city = null;
       state.location = null;
       state.propertyType = null;
-      state.minBudget = null;
-      state.maxBudget = null;
+      state.minBudget = "";
+      state.maxBudget = "";
       state.preferredRentType = null;
       state.gender = null;
       state.action = null;

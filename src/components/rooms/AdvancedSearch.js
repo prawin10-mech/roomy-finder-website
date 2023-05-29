@@ -79,13 +79,11 @@ const AdvancedSearch = () => {
           filteredData = data.filter((room) => {
             return room.monthlyPrice > minBudget;
           });
-        }
-        if (!minBudget && maxBudget) {
+        } else if (!minBudget && maxBudget) {
           filteredData = data.filter((room) => {
             return room.monthlyPrice < minBudget;
           });
-        }
-        if (minBudget && maxBudget) {
+        } else if (minBudget && maxBudget) {
           filteredData = data.filter((room) => {
             return (
               room.monthlyPrice > minBudget && room.monthlyPrice < maxBudget

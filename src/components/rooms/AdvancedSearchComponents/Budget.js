@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { FormGroup, Typography, TextField, Grid } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { AdvanceSearchActions } from "../../../store/AdvanceSearch";
 
 const Budget = () => {
   const dispatch = useDispatch();
-  const minBudget = useSelector((state) => state.search.minBudget);
-  const maxBudget = useSelector((state) => state.search.maxBudget);
+  const minBudget = useSelector((state) => state.advanceSearch.minBudget);
+  const maxBudget = useSelector((state) => state.advanceSearch.maxBudget);
 
   const handleMinBudgetChange = (event) => {
     const newValue = parseInt(event.target.value);

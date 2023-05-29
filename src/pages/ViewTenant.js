@@ -42,6 +42,7 @@ import lifestyle from "../assets/icons/lifestyle.png";
 import language from "../assets/icons/languages.png";
 
 import { amenitiesData } from "../utils/AmenitiesData";
+import { InterestsData } from "../utils/InterestsData";
 
 const ViewRoom = () => {
   const dispatch = useDispatch();
@@ -112,7 +113,8 @@ const ViewRoom = () => {
             alignItems: "center",
             mb: 3,
             position: "relative",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
+            // boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
+            boxShadow: "0px 0px 15px  rgba(0,0,0,0.5)",
           }}
         >
           {active && (
@@ -248,7 +250,9 @@ const ViewRoom = () => {
                       sx={{
                         borderRadius: 15,
                         bgcolor: "orange",
+                        width: "100px",
                         color: "#fff",
+                        fontWeight: "700",
                         "&:hover": {
                           bgcolor: "#ff9900",
                         },
@@ -401,7 +405,7 @@ const ViewRoom = () => {
             <Grid item xs={12} sm={6} md={4}>
               <Grid container alignItems={"center"} gap={1}>
                 <Grid>
-                  <img src={people} alt="people" width={"40px"} />
+                  <img src={gender} alt="gender" width={"40px"} />
                 </Grid>
                 <Grid>
                   <Typography variant="body1" sx={{ mb: 1 }}>
@@ -601,23 +605,42 @@ const ViewRoom = () => {
             <Typography fontWeight={700} mb={2}>
               Interests
             </Typography>
-            <Grid container spacing={2} sx={{ mx: "auto" }}>
+            <Grid container gap={3} sx={{ mx: "auto" }}>
               {room?.interests?.map((data) => {
+                const interest = InterestsData[data];
                 return (
                   <Grid
                     item
-                    xs={3}
+                    xs={3} // Change xs={3} to xs={12} sm={6} md={3} to display 4 items per row
+                    sm={3}
+                    md={2.5}
                     sx={{
                       fontSize: { xs: "0.8rem", sm: "1.2rem" },
-                      borderRadius: "4px",
+                      borderRadius: "20px",
+                      boxShadow: "0px 0px 15px  rgba(0,0,0,0.5)",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    <Typography
-                      variant="body1"
-                      sx={{ mb: 1, border: "1px solid gray" }}
-                    >
-                      {data}
-                    </Typography>
+                    <Grid item>
+                      {interest ? (
+                        <img
+                          src={interest}
+                          alt={data}
+                          width="40px"
+                          height="40px"
+                        />
+                      ) : (
+                        <img src={data} alt={data} width="40px" />
+                      )}
+                    </Grid>
+                    <Grid item sx={{ mt: 1 }}>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        {data}
+                      </Typography>
+                    </Grid>
                   </Grid>
                 );
               })}

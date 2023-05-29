@@ -19,12 +19,11 @@ const Search = () => {
         padding: "20px",
         borderRadius: "10px",
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-        //margin: "20px 0 0 10%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         "@media (max-width: 960px)": {
-          margin: "20px 0 0 0",
+          margin: "20px 0",
         },
       }}
     >
@@ -59,7 +58,9 @@ const Search = () => {
           Room mate
         </Button>
       </ButtonGroup>
-      <SearchInputs />
+      <Box sx={{ "@media (max-width: 600px)": { mt: 1 } }}>
+        <SearchInputs />
+      </Box>
     </Box>
   );
 };
