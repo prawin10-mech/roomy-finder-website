@@ -393,7 +393,7 @@ const PostAd = () => {
             variant="contained"
             sx={{
               borderRadius: "20px",
-              bgcolor: "orange",
+              // bgcolor: "orange",
               "&:hover": {
                 "&:hover": {
                   bgcolor: "#ff9900",
@@ -408,7 +408,7 @@ const PostAd = () => {
             variant="contained"
             sx={{
               borderRadius: "20px",
-              bgcolor: "orange",
+              // bgcolor: "orange",
               "&:hover": {
                 "&:hover": {
                   bgcolor: "#ff9900",
@@ -436,7 +436,7 @@ const PostAd = () => {
             variant="contained"
             sx={{
               borderRadius: "20px",
-              bgcolor: "orange",
+              // bgcolor: "orange",
               "&:hover": {
                 "&:hover": {
                   bgcolor: "#ff9900",
