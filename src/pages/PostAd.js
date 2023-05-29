@@ -1476,7 +1476,7 @@ const PostAd = () => {
         // </Grid>
         <Grid container spacing={2}>
           <Grid item>
-            <Typography mb={2} sx={{ my: 2 }} sx={{ fontWeight: "600" }}>
+            <Typography mb={2}  sx={{ fontWeight: "600", my: 2 }}>
               Your LIFESTYLE
             </Typography>
           </Grid>
@@ -1484,9 +1484,9 @@ const PostAd = () => {
             <Grid item gap={2} xs={12} sm={4} md={3}>
               <Box
                 sx={{
-                  color: yourLifeStyle === "Night Owl" ? "orange" : "purple",
+                  color: yourLifeStyle === "Early Brirdl" ? "orange" : "purple",
                   borderColor:
-                    yourLifeStyle === "Night Owl" ? "orange" : "white",
+                    yourLifeStyle === "Early Brird" ? "orange" : "white",
                   boxShadow: 9,
                   borderRadius: 5,
                   fontWeight: 600,
