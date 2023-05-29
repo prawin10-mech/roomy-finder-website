@@ -1430,72 +1430,79 @@ const PostAd = () => {
         //   </Grid>
         // </Grid>
         <Grid container spacing={2}>
-          <Typography mb={2} sx={{ my: 2 }}>
-            Your LIFESTYLE
-          </Typography>
-          <Grid item xs={12} sm={4} md={3}>
-            <Box
-              sx={{
-                color: yourLifeStyle === "Night Owl" ? "orange" : "purple",
-                borderColor: yourLifeStyle === "Night Owl" ? "orange" : "white",
-                boxShadow: 9,
-                p: 2,
-                borderRadius: 5,
-                fontWeight: 600,
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={() =>
-                dispatch(TenantActions.yourLifeStyle("Early Brird"))
-              }
-            >
-              <img
-                src={birdimg}
-                alt="birdimg"
-                style={{ width: "80px", height: "70px" }}
-              />
-              <Typography
-                sx={{
-                  fontWeight: 600,
-                }}
-              >
-                Smoking
-              </Typography>
-            </Box>
+          <Grid item>
+            <Typography mb={2} sx={{ my: 2 }}>
+              Your LIFESTYLE
+            </Typography>
           </Grid>
-          <Grid item xs={12} sm={4} md={3}>
-            <Box
-              sx={{
-                color: yourLifeStyle === "Night Owl" ? "orange" : "purple",
-                borderColor: yourLifeStyle === "Night Owl" ? "orange" : "white",
-                boxShadow: 9,
-                p: 2,
-                borderRadius: 5,
-                fontWeight: 600,
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={() => dispatch(TenantActions.yourLifeStyle("Night Owl"))}
-            >
-              <img
-                src={owlimg}
-                alt="owlimg"
-                style={{ width: "80px", height: "70px" }}
-              />
-              <Typography
+          <Grid container sx={{ paddingX: 2 }}>
+            <Grid item gap={2} xs={12} sm={4} md={3}>
+              <Box
                 sx={{
+                  color: yourLifeStyle === "Night Owl" ? "orange" : "purple",
+                  borderColor:
+                    yourLifeStyle === "Night Owl" ? "orange" : "white",
+                  boxShadow: 9,
+                  borderRadius: 5,
                   fontWeight: 600,
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
+                onClick={() =>
+                  dispatch(TenantActions.yourLifeStyle("Early Brird"))
+                }
               >
-                Smoking
-              </Typography>
-            </Box>
+                <img
+                  src={birdimg}
+                  alt="birdimg"
+                  style={{ width: "70px", height: "70px" }}
+                />
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                  }}
+                >
+                  Smoking
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              <Box
+                sx={{
+                  color: yourLifeStyle === "Night Owl" ? "orange" : "purple",
+                  borderColor:
+                    yourLifeStyle === "Night Owl" ? "orange" : "white",
+                  boxShadow: 9,
+                  borderRadius: 5,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  ml: "10px",
+                }}
+                onClick={() =>
+                  dispatch(TenantActions.yourLifeStyle("Night Owl"))
+                }
+              >
+                <img
+                  src={owlimg}
+                  alt="owlimg"
+                  style={{ width: "70px", height: "70px" }}
+                />
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                  }}
+                >
+                  Smoking
+                </Typography>
+              </Box>
+            </Grid>
           </Grid>
         </Grid>
       )}
