@@ -20,10 +20,20 @@ const TextInput = ({ label, name, value }) => {
   return (
     <TextField
       label={label}
-      variant="outlined"
+      variant="filled"
       value={value}
       onChange={(e) => handleInputChange(e, name)}
       fullWidth
+      sx={{
+        width: { md: "100%" },
+        borderBottom: "none",
+        "& .MuiFilledInput-underline:before": {
+          borderBottom: "none",
+        },
+        "& .MuiFilledInput-underline:after": {
+          borderBottom: "none",
+        },
+      }}
     />
   );
 };

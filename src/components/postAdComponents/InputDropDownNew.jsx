@@ -36,7 +36,8 @@ const InputDropDown = ({ label, values, name, value }) => {
           value={value}
           onChange={(e) => handleInputChange(e, name)}
           sx={{
-            width: "100%",
+            width: {md:"100%"},
+            borderBottom: "none",
             "& .MuiFilledInput-underline:before": {
               borderBottom: "none",
             },
