@@ -10,7 +10,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TenantActions } from "../store/Tenant";
-import InputDropDown from "../components/postAdComponents/InputDropDown";
+import InputDropDown from "../components/postAdComponents/InputDropDownNew";
 import TextInput from "../components/postAdComponents/TextInput";
 import { allNationalities } from "../utils/AllNationalities";
 import { availableLanguages } from "../utils/availableLanguages";
@@ -457,7 +457,7 @@ const PostAd = () => {
       <Grid item xs={12}>
         <Typography>Please fill in PREFERRED ROOM DETAILS:</Typography>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={4} md={3}>
+          {/* <Grid item xs={12} sm={4} md={3}>
             <Box sx={{ mt: 2 }}>
               <InputDropDown
                 label="Property type"
@@ -467,9 +467,85 @@ const PostAd = () => {
                 sx={{ width: "100%" }}
               />
             </Box>
+          </Grid> */}
+          <Grid
+            justifyContent="center"
+            sx={{ display: "flex", flexDirection: "row", mt: 2 }}
+            item
+            xs={12}
+            sm={12}
+          >
+            <Typography fontWeight={600}>Property type</Typography>
+            <Grid container gap={2} justifyContent={"center"}>
+              <Typography variant="h6" component="h3">
+                <Box
+                  component="span"
+                  onClick={() =>
+                    dispatch(TenantActions.yourLifeStyle("Studio"))
+                  }
+                  sx={{
+                    cursor: "pointer",
+                    fontWeight: "600",
+                    borderRadius: "15px",
+                    color: yourLifeStyle === "Studio" ? "orange" : "purple",
+                    border: "1px solid",
+                    borderColor:
+                      yourLifeStyle === "Studio" ? "orange" : "purple",
+                    padding: 1,
+                  }}
+                >
+                  Studio
+                </Box>
+              </Typography>
+              <Typography variant="h6" component="h3">
+                <Box
+                  component="span"
+                  onClick={() =>
+                    dispatch(TenantActions.yourLifeStyle("Apartment"))
+                  }
+                  sx={{
+                    cursor: "pointer",
+                    fontWeight: "600",
+                    borderRadius: "15px",
+                    color: yourLifeStyle === "Apartment" ? "orange" : "purple",
+                    border: "1px solid",
+                    borderColor:
+                      yourLifeStyle === "Apartment" ? "orange" : "purple",
+                    padding: 1,
+                  }}
+                >
+                  Apartment
+                </Box>
+              </Typography>
+              <Typography variant="h6" component="h3">
+                <Box
+                  component="span"
+                  onClick={() => dispatch(TenantActions.yourLifeStyle("House"))}
+                  sx={{
+                    cursor: "pointer",
+                    fontWeight: "600",
+                    borderRadius: "15px",
+                    color: yourLifeStyle === "House" ? "orange" : "purple",
+                    border: "1px solid",
+                    borderColor:
+                      yourLifeStyle === "House" ? "orange" : "purple",
+                    padding: 1,
+                  }}
+                >
+                  House
+                </Box>
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={4} md={3}>
-            <Box sx={{ mt: 2 }}>
+          <Grid
+            justifyContent="center"
+            item
+            xs={12}
+            sm={12}
+            sx={{ display: "flex", flexDirection: "row", mt: 2 }}
+          >
+            <Typography fontWeight={600}>Rent type</Typography>
+            <Box sx={{ mt: 2,justifyContent:"center" }}>
               <InputDropDown
                 label="Rent type"
                 name="rentType"
