@@ -35,32 +35,29 @@ import { allAmenities, interestData } from "../utils/AllAmenities";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { toastOptions } from "../utils/ToastOptions";
+
 import smokingimg from "../assets/icons/smoking.png";
+import smokingimg2 from "../assets/Roommate Ad display UI/sclkndslj.png";
+
 import drinkingimg from "../assets/icons/drinking.png";
-import owlimg from "../assets/Lifestyle icon in roommate ad/12.png";
-import birdimg from "../assets/Lifestyle icon in roommate ad/bird1.png";
-// import drinkingimg from "../assets/comfortable with icon in post roommate Ad/1kjnwklcvde.png";
+import drinkingimg2 from "../assets/comfortable with icon in post roommate Ad/1kjnwklcvde.png";
+
 import petsimg from "../assets/icons/pets.png";
-// import petsimg from "../assets/comfortable with icon in post roommate Ad/s3cdsc.png";
+import petsimg2 from "../assets/comfortable with icon in post roommate Ad/s3cdsc.png";
 
 import visitorimg from "../assets/icons/visitors.png";
+import visitorimg2 from "../assets/Roommate Ad display UI/wcdewd.png";
+
 import partyimg from "../assets/icons/party.png";
+import partyimg2 from "../assets/comfortable with in Post property/sclkndslj.png";
+
+
+import owlimg from "../assets/Lifestyle icon in roommate ad/owl1.png";
+import owlimg2 from "../assets/Lifestyle icon in roommate ad/owl2.png";
+import birdimg from "../assets/Lifestyle icon in roommate ad/bird1.png";
+import birdimg2 from "../assets/Lifestyle icon in roommate ad/bird2.png";
 import CameraIcon from "@mui/icons-material/Camera";
 
-// const interestData = [
-//   "Reading",
-//   "Yoga",
-//   "Sports",
-//   "Photography",
-//   "Cooking",
-//   "Hiking",
-//   "Game",
-//   "Music",
-//   "Arts",
-//   "Dance",
-//   "Volunteering",
-//   "Fishing",
-// ];
 
 const PostAd = () => {
   const dispatch = useDispatch();
@@ -259,10 +256,6 @@ const PostAd = () => {
               padding: 1,
             }}
           >
-            {/* <Paper key={24} elevation={24}>
-              
-            HAVE ROOM
-            </Paper> */}
             HAVE ROOM
           </Box>
         </Typography>
@@ -422,19 +415,7 @@ const PostAd = () => {
           >
             Camera
           </Button>
-          {/* <Button
-            variant="contained"
-            sx={{
-              borderRadius: "20px",
-              bgcolor: "orange",
-              "&:hover": {
-                "&:hover": {
-                  bgcolor: "#ff9900",
-                },
-              },
-            }}
-            endIcon={<VideoInput />}
-          ></Button> */}
+
           <Button
             variant="contained"
             sx={{
@@ -467,12 +448,12 @@ const PostAd = () => {
                 }
                 sx={{
                   cursor: "pointer",
-                  fontWeight: "600",
+                  fontWeight: "500",
                   borderRadius: "15px",
-                  color: yourLifeStyle === "Early Brird" ? "orange" : "purple",
+                  color: yourLifeStyle === "Early Brird" ? "orange" : "black",
                   border: "1px solid",
                   borderColor:
-                    yourLifeStyle === "Early Brird" ? "orange" : "purple",
+                    yourLifeStyle === "Early Brird" ? "orange" : "white",
                   padding: 1,
                 }}
               >
@@ -487,12 +468,12 @@ const PostAd = () => {
                 }
                 sx={{
                   cursor: "pointer",
-                  fontWeight: "600",
+                  fontWeight: "500",
                   borderRadius: "15px",
-                  color: yourLifeStyle === "Night Owl" ? "orange" : "purple",
+                  color: yourLifeStyle === "Night Owl" ? "orange" : "black",
                   border: "1px solid",
                   borderColor:
-                    yourLifeStyle === "Night Owl" ? "orange" : "purple",
+                    yourLifeStyle === "Night Owl" ? "orange" : "white",
                   padding: 1,
                 }}
               >
@@ -509,42 +490,16 @@ const PostAd = () => {
             Please choose your HOBBIES/INTERESTS:{" "}
           </Typography>
           <Grid container xs={12}>
-            {/* {interestData.map((interest) => (
-              <Grid item xs={12} sm={6} md={4} key={interest}>
-                <Typography
-                  onClick={() => {
-                    const updatedInterests = interests.includes(interest)
-                      ? interests.filter((item) => item !== interest)
-                      : [...interests, interest];
-                    dispatch(TenantActions.interests(updatedInterests));
-                  }}
-                  sx={{
-                    cursor: "pointer",
-                    fontWeight: "600",
-                    borderRadius: "15px",
-                    color: interests.includes(interest) ? "orange" : "purple",
-                    border: "1px solid",
-                    borderColor: interests.includes(interest)
-                      ? "orange"
-                      : "purple",
-                    padding: 1,
-                    margin: 1,
-                  }}
-                >
-                  {interest}
-                </Typography>
-              </Grid>
-            ))} */}
             {interestData.map((interest) => (
               <Grid item xs={12} sm={4} key={interest.value}>
                 <Box
                   sx={{
                     cursor: "pointer",
-                    fontWeight: "600",
+                    fontWeight: "500",
                     borderRadius: "15px",
                     color: interests.includes(interest.value)
                       ? "orange"
-                      : "purple",
+                      : "black",
                     border: "1px solid",
                     borderColor: interests.includes(interest.value)
                       ? "orange"
@@ -573,7 +528,7 @@ const PostAd = () => {
                   />
                   <Typography
                     sx={{
-                      fontWeight: "600",
+                      fontWeight: "500",
                     }}
                   >
                     {interest.value}
@@ -590,17 +545,6 @@ const PostAd = () => {
           Please fill in PREFERRED ROOM DETAILS:
         </Typography>
         <Grid container spacing={2}>
-          {/* <Grid item xs={12} sm={4} md={3}>
-            <Box sx={{ mt: 2 }}>
-              <InputDropDown
-                label="Property type"
-                name="type"
-                values={["Studio", "Apartment", "House"]}
-                value={type}
-                sx={{ width: "100%" }}
-              />
-            </Box>
-          </Grid> */}
           <Grid
             justifyContent="center"
             sx={{ display: "flex", flexDirection: "row", mt: 2 }}
@@ -619,9 +563,9 @@ const PostAd = () => {
                   sx={{
                     boxShadow: 6,
                     cursor: "pointer",
-                    fontWeight: "600",
+                    fontWeight: "500",
                     borderRadius: "15px",
-                    color: yourLifeStyle === "Studio" ? "orange" : "#000",
+                    color: yourLifeStyle === "Studio" ? "orange" : "black",
                     border: "1px solid",
                     borderColor:
                       yourLifeStyle === "Studio" ? "orange" : "white",
@@ -640,9 +584,9 @@ const PostAd = () => {
                   sx={{
                     boxShadow: 6,
                     cursor: "pointer",
-                    fontWeight: "600",
+                    fontWeight: "500",
                     borderRadius: "15px",
-                    color: yourLifeStyle === "Apartment" ? "orange" : "#000",
+                    color: yourLifeStyle === "Apartment" ? "orange" : "black",
                     border: "1px solid",
                     borderColor:
                       yourLifeStyle === "Apartment" ? "orange" : "white",
@@ -659,9 +603,9 @@ const PostAd = () => {
                   sx={{
                     boxShadow: 6,
                     cursor: "pointer",
-                    fontWeight: "600",
+                    fontWeight: "500",
                     borderRadius: "15px",
-                    color: yourLifeStyle === "House" ? "orange" : "#000",
+                    color: yourLifeStyle === "House" ? "orange" : "black",
                     border: "1px solid",
                     borderColor: yourLifeStyle === "House" ? "orange" : "white",
                     padding: 1,
@@ -808,11 +752,9 @@ const PostAd = () => {
                   height: "70%",
                   width: "70%",
                   cursor: "pointer",
-                  fontWeight: "600",
+                  fontWeight: "500",
                   borderRadius: "15px",
-                  color: amenities.includes(amenity.value)
-                    ? "orange"
-                    : "purple",
+                  color: amenities.includes(amenity.value) ? "orange" : "black",
                   border: "1px solid",
                   borderColor: amenities.includes(amenity.value)
                     ? "orange"
@@ -831,6 +773,25 @@ const PostAd = () => {
                   dispatch(TenantActions.amenities(updatedAmenities));
                 }}
               >
+                {/* {amenities.includes(amenity.value) ? (
+                  <img
+                    src={amenity.pictureimg1}
+                    alt={amenity.value}
+                    style={{
+                      height: "60%",
+                      width: "60%",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={amenity.pictureimg}
+                    alt={amenity.value}
+                    style={{
+                      height: "60%",
+                      width: "60%",
+                    }}
+                  />
+                )} */}
                 <img
                   src={amenity.pictureimg}
                   alt={amenity.value}
@@ -839,13 +800,30 @@ const PostAd = () => {
                     width: "60%",
                   }}
                 />
-                <Typography
+                <Box
                   sx={{
-                    fontWeight: "600",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    justifySelf: "center",
                   }}
                 >
-                  {amenity.value}
-                </Typography>
+                  <Typography
+                    sx={{
+                      fontWeight: "500",
+                    }}
+                  >
+                    {amenity.value1}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontWeight: "500",
+                    }}
+                  >
+                    {amenity.value2}
+                  </Typography>
+                </Box>
               </Box>
             </Grid>
           ))}
@@ -857,17 +835,6 @@ const PostAd = () => {
           Please select your PREFERENCES:
         </Typography>
         <Grid container spacing={2}>
-          {/* <Grid item xs={12} sm={4} md={3}>
-            <Box sx={{ mt: 2 }}>
-              <InputDropDown
-                label="Gender"
-                name="gender"
-                values={["Male", "Female", "Mix"]}
-                value={gender}
-                sx={{ width: "100%" }}
-              />
-            </Box>
-          </Grid> */}
           <Grid
             item
             xs={12}
@@ -912,28 +879,7 @@ const PostAd = () => {
             />
             {/* </Box> */}
           </Grid>
-          {/* <Grid item xs={12} sm={4} md={3}>
-            <Box sx={{ mt: 2 }}>
-              <InputDropDown
-                label="Nationality"
-                name="nationality"
-                values={[...allNationalities]}
-                value={nationality}
-                sx={{ width: "100%" }}
-              />
-            </Box>
-          </Grid> */}
-          {/* <Grid item xs={12} sm={4} md={3}>
-            <Box sx={{ mt: 2 }}>
-              <InputDropDown
-                label="Lifestyle"
-                name="lifeStyle"
-                values={["Early Brird", "Night Owl"]}
-                value={lifeStyle}
-                sx={{ width: "100%" }}
-              />
-            </Box>
-          </Grid> */}
+
           <Grid item xs={12}>
             <Typography sx={{ fontWeight: "600", my: 1 }}>
               Comfortable with:
@@ -942,12 +888,12 @@ const PostAd = () => {
               <Grid item xs={12} sm={4} md={3}>
                 <Box
                   sx={{
-                    color: smoking ? "orange" : "purple",
+                    color: smoking ? "orange" : "black",
                     border: smoking ? "1px solid orange" : "1px solid white",
                     boxShadow: 9,
                     p: 2,
                     borderRadius: 5,
-                    fontWeight: 600,
+                    fontWeight: 500,
                     cursor: "pointer",
                     display: "flex",
                     flexDirection: "column",
@@ -956,6 +902,17 @@ const PostAd = () => {
                   }}
                   onClick={() => dispatch(TenantActions.smoking(!smoking))}
                 >
+                  {/* {
+                    smoking ? <img
+                    src={smokingimg2}
+                    alt="Peoples"
+                    style={{ width: "80px", height: "40px" }}
+                  /> : <img
+                    src={smokingimg}
+                    alt="Peoples"
+                    style={{ width: "80px", height: "40px" }}
+                  />
+                  } */}
                   <img
                     src={smokingimg}
                     alt="Peoples"
@@ -963,7 +920,7 @@ const PostAd = () => {
                   />
                   <Typography
                     sx={{
-                      fontWeight: 600,
+                      fontWeight: 500,
                     }}
                   >
                     Smoking
@@ -973,12 +930,12 @@ const PostAd = () => {
               <Grid item xs={12} sm={4} md={3}>
                 <Box
                   sx={{
-                    color: drinking ? "orange" : "purple",
+                    color: drinking ? "orange" : "black",
                     border: drinking ? "1px solid orange" : "1px solid white",
                     p: 2,
                     boxShadow: 9,
                     borderRadius: 5,
-                    fontWeight: 600,
+                    fontWeight: 500,
                     cursor: "pointer",
                     display: "flex",
                     flexDirection: "column",
@@ -987,6 +944,19 @@ const PostAd = () => {
                   }}
                   onClick={() => dispatch(TenantActions.drinking(!drinking))}
                 >
+                  {/* {drinking ? (
+                    <img
+                      src={drinkingimg2}
+                      alt="Peoples"
+                      style={{ width: "80px", height: "40px" }}
+                    />
+                  ) : (
+                    <img
+                      src={drinkingimg}
+                      alt="Peoples"
+                      style={{ width: "80px", height: "40px" }}
+                    />
+                  )} */}
                   <img
                     src={drinkingimg}
                     alt="Peoples"
@@ -994,7 +964,7 @@ const PostAd = () => {
                   />
                   <Typography
                     sx={{
-                      fontWeight: 600,
+                      fontWeight: 500,
                     }}
                   >
                     Drinking
@@ -1004,12 +974,12 @@ const PostAd = () => {
               <Grid item xs={12} sm={4} md={3}>
                 <Box
                   sx={{
-                    color: visitors ? "orange" : "purple",
+                    color: visitors ? "orange" : "black",
                     border: visitors ? "1px solid orange" : "1px solid white",
                     p: 2,
                     boxShadow: 9,
                     borderRadius: 5,
-                    fontWeight: 600,
+                    fontWeight: 500,
                     cursor: "pointer",
                     display: "flex",
                     flexDirection: "column",
@@ -1018,6 +988,19 @@ const PostAd = () => {
                   }}
                   onClick={() => dispatch(TenantActions.visitors(!visitors))}
                 >
+                  {/* {visitors ? (
+                    <img
+                      src={visitorimg2}
+                      alt="Peoples"
+                      style={{ width: "80px", height: "40px" }}
+                    />
+                  ) : (
+                    <img
+                      src={visitorimg}
+                      alt="Peoples"
+                      style={{ width: "80px", height: "40px" }}
+                    />
+                  )} */}
                   <img
                     src={visitorimg}
                     alt="Peoples"
@@ -1025,7 +1008,7 @@ const PostAd = () => {
                   />
                   <Typography
                     sx={{
-                      fontWeight: 600,
+                      fontWeight: 500,
                     }}
                   >
                     Visitors
@@ -1035,12 +1018,12 @@ const PostAd = () => {
               <Grid item xs={12} sm={4} md={3}>
                 <Box
                   sx={{
-                    color: party ? "orange" : "purple",
+                    color: party ? "orange" : "black",
                     border: party ? "1px solid orange" : "1px solid white",
                     p: 2,
                     boxShadow: 9,
                     borderRadius: 5,
-                    fontWeight: 600,
+                    fontWeight: 500,
                     cursor: "pointer",
                     display: "flex",
                     flexDirection: "column",
@@ -1049,6 +1032,19 @@ const PostAd = () => {
                   }}
                   onClick={() => dispatch(TenantActions.party(!party))}
                 >
+                  {/* {party ? (
+                    <img
+                      src={partyimg2}
+                      alt="Peoples"
+                      style={{ width: "80px", height: "40px" }}
+                    />
+                  ) : (
+                    <img
+                      src={partyimg}
+                      alt="Peoples"
+                      style={{ width: "80px", height: "40px" }}
+                    />
+                  )} */}
                   <img
                     src={partyimg}
                     alt="Peoples"
@@ -1056,7 +1052,7 @@ const PostAd = () => {
                   />
                   <Typography
                     sx={{
-                      fontWeight: 600,
+                      fontWeight: 500,
                     }}
                   >
                     Party
@@ -1066,12 +1062,12 @@ const PostAd = () => {
               <Grid item xs={12} sm={4} md={3}>
                 <Box
                   sx={{
-                    color: pets ? "orange" : "purple",
+                    color: pets ? "orange" : "black",
                     border: pets ? "1px solid orange" : "1px solid white",
                     p: 2,
                     boxShadow: 9,
                     borderRadius: 5,
-                    fontWeight: 600,
+                    fontWeight: 500,
                     cursor: "pointer",
                     display: "flex",
                     flexDirection: "column",
@@ -1080,6 +1076,19 @@ const PostAd = () => {
                   }}
                   onClick={() => dispatch(TenantActions.pets(!pets))}
                 >
+                  {/* {pets ? (
+                    <img
+                      src={petsimg2}
+                      alt="Peoples"
+                      style={{ width: "80px", height: "40px" }}
+                    />
+                  ) : (
+                    <img
+                      src={petsimg}
+                      alt="Peoples"
+                      style={{ width: "80px", height: "40px" }}
+                    />
+                  )} */}
                   <img
                     src={petsimg}
                     alt="Peoples"
@@ -1087,7 +1096,7 @@ const PostAd = () => {
                   />
                   <Typography
                     sx={{
-                      fontWeight: 600,
+                      fontWeight: 500,
                     }}
                   >
                     Pets
@@ -1105,17 +1114,6 @@ const PostAd = () => {
             Please tell us about yourself:
           </Typography>
           <Grid container spacing={2}>
-            {/* <Grid item xs={12} sm={4} md={3}>
-              <Box sx={{ mt: 2 }}>
-                <InputDropDown
-                  label="Gender"
-                  name="yourGender"
-                  values={["Male", "Female"]}
-                  value={yourGender}
-                  sx={{ width: "100%" }}
-                />
-              </Box>
-            </Grid> */}
             <Grid
               item
               xs={12}
@@ -1128,9 +1126,7 @@ const PostAd = () => {
               }}
             >
               <Typography sx={{ width: "30%" }}>Gender</Typography>
-              {/* <Box sx={{ mt: 2 }}> */}
               <InputDropDown
-                // label="Gender"
                 name="yourGender"
                 values={["Male", "Female"]}
                 value={yourGender}
@@ -1138,11 +1134,7 @@ const PostAd = () => {
               />
               {/* </Box> */}
             </Grid>
-            {/* <Grid item xs={12} sm={4} md={3}>
-              <Box sx={{ mt: 2 }}>
-                <TextInput label="Age" name="yourAge" value={yourAge} />
-              </Box>
-            </Grid> */}
+
             <Grid
               item
               xs={12}
@@ -1155,25 +1147,9 @@ const PostAd = () => {
               }}
             >
               <Typography sx={{ width: "30%" }}>Age</Typography>
-              {/* <Box sx={{ mt: 2 }}> */}
-              <TextInput
-                //  label="Age"
-                name="yourAge"
-                value={yourAge}
-              />
-              {/* </Box> */}
+              <TextInput name="yourAge" value={yourAge} />
             </Grid>
-            {/* <Grid item xs={12} sm={4} md={3}>
-              <Box sx={{ mt: 2 }}>
-                <InputDropDown
-                  label="Occupation"
-                  name="yourOccupation"
-                  values={["Professional", "Student", "Other"]}
-                  value={yourOccupation}
-                  sx={{ width: "100%" }}
-                />
-              </Box>
-            </Grid> */}
+
             <Grid
               item
               xs={12}
@@ -1186,27 +1162,14 @@ const PostAd = () => {
               }}
             >
               <Typography sx={{ width: "30%" }}>Occupation</Typography>
-              {/* <Box sx={{ mt: 2 }}> */}
               <InputDropDown
-                // label="Occupation"
                 name="yourOccupation"
                 values={["Professional", "Student", "Other"]}
                 value={yourOccupation}
                 sx={{ width: "100%" }}
               />
-              {/* </Box> */}
             </Grid>
-            {/* <Grid item xs={12} sm={4} md={3}>
-              <Box sx={{ mt: 2 }}>
-                <InputDropDown
-                  label="Nationality"
-                  name="yourNationality"
-                  values={[...allNationalities]}
-                  value={yourNationality}
-                  sx={{ width: "100%" }}
-                />
-              </Box>
-            </Grid> */}
+
             <Grid
               item
               xs={12}
@@ -1219,27 +1182,13 @@ const PostAd = () => {
               }}
             >
               <Typography sx={{ width: "30%" }}>Nationality</Typography>
-              {/* <Box sx={{ mt: 2 }}> */}
               <InputDropDown
-                // label="Nationality"
                 name="yourNationality"
                 values={[...allNationalities]}
                 value={yourNationality}
                 sx={{ width: "100%" }}
               />
-              {/* </Box> */}
             </Grid>
-            {/* <Grid item xs={12} sm={4} md={3}>
-              <Box sx={{ mt: 2 }}>
-                <InputDropDown
-                  label="Astrological Sign"
-                  name="yourAstrologicalSign"
-                  values={[...astrologySigns]}
-                  value={yourAstrologicalSign}
-                  sx={{ width: "100%" }}
-                />
-              </Box>
-            </Grid> */}
             <Grid
               item
               xs={12}
@@ -1252,15 +1201,12 @@ const PostAd = () => {
               }}
             >
               <Typography sx={{ width: "30%" }}>Astrological Sign</Typography>
-              {/* <Box sx={{ mt: 2 }}> */}
               <InputDropDown
-                // label="Astrological Sign"
                 name="yourAstrologicalSign"
                 values={[...astrologySigns]}
                 value={yourAstrologicalSign}
                 sx={{ width: "100%" }}
               />
-              {/* </Box> */}
             </Grid>
             <Grid
               item
@@ -1268,14 +1214,10 @@ const PostAd = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
-                // mt: 2,
-                // justifyContent: "space-around",
               }}
             >
               <Typography sx={{ width: "30%" }}>Languages you speak</Typography>
-              {/* <Box sx={{ mt: 2 }}> */}
               <TextField
-                // label="Languages you speak"
                 name="languages"
                 select
                 SelectProps={{
@@ -1349,11 +1291,11 @@ const PostAd = () => {
                     height: "70%",
                     width: "70%",
                     cursor: "pointer",
-                    fontWeight: "600",
+                    fontWeight: "500",
                     borderRadius: "15px",
                     color: interests.includes(interest.value)
                       ? "orange"
-                      : "purple",
+                      : "black",
                     border: "1px solid",
                     borderColor: interests.includes(interest.value)
                       ? "orange"
@@ -1363,6 +1305,7 @@ const PostAd = () => {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
+                    // ml:"25%",
                     alignItems: "center",
                   }}
                   onClick={() => {
@@ -1372,6 +1315,25 @@ const PostAd = () => {
                     dispatch(TenantActions.interests(updatedInterests));
                   }}
                 >
+                  {/* {interests.includes(interest.value) ? (
+                    <img
+                      src={interest.pictureimg1}
+                      alt={interest.value}
+                      style={{
+                        height: "60%",
+                        width: "60%",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={interest.pictureimg}
+                      alt={interest.value}
+                      style={{
+                        height: "60%",
+                        width: "60%",
+                      }}
+                    />
+                  )} */}
                   <img
                     src={interest.pictureimg}
                     alt={interest.value}
@@ -1382,7 +1344,7 @@ const PostAd = () => {
                   />
                   <Typography
                     sx={{
-                      fontWeight: "600",
+                      fontWeight: "500",
                     }}
                   >
                     {interest.value}
@@ -1395,88 +1357,9 @@ const PostAd = () => {
       )}
 
       {action === "HAVE ROOM" && (
-        // <Grid item xs={12} justifyContent="center" my={2} gap={2}>
-        //   <Typography mb={2}>Your LIFESTYLE</Typography>
-        //   <Grid
-        //     container
-        //     spacing={1}
-        //     sx={{
-        //       display: "flex",
-        //       flexDirection: "row",
-        //       justifyContent: "center",
-        //       alignItems: "center",
-        //       height: "70%",
-        //       width: "50%",
-        //     }}
-        //   >
-        //     <Box
-        //       sx={{
-        //         boxShadow: 9,
-        //         height: "40%",
-        //         width: "40%",
-        //         cursor: "pointer",
-        //         fontWeight: "600",
-        //         borderRadius: "15px",
-        //         color: yourLifeStyle === "Night Owl" ? "orange" : "purple",
-        //         border: "1px solid",
-        //         borderColor: yourLifeStyle === "Night Owl" ? "orange" : "white",
-        //         padding: 1,
-        //         display: "flex",
-        //         flexDirection: "column",
-        //         justifyContent: "center",
-        //         alignItems: "center",
-        //       }}
-        //       onClick={() =>
-        //         dispatch(TenantActions.yourLifeStyle("Early Brird"))
-        //       }
-        //     >
-        //       <img
-        //         src={birdimg}
-        //         alt={birdimg}
-        //         style={{
-        //           height: "90%",
-        //           width: "90%",
-        //         }}
-        //       />
-
-        //       <Typography>Early Brird</Typography>
-        //     </Box>
-
-        //     <Box
-        //       onClick={() => dispatch(TenantActions.yourLifeStyle("Night Owl"))}
-        //       sx={{
-        //         boxShadow: 9,
-        //         height: "40%",
-        //         width: "40%",
-        //         cursor: "pointer",
-        //         fontWeight: "600",
-        //         borderRadius: "15px",
-        //         color: yourLifeStyle === "Night Owl" ? "orange" : "purple",
-        //         border: "1px solid",
-        //         borderColor: yourLifeStyle === "Night Owl" ? "orange" : "white",
-        //         padding: 1,
-        //         display: "flex",
-        //         flexDirection: "column",
-        //         justifyContent: "center",
-        //         alignItems: "center",
-        //       }}
-        //     >
-        //       <img
-        //         src={owlimg}
-        //         alt={owlimg}
-        //         style={{
-        //           height: "90%",
-        //           width: "90%",
-        //         }}
-        //       />
-
-        //       <Typography>Night Owl</Typography>
-        //     </Box>
-        //   </Grid>
-        // </Grid>
         <Grid container spacing={2}>
           <Grid item>
-            <Typography mb={2}  sx={{ fontWeight: "600", my: 2 }}>
+            <Typography mb={2} sx={{ fontWeight: "600", my: 2 }}>
               Your LIFESTYLE
             </Typography>
           </Grid>
@@ -1484,12 +1367,12 @@ const PostAd = () => {
             <Grid item gap={2} xs={12} sm={4} md={3}>
               <Box
                 sx={{
-                  color: yourLifeStyle === "Early Brirdl" ? "orange" : "purple",
+                  color: yourLifeStyle === "Early Brird" ? "orange" : "black",
                   borderColor:
                     yourLifeStyle === "Early Brird" ? "orange" : "white",
                   boxShadow: 9,
                   borderRadius: 5,
-                  fontWeight: 600,
+                  // fontWeight: 500,
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
@@ -1500,14 +1383,38 @@ const PostAd = () => {
                   dispatch(TenantActions.yourLifeStyle("Early Brird"))
                 }
               >
+                {/* {yourLifeStyle === "Early Brird" ? (
+                  <img
+                    src={birdimg2}
+                    alt="birdimg"
+                    style={{
+                      width: "70px",
+                      height: "70px",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={birdimg}
+                    alt="birdimg"
+                    style={{
+                      width: "70px",
+                      height: "70px",
+                    }}
+                  />
+                )} */}
+
                 <img
                   src={birdimg}
                   alt="birdimg"
-                  style={{ width: "70px", height: "70px" }}
+                  style={{
+                    width: "70px",
+                    height: "70px",
+                  }}
                 />
+
                 <Typography
                   sx={{
-                    fontWeight: 600,
+                    fontWeight: 500,
                   }}
                 >
                   Early Brird
@@ -1517,12 +1424,12 @@ const PostAd = () => {
             <Grid item xs={12} sm={4} md={3}>
               <Box
                 sx={{
-                  color: yourLifeStyle === "Night Owl" ? "orange" : "purple",
+                  color: yourLifeStyle === "Night Owl" ? "orange" : "black",
                   borderColor:
                     yourLifeStyle === "Night Owl" ? "orange" : "white",
                   boxShadow: 9,
                   borderRadius: 5,
-                  fontWeight: 600,
+                  // fontWeight: 600,
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
@@ -1534,14 +1441,37 @@ const PostAd = () => {
                   dispatch(TenantActions.yourLifeStyle("Night Owl"))
                 }
               >
+                {/* {yourLifeStyle === "Night Owl" ? (
+                  <img
+                    src={owlimg2}
+                    alt="owlimg"
+                    style={{
+                      width: "70px",
+                      height: "70px",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={owlimg}
+                    alt="owlimg"
+                    style={{
+                      width: "70px",
+                      height: "70px",
+                    }}
+                  />
+                )} */}
                 <img
                   src={owlimg}
                   alt="owlimg"
-                  style={{ width: "70px", height: "70px" }}
+                  style={{
+                    width: "70px",
+                    height: "70px",
+                  }}
                 />
+
                 <Typography
                   sx={{
-                    fontWeight: 600,
+                    fontWeight: 500,
                   }}
                 >
                   Night Owl
