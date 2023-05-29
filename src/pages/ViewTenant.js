@@ -605,14 +605,19 @@ const ViewRoom = () => {
             <Typography fontWeight={700} mb={2}>
               Interests
             </Typography>
-            <Grid container gap={3} sx={{ mx: "auto" }}>
+            <Grid
+              container
+              justifyContent={"center"}
+              gap={3}
+              sx={{ mx: "auto" }}
+            >
               {room?.interests?.map((data) => {
                 const interest = InterestsData[data];
                 return (
                   <Grid
                     item
                     xs={3} // Change xs={3} to xs={12} sm={6} md={3} to display 4 items per row
-                    sm={3}
+                    sm={2.5}
                     md={2.5}
                     sx={{
                       fontSize: { xs: "0.8rem", sm: "1.2rem" },

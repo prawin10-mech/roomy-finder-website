@@ -613,7 +613,7 @@ const PostAd = () => {
                     dispatch(TenantActions.yourLifeStyle("Studio"))
                   }
                   sx={{
-                    boxShadow: 9,
+                    boxShadow: 6,
                     cursor: "pointer",
                     fontWeight: "600",
                     borderRadius: "15px",
@@ -634,7 +634,7 @@ const PostAd = () => {
                     dispatch(TenantActions.yourLifeStyle("Apartment"))
                   }
                   sx={{
-                    boxShadow: 9,
+                    boxShadow: 6,
                     cursor: "pointer",
                     fontWeight: "600",
                     borderRadius: "15px",
@@ -653,7 +653,7 @@ const PostAd = () => {
                   component="span"
                   onClick={() => dispatch(TenantActions.yourLifeStyle("House"))}
                   sx={{
-                    boxShadow: 9,
+                    boxShadow: 6,
                     cursor: "pointer",
                     fontWeight: "600",
                     borderRadius: "15px",
