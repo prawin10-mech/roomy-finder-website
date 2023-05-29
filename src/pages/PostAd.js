@@ -250,7 +250,7 @@ const PostAd = () => {
             onClick={() => handleOptionChange("HAVE ROOM")}
             sx={{
               cursor: "pointer",
-              color: "purple",
+              color: action === "HAVE ROOM" ? "#fff" : "none",
               fontWeight: "600",
               borderRadius: "15px",
               bgcolor: action === "HAVE ROOM" ? "orange" : "none",
@@ -272,7 +272,7 @@ const PostAd = () => {
             onClick={() => handleOptionChange("NEED ROOM")}
             sx={{
               cursor: "pointer",
-              color: "purple",
+              color: action === "NEED ROOM" ? "#fff" : "none",
               fontWeight: "600",
               bgcolor: action === "NEED ROOM" ? "orange" : "none",
               borderRadius: "15px",
@@ -621,7 +621,7 @@ const PostAd = () => {
                     cursor: "pointer",
                     fontWeight: "600",
                     borderRadius: "15px",
-                    color: yourLifeStyle === "Studio" ? "orange" : "purple",
+                    color: yourLifeStyle === "Studio" ? "orange" : "#000",
                     border: "1px solid",
                     borderColor:
                       yourLifeStyle === "Studio" ? "orange" : "white",
@@ -642,7 +642,7 @@ const PostAd = () => {
                     cursor: "pointer",
                     fontWeight: "600",
                     borderRadius: "15px",
-                    color: yourLifeStyle === "Apartment" ? "orange" : "purple",
+                    color: yourLifeStyle === "Apartment" ? "orange" : "#000",
                     border: "1px solid",
                     borderColor:
                       yourLifeStyle === "Apartment" ? "orange" : "white",
@@ -661,7 +661,7 @@ const PostAd = () => {
                     cursor: "pointer",
                     fontWeight: "600",
                     borderRadius: "15px",
-                    color: yourLifeStyle === "House" ? "orange" : "purple",
+                    color: yourLifeStyle === "House" ? "orange" : "#000",
                     border: "1px solid",
                     borderColor: yourLifeStyle === "House" ? "orange" : "white",
                     padding: 1,
