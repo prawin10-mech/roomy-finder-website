@@ -389,19 +389,43 @@ const PostAd = () => {
         <Stack direction="row" spacing={2}>
           <Button
             variant="contained"
-            sx={{ borderRadius: "50%" }}
+            sx={{
+              borderRadius: "20px",
+              bgcolor: "orange",
+              "&:hover": {
+                "&:hover": {
+                  bgcolor: "#ff9900",
+                },
+              },
+            }}
             startIcon={<ImageInput />}
           >
-            Gallary
+            Gallery
           </Button>
           <Button
             variant="contained"
-            sx={{ borderRadius: "5%" }}
+            sx={{
+              borderRadius: "20px",
+              bgcolor: "orange",
+              "&:hover": {
+                "&:hover": {
+                  bgcolor: "#ff9900",
+                },
+              },
+            }}
             endIcon={<VideoInput />}
           ></Button>
           <Button
             variant="contained"
-            sx={{ borderRadius: "50%" }}
+            sx={{
+              borderRadius: "20px",
+              bgcolor: "orange",
+              "&:hover": {
+                "&:hover": {
+                  bgcolor: "#ff9900",
+                },
+              },
+            }}
             endIcon={<VideoInput />}
           ></Button>
         </Stack>
@@ -1254,8 +1278,10 @@ const PostAd = () => {
         //     </Box>
         //   </Grid>
         // </Grid>
-        <Grid container spacing={2} >
-          <Typography mb={2}sx={{my:2}}>Your LIFESTYLE</Typography>
+        <Grid container spacing={2}>
+          <Typography mb={2} sx={{ my: 2 }}>
+            Your LIFESTYLE
+          </Typography>
           <Grid item xs={12} sm={4} md={3}>
             <Box
               sx={{
@@ -1337,7 +1363,19 @@ const PostAd = () => {
       </Grid>
 
       <Grid my={2}>
-        <Button onClick={handlePostAd} variant="contained">
+        <Button
+          onClick={handlePostAd}
+          sx={{
+            borderRadius: "20px",
+            bgcolor: "orange",
+            "&:hover": {
+              "&:hover": {
+                bgcolor: "#ff9900",
+              },
+            },
+          }}
+          variant="contained"
+        >
           Submit
         </Button>
       </Grid>
