@@ -389,19 +389,19 @@ const PostAd = () => {
         <Stack direction="row" spacing={2}>
           <Button
             variant="contained"
-            sx={{ borderRadius: "50%" }}
+            sx={{ borderRadius: "20px" }}
             startIcon={<ImageInput />}
           >
-            Gallary
+            Gallery
           </Button>
           <Button
             variant="contained"
-            sx={{ borderRadius: "5%" }}
+            sx={{ borderRadius: "20px" }}
             endIcon={<VideoInput />}
           ></Button>
           <Button
             variant="contained"
-            sx={{ borderRadius: "50%" }}
+            sx={{ borderRadius: "20px" }}
             endIcon={<VideoInput />}
           ></Button>
         </Stack>
@@ -572,6 +572,7 @@ const PostAd = () => {
                     dispatch(TenantActions.yourLifeStyle("Studio"))
                   }
                   sx={{
+                    boxShadow: 9,
                     cursor: "pointer",
                     fontWeight: "600",
                     borderRadius: "15px",
@@ -592,6 +593,7 @@ const PostAd = () => {
                     dispatch(TenantActions.yourLifeStyle("Apartment"))
                   }
                   sx={{
+                    boxShadow: 9,
                     cursor: "pointer",
                     fontWeight: "600",
                     borderRadius: "15px",
@@ -610,6 +612,7 @@ const PostAd = () => {
                   component="span"
                   onClick={() => dispatch(TenantActions.yourLifeStyle("House"))}
                   sx={{
+                    boxShadow: 9,
                     cursor: "pointer",
                     fontWeight: "600",
                     borderRadius: "15px",
@@ -809,7 +812,7 @@ const PostAd = () => {
           Please select your PREFERENCES:
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={4} md={3}>
+          {/* <Grid item xs={12} sm={4} md={3}>
             <Box sx={{ mt: 2 }}>
               <InputDropDown
                 label="Gender"
@@ -819,8 +822,52 @@ const PostAd = () => {
                 sx={{ width: "100%" }}
               />
             </Box>
+          </Grid> */}
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              mt: 2,
+              justifyContent: "space-around",
+            }}
+          >
+            <Typography sx={{ width: "30%" }}>Gender</Typography>
+            {/* <Box sx={{ mt: 2 }}> */}
+            <InputDropDown
+              // label="Gender"
+              name="gender"
+              values={["Male", "Female", "Mix"]}
+              value={gender}
+              sx={{ width: "100%" }}
+            />
+            {/* </Box> */}
           </Grid>
-          <Grid item xs={12} sm={4} md={3}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              mt: 2,
+              justifyContent: "space-around",
+            }}
+          >
+            <Typography sx={{ width: "30%" }}>Area</Typography>
+            {/* <Box sx={{ mt: 2 }}> */}
+            <InputDropDown
+              label="Nationality"
+              name="nationality"
+              values={[...allNationalities]}
+              value={nationality}
+              sx={{ width: "100%" }}
+            />
+            {/* </Box> */}
+          </Grid>
+          {/* <Grid item xs={12} sm={4} md={3}>
             <Box sx={{ mt: 2 }}>
               <InputDropDown
                 label="Nationality"
@@ -830,8 +877,8 @@ const PostAd = () => {
                 sx={{ width: "100%" }}
               />
             </Box>
-          </Grid>
-          <Grid item xs={12} sm={4} md={3}>
+          </Grid> */}
+          {/* <Grid item xs={12} sm={4} md={3}>
             <Box sx={{ mt: 2 }}>
               <InputDropDown
                 label="Lifestyle"
@@ -841,7 +888,7 @@ const PostAd = () => {
                 sx={{ width: "100%" }}
               />
             </Box>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <Typography sx={{ fontWeight: "600", my: 1 }}>
               Comfortable with:
@@ -1013,7 +1060,7 @@ const PostAd = () => {
             Please tell us about yourself:
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4} md={3}>
+            {/* <Grid item xs={12} sm={4} md={3}>
               <Box sx={{ mt: 2 }}>
                 <InputDropDown
                   label="Gender"
@@ -1023,13 +1070,51 @@ const PostAd = () => {
                   sx={{ width: "100%" }}
                 />
               </Box>
+            </Grid> */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                mt: 2,
+                justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Gender</Typography>
+              {/* <Box sx={{ mt: 2 }}> */}
+              <InputDropDown
+                // label="Gender"
+                name="yourGender"
+                values={["Male", "Female"]}
+                value={yourGender}
+                sx={{ width: "100%" }}
+              />
+              {/* </Box> */}
             </Grid>
-            <Grid item xs={12} sm={4} md={3}>
+            {/* <Grid item xs={12} sm={4} md={3}>
               <Box sx={{ mt: 2 }}>
                 <TextInput label="Age" name="yourAge" value={yourAge} />
               </Box>
+            </Grid> */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                mt: 2,
+                justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Age</Typography>
+              {/* <Box sx={{ mt: 2 }}> */}
+              <TextInput label="Age" name="yourAge" value={yourAge} />
+              {/* </Box> */}
             </Grid>
-            <Grid item xs={12} sm={4} md={3}>
+            {/* <Grid item xs={12} sm={4} md={3}>
               <Box sx={{ mt: 2 }}>
                 <InputDropDown
                   label="Occupation"
@@ -1039,8 +1124,30 @@ const PostAd = () => {
                   sx={{ width: "100%" }}
                 />
               </Box>
+            </Grid> */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                mt: 2,
+                justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Occupation</Typography>
+              {/* <Box sx={{ mt: 2 }}> */}
+              <InputDropDown
+                // label="Occupation"
+                name="yourOccupation"
+                values={["Professional", "Student", "Other"]}
+                value={yourOccupation}
+                sx={{ width: "100%" }}
+              />
+              {/* </Box> */}
             </Grid>
-            <Grid item xs={12} sm={4} md={3}>
+            {/* <Grid item xs={12} sm={4} md={3}>
               <Box sx={{ mt: 2 }}>
                 <InputDropDown
                   label="Nationality"
@@ -1050,8 +1157,30 @@ const PostAd = () => {
                   sx={{ width: "100%" }}
                 />
               </Box>
+            </Grid> */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                mt: 2,
+                justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Nationality</Typography>
+              {/* <Box sx={{ mt: 2 }}> */}
+              <InputDropDown
+                // label="Nationality"
+                name="yourNationality"
+                values={[...allNationalities]}
+                value={yourNationality}
+                sx={{ width: "100%" }}
+              />
+              {/* </Box> */}
             </Grid>
-            <Grid item xs={12} sm={4} md={3}>
+            {/* <Grid item xs={12} sm={4} md={3}>
               <Box sx={{ mt: 2 }}>
                 <InputDropDown
                   label="Astrological Sign"
@@ -1061,6 +1190,28 @@ const PostAd = () => {
                   sx={{ width: "100%" }}
                 />
               </Box>
+            </Grid> */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                mt: 2,
+                justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Astrological Sign</Typography>
+              {/* <Box sx={{ mt: 2 }}> */}
+              <InputDropDown
+                // label="Astrological Sign"
+                name="yourAstrologicalSign"
+                values={[...astrologySigns]}
+                value={yourAstrologicalSign}
+                sx={{ width: "100%" }}
+              />
+              {/* </Box> */}
             </Grid>
             <Grid item xs={12} sm={4} md={3}>
               <Box sx={{ mt: 2 }}>
@@ -1254,8 +1405,10 @@ const PostAd = () => {
         //     </Box>
         //   </Grid>
         // </Grid>
-        <Grid container spacing={2} >
-          <Typography mb={2}sx={{my:2}}>Your LIFESTYLE</Typography>
+        <Grid container spacing={2}>
+          <Typography mb={2} sx={{ my: 2 }}>
+            Your LIFESTYLE
+          </Typography>
           <Grid item xs={12} sm={4} md={3}>
             <Box
               sx={{
