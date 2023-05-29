@@ -1508,7 +1508,7 @@ const PostAd = () => {
       )}
 
       <Grid item xs={12}>
-        <Typography>
+        <Typography sx={{my:2}}>
           Please tell us more about yourself, your preferred roommate & housing
           details
         </Typography>
