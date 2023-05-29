@@ -24,6 +24,9 @@ import {
   riyadhCities,
 } from "../utils/citydata";
 import Ads from "../components/Ads";
+import bottomBackground from "../assets/bottomBackground.png";
+
+import CommercialCarousal from "../components/Card/CommercialCarousal";
 
 const SecondPage = () => {
   const city = useSelector((state) => state.search.searchText);
@@ -103,17 +106,25 @@ const SecondPage = () => {
       <Box
         xs={12}
         sx={{
-          width: "100%",
-          backgroundImage:
-            " linear-gradient(to right, #ec77ab 0%, #7873f5 100%);",
+          py: 3,
+          backgroundImage: `url(${bottomBackground})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
           display: "flex",
-          justifyContent: "center",
+          px: 5,
         }}
       >
-        <SingleCardCarousel
-          boxStyle={{ width: "400px", py: 3 }}
-          imageStyle={{ width: "100%", height: "140px", borderRadius: "16px" }}
-        />
+        <Box
+          sx={{
+            width: "50%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginLeft: "25%",
+          }}
+        >
+          <CommercialCarousal />
+        </Box>
       </Box>
       <Box
         sx={{
@@ -239,15 +250,15 @@ const SecondPage = () => {
             </Box>
             <Box>
               <Grid container>
+                <Grid item xs={12} sm={8} sx={{ width: "100%", px: 2 }}>
+                  <AllAvailableRooms />
+                </Grid>
                 <Grid
                   item
                   xs={12}
-                  sm={8}
-                  sx={{ backgroundColor: "#fffff5", width: "100%", px: 2 }}
+                  sm={3.5}
+                  sx={{ mx: 0.5, borderRadius: "20px" }}
                 >
-                  <AllAvailableRooms />
-                </Grid>
-                <Grid item xs={12} sm={4} sx={{ backgroundColor: "#fffff5" }}>
                   <Ads />
                 </Grid>
               </Grid>

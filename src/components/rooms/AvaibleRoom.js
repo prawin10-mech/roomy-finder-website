@@ -73,46 +73,79 @@ const AvailableRoom = memo(({ room }) => {
           width: "300px",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
+          // justifyContent: "space-between",
           ml: 2,
+          mt:1
         }}
       >
-        <Box sx={{ flex: 1 }}>
-          {!room.action && <Typography variant="h6">{room.type}</Typography>}
-
-          {room.action && (
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              {room.poster?.firstName} {room.poster?.lastName},{" "}
-              {room?.aboutYou?.age || "Unknown age"}
-            </Typography>
-          )}
-
-          {!room.action && (
-            <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-              {room.monthlyPrice.toLocaleString()}{" "}
-              <span style={{ fontSize: "0.8em" }}>AED</span> / Month
-            </Typography>
-          )}
-          {room.action && (
-            <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-              budget AED {room.budget.toLocaleString()}
-            </Typography>
-          )}
-        </Box>
-        <Box sx={{ flex: 1 }}>
-          <Typography variant="body2" sx={{ mb: 1 }}>
-            {room.description}
-          </Typography>
-          <Typography
-            variant="body2"
-            sx={{ display: "flex", alignItems: "center" }}
-          >
-            <LocationMarkerIcon className="h-5 w-5 mr-1 text-gray-500" />
-            {room.address.appartmentNumber} {room.address.buildingName}{" "}
-            {room.address.city} {room.address.location}
-          </Typography>
-        </Box>
         <Box>
+          <Box>
+            {!room.action && <Typography variant="h6">{room.type}</Typography>}
+
+            {room.action && (
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                {room.poster?.firstName} {room.poster?.lastName},{" "}
+                {room?.aboutYou?.age || "Unknown age"}
+              </Typography>
+            )}
+
+            {!room.action && (
+              <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+                {room.monthlyPrice.toLocaleString()}{" "}
+                <span style={{ fontSize: "0.8em" }}>AED</span> / Month
+              </Typography>
+            )}
+            {room.action && (
+              <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+                budget AED {room.budget.toLocaleString()}
+              </Typography>
+            )}
+          </Box>
+          <Box sx={{ flex: 1 }}>
+            <Typography variant="body2">{room.description}</Typography>
+            <Typography
+              variant="body2"
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              <LocationMarkerIcon className="h-5 w-5 mr-1 text-gray-500" />
+              {room.address.appartmentNumber} {room.address.buildingName}{" "}
+              {room.address.city} {room.address.location}
+            </Typography>
+          </Box>
+        </Box>
+        {/* <Box
+          sx={{
+            // right: "0px",
+            display: "flex",
+            // justifyContent: "end",
+            ml: "auto",
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={() =>
+              searchType === "property"
+                ? navigate(`/rooms/view-room/${room.id}`)
+                : navigate(`/upgrade-plan/user/${room.id}`)
+            }
+            style={{
+              backgroundColor: "orange",
+              color: "white",
+              borderRadius: "15px",
+              fontWeight: "700",
+            }}
+          >
+            All details
+          </Button>
+        </Box> */}
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 0,
+            right: 0,
+            padding: "8px",
+          }}
+        >
           <Button
             variant="contained"
             onClick={() =>

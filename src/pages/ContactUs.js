@@ -93,21 +93,16 @@ const ContactUs = () => {
           >
             <Box
               sx={{
-                width: 80,
-                height: 100,
-
-                //  borderRadius: "50%",
+                width: "65px",
+                height: "90px",
+                mt: 1,
+                mr: 2,
               }}
             >
-              <Avatar
-                alt="UAE"
-                src={UAE1}
-                variant="square"
-                sx={{
-                  mt: 0.5,
-                  objectFit: "cover",
-                  //  borderRadius: "50%",
-                }}
+              <img
+                src={UAE2}
+                alt="Peoples"
+                style={{ width: "80px", height: "40px" }}
               />
             </Box>
             <Box>
@@ -135,24 +130,18 @@ const ContactUs = () => {
           >
             <Box
               sx={{
-                width: 100,
-                height: 100,
-
-                //  borderRadius: "50%",
+                width: "80px",
+                height: "90px",
+                mt: 1,
+                mr: 2,
               }}
             >
-              <Avatar
-                alt="UAE"
+              <img
                 src={USA1}
-                variant="square"
-                sx={{
-                  mr: { xs: 1 },
-                  mt: 1,
-
-                  objectFit: "cover",
-                  //  borderRadius: "50%",
-                }}
+                alt="Peoples"
+                style={{ width: "80px", height: "40px" }}
               />
+              
             </Box>
             <Box>
               <Typography

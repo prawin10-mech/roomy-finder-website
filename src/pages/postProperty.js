@@ -26,6 +26,10 @@ import {
 } from "../utils/citydata";
 import { toastOptions } from "../utils/ToastOptions";
 
+import bottomBackground from "../assets/bottomBackground.png";
+
+import CommercialCarousal from "../components/Card/CommercialCarousal";
+
 const PostProperty = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -335,7 +339,7 @@ const PostProperty = () => {
       <Grid container>
         <Grid item xs={12} container justifyContent="center">
           <Grid item xs={12} md={10} lg={8}>
-            <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>
+            <Typography sx={{ fontSize: "20px",mt:3, fontWeight: "bold" }}>
               Please fill the following information to post your property
             </Typography>
             <Grid>
