@@ -28,11 +28,11 @@ const PropertyType = () => {
   const checkboxContainerStyle = {
     height: "80px",
     borderRadius: "20px",
-    // textAlign: "center",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.45)",
+    // boxShadow: "0 2px 4px rgba(0, 0, 0, 0.45)",
+    boxShadow: "0px 0px 15px  rgba(0,0,0,0.5)",
   };
 
   const selectedCheckboxStyle = {
@@ -44,7 +44,10 @@ const PropertyType = () => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    textAlign: "center", // Add this line to center the text
+    textAlign: "center",
+    width: "100%",
+    height: "100%",
+    ml: 2,
   };
 
   return (
@@ -62,26 +65,19 @@ const PropertyType = () => {
                 ...checkboxContainerStyle,
                 ...(selectedPropertyType === "Room" && selectedCheckboxStyle),
               }}
-              onClick={handleCheckboxChange}
             >
-              <label
-                htmlFor="room-checkbox"
-                sx={{ width: "100%", height: "100%", cursor: "pointer" }}
-              >
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id="room-checkbox"
-                      checked={selectedPropertyType === "Room"}
-                      onChange={handleCheckboxChange}
-                      value="Room"
-                      sx={{ display: "none" }}
-                    />
-                  }
-                  label="Room"
-                  sx={checkboxLabelStyle}
-                />
-              </label>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={selectedPropertyType === "Room"}
+                    onChange={handleCheckboxChange}
+                    value="Room"
+                    sx={{ display: "none" }}
+                  />
+                }
+                label="Room"
+                sx={checkboxLabelStyle}
+              />
             </Grid>
           </Grid>
           <Grid item xs={12} sm={6}>

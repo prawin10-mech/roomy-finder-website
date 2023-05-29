@@ -99,16 +99,19 @@ const OurServices = () => {
           top: 0,
           left: 0,
           width: "100%",
-          height: "100vh",
-          backgroundImage: `
-      linear-gradient(
-        90deg,
-        rgba(128, 0, 128, 1) 0%,
-        rgba(160, 32, 160, 1) 25%,
-        rgba(192, 64, 192, 1) 50%,
-        rgba(224, 96, 224, 1) 75%,
-        rgba(255, 128, 255, 1) 100%
-      )`,
+          height: "55vh",
+          //     backgroundImage: `
+          // linear-gradient(
+          //   90deg,
+          //   rgba(128, 0, 128, 1) 0%,
+          //   rgba(160, 32, 160, 1) 25%,
+          //   rgba(192, 64, 192, 1) 50%,
+          //   rgba(224, 96, 224, 1) 75%,
+          //   rgba(255, 128, 255, 1) 100%
+          // )`,
+
+          backgroundImage:
+            "linear-gradient(90deg, rgba(0,1,36,1) 0%, rgba(73,9,121,1) 35%, rgba(192,0,255,1) 100%);",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           marginBottom: "50px",
@@ -158,9 +161,9 @@ const OurServices = () => {
               sx={{
                 display: "flex",
                 justifyContent: "flex-end",
-                alignItems: "flex-end",
+                //alignItems: "flex-end",
                 height: "100%",
-                position: "relative",
+                //position: "relative",
               }}
             >
               <FloatingImage />

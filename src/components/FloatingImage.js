@@ -6,8 +6,8 @@ const FloatingImage = () => {
   return (
     <Box
       sx={{
-        position: "absolute",
-        top: "-25px",
+        // position: "absolute",
+        // top: "-25px",
         marginRight: 12,
       }}
     >

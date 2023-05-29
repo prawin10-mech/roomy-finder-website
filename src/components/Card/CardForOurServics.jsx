@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Typography,
-  Container,
-  Stack,
-  Paper,
-} from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import CityCarousel2 from "../UI/CityCarousel2";
@@ -28,7 +20,9 @@ const AddWithCarasol = (props) => {
         spacing={2}
         sx={{
           py: 3,
-          backgroundImage: `url(${bottomBackground})`,
+          backgroundImage:
+            " linear-gradient(120deg, #d57eeb 0%, #fccb90 100%);",
+
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           display: "flex",
@@ -57,10 +51,13 @@ const AddWithCarasol = (props) => {
           <Button
             variant="outlined"
             size="large"
+            fullwidth
             sx={{
               boxShadow:
                 "rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;",
               backgroundColor: "orange",
+              borderRadius: "15px",
+              fontWeight: "700",
               color: "#fff",
               "&:hover": {
                 backgroundColor: "#fff",
