@@ -81,7 +81,7 @@ const VideoInput = () => {
                 </Box>
               ))
             ) : (
-              <Typography>Select video</Typography>
+              <Typography>Videos</Typography>
             )}
           </Box>
         )}

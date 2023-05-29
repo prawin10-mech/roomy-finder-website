@@ -385,7 +385,9 @@ const PostAd = () => {
         </Grid>
       )}
       <Grid container justifyContent={"flex-start"} px={2}>
-        <Typography sx={{ my: 2 }}>Please add IMAGES/VIDEOS: </Typography>
+        <Typography sx={{ my: 2, fontWeight: "600" }} >
+          Please add IMAGES/VIDEOS:{" "}
+        </Typography>
         <Stack direction="row" spacing={2}>
           <Button
             variant="contained"
@@ -400,7 +402,7 @@ const PostAd = () => {
             }}
             startIcon={<ImageInput />}
           >
-            Gallery
+            Images
           </Button>
           <Button
             variant="contained"
@@ -413,8 +415,23 @@ const PostAd = () => {
                 },
               },
             }}
+            startIcon={<ImageInput />}
+          >
+            Camera
+          </Button>
+          {/* <Button
+            variant="contained"
+            sx={{
+              borderRadius: "20px",
+              bgcolor: "orange",
+              "&:hover": {
+                "&:hover": {
+                  bgcolor: "#ff9900",
+                },
+              },
+            }}
             endIcon={<VideoInput />}
-          ></Button>
+          ></Button> */}
           <Button
             variant="contained"
             sx={{
@@ -1135,7 +1152,11 @@ const PostAd = () => {
             >
               <Typography sx={{ width: "30%" }}>Age</Typography>
               {/* <Box sx={{ mt: 2 }}> */}
-              <TextInput label="Age" name="yourAge" value={yourAge} />
+              <TextInput
+                //  label="Age"
+                name="yourAge"
+                value={yourAge}
+              />
               {/* </Box> */}
             </Grid>
             {/* <Grid item xs={12} sm={4} md={3}>
@@ -1237,41 +1258,61 @@ const PostAd = () => {
               />
               {/* </Box> */}
             </Grid>
-            <Grid item xs={12} sm={4} md={3}>
-              <Box sx={{ mt: 2 }}>
-                <TextField
-                  label="Languages you speak"
-                  name="languages"
-                  select
-                  SelectProps={{
-                    multiple: true,
-                    value: yourLanguages,
-                    onChange: handleLanguageSelection,
-                    renderValue: (selected) => (
-                      <div>
-                        {selected.map((value) => (
-                          <Chip
-                            key={value}
-                            label={value}
-                            style={{ margin: 2 }}
-                            onDelete={() => handleDeleteLanguage(value)}
-                          />
-                        ))}
-                      </div>
-                    ),
-                  }}
-                  variant="outlined"
-                  fullWidth
-                >
-                  {availableLanguages.map((language) => (
-                    <MenuItem key={language} value={language}>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <span>{language}</span>
-                      </div>
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Box>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                // mt: 2,
+                // justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Languages you speak</Typography>
+              {/* <Box sx={{ mt: 2 }}> */}
+              <TextField
+                // label="Languages you speak"
+                name="languages"
+                select
+                SelectProps={{
+                  multiple: true,
+                  value: yourLanguages,
+                  onChange: handleLanguageSelection,
+                  renderValue: (selected) => (
+                    <div>
+                      {selected.map((value) => (
+                        <Chip
+                          key={value}
+                          label={value}
+                          style={{ margin: 2 }}
+                          onDelete={() => handleDeleteLanguage(value)}
+                        />
+                      ))}
+                    </div>
+                  ),
+                }}
+                variant="filled"
+                fullWidth
+                sx={{
+                  width: { md: "100%" },
+                  borderBottom: "none",
+                  "& .MuiFilledInput-underline:before": {
+                    borderBottom: "none",
+                  },
+                  "& .MuiFilledInput-underline:after": {
+                    borderBottom: "none",
+                  },
+                }}
+              >
+                {availableLanguages.map((language) => (
+                  <MenuItem key={language} value={language}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <span>{language}</span>
+                    </div>
+                  </MenuItem>
+                ))}
+              </TextField>
+              {/* </Box> */}
             </Grid>
             <Grid item xs={12}>
               <Box sx={{ mt: 2 }}>
@@ -1431,7 +1472,7 @@ const PostAd = () => {
         // </Grid>
         <Grid container spacing={2}>
           <Grid item>
-            <Typography mb={2} sx={{ my: 2 }}>
+            <Typography mb={2} sx={{ my: 2 }} sx={{ fontWeight: "600" }}>
               Your LIFESTYLE
             </Typography>
           </Grid>
@@ -1465,7 +1506,7 @@ const PostAd = () => {
                     fontWeight: 600,
                   }}
                 >
-                  Smoking
+                  Early Brird
                 </Typography>
               </Box>
             </Grid>
@@ -1499,7 +1540,7 @@ const PostAd = () => {
                     fontWeight: 600,
                   }}
                 >
-                  Smoking
+                  Night Owl
                 </Typography>
               </Box>
             </Grid>
@@ -1508,7 +1549,7 @@ const PostAd = () => {
       )}
 
       <Grid item xs={12}>
-        <Typography sx={{my:2}}>
+        <Typography sx={{ my: 2 }}>
           Please tell us more about yourself, your preferred roommate & housing
           details
         </Typography>
