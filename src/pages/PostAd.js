@@ -1237,7 +1237,7 @@ const PostAd = () => {
               />
               {/* </Box> */}
             </Grid>
-            <Grid item xs={12} sm={4} md={3}>
+            <Grid item xs={12}>
               <Box sx={{ mt: 2 }}>
                 <TextField
                   label="Languages you speak"
