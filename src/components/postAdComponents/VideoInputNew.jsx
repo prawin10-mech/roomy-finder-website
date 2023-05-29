@@ -55,7 +55,7 @@ const VideoInput = () => {
   return (
     <Grid container spacing={2} alignItems="center">
       <Grid item>
-        <IconButton component="label">
+        <IconButton component="label" style={{ color: "purple" }}>
           <VideoCameraFront />
           <input
             type="file"
@@ -81,7 +81,7 @@ const VideoInput = () => {
                 </Box>
               ))
             ) : (
-              <Typography>Videos</Typography>
+              <Typography style={{ color: "purple" }}>Videos</Typography>
             )}
           </Box>
         )}

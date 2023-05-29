@@ -45,6 +45,7 @@ import petsimg from "../assets/icons/pets.png";
 
 import visitorimg from "../assets/icons/visitors.png";
 import partyimg from "../assets/icons/party.png";
+import CameraIcon from "@mui/icons-material/Camera";
 
 // const interestData = [
 //   "Reading",
@@ -385,15 +386,16 @@ const PostAd = () => {
         </Grid>
       )}
       <Grid container justifyContent={"flex-start"} px={2}>
-        <Typography sx={{ my: 2, fontWeight: "600" }} >
+        <Typography sx={{ my: 2, fontWeight: "600" }}>
           Please add IMAGES/VIDEOS:{" "}
         </Typography>
         <Stack direction="row" spacing={2}>
           <Button
             variant="contained"
             sx={{
+              color: "purple",
               borderRadius: "20px",
-              // bgcolor: "orange",
+              bgcolor: "#F7F1F3",
               "&:hover": {
                 "&:hover": {
                   bgcolor: "#ff9900",
@@ -408,14 +410,15 @@ const PostAd = () => {
             variant="contained"
             sx={{
               borderRadius: "20px",
-              // bgcolor: "orange",
+              color: "purple",
+              bgcolor: "#F7F1F3",
               "&:hover": {
                 "&:hover": {
                   bgcolor: "#ff9900",
                 },
               },
             }}
-            startIcon={<ImageInput />}
+            startIcon={<CameraIcon />}
           >
             Camera
           </Button>
@@ -435,8 +438,9 @@ const PostAd = () => {
           <Button
             variant="contained"
             sx={{
+              color: "purple",
               borderRadius: "20px",
-              // bgcolor: "orange",
+              bgcolor: "#F7F1F3",
               "&:hover": {
                 "&:hover": {
                   bgcolor: "#ff9900",

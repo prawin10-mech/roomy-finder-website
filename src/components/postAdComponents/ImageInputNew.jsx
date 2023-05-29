@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Typography, IconButton } from "@mui/material";
-import { PhotoCamera, Delete } from "@mui/icons-material";
+import { PhotoCamera, Delete,  } from "@mui/icons-material";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
 import { useDispatch, useSelector } from "react-redux";
@@ -63,8 +64,8 @@ const ImageInput = () => {
             <Typography>IMAGES </Typography>
           )}
         </Grid> */}
-        <IconButton component="label">
-          <PhotoCamera />
+        <IconButton component="label" style={{ color: "purple" }}>
+          <CameraAltIcon />
           <input
             type="file"
             accept="image/*"
