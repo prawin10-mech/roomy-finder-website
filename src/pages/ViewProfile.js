@@ -61,7 +61,7 @@ const ViewProfile = () => {
         justifyContent="center"
         alignItems="center"
         margin="auto"
-        sx={{ height: "100vh", maxWidth: "600px" }}
+        sx={{ height: "100vh", maxWidth: "70%" }}
         className={lightOverlayClass}
       >
         <Grid item xs={12}>
