@@ -47,7 +47,7 @@ const CityCarousel = () => {
           objectFit: "cover",
           margin: "auto",
           borderRadius: "1rem",
-          height: isActive ? "28vh" : "25vh",
+          height: isActive ? "29vh" : "25vh",
           width: isActive ? "24vw" : "22vw",
         }}
       />
@@ -104,7 +104,7 @@ const CityCarousel = () => {
             display: "flex",
             justifyContent: "center",
             alignSelf: "end",
-            mb: isActive ? 6 : "",
+            mb: isActive ? "18%" : "",
 
             // textAlign: "butoom",
             // marginTop: "auto",

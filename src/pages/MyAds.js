@@ -51,8 +51,7 @@ const MyAds = () => {
               item
               xs={12}
               sm={6}
-              md={4}
-              lg={3}
+              md={2.3}
               sx={{ cursor: "pointer", p: 2 }}
             >
               <Grid
@@ -62,6 +61,9 @@ const MyAds = () => {
                   border: "1px solid #ccc",
                   borderRadius: "10px",
                   position: "relative",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
               >
                 <CardMedia
@@ -82,7 +84,7 @@ const MyAds = () => {
                   justifyContent={"space-between"}
                   sx={{ padding: "10px" }}
                 >
-                  <Grid>
+                  <Grid >
                     <Typography variant="subtitle1">
                       <Typography component="span">{myAd.type}</Typography>
                     </Typography>
@@ -98,7 +100,15 @@ const MyAds = () => {
                   <hr style={{ borderTop: "1px solid #000", width: "100%" }} />
                 </Grid>
 
-                <Grid container gap={2}>
+                <Grid
+                  container
+                  gap={2}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
                   <Grid sx={{ color: "purple" }}>
                     Available {myAd.quantity}
                   </Grid>
@@ -111,10 +121,11 @@ const MyAds = () => {
                     style={{
                       backgroundColor: "orange",
                       color: "white",
+
                       borderRadius: "15px",
                       fontWeight: "700",
                     }}
-                    sx={{ borderRadius: "15px" }}
+                    sx={{ borderRadius: "15px", mb: 1,}}
                     onClick={() =>
                       navigate(`/rooms/view-room/${myAd.id}/?active=true`)
                     }
@@ -134,8 +145,7 @@ const MyAds = () => {
               item
               xs={12}
               sm={6}
-              md={4}
-              lg={3}
+              md={2.3}
               sx={{ cursor: "pointer", p: 2 }}
             >
               <Grid
@@ -250,8 +260,8 @@ const MyAds = () => {
           spacing={3}
           justifyContent="center"
           alignItems="center"
-          gap={4}
-          sx={{ margin: "auto", maxWidth: 1200, mb: 5 }}
+          // gap={4}
+          sx={{ margin: "auto",  mb: 5 }}
         >
           {myAdsData}
         </Grid>

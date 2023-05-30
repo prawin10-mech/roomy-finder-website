@@ -282,39 +282,60 @@ const PostAd = () => {
             Please tell us about yourself:
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={4}>
-              <Box sx={{ mt: 2 }}>
-                <InputDropDown
-                  label="Gender"
-                  name="yourGender"
-                  values={["Male", "Female"]}
-                  value={yourGender}
-                  sx={{ width: "100%" }}
-                />
-              </Box>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                mt: 2,
+                justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Gender</Typography>
+              <InputDropDown
+                name="yourGender"
+                values={["Male", "Female"]}
+                value={yourGender}
+                sx={{ width: "100%" }}
+              />
+              {/* </Box> */}
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Box sx={{ mt: 2 }}>
-                <TextInput
-                  label="Age"
-                  name="yourAge"
-                  value={yourAge}
-                  sx={{ width: "100%" }}
-                />
-              </Box>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                mt: 2,
+                justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Age</Typography>
+              <TextInput name="yourAge" value={yourAge} />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Box sx={{ mt: 2 }}>
-                <InputDropDown
-                  label="Occupation"
-                  name="yourOccupation"
-                  values={["Professional", "Student", "Other"]}
-                  value={yourOccupation}
-                  sx={{ width: "100%" }}
-                />
-              </Box>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                mt: 2,
+                justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Occupation</Typography>
+              <InputDropDown
+                name="yourOccupation"
+                values={["Professional", "Student", "Other"]}
+                value={yourOccupation}
+                sx={{ width: "100%" }}
+              />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            {/* <Grid item xs={12} sm={6} md={4}>
               <Box sx={{ mt: 2 }}>
                 <InputDropDown
                   label="Nationality"
@@ -324,8 +345,30 @@ const PostAd = () => {
                   sx={{ width: "100%" }}
                 />
               </Box>
+            </Grid> */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                mt: 2,
+                justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Nationality</Typography>
+              {/* <Box sx={{ mt: 2 }}> */}
+              <InputDropDown
+                // label="Nationality"
+                name="nationality"
+                values={[...allNationalities]}
+                value={nationality}
+                sx={{ width: "100%" }}
+              />
+              {/* </Box> */}
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            {/* <Grid item xs={12} sm={6} md={4}>
               <Box sx={{ mt: 2 }}>
                 <InputDropDown
                   label="Astrological Sign"
@@ -335,8 +378,30 @@ const PostAd = () => {
                   sx={{ width: "100%" }}
                 />
               </Box>
+            </Grid> */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                mt: 2,
+                justifyContent: "space-around",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Astrological Sign</Typography>
+              {/* <Box sx={{ mt: 2 }}> */}
+              <InputDropDown
+                // label="Astrological Sign"
+                name="yourAstrologicalSign"
+                values={[...astrologySigns]}
+                value={yourAstrologicalSign}
+                sx={{ width: "100%" }}
+              />
+              {/* </Box> */}
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            {/* <Grid item xs={12} sm={6} md={4}>
               <Box sx={{ mt: 2 }}>
                 <TextField
                   label="Languages you speak"
@@ -372,6 +437,58 @@ const PostAd = () => {
                   ))}
                 </TextField>
               </Box>
+            </Grid> */}
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              <Typography sx={{ width: "30%" }}>Languages you speak</Typography>
+              <TextField
+                name="languages"
+                select
+                SelectProps={{
+                  multiple: true,
+                  value: yourLanguages,
+                  onChange: handleLanguageSelection,
+                  renderValue: (selected) => (
+                    <div>
+                      {selected.map((value) => (
+                        <Chip
+                          key={value}
+                          label={value}
+                          style={{ margin: 2 }}
+                          onDelete={() => handleDeleteLanguage(value)}
+                        />
+                      ))}
+                    </div>
+                  ),
+                }}
+                variant="filled"
+                fullWidth
+                sx={{
+                  width: { md: "100%" },
+                  borderBottom: "none",
+                  "& .MuiFilledInput-underline:before": {
+                    borderBottom: "none",
+                  },
+                  "& .MuiFilledInput-underline:after": {
+                    borderBottom: "none",
+                  },
+                }}
+              >
+                {availableLanguages.map((language) => (
+                  <MenuItem key={language} value={language}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <span>{language}</span>
+                    </div>
+                  </MenuItem>
+                ))}
+              </TextField>
+              {/* </Box> */}
             </Grid>
           </Grid>
         </Grid>
@@ -436,65 +553,245 @@ const PostAd = () => {
       </Grid>
 
       {action === "NEED ROOM" && (
-        <Grid xs={12} justifyContent="center" my={2} gap={2} px={2}>
-          <Typography mb={2} fontWeight={600}>
-            Your LIFESTYLE
-          </Typography>
-          <Grid container gap={2} justifyContent={"center"}>
-            <Typography variant="h6" component="h3">
+        // <Grid xs={12} justifyContent="center" my={2} gap={2} px={2}>
+        //   <Typography mb={2} fontWeight={600}>
+        //     Your LIFESTYLE
+        //   </Typography>
+        //   <Grid container gap={2} justifyContent={"center"}>
+        //     <Typography variant="h6" component="h3">
+        //       <Box
+        //         component="span"
+        //         onClick={() =>
+        //           dispatch(TenantActions.yourLifeStyle("Early Brird"))
+        //         }
+        //         sx={{
+        //           cursor: "pointer",
+        //           fontWeight: "500",
+        //           borderRadius: "15px",
+        //           color: yourLifeStyle === "Early Brird" ? "orange" : "black",
+        //           border: "1px solid",
+        //           borderColor:
+        //             yourLifeStyle === "Early Brird" ? "orange" : "white",
+        //           padding: 1,
+        //         }}
+        //       >
+        //         Early Brird
+        //       </Box>
+        //     </Typography>
+        //     <Typography variant="h6" component="h3">
+        //       <Box
+        //         component="span"
+        //         onClick={() =>
+        //           dispatch(TenantActions.yourLifeStyle("Night Owl"))
+        //         }
+        //         sx={{
+        //           cursor: "pointer",
+        //           fontWeight: "500",
+        //           borderRadius: "15px",
+        //           color: yourLifeStyle === "Night Owl" ? "orange" : "black",
+        //           border: "1px solid",
+        //           borderColor:
+        //             yourLifeStyle === "Night Owl" ? "orange" : "white",
+        //           padding: 1,
+        //         }}
+        //       >
+        //         Night Owl
+        //       </Box>
+        //     </Typography>
+        //   </Grid>
+        // </Grid>
+        <Grid container spacing={2}>
+          <Grid item>
+            <Typography mb={2} sx={{ fontWeight: "600", my: 2 }}>
+              Your LIFESTYLE
+            </Typography>
+          </Grid>
+          <Grid container sx={{ paddingX: 2 }}>
+            <Grid item gap={2} xs={12} sm={4} md={3}>
               <Box
-                component="span"
+                sx={{
+                  color: yourLifeStyle === "Early Brird" ? "orange" : "black",
+                  borderColor:
+                    yourLifeStyle === "Early Brird" ? "orange" : "white",
+                  boxShadow: 9,
+                  borderRadius: 5,
+                  // fontWeight: 500,
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
                 onClick={() =>
                   dispatch(TenantActions.yourLifeStyle("Early Brird"))
                 }
-                sx={{
-                  cursor: "pointer",
-                  fontWeight: "500",
-                  borderRadius: "15px",
-                  color: yourLifeStyle === "Early Brird" ? "orange" : "black",
-                  border: "1px solid",
-                  borderColor:
-                    yourLifeStyle === "Early Brird" ? "orange" : "white",
-                  padding: 1,
-                }}
               >
-                Early Brird
+                {/* {yourLifeStyle === "Early Brird" ? (
+                  <img
+                    src={birdimg2}
+                    alt="birdimg"
+                    style={{
+                      width: "70px",
+                      height: "70px",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={birdimg}
+                    alt="birdimg"
+                    style={{
+                      width: "70px",
+                      height: "70px",
+                    }}
+                  />
+                )} */}
+
+                <img
+                  src={birdimg}
+                  alt="birdimg"
+                  style={{
+                    width: "70px",
+                    height: "70px",
+                  }}
+                />
+
+                <Typography
+                  sx={{
+                    fontWeight: 500,
+                  }}
+                >
+                  Early Brird
+                </Typography>
               </Box>
-            </Typography>
-            <Typography variant="h6" component="h3">
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
               <Box
-                component="span"
+                sx={{
+                  color: yourLifeStyle === "Night Owl" ? "orange" : "black",
+                  borderColor:
+                    yourLifeStyle === "Night Owl" ? "orange" : "white",
+                  boxShadow: 9,
+                  borderRadius: 5,
+                  // fontWeight: 600,
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  ml: "10px",
+                }}
                 onClick={() =>
                   dispatch(TenantActions.yourLifeStyle("Night Owl"))
                 }
-                sx={{
-                  cursor: "pointer",
-                  fontWeight: "500",
-                  borderRadius: "15px",
-                  color: yourLifeStyle === "Night Owl" ? "orange" : "black",
-                  border: "1px solid",
-                  borderColor:
-                    yourLifeStyle === "Night Owl" ? "orange" : "white",
-                  padding: 1,
-                }}
               >
-                Night Owl
+                {/* {yourLifeStyle === "Night Owl" ? (
+                  <img
+                    src={owlimg2}
+                    alt="owlimg"
+                    style={{
+                      width: "70px",
+                      height: "70px",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={owlimg}
+                    alt="owlimg"
+                    style={{
+                      width: "70px",
+                      height: "70px",
+                    }}
+                  />
+                )} */}
+                <img
+                  src={owlimg}
+                  alt="owlimg"
+                  style={{
+                    width: "70px",
+                    height: "70px",
+                  }}
+                />
+
+                <Typography
+                  sx={{
+                    fontWeight: 500,
+                  }}
+                >
+                  Night Owl
+                </Typography>
               </Box>
-            </Typography>
+            </Grid>
           </Grid>
         </Grid>
       )}
 
       {action === "NEED ROOM" && (
+        // <Grid xs={12} justifyContent="center" my={2} gap={2}>
+        //   <Typography sx={{ fontWeight: "600" }}>
+        //     Please choose your HOBBIES/INTERESTS:{" "}
+        //   </Typography>
+        //   <Grid container xs={12}>
+        //     {interestData.map((interest) => (
+        //       <Grid item xs={12} sm={4} key={interest.value}>
+        //         <Box
+        //           sx={{
+        //             cursor: "pointer",
+        //             fontWeight: "500",
+        //             borderRadius: "15px",
+        //             color: interests.includes(interest.value)
+        //               ? "orange"
+        //               : "black",
+        //             border: "1px solid",
+        //             borderColor: interests.includes(interest.value)
+        //               ? "orange"
+        //               : "purple",
+        //             padding: 1,
+        //             // margin: 1,
+        //             display: "flex",
+        //             flexDirection: "column",
+        //             justifyContent: "center",
+        //             alignItems: "center",
+        //           }}
+        //           onClick={() => {
+        //             const updatedInterests = interests.includes(interest.value)
+        //               ? interests.filter((item) => item !== interest.value)
+        //               : [...interests, interest.value];
+        //             dispatch(TenantActions.interests(updatedInterests));
+        //           }}
+        //         >
+        //           <img
+        //             src={interest.pictureimg}
+        //             alt={interest.value}
+        //             style={{
+        //               height: "40%",
+        //               width: "40%",
+        //             }}
+        //           />
+        //           <Typography
+        //             sx={{
+        //               fontWeight: "500",
+        //             }}
+        //           >
+        //             {interest.value}
+        //           </Typography>
+        //         </Box>
+        //       </Grid>
+        //     ))}
+        //   </Grid>
+        // </Grid>
         <Grid xs={12} justifyContent="center" my={2} gap={2}>
           <Typography sx={{ fontWeight: "600" }}>
-            Please choose your HOBBIES/INTERESTS:{" "}
+            Please choose your HOBBIES/INTERESTS:
           </Typography>
+
           <Grid container xs={12}>
             {interestData.map((interest) => (
-              <Grid item xs={12} sm={4} key={interest.value}>
+              <Grid item xs={12} sm={4} md={3} key={interest.value}>
                 <Box
                   sx={{
+                    boxShadow: 9,
+                    height: "70%",
+                    width: "70%",
                     cursor: "pointer",
                     fontWeight: "500",
                     borderRadius: "15px",
@@ -504,12 +801,13 @@ const PostAd = () => {
                     border: "1px solid",
                     borderColor: interests.includes(interest.value)
                       ? "orange"
-                      : "purple",
+                      : "white",
                     padding: 1,
-                    // margin: 1,
+                    margin: 1,
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
+                    // ml:"25%",
                     alignItems: "center",
                   }}
                   onClick={() => {
@@ -519,12 +817,31 @@ const PostAd = () => {
                     dispatch(TenantActions.interests(updatedInterests));
                   }}
                 >
+                  {/* {interests.includes(interest.value) ? (
+                    <img
+                      src={interest.pictureimg1}
+                      alt={interest.value}
+                      style={{
+                        height: "60%",
+                        width: "60%",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={interest.pictureimg}
+                      alt={interest.value}
+                      style={{
+                        height: "60%",
+                        width: "60%",
+                      }}
+                    />
+                  )} */}
                   <img
                     src={interest.pictureimg}
                     alt={interest.value}
                     style={{
-                      height: "40%",
-                      width: "40%",
+                      height: "60%",
+                      width: "60%",
                     }}
                   />
                   <Typography
