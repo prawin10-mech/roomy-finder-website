@@ -14,6 +14,8 @@ import firebase, { messaging, onMessageListener } from "../firebase/index";
 import axios from "axios";
 import DummyUserImage from "../assets/dummyUserImage.jpg";
 import DummyFemaleUserImage from "../assets/dummyFemaleUserImage.jpg";
+import userLogo from "../assets/icons/age.png";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 
 const MyAccount = () => {
   const user = JSON.parse(Cookies.get("user"));
@@ -65,93 +67,109 @@ const MyAccount = () => {
   return (
     <>
       <TopBackground />
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        sx={{ minHeight: "100vh", my: 3 }}
-      >
+      <Grid sx={{ maxWidth: "500px", margin: "auto" }}>
         <Grid
-          container
-          direction="column"
+          display="flex"
+          flexDirection="column"
           justifyContent="center"
           alignItems="center"
-          spacing={2}
+          sx={{ minHeight: "100vh", my: 2 }}
         >
-          <Grid item>
-            <Typography variant="h5" fontWeight={700}>
-              My Account
-            </Typography>
-          </Grid>
           <Grid
             container
-            item
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
             spacing={2}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-            }}
+            mb={3}
           >
             <Grid item>
-              <Box
-                sx={{
-                  width: 300,
-                  height: 250,
-                  borderRadius: "25px",
-                  overflow: "hidden",
-                  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
-                }}
-              >
-                <img
-                  src={
-                    user.gender === "Male"
-                      ? DummyUserImage
-                      : DummyFemaleUserImage
-                  }
-                  alt={`${user.firstName} profile`}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              </Box>
+              <Typography variant="h5" fontWeight={700}>
+                My Account
+              </Typography>
             </Grid>
+            <Grid
+              container
+              item
+              spacing={{ xs: 3, sm: 10 }}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <Grid item sx={{ display: "flex" }}>
+                <Box
+                  sx={{
+                    width: 150,
+                    height: 150,
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  <img
+                    src={
+                      user.gender === "Male"
+                        ? DummyUserImage
+                        : DummyFemaleUserImage
+                    }
+                    alt={`${user.firstName} profile`}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Box>
+              </Grid>
 
-            <Grid item>
-              <Typography variant="h6" fontWeight={900}>
-                {user.firstName} {user.lastName}
-              </Typography>
-              <Typography variant="h6" fontWeight={900}>
-                {user.type}
-              </Typography>
-              <Button
-                onClick={viewProfileHandle}
-                variant="outlined"
-                color="secondary"
-              >
-                All Details
-              </Button>
+              <Grid item justifyContent={"center"} textAlign={"center"}>
+                <Typography variant="h6" fontWeight={900}>
+                  {user.firstName} {user.lastName}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontWeight={400}
+                  sx={{ color: "purple", textTransform: "capitalize" }}
+                >
+                  {user.type}
+                </Typography>
+
+                <Button
+                  onClick={viewProfileHandle}
+                  variant="outlined"
+                  sx={{
+                    borderRadius: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    color: "black",
+                    borderColor: "black",
+                  }}
+                  startIcon={<PersonOutlineOutlinedIcon />}
+                >
+                  All Details
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item sm={4}>
-          <Grid item sx={{ width: "100%" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
             <Grid
+              xs={12}
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                bgcolor: "#D9D9D9",
+                bgcolor: "#f0ecf6",
+                width: "100%",
                 borderRadius: "15px",
                 mb: 2,
               }}
             >
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <Avatar sx={{ m: 1 }}>
                     <NotificationsIcon />
                   </Avatar>
                 </Box>
@@ -166,31 +184,31 @@ const MyAccount = () => {
               <Box>
                 <ChevronRightIcon
                   sx={{
-                    height: "50px",
-                    width: "50px",
-                    color: "#fff",
+                    height: "20px",
+                    width: "20px",
+                    color: "#000",
                     cursor: "pointer",
+                    mr: "10px",
                   }}
                 />
               </Box>
             </Grid>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
             <Grid
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                bgcolor: "#D9D9D9",
+                bgcolor: "#f0ecf6",
                 borderRadius: "15px",
-                cursor: "pointer",
                 mb: 2,
               }}
               onClick={() => navigate("/myAds")}
             >
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <Avatar sx={{ m: 1 }}>
                     <AppsIcon />
                   </Avatar>
                 </Box>
@@ -202,33 +220,31 @@ const MyAccount = () => {
               <Box>
                 <ChevronRightIcon
                   sx={{
-                    height: "50px",
-                    width: "50px",
-                    color: "#fff",
+                    height: "20px",
+                    width: "20px",
+                    color: "#000",
                     cursor: "pointer",
+                    mr: "10px",
                   }}
                 />
               </Box>
             </Grid>
           </Grid>
-          <Grid
-            item
-            sx={{ width: "100%", cursor: "pointer" }}
-            onClick={() => navigate("/myBookings")}
-          >
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
             <Grid
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                bgcolor: "#D9D9D9",
+                bgcolor: "#f0ecf6",
                 borderRadius: "15px",
                 mb: 2,
               }}
+              onClick={() => navigate("/myBookings")}
             >
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <Avatar sx={{ m: 1 }}>
                     <EventNoteIcon />
                   </Avatar>
                 </Box>
@@ -240,34 +256,32 @@ const MyAccount = () => {
               <Box>
                 <ChevronRightIcon
                   sx={{
-                    height: "50px",
-                    width: "50px",
-                    color: "#fff",
+                    height: "20px",
+                    width: "20px",
+                    color: "#000",
                     cursor: "pointer",
+                    mr: "10px",
                   }}
                 />
               </Box>
             </Grid>
           </Grid>
-          <Grid
-            item
-            sx={{ width: "100%" }}
-            onClick={() => navigate("/aboutUs")}
-          >
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
             <Grid
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                bgcolor: "#D9D9D9",
+                bgcolor: "#f0ecf6",
                 borderRadius: "15px",
                 cursor: "pointer",
                 mb: 2,
               }}
+              onClick={() => navigate("/aboutUs")}
             >
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <Avatar sx={{ m: 1 }}>
                     <InfoIcon />
                   </Avatar>
                 </Box>
@@ -279,29 +293,30 @@ const MyAccount = () => {
               <Box>
                 <ChevronRightIcon
                   sx={{
-                    height: "50px",
-                    width: "50px",
-                    color: "#fff",
+                    height: "20px",
+                    width: "20px",
+                    color: "#000",
                     cursor: "pointer",
+                    mr: "10px",
                   }}
                 />
               </Box>
             </Grid>
           </Grid>
-          <Grid item sx={{ width: "100%" }}>
+          {/* <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
             <Grid
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                bgcolor: "#D9D9D9",
+                bgcolor: "#f0ecf6",
                 borderRadius: "15px",
                 mb: 2,
               }}
             >
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <Avatar sx={{ m: 1 }}>
                     <AccountBalanceWalletIcon />
                   </Avatar>
                 </Box>
@@ -314,38 +329,11 @@ const MyAccount = () => {
               <Box>
                 <ChevronRightIcon
                   sx={{
-                    height: "50px",
-                    width: "50px",
-                    color: "#fff",
+                    height: "20px",
+                    width: "20px",
+                    color: "#000",
                     cursor: "pointer",
-                  }}
-                />
-              </Box>
-            </Grid>
-          </Grid>
-          {/* <Grid item sx={{ width: "100%" }}>
-            <Grid
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                bgcolor: "#D9D9D9",
-                borderRadius: "15px",
-                mb: 2,
-              }}
-            >
-              <Box sx={{ display: "flex" }}>
-                <Box>
-                  <Typography>Roomy Balance</Typography>
-                </Box>
-              </Box>
-              <Box>
-                <ChevronRightIcon
-                  sx={{
-                    height: "50px",
-                    width: "50px",
-                    color: "#fff",
-                    cursor: "pointer",
+                    mr: "10px",
                   }}
                 />
               </Box>

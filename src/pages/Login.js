@@ -4,6 +4,7 @@ import {
   Button,
   Box,
   TextField,
+  Stack,
   Typography,
   Avatar,
   OutlinedInput,
@@ -25,6 +26,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import { toastOptions } from "../utils/ToastOptions.js";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import roomyLogo from "../assets/roomyFinderLogo.jpg.png";
 
 const Copyright = (props) => {
   return (
@@ -48,6 +51,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [emailError, setEmailError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [hasValue, setHasValue] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -63,6 +67,7 @@ const Login = () => {
   const emailInputHandler = (e) => {
     const emailValue = e.target.value;
     dispatch(UserActions.email(emailValue));
+    setHasValue(e.target.value !== "");
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(emailValue)) {
       setEmailError("Please enter a valid email address");
@@ -88,8 +93,6 @@ const Login = () => {
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/login",
           { email, password, fcmToken: "123" }
         );
-
-        console.log(response);
 
         const { data } = loginResponse;
         Cookies.set("user", JSON.stringify(data), { expires: 365 });
@@ -126,39 +129,82 @@ const Login = () => {
           item
           xs={12}
           sm={6}
+          md={5}
           sx={{
             display: "flex",
             flexDirection: "column",
             marginY: 4,
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+            <img src={roomyLogo} alt="roomy logo" width={"100px"} />
           </Box>
-          <Box sx={{ px: 4, py: 3, bgcolor: "white", borderRadius: 1 }}>
+          <Box
+            sx={{
+              px: 4,
+              py: 3,
+              bgcolor: "purple",
+              borderRadius: "20px",
+            }}
+          >
             <Typography
               sx={{
                 fontWeight: "700",
                 fontSize: "25px",
                 textAlign: "center",
+                color: "#fff",
                 mb: 5,
               }}
             >
               Login
             </Typography>
+
             <TextField
-              autoComplete="email"
-              label="email"
-              variant="outlined"
-              onChange={(e) => emailInputHandler(e)}
+              label="Email"
+              onChange={emailInputHandler}
               fullWidth
-              error={emailError.length > 0} // Set error state based on emailError length
-              helperText={emailError} // Display error message
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end" sx={{ width: "20px" }}>
+                    <EmailOutlinedIcon />
+                  </InputAdornment>
+                ),
+              }}
+              InputLabelProps={{
+                focused: false,
+              }}
+              sx={{
+                bgcolor: "white",
+                borderRadius: "20px", // Add borderRadius explicitly
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "20px", // Add borderRadius explicitly
+                  "&:hover fieldset": {
+                    borderColor: "transparent",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "transparent",
+                  },
+                },
+              }}
             />
+
             <Box sx={{ mt: 2 }}>
-              <FormControl variant="outlined" sx={{ width: "100%" }}>
+              <FormControl
+                sx={{
+                  width: "100%",
+                  bgcolor: "white",
+                  borderRadius: "20px", // Add borderRadius explicitly
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "20px", // Add borderRadius explicitly
+                    "&:hover fieldset": {
+                      borderColor: "transparent",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "transparent",
+                    },
+                  },
+                }}
+              >
                 <InputLabel htmlFor="outlined-adornment-password">
                   Password
                 </InputLabel>
@@ -167,12 +213,18 @@ const Login = () => {
                   id="outlined-adornment-password"
                   type={showPassword ? "text" : "password"}
                   endAdornment={
-                    <InputAdornment position="end">
+                    <InputAdornment
+                      position="end"
+                      sx={{
+                        width: "20px",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
                       <IconButton
                         aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
-                        edge="end"
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
@@ -182,6 +234,7 @@ const Login = () => {
                 />
               </FormControl>
             </Box>
+
             <Box sx={{ mt: 2 }}>
               <Button
                 variant="contained"
@@ -189,7 +242,13 @@ const Login = () => {
                 fullWidth
                 onClick={loginHandler}
                 disabled={isLoading}
-                sx={{ position: "relative" }}
+                sx={{
+                  position: "relative",
+                  bgcolor: "orange",
+                  borderRadius: "20px",
+                  color: "#fff",
+                  "&:hover": { bgcolor: "orange" },
+                }}
               >
                 {isLoading && (
                   <CircularProgress
@@ -207,15 +266,43 @@ const Login = () => {
               </Button>
             </Box>
             <Box
-              sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}
+              sx={{
+                px: { xs: 0, sm: 2 },
+                mt: 2,
+                display: "flex",
+                justifyContent: "space-between",
+              }}
             >
-              <Button onClick={() => navigate("/signup")}>
-                Don't have an account?
-              </Button>
-              <Button onClick={() => navigate("/reset_password")}>
+              <label>
+                <input type="checkbox" />
+                <span style={{ color: "orange" }}>Remember me</span>
+              </label>
+              <Button
+                sx={{ color: "orange" }}
+                onClick={() => navigate("/reset_password")}
+              >
                 Forgot Password
               </Button>
             </Box>
+            <Grid
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+              }}
+            >
+              <Button
+                sx={{ fontWeight: "600", color: "#fff" }}
+                onClick={() => navigate("/signup")}
+              >
+                Sign up
+              </Button>
+              <Button
+                sx={{ fontWeight: "600", color: "#fff" }}
+                onClick={() => navigate("/")}
+              >
+                Skip
+              </Button>
+            </Grid>
           </Box>
         </Grid>
       </Grid>
