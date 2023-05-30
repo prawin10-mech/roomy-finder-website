@@ -339,7 +339,7 @@ const PostProperty = () => {
       <Grid container>
         <Grid item xs={12} container justifyContent="center">
           <Grid item xs={12} md={10} lg={8}>
-            <Typography sx={{ fontSize: "20px",mt:3, fontWeight: "bold" }}>
+            <Typography sx={{ fontSize: "20px", mt: 3, fontWeight: "bold" }}>
               Please fill the following information to post your property
             </Typography>
             <Grid>
@@ -664,7 +664,8 @@ const PostProperty = () => {
         >
           {!edit && (
             <Button
-              color="success"
+              // color="success"
+              style={{ backgroundColor: "orange" }}
               variant="contained"
               onClick={postProductHandler}
             >

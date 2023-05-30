@@ -72,7 +72,7 @@ const ViewProfile = () => {
         <Grid
           item
           xs={12}
-          sx={{ bgcolor: "secondary.main", p: 4, borderRadius: "10px" }}
+          sx={{ bgcolor: "#E3E3E3", p: 4, borderRadius: "10px" }}
         >
           <Grid container alignItems="center" justifyContent="flex-end">
             <IconButton
@@ -90,12 +90,12 @@ const ViewProfile = () => {
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ mt: 2 }}>
           <Grid container spacing={2}>
             <Grid
               item
               xs={12}
-              sx={{ bgcolor: "#f6ddfb", borderRadius: "15px", mb: 2 }}
+              sx={{ bgcolor: "#E3E3E3", borderRadius: "15px", mb: 2 }}
             >
               <Typography variant="h6">Full name</Typography>
               <Typography>{`${user.firstName} ${user.lastName}`}</Typography>
@@ -105,7 +105,7 @@ const ViewProfile = () => {
               justifyContent={"space-between"}
               alignItems={"center"}
               xs={12}
-              sx={{ bgcolor: "#f6ddfb", borderRadius: "15px", mb: 2, px: 2 }}
+              sx={{ bgcolor: "#E3E3E3", borderRadius: "15px", mb: 2, px: 2 }}
             >
               <Grid>
                 <Grid>
@@ -155,7 +155,7 @@ const ViewProfile = () => {
         <Grid
           item
           xs={12}
-          sx={{ bgcolor: "#f6ddfb", borderRadius: "15px", p: 5 }}
+          sx={{ bgcolor: "#E3E3E3", borderRadius: "15px", p: 5 }}
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>

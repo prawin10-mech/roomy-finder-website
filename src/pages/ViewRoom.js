@@ -28,6 +28,7 @@ import { SearchActions } from "../store/Search";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import people from "../assets/icons/age.png";
 import nationality from "../assets/icons/Nationality.png";
 import smoking from "../assets/icons/smoking.png";
@@ -148,6 +149,10 @@ const ViewRoom = () => {
     }
   };
 
+  const gotoEditOption=()=>{
+
+  }
+
   useEffect(() => {
     getPartitionRoomData();
   }, []);
@@ -183,7 +188,22 @@ const ViewRoom = () => {
                 color: "slategray",
                 position: "absolute",
                 top: "10px",
-                right: "20px",
+                right: "60px",
+                zIndex: 1,
+              }}
+              sx={{ borderRadius: "15px" }}
+              onClick={() => gotoEditOption()}
+            >
+              <EditIcon />
+            </Button>
+          )}
+          {active && (
+            <Button
+              style={{
+                color: "slategray",
+                position: "absolute",
+                top: "10px",
+                right: "15px",
                 zIndex: 1,
               }}
               sx={{ borderRadius: "15px" }}

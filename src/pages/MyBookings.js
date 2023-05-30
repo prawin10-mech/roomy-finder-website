@@ -71,8 +71,8 @@ const MyBookings = () => {
         item
         xs={12}
         sm={6}
-        md={4}
-        lg={3}
+        md={2.2}
+        
         sx={{ cursor: "pointer", p: 2 }}
         onClick={() => navigate(`/myBookings/aboutBooking/${booking.id}`)}
       >
@@ -156,11 +156,11 @@ const MyBookings = () => {
       ) : (
         <Grid
           container
-          spacing={3}
+          spacing={1}
           justifyContent="center"
           alignItems="center"
-          gap={4}
-          sx={{ margin: "auto", maxWidth: 1200, mb: 5 }}
+          gap={2}
+          sx={{ margin: "auto", mb: 5 }}
         >
           {myBookingData}
         </Grid>
