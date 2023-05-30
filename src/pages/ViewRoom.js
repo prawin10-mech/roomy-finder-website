@@ -163,7 +163,7 @@ const ViewRoom = () => {
       <Box
         sx={{
           mx: "auto",
-          maxWidth: "700px",
+          maxWidth: "70%",
           my: 3,
           px: 1,
           overFlowX: "hidden",

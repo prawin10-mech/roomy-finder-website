@@ -18,6 +18,7 @@ import {
 import { Carousel } from "react-responsive-carousel";
 import axios from "axios";
 import Cookies from "js-cookie";
+import EditIcon from "@mui/icons-material/Edit";
 import DummyImage from "../assets/demo.jpg";
 import { SearchActions } from "../store/Search";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
@@ -91,13 +92,15 @@ const ViewRoom = () => {
     }
   };
 
+  const gotoEditOption = () => {};
+
   return (
     <Grid sx={{ overFlowX: "hidden" }}>
       <TopBackground />
       <Box
         sx={{
           mx: "auto",
-          maxWidth: "700px",
+          maxWidth: "70%",
           my: 3,
           px: 1,
           overFlowX: "hidden",
@@ -117,6 +120,21 @@ const ViewRoom = () => {
             boxShadow: "0px 0px 15px  rgba(0,0,0,0.5)",
           }}
         >
+          {active && (
+            <Button
+              style={{
+                color: "slategray",
+                position: "absolute",
+                top: "10px",
+                right: "60px",
+                zIndex: 1,
+              }}
+              sx={{ borderRadius: "15px" }}
+              onClick={() => gotoEditOption()}
+            >
+              <EditIcon />
+            </Button>
+          )}
           {active && (
             <Button
               style={{
