@@ -51,13 +51,11 @@ import visitorimg2 from "../assets/Roommate Ad display UI/wcdewd.png";
 import partyimg from "../assets/icons/party.png";
 import partyimg2 from "../assets/comfortable with in Post property/sclkndslj.png";
 
-
 import owlimg from "../assets/Lifestyle icon in roommate ad/owl1.png";
 import owlimg2 from "../assets/Lifestyle icon in roommate ad/owl2.png";
 import birdimg from "../assets/Lifestyle icon in roommate ad/bird1.png";
 import birdimg2 from "../assets/Lifestyle icon in roommate ad/bird2.png";
 import CameraIcon from "@mui/icons-material/Camera";
-
 
 const PostAd = () => {
   const dispatch = useDispatch();
@@ -743,24 +741,20 @@ const PostAd = () => {
         <Typography sx={{ fontWeight: "600", my: 2 }}>
           Please select PREFERRED AMENITIES:{" "}
         </Typography>
-        <Grid container xs={12}>
+        <Grid container spacing={4} sx={{}}>
           {allAmenities.map((amenity) => (
-            <Grid item xs={12} sm={4} md={3} key={amenity.value}>
+            <Grid item xs={3} sm={3} md={3} key={amenity.value}>
               <Box
                 sx={{
-                  boxShadow: 9,
-                  height: "70%",
-                  width: "70%",
+                  height: "100%",
+                  width: "100%",
                   cursor: "pointer",
                   fontWeight: "500",
                   borderRadius: "15px",
                   color: amenities.includes(amenity.value) ? "orange" : "black",
-                  border: "1px solid",
-                  borderColor: amenities.includes(amenity.value)
-                    ? "orange"
-                    : "white",
-                  padding: 1,
-                  // margin: 1,
+                  boxShadow: amenities.includes(amenity.value)
+                    ? "0px 0px 15px rgba(255, 127, 0, 0.5)"
+                    : "0px 0px 15px rgba(0, 0, 0, 0.5)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
@@ -773,57 +767,49 @@ const PostAd = () => {
                   dispatch(TenantActions.amenities(updatedAmenities));
                 }}
               >
-                {/* {amenities.includes(amenity.value) ? (
-                  <img
-                    src={amenity.pictureimg1}
-                    alt={amenity.value}
-                    style={{
-                      height: "60%",
-                      width: "60%",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={amenity.pictureimg}
-                    alt={amenity.value}
-                    style={{
-                      height: "60%",
-                      width: "60%",
-                    }}
-                  />
-                )} */}
-                <img
-                  src={amenity.pictureimg}
-                  alt={amenity.value}
-                  style={{
-                    height: "60%",
-                    width: "60%",
-                  }}
-                />
-                <Box
+                <Grid
+                  item
                   sx={{
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    justifySelf: "center",
                   }}
+                  padding={2}
                 >
-                  <Typography
+                  <img
+                    src={amenity.pictureimg}
+                    alt={amenity.value}
+                    style={{
+                      height: "40px",
+                      width: "40px",
+                    }}
+                  />
+                  <Box
                     sx={{
-                      fontWeight: "500",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      justifySelf: "center",
                     }}
                   >
-                    {amenity.value1}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontWeight: "500",
-                    }}
-                  >
-                    {amenity.value2}
-                  </Typography>
-                </Box>
+                    <Typography
+                      sx={{
+                        fontWeight: "500",
+                      }}
+                    >
+                      {amenity.value1}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontWeight: "500",
+                      }}
+                    >
+                      {amenity.value2}
+                    </Typography>
+                  </Box>
+                </Grid>
               </Box>
             </Grid>
           ))}
