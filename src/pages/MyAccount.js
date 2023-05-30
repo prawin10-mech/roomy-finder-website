@@ -111,7 +111,9 @@ const MyAccount = () => {
                 >
                   <img
                     src={
-                      user.gender === "Male"
+                      user.profilePicture
+                        ? user.profilePicture
+                        : user.gender === "Male"
                         ? DummyUserImage
                         : DummyFemaleUserImage
                     }
