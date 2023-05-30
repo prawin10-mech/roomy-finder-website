@@ -493,7 +493,7 @@ const PostAd = () => {
           </Grid>
         </Grid>
       )}
-      <Grid container justifyContent={"flex-start"} px={2}>
+      <Grid container justifyContent="flex-start" px={2}>
         <Typography sx={{ my: 2, fontWeight: "600" }}>
           Please add IMAGES/VIDEOS:{" "}
         </Typography>
@@ -505,9 +505,10 @@ const PostAd = () => {
               borderRadius: "20px",
               bgcolor: "#F7F1F3",
               "&:hover": {
-                "&:hover": {
-                  bgcolor: "#ff9900",
-                },
+                bgcolor: "#ff9900",
+              },
+              "@media (max-width: 600px)": {
+                fontSize: "12px",
               },
             }}
             startIcon={<ImageInput />}
@@ -521,16 +522,16 @@ const PostAd = () => {
               color: "purple",
               bgcolor: "#F7F1F3",
               "&:hover": {
-                "&:hover": {
-                  bgcolor: "#ff9900",
-                },
+                bgcolor: "#ff9900",
+              },
+              "@media (max-width: 600px)": {
+                fontSize: "12px",
               },
             }}
             startIcon={<CameraIcon />}
           >
             Camera
           </Button>
-
           <Button
             variant="contained"
             sx={{
@@ -538,17 +539,19 @@ const PostAd = () => {
               borderRadius: "20px",
               bgcolor: "#F7F1F3",
               "&:hover": {
-                "&:hover": {
-                  bgcolor: "#ff9900",
-                },
+                bgcolor: "#ff9900",
+              },
+              "@media (max-width: 600px)": {
+                fontSize: "12px",
               },
             }}
-            endIcon={<VideoInput />}
-          ></Button>
+            startIcon={<VideoInput />}
+          >
+            Videos
+          </Button>
         </Stack>
-        {/* <ImageInput />
-        <VideoInput /> */}
       </Grid>
+
       {action === "NEED ROOM" && (
         // <Grid xs={12} justifyContent="center" my={2} gap={2} px={2}>
         //   <Typography mb={2} fontWeight={600}>
@@ -1063,11 +1066,12 @@ const PostAd = () => {
             <Grid item xs={3} sm={3} md={3} key={amenity.value}>
               <Box
                 sx={{
-                  height: "100%",
+                  height: "100px",
                   width: "100%",
                   cursor: "pointer",
                   fontWeight: "500",
                   borderRadius: "15px",
+                  fontSize: { xs: "0.7rem", sm: "1rem" },
                   color: amenities.includes(amenity.value) ? "orange" : "black",
                   boxShadow: amenities.includes(amenity.value)
                     ? "0px 0px 15px rgba(255, 127, 0, 0.5)"

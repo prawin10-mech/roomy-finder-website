@@ -71,18 +71,16 @@ const VideoInput = () => {
           <CircularProgress size={20} />
         ) : (
           <Box>
-            {videoSrcs && videoSrcs.length > 0 ? (
-              videoSrcs.map((videoSrc, index) => (
-                <Box key={index} display="flex" flexDirection="row">
-                  <video src={videoSrc} controls style={videoStyle}></video>
-                  <IconButton onClick={() => handleDeleteVideo(index)}>
-                    <Delete />
-                  </IconButton>
-                </Box>
-              ))
-            ) : (
-              <Typography style={{ color: "purple" }}>Videos</Typography>
-            )}
+            {videoSrcs && videoSrcs.length > 0
+              ? videoSrcs.map((videoSrc, index) => (
+                  <Box key={index} display="flex" flexDirection="row">
+                    <video src={videoSrc} controls style={videoStyle}></video>
+                    <IconButton onClick={() => handleDeleteVideo(index)}>
+                      <Delete />
+                    </IconButton>
+                  </Box>
+                ))
+              : ""}
           </Box>
         )}
       </Grid>
