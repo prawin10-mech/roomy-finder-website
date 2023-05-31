@@ -493,7 +493,17 @@ const PostAd = () => {
           </Grid>
         </Grid>
       )}
-      <Grid container justifyContent="flex-start" px={2}>
+      <Grid
+        container
+        justifyContent="flex-start"
+        px={2}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          // justifyContent: "center",
+          // alignItems: "center",
+        }}
+      >
         <Typography sx={{ my: 2, fontWeight: "600" }}>
           Please add IMAGES/VIDEOS:{" "}
         </Typography>
@@ -532,7 +542,8 @@ const PostAd = () => {
           >
             Camera
           </Button>
-          <Button
+          <VideoInput />
+          {/* <Button
             variant="contained"
             sx={{
               color: "purple",
@@ -548,7 +559,7 @@ const PostAd = () => {
             startIcon={<VideoInput />}
           >
             Videos
-          </Button>
+          </Button> */}
         </Stack>
       </Grid>
 
@@ -875,18 +886,15 @@ const PostAd = () => {
               <Typography variant="h6" component="h3">
                 <Box
                   component="span"
-                  onClick={() =>
-                    dispatch(TenantActions.yourLifeStyle("Studio"))
-                  }
+                  onClick={() => dispatch(TenantActions.type("Studio"))}
                   sx={{
                     boxShadow: 6,
                     cursor: "pointer",
                     fontWeight: "500",
                     borderRadius: "15px",
-                    color: yourLifeStyle === "Studio" ? "orange" : "black",
+                    color: type === "Studio" ? "orange" : "black",
                     border: "1px solid",
-                    borderColor:
-                      yourLifeStyle === "Studio" ? "orange" : "white",
+                    borderColor: type === "Studio" ? "orange" : "white",
                     padding: 1,
                   }}
                 >
@@ -896,18 +904,15 @@ const PostAd = () => {
               <Typography variant="h6" component="h3">
                 <Box
                   component="span"
-                  onClick={() =>
-                    dispatch(TenantActions.yourLifeStyle("Apartment"))
-                  }
+                  onClick={() => dispatch(TenantActions.type("Apartment"))}
                   sx={{
                     boxShadow: 6,
                     cursor: "pointer",
                     fontWeight: "500",
                     borderRadius: "15px",
-                    color: yourLifeStyle === "Apartment" ? "orange" : "black",
+                    color: type === "Apartment" ? "orange" : "black",
                     border: "1px solid",
-                    borderColor:
-                      yourLifeStyle === "Apartment" ? "orange" : "white",
+                    borderColor: type === "Apartment" ? "orange" : "white",
                     padding: 1,
                   }}
                 >
@@ -917,15 +922,15 @@ const PostAd = () => {
               <Typography variant="h6" component="h3">
                 <Box
                   component="span"
-                  onClick={() => dispatch(TenantActions.yourLifeStyle("House"))}
+                  onClick={() => dispatch(TenantActions.type("House"))}
                   sx={{
                     boxShadow: 6,
                     cursor: "pointer",
                     fontWeight: "500",
                     borderRadius: "15px",
-                    color: yourLifeStyle === "House" ? "orange" : "black",
+                    color: type === "House" ? "orange" : "black",
                     border: "1px solid",
-                    borderColor: yourLifeStyle === "House" ? "orange" : "white",
+                    borderColor: type === "House" ? "orange" : "white",
                     padding: 1,
                   }}
                 >

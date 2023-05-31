@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   CardMedia,
   CircularProgress,
@@ -18,6 +19,7 @@ const MyAds = () => {
   const token = localStorage.getItem("token");
   const [myAds, setMyAds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+    const [noOfCount, setnoOfCount] = useState(10);
   const navigate = useNavigate();
 
   const fetchMyAds = async () => {
@@ -43,7 +45,7 @@ const MyAds = () => {
   const myAdsData =
     type === "landlord"
       ? myAds
-          ?.slice()
+          ?.slice(0, noOfCount)
           .reverse()
           .map((myAd) => (
             <Grid
@@ -84,7 +86,7 @@ const MyAds = () => {
                   justifyContent={"space-between"}
                   sx={{ padding: "10px" }}
                 >
-                  <Grid >
+                  <Grid>
                     <Typography variant="subtitle1">
                       <Typography component="span">{myAd.type}</Typography>
                     </Typography>
@@ -125,7 +127,7 @@ const MyAds = () => {
                       borderRadius: "15px",
                       fontWeight: "700",
                     }}
-                    sx={{ borderRadius: "15px", mb: 1,}}
+                    sx={{ borderRadius: "15px", mb: 1 }}
                     onClick={() =>
                       navigate(`/rooms/view-room/${myAd.id}/?active=true`)
                     }
@@ -186,10 +188,11 @@ const MyAds = () => {
                       </Typography>
                     </Typography>
                   </Grid>
-                  <Grid>
+                  <Grid sx={{px:2}}>
                     <Button
                       variant={"contained"}
                       style={{
+                        // paddingRight:"16px",
                         backgroundColor: "orange",
                         color: "white",
                         borderRadius: "15px",
@@ -209,14 +212,14 @@ const MyAds = () => {
 
                 <Grid container justifyContent={"space-between"}>
                   <Grid item>
-                    <Typography>Budget </Typography>
-                    <Typography sx={{ fontWeight: 700 }}>
+                    <Typography sx={{ pl: 2 }}>Budget </Typography>
+                    <Typography sx={{ fontWeight: 700,pl:2 }}>
                       AED {myAd?.budget}
                     </Typography>
                   </Grid>
-                  <Grid item>
-                    <Typography>Moving date </Typography>
-                    <Typography sx={{ fontWeight: 700 }}>
+                  <Grid item sx={{ mr: 1 }}>
+                    <Typography sx={{ pr: 1.5 }}>Moving date </Typography>
+                    <Typography sx={{ fontWeight: 700, pr: 1.5 }}>
                       {new Date(myAd?.movingDate).toLocaleDateString(
                         undefined,
                         {
@@ -261,11 +264,32 @@ const MyAds = () => {
           justifyContent="center"
           alignItems="center"
           // gap={4}
-          sx={{ margin: "auto",  mb: 5 }}
+          sx={{ margin: "auto", mb: 5 }}
         >
           {myAdsData}
         </Grid>
       )}
+      <Box sx={{ display: "flex", justifyContent: "end" }}>
+        <Button
+          sx={{
+            mx: 3,
+            my: 2,
+            borderRadius: "20px",
+            bgcolor: "orange",
+            "&:hover": {
+              "&:hover": {
+                bgcolor: "#ff9900",
+              },
+            },
+          }}
+          variant="contained"
+          onClick={() => {
+            setnoOfCount(noOfCount + 10);
+          }}
+        >
+          Show more
+        </Button>
+      </Box>
       <BottomBackground />
     </Grid>
   );

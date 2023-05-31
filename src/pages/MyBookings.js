@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
-import { Grid, Typography, CardMedia, CircularProgress } from "@mui/material";
+import { Grid, Typography, CardMedia, CircularProgress, Button, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { UserActions } from "../store/User";
 import DummyImage from "../assets/demo.jpg";
@@ -15,6 +15,7 @@ const MyBookings = () => {
   const myBookings = useSelector((state) => state.user.myBookings);
   const token = localStorage.getItem("token");
   const [isLoading, setIsLoading] = useState(true);
+  const [noOfCount, setnoOfCount] = useState(10);
 
   const fetchMyBookings = async () => {
     try {
@@ -62,8 +63,10 @@ const MyBookings = () => {
     fetchMyBookings();
   }, []);
 
+
+
   const myBookingData = myBookings
-    ?.slice()
+    ?.slice(0, noOfCount)
     .reverse()
     .map((booking) => (
       <Grid
@@ -71,8 +74,7 @@ const MyBookings = () => {
         item
         xs={12}
         sm={6}
-        md={2.2}
-        
+        md={2.3}
         sx={{ cursor: "pointer", p: 2 }}
         onClick={() => navigate(`/myBookings/aboutBooking/${booking.id}`)}
       >
@@ -99,7 +101,7 @@ const MyBookings = () => {
             }
             alt={booking?.id}
           />
-          <Grid sx={{ padding: "10px" }}>
+          <Grid sx={{ padding: "10px", ml: 1 }}>
             <Typography variant="subtitle1">
               Property:{" "}
               <Typography component="span" sx={{ fontWeight: "700" }}>
@@ -165,6 +167,24 @@ const MyBookings = () => {
           {myBookingData}
         </Grid>
       )}
+      <Box sx={{ display: "flex", justifyContent: "end" }}>
+        <Button
+          sx={{
+            mx:3,my:2,
+            borderRadius: "20px",
+            bgcolor: "orange",
+            "&:hover": {
+              "&:hover": {
+                bgcolor: "#ff9900",
+              },
+            },
+          }}
+          variant="contained"
+          onClick={()=>{setnoOfCount(noOfCount+10)}}
+        >
+          Show more
+        </Button>
+      </Box>
       <BottomBackground />
     </div>
   );

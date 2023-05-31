@@ -5,7 +5,8 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
 import { useDispatch, useSelector } from "react-redux";
-import { PropertyActions } from "../../store/Property";
+ import { TenantActions } from "../../store/Tenant";
+// import { PropertyActions } from "../../store/Property";
 
 const ImageInput = () => {
   const imageUrls = useSelector((state) => state.property.images);
@@ -20,7 +21,8 @@ const ImageInput = () => {
         .then(() => {
           getDownloadURL(storageRef)
             .then((url) => {
-              dispatch(PropertyActions.images(url));
+              dispatch(TenantActions.images(url));
+              // dispatch(PropertyActions.images(url));
             })
             .catch((err) => {
               console.log(err);
@@ -33,7 +35,8 @@ const ImageInput = () => {
   };
 
   const handleDeleteImage = (index) => {
-    dispatch(PropertyActions.deleteImage(index));
+    dispatch(TenantActions.deleteImage(index));
+    // dispatch(PropertyActions.deleteImage(index));
   };
 
   const imageUrlsData = imageUrls.map((imageUrl, index) => (
@@ -56,7 +59,7 @@ const ImageInput = () => {
 
   return (
     <Grid container spacing={2} alignItems="center">
-      <Grid item>
+      <Grid item onChange={handleImageChange}>
         {/* <Grid container direction="row" justify="center">
           {imageUrls.length > 0 ? (
             imageUrlsData
@@ -70,7 +73,6 @@ const ImageInput = () => {
             type="file"
             accept="image/*"
             style={{ display: "none" }}
-            onChange={handleImageChange}
             multiple
           />
         </IconButton>
