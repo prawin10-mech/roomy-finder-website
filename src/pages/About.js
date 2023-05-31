@@ -12,6 +12,10 @@ import {
 } from "@mui/icons-material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import dummy from "../assets/Agreements/dummy.pdf";
+import FAQ from "../assets/Agreements/FAQ_ROOMY_FINDER.pdf";
+import landlord from "../assets/Agreements/landlord_agreement_roomy_finder.pdf";
+import privacy from "../assets/Agreements/privacy_policy_roomy_findner.pdf";
+import terms from "../assets/Agreements/t&c_roomy_finder.pdf";
 import logo from "../assets/logo.png";
 
 const About = () => {
@@ -103,7 +107,7 @@ const About = () => {
                 padding: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => openPdf(dummy)}
+              onClick={() => openPdf(privacy)}
             >
               <Box sx={{ display: "flex" }}>
                 <Box
@@ -146,7 +150,7 @@ const About = () => {
                 padding: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => openPdf(dummy)}
+              onClick={() => openPdf(terms)}
             >
               <Box sx={{ display: "flex" }}>
                 <Box
@@ -189,7 +193,7 @@ const About = () => {
                 padding: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => openPdf(dummy)}
+              onClick={() => openPdf(FAQ)}
             >
               <Box sx={{ display: "flex" }}>
                 <Box
@@ -275,7 +279,7 @@ const About = () => {
                 mb: 2,
                 padding: "10px",
               }}
-              onClick={() => openPdf(dummy)}
+              onClick={() => openPdf(landlord)}
             >
               <Box sx={{ display: "flex" }}>
                 <Box
