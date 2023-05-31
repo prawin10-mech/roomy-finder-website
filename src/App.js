@@ -40,6 +40,7 @@ import ChatBody from "./components/Chat/ChatBody";
 import PostAd from "./pages/PostAd";
 import UpgradePlan from "./pages/UpgradePlan";
 import About from "./pages/About";
+import Message from "./pages/Message";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -135,6 +136,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<OurServices />} />
           <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/message" element={<Message />} />
           <Route path="/contactUs" element={<ContactUs />} />
           <Route
             path="/postProperty"

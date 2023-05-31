@@ -17,6 +17,7 @@ import TextInput from "../components/postAdComponents/TextInput";
 import { allNationalities } from "../utils/AllNationalities";
 import { availableLanguages } from "../utils/availableLanguages";
 import ImageInput from "../components/postAdComponents/ImageInputNew";
+// import CameraInputNew from "../components/postAdComponents/CameraInputNew";
 import VideoInput from "../components/postAdComponents/VideoInputNew";
 import {
   citydata,
@@ -500,67 +501,21 @@ const PostAd = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          // justifyContent: "center",
-          // alignItems: "center",
+         
         }}
       >
         <Typography sx={{ my: 2, fontWeight: "600" }}>
           Please add IMAGES/VIDEOS:{" "}
         </Typography>
-        <Stack direction="row" spacing={2}>
-          <Button
-            variant="contained"
-            sx={{
-              color: "purple",
-              borderRadius: "20px",
-              bgcolor: "#F7F1F3",
-              "&:hover": {
-                bgcolor: "#ff9900",
-              },
-              "@media (max-width: 600px)": {
-                fontSize: "12px",
-              },
-            }}
-            startIcon={<ImageInput />}
-          >
-            Images
-          </Button>
-          <Button
-            variant="contained"
-            sx={{
-              borderRadius: "20px",
-              color: "purple",
-              bgcolor: "#F7F1F3",
-              "&:hover": {
-                bgcolor: "#ff9900",
-              },
-              "@media (max-width: 600px)": {
-                fontSize: "12px",
-              },
-            }}
-            startIcon={<CameraIcon />}
-          >
-            Camera
-          </Button>
+        <Box sx={{display:"flex",flexDirection:"row",width:{md:"50%"}}}>
+
+          <ImageInput />
+          {/* <CameraInputNew /> */}
+        
           <VideoInput />
-          {/* <Button
-            variant="contained"
-            sx={{
-              color: "purple",
-              borderRadius: "20px",
-              bgcolor: "#F7F1F3",
-              "&:hover": {
-                bgcolor: "#ff9900",
-              },
-              "@media (max-width: 600px)": {
-                fontSize: "12px",
-              },
-            }}
-            startIcon={<VideoInput />}
-          >
-            Videos
-          </Button> */}
-        </Stack>
+        </Box>
+        
+         
       </Grid>
 
       {action === "NEED ROOM" && (

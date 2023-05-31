@@ -19,8 +19,8 @@ import { UserActions } from "../../store/User";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const pages = ["About Us", "Contact Us", "Our Services", "Post Property"];
-const pageNavigate = ["aboutUs", "contactUs", "", "postProperty"];
+const pages = ["About Us", "Contact Us", "Our Services", "Post Property","Message"];
+const pageNavigate = ["aboutUs", "contactUs", "", "postProperty","message"];
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -284,6 +284,25 @@ const Nav = () => {
           to={user.type === "landlord" ? "/postProperty" : "/postAd"}
         >
           {user.type === "landlord" ? "Post Property" : "Post Ad"}
+        </Button>
+        <Button
+          color={activeLink === "message" ? "primary" : "inherit"}
+          sx={{
+            borderRadius: "10px",
+            fontWeight: "bold",
+            color: activeLink === "message" ? "#fff" : "purple",
+            backgroundColor:
+              activeLink === "message" ? "purple" : "transparent",
+            "&:hover": {
+              backgroundColor: "purple",
+              color: "#fff",
+            },
+          }}
+          onClick={() => handleClick("message")}
+          component={NavLink}
+          to={"/message"}
+        >
+          Message
         </Button>
       </Stack>
       {!isLoggedIn ||

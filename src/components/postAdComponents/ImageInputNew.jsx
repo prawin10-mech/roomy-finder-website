@@ -58,16 +58,50 @@ const ImageInput = () => {
   ));
 
   return (
-    <Grid container spacing={2} alignItems="center">
-      <Grid item onChange={handleImageChange}>
-        {/* <Grid container direction="row" justify="center">
-          {imageUrls.length > 0 ? (
-            imageUrlsData
-          ) : ( 
-            <Typography>IMAGES </Typography>
-          )}
-        </Grid> */}
-        <IconButton component="label" style={{ color: "purple" }}>
+    // <Grid container spacing={2} alignItems="center">
+    //   <Grid item onChange={handleImageChange}>
+    //     {/* <Grid container direction="row" justify="center">
+    //       {imageUrls.length > 0 ? (
+    //         imageUrlsData
+    //       ) : (
+    //         <Typography>IMAGES </Typography>
+    //       )}
+    //     </Grid> */}
+    //     <IconButton component="label" style={{ color: "purple" }}>
+    //       <CameraAltIcon />
+    //       <input
+    //         type="file"
+    //         accept="image/*"
+    //         style={{ display: "none" }}
+    //         multiple
+    //       />
+    //     </IconButton>
+    //     {/* <Typography>Select image</Typography> */}
+    //   </Grid>
+    // </Grid>
+
+    <Grid container>
+      <Grid item>
+        <IconButton
+          component="label"
+          style={{ color: "purple", height: "50px" }}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "purple",
+            borderRadius: "20px",
+            bgcolor: "#F7F1F3",
+            "&:hover": {
+              bgcolor: "#ff9900",
+            },
+            "@media (max-width: 600px)": {
+              fontSize: "12px",
+            },
+          }}
+          onChange={handleImageChange}
+        >
           <CameraAltIcon />
           <input
             type="file"
@@ -75,9 +109,35 @@ const ImageInput = () => {
             style={{ display: "none" }}
             multiple
           />
+          <Typography
+            sx={{
+              color: "black",
+              mx: 1,
+            }}
+          >
+            Images
+          </Typography>
         </IconButton>
-        {/* <Typography>Select image</Typography> */}
       </Grid>
+
+      {/* <Grid item>
+        {isUploading ? (
+          <CircularProgress size={20} />
+        ) : (
+          <Box>
+            {videoSrcs && videoSrcs.length > 0
+              ? videoSrcs.map((videoSrc, index) => (
+                  <Box key={index} display="flex" flexDirection="row">
+                    <video src={videoSrc} controls style={videoStyle}></video>
+                    <IconButton onClick={() => handleDeleteVideo(index)}>
+                      <Delete />
+                    </IconButton>
+                  </Box>
+                ))
+              : ""}
+          </Box>
+        )}
+      </Grid> */}
     </Grid>
   );
 };

@@ -174,7 +174,7 @@ const OurServices = () => {
         <Box sx={{ pt: { xs: 6 } }}>
           <CityCarousel />
           <Rooms />
-          <Box sx={{ display: "flex", flexDirection: "column", mb: 4 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", mb: 1 }}>
             <Box sx={{ mb: 1 }}>
               <Typography variant="h5" sx={{ mb: 1 }}>
                 Top affordable sharing option in UAE
@@ -182,7 +182,7 @@ const OurServices = () => {
               <CarouselWithMultipleImage propertyAddAvilableRoom={rooms} />
             </Box>
 
-            <Box sx={{ mt: 1, mb: 2 }}>
+            <Box sx={{ mt: 1, mb: 1 }}>
               <Typography variant="h5" sx={{ my: 1 }}>
                 Partitions for rent in Sharjah
               </Typography>
