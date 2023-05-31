@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   CardMedia,
   CircularProgress,
@@ -18,6 +19,7 @@ const MyAds = () => {
   const token = localStorage.getItem("token");
   const [myAds, setMyAds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+    const [noOfCount, setnoOfCount] = useState(10);
   const navigate = useNavigate();
 
   const fetchMyAds = async () => {
@@ -43,7 +45,7 @@ const MyAds = () => {
   const myAdsData =
     type === "landlord"
       ? myAds
-          ?.slice()
+          ?.slice(0, noOfCount)
           .reverse()
           .map((myAd) => (
             <Grid
@@ -185,10 +187,11 @@ const MyAds = () => {
                       </Typography>
                     </Typography>
                   </Grid>
-                  <Grid>
+                  <Grid sx={{px:2}}>
                     <Button
                       variant={"contained"}
                       style={{
+                        // paddingRight:"16px",
                         backgroundColor: "orange",
                         color: "white",
                         borderRadius: "15px",
@@ -208,11 +211,12 @@ const MyAds = () => {
 
                 <Grid container justifyContent={"space-between"}>
                   <Grid item>
-                    <Typography>Budget </Typography>
-                    <Typography sx={{ fontWeight: 700 }}>
+                    <Typography sx={{ pl: 2 }}>Budget </Typography>
+                    <Typography sx={{ fontWeight: 700,pl:2 }}>
                       AED {myAd?.budget}
                     </Typography>
                   </Grid>
+<<<<<<< HEAD
                   <Grid item>
                     <Typography>Moving date </Typography>
                     <Typography sx={{ fontWeight: 700 }}>
@@ -233,6 +237,19 @@ const MyAds = () => {
                               day: "numeric",
                             }
                           )}
+=======
+                  <Grid item sx={{ mr: 1 }}>
+                    <Typography sx={{ pr: 1.5 }}>Moving date </Typography>
+                    <Typography sx={{ fontWeight: 700, pr: 1.5 }}>
+                      {new Date(myAd?.movingDate).toLocaleDateString(
+                        undefined,
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}
+>>>>>>> 8248cfafb563331497043c649240c3418862c845
                     </Typography>
                   </Grid>
                 </Grid>
@@ -268,11 +285,36 @@ const MyAds = () => {
           justifyContent="center"
           alignItems="center"
           // gap={4}
+<<<<<<< HEAD
           sx={{ margin: "auto", mb: 5, padding: "20px" }}
+=======
+          sx={{ margin: "auto", mb: 5 }}
+>>>>>>> 8248cfafb563331497043c649240c3418862c845
         >
           {myAdsData}
         </Grid>
       )}
+      <Box sx={{ display: "flex", justifyContent: "end" }}>
+        <Button
+          sx={{
+            mx: 3,
+            my: 2,
+            borderRadius: "20px",
+            bgcolor: "orange",
+            "&:hover": {
+              "&:hover": {
+                bgcolor: "#ff9900",
+              },
+            },
+          }}
+          variant="contained"
+          onClick={() => {
+            setnoOfCount(noOfCount + 10);
+          }}
+        >
+          Show more
+        </Button>
+      </Box>
       <BottomBackground />
     </Grid>
   );
