@@ -1,68 +1,29 @@
 import React from "react";
-import { Grid, Box, Typography, Button, Avatar } from "@mui/material";
-import Cookies from "js-cookie";
+import { Grid, Box, Typography, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import AppsIcon from "@mui/icons-material/Apps";
-import InfoIcon from "@mui/icons-material/Info";
-import EventNoteIcon from "@mui/icons-material/EventNote";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import {
+  PrivacyTip,
+  VerifiedUser,
+  QuestionAnswer,
+  SupportAgent,
+  Handshake,
+} from "@mui/icons-material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import firebase, { messaging, onMessageListener } from "../firebase/index";
-import axios from "axios";
-import DummyUserImage from "../assets/dummyUserImage.jpg";
-import DummyFemaleUserImage from "../assets/dummyFemaleUserImage.jpg";
-import userLogo from "../assets/icons/age.png";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import dummy from "../assets/Agreements/dummy.pdf";
+import FAQ from "../assets/Agreements/FAQ_ROOMY_FINDER.pdf";
+import landlord from "../assets/Agreements/landlord_agreement_roomy_finder.pdf";
+import privacy from "../assets/Agreements/privacy_policy_roomy_findner.pdf";
+import terms from "../assets/Agreements/t&c_roomy_finder.pdf";
+import logo from "../assets/logo.png";
 
-const MyAccount = () => {
-  const user = JSON.parse(Cookies.get("user"));
+const About = () => {
   const navigate = useNavigate();
 
-  const viewProfileHandle = () => {
-    navigate("/viewProfile");
+  const openPdf = (pdfUrl) => {
+    window.open(pdfUrl);
   };
-
-  onMessageListener()
-    .then((payload) => {
-      console.log(payload, "payload");
-      //  setShow(true);
-      //  setNotification({
-      //    title: payload.notification.title,
-      //    body: payload.notification.body,
-      //  });
-      alert(payload.notification.title);
-      // <Alert severity="success" color="info">
-      //   Title:payload.notification.title
-      // </Alert>;
-    })
-    .catch((err) => console.log("failed: ", err));
-
-  const testNotification = () => {};
-
-  const sendnoti = async () => {
-    const noti = await axios.post(
-      "https://fcm.googleapis.com/fcm/send",
-      {
-        to: "f8BytJHQr5Jx74gcDp8F3O:APA91bHEOisinu3b9gSwnKWqRAuCbuqXRO8KbmOC_gpriOTcu91o0jHA_lxIpgUCxQBKz5H4irjBHaXd-ejBhS9_IOo-443prvCxiUlr5pH8XvOcPALPFb7GVFzNUpjfGoFJuJakEaV-",
-        notification: {
-          title: "Add property",
-          body: "You add new property",
-        },
-      },
-      {
-        headers: {
-          Authorization:
-            "key=AAAAfyPvrw8:APA91bGidy7FBBsYJjDhWYvptDNAFHmHDyJGgfFm9qs3DS5VdwxG4aQT7Y5cGF-dddSF5v6O5tYLGY48Hz8Q2lyimjt8TIKGRpLoZF7lng0Xe6LluMGGnTzBYUA1ktjpSQgpJVQGYz2o",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  };
-
-  console.log(user);
 
   return (
     <>
@@ -73,51 +34,42 @@ const MyAccount = () => {
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ minHeight: "100vh", my: 2 }}
+          sx={{ minHeight: "100vh" }}
         >
           <Grid
             container
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={2}
             mb={3}
           >
             <Grid item>
               <Typography variant="h5" fontWeight={700}>
-                My Account
+                About
               </Typography>
             </Grid>
             <Grid
               container
-              item
-              spacing={{ xs: 3, sm: 10 }}
               sx={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 width: "100%",
+                my: 2,
               }}
             >
               <Grid item sx={{ display: "flex" }}>
                 <Box
                   sx={{
-                    width: 150,
-                    height: 150,
-                    borderRadius: "50%",
+                    width: 100,
+                    height: 100,
                     overflow: "hidden",
                     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
                   }}
                 >
                   <img
-                    src={
-                      user.profilePicture
-                        ? user.profilePicture
-                        : user.gender === "Male"
-                        ? DummyUserImage
-                        : DummyFemaleUserImage
-                    }
-                    alt={`${user.firstName} profile`}
+                    src={logo}
+                    alt={`roomy finder logo`}
                     style={{
                       width: "100%",
                       height: "100%",
@@ -127,77 +79,24 @@ const MyAccount = () => {
                 </Box>
               </Grid>
 
-              <Grid item justifyContent={"center"} textAlign={"center"}>
-                <Typography variant="h6" fontWeight={900}>
-                  {user.firstName} {user.lastName}
-                </Typography>
+              <Grid container justifyContent={"center"}>
                 <Typography
-                  variant="h6"
-                  fontWeight={400}
-                  sx={{ color: "purple", textTransform: "capitalize" }}
-                >
-                  {user.type}
-                </Typography>
-
-                <Button
-                  onClick={viewProfileHandle}
-                  variant="outlined"
                   sx={{
-                    borderRadius: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    color: "black",
-                    borderColor: "black",
+                    color: "purple",
+                    marginRight: "8px",
+                    fontWeight: "600",
                   }}
-                  startIcon={<PersonOutlineOutlinedIcon />}
                 >
-                  All Details
-                </Button>
+                  Roomy
+                </Typography>{" "}
+                <Typography sx={{ color: "orange", fontWeight: "600" }}>
+                  FINDER
+                </Typography>
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
             <Grid
-              xs={12}
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                bgcolor: "#f0ecf6",
-                width: "100%",
-                borderRadius: "15px",
-                mb: 2,
-              }}
-            >
-              <Box sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ m: 1 }}>
-                    <NotificationsIcon />
-                  </Avatar>
-                </Box>
-
-                <Box>
-                  <Typography onClick={testNotification}>
-                    Notifications
-                  </Typography>
-                  <Typography>0 unread notifications</Typography>
-                </Box>
-              </Box>
-              <Box>
-                <ChevronRightIcon
-                  sx={{
-                    height: "20px",
-                    width: "20px",
-                    color: "#000",
-                    cursor: "pointer",
-                    mr: "10px",
-                  }}
-                />
-              </Box>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
-            <Grid
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -205,19 +104,25 @@ const MyAccount = () => {
                 bgcolor: "#f0ecf6",
                 borderRadius: "15px",
                 mb: 2,
+                padding: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => navigate("/myAds")}
+              onClick={() => openPdf(privacy)}
             >
               <Box sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ m: 1 }}>
-                    <AppsIcon />
-                  </Avatar>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "grey",
+                    mr: 2,
+                  }}
+                >
+                  <PrivacyTip />
                 </Box>
 
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Typography>My Ads</Typography>
+                  <Typography>Privacy policy</Typography>
                 </Box>
               </Box>
               <Box>
@@ -242,19 +147,68 @@ const MyAccount = () => {
                 bgcolor: "#f0ecf6",
                 borderRadius: "15px",
                 mb: 2,
+                padding: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => navigate("/myBookings")}
+              onClick={() => openPdf(terms)}
             >
               <Box sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ m: 1 }}>
-                    <EventNoteIcon />
-                  </Avatar>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "grey",
+                    mr: 2,
+                  }}
+                >
+                  <VerifiedUser />
                 </Box>
 
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Typography>My Bookings</Typography>
+                  <Typography>Terms and conditions</Typography>
+                </Box>
+              </Box>
+              <Box>
+                <ChevronRightIcon
+                  sx={{
+                    height: "20px",
+                    width: "20px",
+                    color: "#000",
+                    cursor: "pointer",
+                    mr: "10px",
+                  }}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+            <Grid
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                bgcolor: "#f0ecf6",
+                borderRadius: "15px",
+                mb: 2,
+                padding: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => openPdf(FAQ)}
+            >
+              <Box sx={{ display: "flex" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "grey",
+                    mr: 2,
+                  }}
+                >
+                  <QuestionAnswer />
+                </Box>
+
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Typography>FAQ</Typography>
                 </Box>
               </Box>
               <Box>
@@ -280,18 +234,24 @@ const MyAccount = () => {
                 borderRadius: "15px",
                 cursor: "pointer",
                 mb: 2,
+                padding: "10px",
               }}
-              onClick={() => navigate("/about")}
+              onClick={() => navigate("/contactUs")}
             >
               <Box sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ m: 1 }}>
-                    <InfoIcon />
-                  </Avatar>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "grey",
+                    mr: 2,
+                  }}
+                >
+                  <SupportAgent />
                 </Box>
 
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Typography>About</Typography>
+                  <Typography>Contact us</Typography>
                 </Box>
               </Box>
               <Box>
@@ -315,19 +275,26 @@ const MyAccount = () => {
                 alignItems: "center",
                 bgcolor: "#f0ecf6",
                 borderRadius: "15px",
+                cursor: "pointer",
                 mb: 2,
+                padding: "10px",
               }}
+              onClick={() => openPdf(landlord)}
             >
               <Box sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <Avatar sx={{ m: 1 }}>
-                    <AccountBalanceWalletIcon />
-                  </Avatar>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "grey",
+                    mr: 2,
+                  }}
+                >
+                  <Handshake />
                 </Box>
 
-                <Box>
-                  <Typography>Account Balance</Typography>
-                  <Typography>0 AED</Typography>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Typography>Landlord Agreement</Typography>
                 </Box>
               </Box>
               <Box>
@@ -350,4 +317,4 @@ const MyAccount = () => {
   );
 };
 
-export default MyAccount;
+export default About;

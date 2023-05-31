@@ -10,6 +10,8 @@ import { toastOptions } from "../utils/ToastOptions";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
 
+import DeleteProfile from "../components/DeleteProfile";
+
 const ViewProfile = () => {
   const user = JSON.parse(Cookies.get("user"));
   const navigate = useNavigate();
@@ -54,7 +56,14 @@ const ViewProfile = () => {
   const lightOverlayClass = showPasswordInput ? "light-overlay" : "";
 
   return (
-    <Grid sx={{ width: "100%", height: "100%" }}>
+    <Grid
+      sx={{
+        width: "100%",
+        height: "100%",
+        maxWidth: "900px",
+        margin: "auto",
+      }}
+    >
       <Grid
         container
         spacing={2}
@@ -85,7 +94,7 @@ const ViewProfile = () => {
           </Grid>
           <Grid container justifyContent="center">
             <Box sx={{ borderRadius: "15px", overflow: "hidden" }}>
-              <img src={DummyUserImage} alt="dummy user" />
+              <img src={DummyUserImage} alt="dummy user" width={"300px"} />
             </Box>
           </Grid>
         </Grid>
@@ -211,6 +220,10 @@ const ViewProfile = () => {
             </Grid>
           </Grid>
         </Grid>
+        <Grid>
+          <DeleteProfile />
+        </Grid>
+
         <ToastContainer />
       </Grid>
     </Grid>
