@@ -14,7 +14,8 @@ import firebase, { messaging, onMessageListener } from "../firebase/index";
 import axios from "axios";
 import DummyUserImage from "../assets/dummyUserImage.jpg";
 import DummyFemaleUserImage from "../assets/dummyFemaleUserImage.jpg";
-import userLogo from "../assets/icons/age.png";
+import Footer from "../components/Footer";
+
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 
 const MyAccount = () => {
@@ -67,7 +68,7 @@ const MyAccount = () => {
   return (
     <>
       <TopBackground />
-      <Grid sx={{ maxWidth: "500px", margin: "auto" }}>
+      <Grid sx={{ maxWidth: "100%", margin: "auto" }}>
         <Grid
           display="flex"
           flexDirection="column"
@@ -156,7 +157,7 @@ const MyAccount = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
             <Grid
               xs={12}
               sx={{
@@ -196,7 +197,7 @@ const MyAccount = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
             <Grid
               sx={{
                 display: "flex",
@@ -233,7 +234,7 @@ const MyAccount = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
             <Grid
               sx={{
                 display: "flex",
@@ -270,7 +271,7 @@ const MyAccount = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
             <Grid
               sx={{
                 display: "flex",
@@ -307,7 +308,7 @@ const MyAccount = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
             <Grid
               sx={{
                 display: "flex",
@@ -346,6 +347,7 @@ const MyAccount = () => {
         </Grid>
       </Grid>
       <BottomBackground />
+      <Footer />
     </>
   );
 };

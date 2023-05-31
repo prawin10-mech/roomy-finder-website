@@ -51,12 +51,12 @@ const MyAds = () => {
               item
               xs={12}
               sm={6}
-              md={2.3}
+              md={2.4}
               sx={{ cursor: "pointer", p: 2 }}
             >
               <Grid
                 sx={{
-                  width: "300px",
+                  width: "250px",
                   backgroundColor: "#f5f5f5",
                   border: "1px solid #ccc",
                   borderRadius: "10px",
@@ -70,7 +70,7 @@ const MyAds = () => {
                   component="img"
                   sx={{
                     width: "100%",
-                    height: "200px",
+                    height: "180px",
                     padding: "10px",
                     overflow: "hidden",
                     borderRadius: "20px ",
@@ -84,7 +84,7 @@ const MyAds = () => {
                   justifyContent={"space-between"}
                   sx={{ padding: "10px" }}
                 >
-                  <Grid >
+                  <Grid>
                     <Typography variant="subtitle1">
                       <Typography component="span">{myAd.type}</Typography>
                     </Typography>
@@ -125,7 +125,7 @@ const MyAds = () => {
                       borderRadius: "15px",
                       fontWeight: "700",
                     }}
-                    sx={{ borderRadius: "15px", mb: 1,}}
+                    sx={{ borderRadius: "15px", mb: 1 }}
                     onClick={() =>
                       navigate(`/rooms/view-room/${myAd.id}/?active=true`)
                     }
@@ -145,12 +145,12 @@ const MyAds = () => {
               item
               xs={12}
               sm={6}
-              md={2.3}
+              md={2.4}
               sx={{ cursor: "pointer", p: 2 }}
             >
               <Grid
                 sx={{
-                  width: "300px",
+                  width: "250px",
                   backgroundColor: "#f5f5f5",
                   border: "1px solid #ccc",
                   borderRadius: "10px",
@@ -160,7 +160,6 @@ const MyAds = () => {
                   component="img"
                   sx={{
                     width: "100%",
-                    height: "200px",
                     padding: "10px",
                     overflow: "hidden",
                     borderRadius: "20px ",
@@ -182,7 +181,7 @@ const MyAds = () => {
                     </Typography>
                     <Typography variant="subtitle1">
                       <Typography component="span">
-                        Age({myAd?.aboutYou?.age})
+                        Age({myAd?.aboutYou?.age ? myAd.aboutYou.age : "N/A"})
                       </Typography>
                     </Typography>
                   </Grid>
@@ -217,14 +216,23 @@ const MyAds = () => {
                   <Grid item>
                     <Typography>Moving date </Typography>
                     <Typography sx={{ fontWeight: 700 }}>
-                      {new Date(myAd?.movingDate).toLocaleDateString(
-                        undefined,
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        }
-                      )}
+                      {myAd?.movingDate
+                        ? new Date(myAd?.movingDate).toLocaleDateString(
+                            undefined,
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )
+                        : new Date(myAd?.createdAt).toLocaleDateString(
+                            undefined,
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -257,11 +265,10 @@ const MyAds = () => {
       ) : (
         <Grid
           container
-          spacing={3}
           justifyContent="center"
           alignItems="center"
           // gap={4}
-          sx={{ margin: "auto",  mb: 5 }}
+          sx={{ margin: "auto", mb: 5, padding: "20px" }}
         >
           {myAdsData}
         </Grid>

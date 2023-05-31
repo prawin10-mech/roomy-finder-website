@@ -233,8 +233,8 @@ const ViewRoom = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <Box sx={{ gap: "2" }}>
-                  <Avatar sx={{ width: 80, height: 80 }}>
+                <Box sx={{ ml: -3 }}>
+                  <Avatar sx={{ width: 150, height: 150 }}>
                     {room?.profilePicture ? (
                       <img src={room.profilePicture} alt="Room Profile" />
                     ) : (
@@ -249,7 +249,13 @@ const ViewRoom = () => {
                     )}
                   </Avatar>
                 </Box>
-                <Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                  }}
+                >
                   <Typography sx={{ fontWeight: 700 }}>
                     {room?.poster?.firstName} {room?.poster?.lastName}
                   </Typography>
@@ -262,7 +268,7 @@ const ViewRoom = () => {
                   </Typography>
                 </Box>
                 <Box>
-                  {!active && (
+                  {/* {!active && (
                     <Button
                       variant="contained"
                       sx={{
@@ -278,20 +284,52 @@ const ViewRoom = () => {
                     >
                       Chat
                     </Button>
-                  )}
+                  )} */}
                   <Typography sx={{ mt: 1, fontWeight: 700 }}>
                     {room?.budget.toLocaleString()} AED Budget
                   </Typography>
                 </Box>
               </Box>
+
               <Divider orientation="vertical" flexItem />
-              <Box
+              {/* <Box
                 sx={{
                   p: 2,
                   display: "flex",
                   alignItems: "center",
                 }}
-              ></Box>
+              ></Box> */}
+            </Box>
+          )}
+          {room && (
+            <Box
+              sx={{
+                height: "30px",
+                display: "flex",
+                position: "absolute",
+                mr: "50px",
+                bottom: 0,
+                right: 0,
+                mb: 2,
+              }}
+            >
+              {!active && (
+                <Button
+                  variant="contained"
+                  sx={{
+                    borderRadius: 15,
+                    bgcolor: "orange",
+                    width: "100px",
+                    color: "#fff",
+                    fontWeight: "700",
+                    "&:hover": {
+                      bgcolor: "#ff9900",
+                    },
+                  }}
+                >
+                  Chat
+                </Button>
+              )}
             </Box>
           )}
         </Card>
