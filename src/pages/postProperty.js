@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Typography, Button, Box, TextField } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Button,
+  Select,
+  TextField,
+  MenuItem,
+} from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -29,6 +36,7 @@ import { toastOptions } from "../utils/ToastOptions";
 import bottomBackground from "../assets/bottomBackground.png";
 
 import CommercialCarousal from "../components/Card/CommercialCarousal";
+import { PropertyActions } from "../store/Property";
 
 const PostProperty = () => {
   const navigate = useNavigate();
@@ -136,6 +144,10 @@ const PostProperty = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleDepositChange = (e) => {
+    dispatch(PropertyActions.deposit(e.target.value === "Yes"));
   };
 
   const validatioHandler = () => {
@@ -442,16 +454,26 @@ const PostProperty = () => {
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <InputDropDown
-                  label="Deposit"
-                  name="deposit"
-                  value={deposit}
-                  values={["true", "false"]}
-                />
+                <TextField
+                  label={"Deposit"}
+                  variant="outlined"
+                  select
+                  value={deposit === true ? "Yes" : "No"}
+                  onChange={(e) => handleDepositChange(e)}
+                  sx={{ width: "100%" }}
+                >
+                  <MenuItem value="">Select an option</MenuItem>
+                  {["Yes", "No"].map((value, index) => {
+                    return (
+                      <MenuItem value={value} key={index}>
+                        {value}
+                      </MenuItem>
+                    );
+                  })}
+                </TextField>
               </Grid>
-
               <Grid item xs={12} sm={6} md={4}>
-                {deposit === "true" || deposit === true ? (
+                {deposit === true ? (
                   <TextInput
                     fullWidth
                     label={"How Much Deposit ?"}
@@ -461,7 +483,7 @@ const PostProperty = () => {
                 ) : (
                   <TextField
                     fullWidth
-                    disabled={deposit === "false" ? true : false}
+                    disabled={deposit === false ? true : false}
                     label={"How Much Deposit ?"}
                     name="depositPrice"
                     value={depositPrice}

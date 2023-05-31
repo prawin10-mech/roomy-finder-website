@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Box } from "@mui/material";
 
 import Nav from "./components/UI/Nav";
 import OurServices from "./pages/OurServices";
@@ -131,7 +132,7 @@ const App = () => {
 
   return (
     <Router>
-      <div>
+      <Box sx={{ maxWidth: "2000px", margin: "auto" }}>
         <Nav />
         <Routes>
           <Route path="/" element={<OurServices />} />
@@ -202,7 +203,7 @@ const App = () => {
           <Route path="/reset_password" element={<ResetPassword />} />
         </Routes>
         {/* <Footer /> */}
-      </div>
+      </Box>
     </Router>
   );
 };
