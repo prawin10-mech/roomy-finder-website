@@ -19,7 +19,7 @@ const MyAds = () => {
   const token = localStorage.getItem("token");
   const [myAds, setMyAds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [noOfCount, setnoOfCount] = useState(10);
+    const [noOfCount, setnoOfCount] = useState(8);
   const navigate = useNavigate();
 
   const fetchMyAds = async () => {
@@ -51,14 +51,24 @@ const MyAds = () => {
             <Grid
               key={myAd._id}
               item
-              xs={12}
-              sm={6}
-              md={2.4}
-              sx={{ cursor: "pointer", p: 2 }}
+              // xs={12}
+              // sm={6}
+              // md={3}
+              sx={{
+                display: "grid",
+                cursor: "pointer",
+                p: 2,
+                gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+                gap: "20px",
+                "@media (max-width: 600px)": {
+                  gridTemplateColumns: "1fr",
+                },
+              }}
+              // sx={{ cursor: "pointer", p: 2 }}
             >
               <Grid
                 sx={{
-                  width: "250px",
+                  width: "300px",
                   backgroundColor: "#f5f5f5",
                   border: "1px solid #ccc",
                   borderRadius: "10px",
@@ -72,7 +82,7 @@ const MyAds = () => {
                   component="img"
                   sx={{
                     width: "100%",
-                    height: "180px",
+                    height: "200px",
                     padding: "10px",
                     overflow: "hidden",
                     borderRadius: "20px ",
@@ -111,7 +121,7 @@ const MyAds = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Grid sx={{ color: "purple" }}>
+                  <Grid sx={{ color: "purple", pl: 1 }}>
                     Available {myAd.quantity}
                   </Grid>
                   <Grid sx={{ color: "orange" }}>
@@ -127,7 +137,7 @@ const MyAds = () => {
                       borderRadius: "15px",
                       fontWeight: "700",
                     }}
-                    sx={{ borderRadius: "15px", mb: 1 }}
+                    sx={{ borderRadius: "15px", mb: 1, pr: 1 }}
                     onClick={() =>
                       navigate(`/rooms/view-room/${myAd.id}/?active=true`)
                     }
@@ -139,20 +149,31 @@ const MyAds = () => {
             </Grid>
           ))
       : myAds
-          ?.slice()
+          ?.slice(0, noOfCount)
           .reverse()
           .map((myAd) => (
             <Grid
               key={myAd._id}
               item
-              xs={12}
-              sm={6}
-              md={2.4}
-              sx={{ cursor: "pointer", p: 2 }}
+              // xs={12}
+              // sm={6}
+              // md={3}
+              // sx={{ cursor: "pointer", p: 2 }}
+              sx={{
+                display: "grid",
+                cursor: "pointer",
+                p: 2,
+                gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+                gap: "20px",
+                "@media (max-width: 600px)": {
+                  gridTemplateColumns: "1fr",
+                },
+              }}
             >
               <Grid
                 sx={{
-                  width: "250px",
+                  // width: "30vw",
+                  width: "300px",
                   backgroundColor: "#f5f5f5",
                   border: "1px solid #ccc",
                   borderRadius: "10px",

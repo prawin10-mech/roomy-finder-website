@@ -276,7 +276,7 @@ const AboutBooking = () => {
                 {property && property.status === "offered" ? (
                   <Button
                     variant="contained"
-                    color="primary"
+                    color="orange"
                     size="large"
                     onClick={() =>
                       navigate(`/bookings/property/pay-rent/${property.id}`)

@@ -15,7 +15,7 @@ const MyBookings = () => {
   const myBookings = useSelector((state) => state.user.myBookings);
   const token = localStorage.getItem("token");
   const [isLoading, setIsLoading] = useState(true);
-  const [noOfCount, setnoOfCount] = useState(10);
+  const [noOfCount, setnoOfCount] = useState(8);
 
   const fetchMyBookings = async () => {
     try {
@@ -72,15 +72,26 @@ const MyBookings = () => {
       <Grid
         key={booking._id}
         item
-        xs={12}
-        sm={6}
-        md={2.3}
-        sx={{ cursor: "pointer", p: 2 }}
+        sx={{
+          display: "grid",
+          cursor: "pointer",
+          p: 2,
+          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+          gap: "20px",
+          "@media (max-width: 600px)": {
+            gridTemplateColumns: "1fr",
+          },
+        }}
+        // xs={12}
+        // sm={6}
+        // md={2.4}
+        // sx={{ cursor: "pointer", p: 2 }}
         onClick={() => navigate(`/myBookings/aboutBooking/${booking.id}`)}
       >
         <Grid
           sx={{
             width: "300px",
+            mx: 1,
             backgroundColor: "#f5f5f5",
             border: "1px solid #ccc",
             borderRadius: "10px",
