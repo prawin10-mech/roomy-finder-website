@@ -159,36 +159,41 @@ const Login = () => {
               Login
             </Typography>
 
-            <TextField
-              label="Email"
-              onChange={emailInputHandler}
-              fullWidth
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end" sx={{ width: "20px" }}>
-                    <EmailOutlinedIcon />
-                  </InputAdornment>
-                ),
-              }}
-              InputLabelProps={{
-                focused: false,
-              }}
-              sx={{
-                bgcolor: "white",
-                borderRadius: "20px", // Add borderRadius explicitly
-                "& .MuiOutlinedInput-root": {
+            <Box>
+              <Typography sx={{ color: "#fff" }}>Email</Typography>
+              <TextField
+                // label="Email"
+                onChange={emailInputHandler}
+                fullWidth
+                placeholder="Email address"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end" sx={{ width: "20px" }}>
+                      <EmailOutlinedIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                InputLabelProps={{
+                  focused: false,
+                }}
+                sx={{
+                  bgcolor: "white",
                   borderRadius: "20px", // Add borderRadius explicitly
-                  "&:hover fieldset": {
-                    borderColor: "transparent",
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "20px", // Add borderRadius explicitly
+                    "&:hover fieldset": {
+                      borderColor: "transparent",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "transparent",
+                    },
                   },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "transparent",
-                  },
-                },
-              }}
-            />
+                }}
+              />
+            </Box>
 
             <Box sx={{ mt: 2 }}>
+              <Typography sx={{ color: "#fff" }}>Password</Typography>
               <FormControl
                 sx={{
                   width: "100%",
@@ -205,32 +210,47 @@ const Login = () => {
                   },
                 }}
               >
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
-                <OutlinedInput
+                <TextField // label="Email"
                   onChange={(e) => passwordInputHandler(e)}
-                  id="outlined-adornment-password"
+                  fullWidth
+                  placeholder="Enter your password"
                   type={showPassword ? "text" : "password"}
-                  endAdornment={
-                    <InputAdornment
-                      position="end"
-                      sx={{
-                        width: "20px",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment
+                        position="end"
+                        sx={{
+                          width: "20px",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
                       >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  InputLabelProps={{
+                    focused: false,
+                  }}
+                  sx={{
+                    bgcolor: "white",
+                    borderRadius: "20px", // Add borderRadius explicitly
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "20px", // Add borderRadius explicitly
+                      "&:hover fieldset": {
+                        borderColor: "transparent",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "transparent",
+                      },
+                    },
+                  }}
                 />
               </FormControl>
             </Box>

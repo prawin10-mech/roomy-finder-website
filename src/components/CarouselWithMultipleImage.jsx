@@ -3,6 +3,7 @@ import { Grid, Typography, Paper, Box, Stack } from "@mui/material";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import DummyImage from "../assets/demo.jpg";
+import { useNavigate } from "react-router-dom";
 
 const ImageCarousel1 = ({ images }) => {
   if (images.length === 0) images = [DummyImage];
@@ -32,12 +33,16 @@ export const MultipleImages0 = ({ images }) => {
     setNumImages(numImages + 4);
   };
   return (
-    <ImageCarousel1 images={images.slice(0, numImages)} key={Math.random()} />
+    <ImageCarousel1
+      images={images.images.slice(0, numImages)}
+      key={Math.random()}
+    />
   );
 };
 
 const CarouselWithMultipleImage = (props) => {
   let imageSets = [];
+  const navigate = useNavigate();
   if (props.PartitionAddAvilableRoom) {
     for (let i = 0; i < props.PartitionAddAvilableRoom.length; i += 4) {
       imageSets.push(props.PartitionAddAvilableRoom.slice(i, i + 4));
@@ -68,15 +73,23 @@ const CarouselWithMultipleImage = (props) => {
             // onClick={() => navigate("/")}
             sx={{ cursor: "pointer" }}
           >
-            {console.log(imageSet)}
             <Grid container spacing={2}>
               {imageSet.map((value, id) =>
                 Object.entries(value).map(([key, val]) => {
                   if (key === "images") {
                     if (val.length >= 0) {
                       return (
-                        <Grid item xs={12} sm={6} md={3} borderRadius={"15px"}>
-                          <MultipleImages0 images={val} />
+                        <Grid
+                          item
+                          xs={12}
+                          sm={6}
+                          md={3}
+                          borderRadius={"15px"}
+                          // onClick={() =>
+                          //   navigate(`/rooms/view-room/${value?.id}`)
+                          // }
+                        >
+                          <MultipleImages0 images={value} />
                           <Box
                             sx={{
                               display: "flex",
@@ -84,6 +97,9 @@ const CarouselWithMultipleImage = (props) => {
                               flexDirection: "column",
                               alignItems: "start",
                             }}
+                            onClick={() =>
+                              navigate(`/rooms/view-room/${value?.id}`)
+                            }
                           >
                             <Typography fontWeight={400}>
                               {value.type}

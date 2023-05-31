@@ -68,13 +68,7 @@ const MyAds = () => {
             >
               <Grid
                 sx={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-                  gap: "20px",
-                  "@media (max-width: 600px)": {
-                    gridTemplateColumns: "1fr",
-                  },
-                  // width: "30vw",
+                  width: "300px",
                   backgroundColor: "#f5f5f5",
                   border: "1px solid #ccc",
                   borderRadius: "10px",
@@ -87,7 +81,7 @@ const MyAds = () => {
                 <CardMedia
                   component="img"
                   sx={{
-                    width: "300px",
+                    width: "100%",
                     height: "200px",
                     padding: "10px",
                     overflow: "hidden",
@@ -127,7 +121,7 @@ const MyAds = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Grid sx={{ color: "purple",pl:1 }}>
+                  <Grid sx={{ color: "purple", pl: 1 }}>
                     Available {myAd.quantity}
                   </Grid>
                   <Grid sx={{ color: "orange" }}>
@@ -143,7 +137,7 @@ const MyAds = () => {
                       borderRadius: "15px",
                       fontWeight: "700",
                     }}
-                    sx={{ borderRadius: "15px", mb: 1,pr:1 }}
+                    sx={{ borderRadius: "15px", mb: 1, pr: 1 }}
                     onClick={() =>
                       navigate(`/rooms/view-room/${myAd.id}/?active=true`)
                     }
@@ -155,7 +149,7 @@ const MyAds = () => {
             </Grid>
           ))
       : myAds
-          ?.slice()
+          ?.slice(0, noOfCount)
           .reverse()
           .map((myAd) => (
             <Grid
@@ -189,7 +183,6 @@ const MyAds = () => {
                   component="img"
                   sx={{
                     width: "100%",
-                    height: "200px",
                     padding: "10px",
                     overflow: "hidden",
                     borderRadius: "20px ",
@@ -211,7 +204,7 @@ const MyAds = () => {
                     </Typography>
                     <Typography variant="subtitle1">
                       <Typography component="span">
-                        Age({myAd?.aboutYou?.age})
+                        Age({myAd?.aboutYou?.age ? myAd.aboutYou.age : "N/A"})
                       </Typography>
                     </Typography>
                   </Grid>
@@ -244,17 +237,26 @@ const MyAds = () => {
                       AED {myAd?.budget}
                     </Typography>
                   </Grid>
-                  <Grid item sx={{ mr: 1 }}>
-                    <Typography sx={{ pr: 1.5 }}>Moving date </Typography>
-                    <Typography sx={{ fontWeight: 700, pr: 1.5 }}>
-                      {new Date(myAd?.movingDate).toLocaleDateString(
-                        undefined,
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        }
-                      )}
+                  <Grid item>
+                    <Typography>Moving date </Typography>
+                    <Typography sx={{ fontWeight: 700 }}>
+                      {myAd?.movingDate
+                        ? new Date(myAd?.movingDate).toLocaleDateString(
+                            undefined,
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )
+                        : new Date(myAd?.createdAt).toLocaleDateString(
+                            undefined,
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -287,11 +289,10 @@ const MyAds = () => {
       ) : (
         <Grid
           container
-          spacing={3}
           justifyContent="center"
           alignItems="center"
           // gap={4}
-          sx={{ margin: "auto", mb: 5 }}
+          sx={{ margin: "auto", mb: 5, padding: "20px" }}
         >
           {myAdsData}
         </Grid>

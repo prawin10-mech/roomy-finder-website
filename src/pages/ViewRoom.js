@@ -17,6 +17,10 @@ import {
   DialogActions,
   Avatar,
 } from "@mui/material";
+import {
+  NavigateNext as CustomNextIcon,
+  NavigateBefore as CustomPrevIcon,
+} from "@mui/icons-material";
 import { Carousel } from "react-responsive-carousel";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
@@ -54,6 +58,8 @@ const ViewRoom = () => {
   }
 
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isCarouselPlaying, setIsCarouselPlaying] = useState(true);
 
   const rooms = useSelector((state) => state.search.availableRooms);
   const [room, setRoom] = useState(rooms.find((room) => room.id === id));
@@ -61,6 +67,7 @@ const ViewRoom = () => {
   const handleInputChange = (e) => {
     setValue(e.target.value);
     setPreferredRentType(e.target.value);
+    setIsCarouselPlaying(false);
   };
 
   let checkOutDate = new Date(selectedDate);
@@ -149,9 +156,7 @@ const ViewRoom = () => {
     }
   };
 
-  const gotoEditOption=()=>{
-
-  }
+  const gotoEditOption = () => {};
 
   useEffect(() => {
     getPartitionRoomData();
@@ -163,7 +168,7 @@ const ViewRoom = () => {
       <Box
         sx={{
           mx: "auto",
-          maxWidth: "70%",
+          maxWidth: "700px",
           my: 3,
           px: 1,
           overFlowX: "hidden",
@@ -247,7 +252,51 @@ const ViewRoom = () => {
                 my: 5,
               }}
             >
-              <Carousel autoPlay>
+              <Carousel
+                autoPlay
+                renderArrowPrev={(onClickHandler, hasPrev, label) =>
+                  hasPrev && (
+                    <button
+                      type="button"
+                      onClick={onClickHandler}
+                      title={label}
+                      style={{
+                        position: "absolute",
+                        zIndex: 2,
+                        left: 15,
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        background: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <CustomPrevIcon style={{ fontSize: 40 }} />
+                    </button>
+                  )
+                }
+                renderArrowNext={(onClickHandler, hasNext, label) =>
+                  hasNext && (
+                    <button
+                      type="button"
+                      onClick={onClickHandler}
+                      title={label}
+                      style={{
+                        position: "absolute",
+                        zIndex: 2,
+                        right: 15,
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        background: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <CustomNextIcon style={{ fontSize: 40 }} />
+                    </button>
+                  )
+                }
+              >
                 {room?.images.length > 0 ? (
                   room.images.map((image, index) => (
                     <CardMedia
@@ -298,12 +347,16 @@ const ViewRoom = () => {
                 }}
               >
                 <Box>
-                  <Typography sx={{ fontWeight: 700 }}>{room?.type}</Typography>
-                  <Typography>
+                  <Typography sx={{ fontWeight: 700, fontSize: "1.2rem" }}>
+                    {room?.type}
+                  </Typography>
+                  <Typography sx={{ fontSize: "1.1rem" }}>
                     {room?.address?.buildingName}, {room?.address?.location},{" "}
                     {room?.address?.city}
                   </Typography>
-                  <Typography sx={{ mt: 1, fontWeight: 700 }}>
+                  <Typography
+                    sx={{ mt: 1, fontWeight: 700, fontSize: "1.2rem" }}
+                  >
                     {(
                       room?.monthlyPrice +
                       0.1 * room?.monthlyPrice
@@ -318,10 +371,10 @@ const ViewRoom = () => {
                     flexDirection: { xs: "row", sm: "column" },
                   }}
                 >
-                  <Typography sx={{ color: "#00b300" }}>
+                  <Typography sx={{ color: "#00b300", fontWeight: 700 }}>
                     Available {room?.quantity}
                   </Typography>
-                  <Typography sx={{ color: "red" }}>
+                  <Typography sx={{ color: "red", fontWeight: 700 }}>
                     Taken {room?.quantityTaken}
                   </Typography>
                 </Box>
