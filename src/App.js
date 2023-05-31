@@ -39,6 +39,7 @@ import axios from "axios";
 import ChatBody from "./components/Chat/ChatBody";
 import PostAd from "./pages/PostAd";
 import UpgradePlan from "./pages/UpgradePlan";
+import About from "./pages/About";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -159,6 +160,9 @@ const App = () => {
             path="/myAccount"
             element={<PrivateRoute Component={MyAccount} />}
           />
+
+          <Route path="/about" element={<PrivateRoute Component={About} />} />
+
           <Route
             path="/viewProfile"
             element={<PrivateRoute Component={ViewProfile} />}
