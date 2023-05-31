@@ -6,9 +6,16 @@ import FooterMobile from "../assets/footerMobile.png";
 import AppStore from "../assets/AppStore.png";
 import GooglePlay from "../assets/GooglePlay.png";
 import { footerSections } from "../utils/FooterData";
+import { useDispatch } from "react-redux";
+import { SearchActions } from "../store/Search";
+import axios from "axios";
+import landlord from "../assets/Agreements/landlord_agreement_roomy_finder.pdf";
+import privacy from "../assets/Agreements/privacy_policy_roomy_findner.pdf";
+import terms from "../assets/Agreements/t&c_roomy_finder.pdf";
 
 const Footer = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const sectionStyles = {
     fontWeight: "700",
     cursor: "pointer",
@@ -28,6 +35,50 @@ const Footer = () => {
     }
     if (title === "Our Services") {
       navigate("/");
+    }
+  };
+
+  const handleFooterSubLink = (item, link) => {
+    if (item === "Find Room") {
+      getPartitionRoomData();
+      navigate("/sp");
+    }
+    if (item === "Find Roommate") {
+      getRoommatesData();
+      navigate("/sp");
+    }
+    if (item === "Privacy Policy") {
+      console.log(item);
+      window.open(privacy);
+    }
+    if (item === "Terms and Conditions") {
+      window.open(terms);
+    }
+    if (item === "Landlord Agreement") {
+      window.open(landlord);
+    }
+  };
+
+  const getRoommatesData = async () => {
+    try {
+      const { data } = await axios.post(
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/roommate-ad/available`,
+        { countryCode: "AE" }
+      );
+      dispatch(SearchActions.availableRooms(data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const getPartitionRoomData = async () => {
+    try {
+      const { data } = await axios.post(
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
+        { countryCode: "AE" }
+      );
+      dispatch(SearchActions.availableRooms(data));
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -94,13 +145,20 @@ const Footer = () => {
                 </Typography>
                 <Box>
                   {section.items.map((item, index) => (
-                    <Typography
+                    <Box
                       key={`${section.title}-${index}`}
-                      variant="subtitle2"
-                      sx={itemStyles}
+                      onClick={() =>
+                        section.links &&
+                        handleFooterSubLink(item, section.links[index])
+                      }
+                      sx={{
+                        cursor: section.items !== "Contact Us" ? "pointer" : "",
+                      }}
                     >
-                      {item}
-                    </Typography>
+                      <Typography variant="subtitle2" sx={itemStyles}>
+                        {item}
+                      </Typography>
+                    </Box>
                   ))}
                 </Box>
               </Box>
@@ -137,15 +195,6 @@ const Footer = () => {
         <Box
           sx={{
             backgroundColor: "#FAFAFA",
-            //backgroundImage: `
-            // linear-gradient(
-            //   90deg,
-            //   rgba(128, 0, 128, 1) 0%,
-            //   rgba(160, 32, 160, 1) 25%,
-            //   rgba(192, 64, 192, 1) 50%,
-            //   rgba(224, 96, 224, 1) 75%,
-            //   rgba(255, 128, 255, 1) 100%
-            // )`,
             backgroundImage:
               "linear-gradient(90deg, rgba(0,1,36,1) 0%, rgba(73,9,121,1) 35%, rgba(192,0,255,1) 100%);",
             color: "#fff",
@@ -157,7 +206,6 @@ const Footer = () => {
             sx={{
               position: "relative",
               height: "100%",
-              //display: { xs: "none", sm: "block" },
               display: "block",
               width: "100%",
             }}

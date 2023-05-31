@@ -28,7 +28,7 @@ const About = () => {
   return (
     <>
       <TopBackground />
-      <Grid sx={{ maxWidth: "500px", margin: "auto" }}>
+      <Grid sx={{ margin: "auto" }}>
         <Grid
           display="flex"
           flexDirection="column"
@@ -95,7 +95,7 @@ const About = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
             <Grid
               sx={{
                 display: "flex",
@@ -138,7 +138,7 @@ const About = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
             <Grid
               sx={{
                 display: "flex",
@@ -181,7 +181,7 @@ const About = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
             <Grid
               sx={{
                 display: "flex",
@@ -224,7 +224,7 @@ const About = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
             <Grid
               sx={{
                 display: "flex",
@@ -267,7 +267,7 @@ const About = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "400px" }}>
+          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
             <Grid
               sx={{
                 display: "flex",

@@ -5,7 +5,6 @@ import CityCarousel from "../components/UI/CityCarousel";
 import Rooms from "../components/Rooms";
 import { Typography, Box, Grid } from "@mui/material";
 import AddWithCarousel from "../components/Card/CardForOurServics";
-import MainBgImg from "../assets/mainBackground.jpg";
 import axios from "axios";
 import Footer from "../components/Footer";
 import Cookies from "js-cookie";
@@ -92,110 +91,94 @@ const OurServices = () => {
   }, []);
 
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box sx={{ position: "relative", width: "100%", height: "100vh" }}>
       <Box
         sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "55vh",
-          //     backgroundImage: `
-          // linear-gradient(
-          //   90deg,
-          //   rgba(128, 0, 128, 1) 0%,
-          //   rgba(160, 32, 160, 1) 25%,
-          //   rgba(192, 64, 192, 1) 50%,
-          //   rgba(224, 96, 224, 1) 75%,
-          //   rgba(255, 128, 255, 1) 100%
-          // )`,
-
+          height: { xs: "50%", sm: "50%", md: "55%", lg: "35%", xl: "35%" },
           backgroundImage:
-            "linear-gradient(90deg, rgba(0,1,36,1) 0%, rgba(73,9,121,1) 35%, rgba(192,0,255,1) 100%);",
+            "linear-gradient(90deg, rgba(0,1,36,1) 0%, rgba(73,9,121,1) 35%, rgba(192,0,255,1) 100%)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           marginBottom: "50px",
         }}
-      ></Box>
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-        }}
       >
-        <Grid container justifyContent="space-between" alignItems="center">
-          <Grid item xs={12} sm={8}>
-            <Box
-              sx={{
-                pt: { xs: 8, md: 13 },
-                px: { xs: 2, md: 2 },
-                ml: { xs: 0, sm: 0, md: 12 },
-              }}
-            >
-              <Typography
-                variant="h3"
+        <Box
+        // sx={{
+        //   position: "absolute",
+        //   top: 0,
+        //   left: 0,
+        //   right: 0,
+        //   bottom: 0,
+        // }}
+        >
+          <Grid container justifyContent="space-between" alignItems="center">
+            <Grid item xs={12} sm={8}>
+              <Box
                 sx={{
-                  fontWeight: "bold",
-                  color: "white",
-                  mb: 3,
-                  px: { xs: 1 },
-
-                  textAlign: { xs: "center", md: "left" },
+                  pt: { xs: 8, md: 13 },
+                  px: { xs: 2, md: 2 },
+                  ml: { xs: 0, sm: 0, md: 12 },
                 }}
               >
-                Find your perfect sharing space.
-              </Typography>
-              <Search />
-            </Box>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={4}
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                //alignItems: "flex-end",
-                height: "100%",
-                //position: "relative",
-              }}
+                <Typography
+                  variant="h3"
+                  sx={{
+                    fontWeight: "bold",
+                    color: "white",
+                    mb: 3,
+                    px: { xs: 1 },
+                    textAlign: { xs: "center", md: "left" },
+                  }}
+                >
+                  Find your perfect sharing space.
+                </Typography>
+                <Search />
+              </Box>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              sx={{ display: { xs: "none", sm: "block" } }}
             >
-              <FloatingImage />
-            </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  height: "100%",
+                }}
+              >
+                <FloatingImage />
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Box sx={{ pt: { xs: 6 } }}>
-          <CityCarousel />
-          <Rooms />
-          <Box sx={{ display: "flex", flexDirection: "column", mb: 4 }}>
-            <Box sx={{ mb: 1 }}>
-              <Typography variant="h5" sx={{ mb: 1 }}>
-                Top affordable sharing option in UAE
-              </Typography>
-              <CarouselWithMultipleImage propertyAddAvilableRoom={rooms} />
+          <Box sx={{ pt: { xs: 6 } }}>
+            <CityCarousel />
+            <Rooms />
+            <Box sx={{ display: "flex", flexDirection: "column", mb: 4 }}>
+              <Box sx={{ mb: 1 }}>
+                <Typography variant="h5" sx={{ mb: 1 }}>
+                  Top affordable sharing option in UAE
+                </Typography>
+                <CarouselWithMultipleImage propertyAddAvilableRoom={rooms} />
+              </Box>
+
+              <Box sx={{ mt: 1, mb: 2 }}>
+                <Typography variant="h5" sx={{ my: 1 }}>
+                  Partitions for rent in Sharjah
+                </Typography>
+
+                <CarouselWithMultipleImage
+                  PartitionAddAvilableRoom={PartitionAddAvilableRoom}
+                />
+              </Box>
+              <AddWithCarousel />
             </Box>
-
-            <Box sx={{ mt: 1, mb: 2 }}>
-              <Typography variant="h5" sx={{ my: 1 }}>
-                Partitions for rent in Sharjah
-              </Typography>
-
-              <CarouselWithMultipleImage
-                PartitionAddAvilableRoom={PartitionAddAvilableRoom}
-              />
-            </Box>
-            <AddWithCarousel />
+            {/* <AvailableRooms /> */}
           </Box>
-          {/* <AvailableRooms /> */}
+          <Footer />
         </Box>
-        <Footer />
       </Box>
     </Box>
   );
