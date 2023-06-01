@@ -4,6 +4,10 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import DummyImage from "../assets/demo.jpg";
 import { useNavigate } from "react-router-dom";
+import {
+  NavigateNext as CustomNextIcon,
+  NavigateBefore as CustomPrevIcon,
+} from "@mui/icons-material";
 
 const ImageCarousel1 = ({ images }) => {
   if (images.length === 0) images = [DummyImage];
@@ -62,10 +66,52 @@ const CarouselWithMultipleImage = (props) => {
         showThumbs={false}
         showArrows={true}
         showStatus={false}
-        // emulateTouch={true}
+        emulateTouch={false}
         infiniteLoop={true}
         // renderArrowPrev={false}
         // renderArrowNext={false}
+        renderArrowPrev={(onClickHandler, hasPrev, label) =>
+          hasPrev && (
+            <button
+              type="button"
+              onClick={onClickHandler}
+              title={label}
+              style={{
+                position: "absolute",
+                zIndex: 2,
+                left: 15,
+                top: "50%",
+                transform: "translateY(-50%)",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              <CustomPrevIcon style={{ fontSize: 40 }} />
+            </button>
+          )
+        }
+        renderArrowNext={(onClickHandler, hasNext, label) =>
+          hasNext && (
+            <button
+              type="button"
+              onClick={onClickHandler}
+              title={label}
+              style={{
+                position: "absolute",
+                zIndex: 2,
+                right: 15,
+                top: "50%",
+                transform: "translateY(-50%)",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              <CustomNextIcon style={{ fontSize: 40 }} />
+            </button>
+          )
+        }
       >
         {imageSets.map((imageSet, index) => (
           <Grid

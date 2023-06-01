@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box } from "@mui/material";
+import { requestForToken } from "./firebase/index";
 
 import Nav from "./components/UI/Nav";
 import OurServices from "./pages/OurServices";
@@ -47,23 +48,37 @@ const App = () => {
   const token = localStorage.getItem("token");
   const tokenExpiration = localStorage.getItem("tokenExpiration");
 
-  const notificationpremision = async () => {
+  const notificationPermission = async () => {
     try {
       if (token && Date.now() < parseInt(tokenExpiration)) {
         const permission = await Notification.requestPermission();
         if (permission === "granted") {
-          const fcmToken = await getToken(messaging, {
-            vapidKey:
-              "BK1YSNEVcw8HU87zqvSqIZIrLAegjVlT_LLIPVRycirOw5ghNJ0zH9uTT5zxceX2v04Z3E0vIIEb38Xk1QeEBRA",
-          });
-
-          console.log(fcmToken);
+          const fcmToken = await requestForToken();
           if (fcmToken) {
-            await axios.put(
-              "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/update-fcm-token",
-              { fcmToken },
-              { headers: { Authorization: token } }
+            // await axios.put(
+            //   "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/update-fcm-token",
+            //   { fcmToken },
+            //   { headers: { Authorization: token } }
+            // );
+
+            const { data } = await axios.post(
+              "https://fcm.googleapis.com/fcm/send",
+              {
+                to: token,
+                notification: {
+                  title: "Notification Title",
+                  body: "Notification Body",
+                },
+              },
+              {
+                headers: {
+                  Authorization:
+                    "key=AAAAJqbmzIw:APA91bH35IWLWsokibEdj3ot37QlVRnuEvA0PMlrrGh5g4nGcZ9mpaYxEeYc3GrEwkT3gNPA_P35LyPIbQbJGzrR2CSaPQM1aeIM0Vrk0uN0yZ0THGAiN2D__k_UldyKkPOjrF2k9xud",
+                },
+              }
             );
+
+            console.log(data);
           }
         } else if (permission === "denied") {
           alert("You denied for the notification");
@@ -74,69 +89,9 @@ const App = () => {
     }
   };
 
-  const handleTokenRefresh = async () => {
-    console.log("5678");
-    try {
-      // Delete the previous token
-      // const ab = await deleteToken(getMessaging());
-      deleteToken()
-        .then(() => {
-          console.log("FCM token deleted.");
-          // Proceed to generate a new FCM token
-        })
-        .catch((error) => {
-          console.log("Error deleting FCM token:", error);
-        });
-      console.log("5678ghjkfghjxchj");
-      // Retrieve a new token
-      const refreshedToken = await getToken(getMessaging());
-      console.log("Refreshed FCM token:", refreshedToken);
-      try{
-        const res = await axios.put(
-          "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/update-fcm-token",
-          {
-            fcmToken: refreshedToken,
-          },
-          { headers: { Authorization: token } }
-        );
-
-      }catch(err){
-        console.log(err)
-      }
-      // Send the refreshed token to your backend for storage or update
-      // Backend API endpoint: POST /tokens
-      // axios.post('/tokens', { token: refreshedToken });
-    } catch (error) {
-      console.error("Error refreshing FCM token:", error);
-    }
-  };
-
-  // const handleTokenRefresh = async () => {
-  //   try {
-  //     const refreshedToken = await getToken(getMessaging());
-  //     console.log("Refreshed FCM token:", refreshedToken);
-  //     const res = await axios.put(
-  //       "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/update-fcm-token",
-  //       {
-  //         fcmToken: refreshedToken,
-  //       },
-  //       { headers: { Authorization: token } }
-  //     );
-  //   } catch (error) {
-  //     console.error("Error refreshing FCM token:", error);
-  //   }
-  // };
-
   useEffect(() => {
-    // notificationpremision();
-    // ==================
-
-    notificationpremision();
-    handleTokenRefresh();
-
-    // Add message listener to handle token refresh
-
-    // ===========
+    notificationPermission();
+    //handleTokenRefresh();
   }, []);
 
   return (

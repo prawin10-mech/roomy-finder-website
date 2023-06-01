@@ -26,20 +26,20 @@ const MyAccount = () => {
     navigate("/viewProfile");
   };
 
-  onMessageListener()
-    .then((payload) => {
-      console.log(payload, "payload");
-      //  setShow(true);
-      //  setNotification({
-      //    title: payload.notification.title,
-      //    body: payload.notification.body,
-      //  });
-      alert(payload.notification.title);
-      // <Alert severity="success" color="info">
-      //   Title:payload.notification.title
-      // </Alert>;
-    })
-    .catch((err) => console.log("failed: ", err));
+  // onMessageListener()
+  //   .then((payload) => {
+  //     console.log(payload, "payload");
+  //     //  setShow(true);
+  //     //  setNotification({
+  //     //    title: payload.notification.title,
+  //     //    body: payload.notification.body,
+  //     //  });
+  //     alert(payload.notification.title);
+  //     // <Alert severity="success" color="info">
+  //     //   Title:payload.notification.title
+  //     // </Alert>;
+  //   })
+  //   .catch((err) => console.log("failed: ", err));
 
   const testNotification = () => {};
 

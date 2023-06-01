@@ -145,12 +145,14 @@ const ViewRoom = () => {
           );
         }
       } catch (err) {
-        console.log(err);
         if (err.response.status === 409) {
           toast.error(
             "You have already booked this AD. Please check my bookings",
             toastOptions
           );
+        }
+        if (err.response.status === 400) {
+          toast.error("All the available rooms are occupied", toastOptions);
         }
       }
     }
