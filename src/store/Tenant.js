@@ -33,12 +33,18 @@ const initialState = {
   cooking: false,
   pets: false,
   party: false,
+
+  idEdit: "false",
+  adId: null,
 };
 
 const TenantSlice = createSlice({
   name: "tenant",
   initialState,
   reducers: {
+    isEdit(state, action) {
+      state.isEdit = action.payload;
+    },
     pets(state, action) {
       state.pets = action.payload;
     },
@@ -167,6 +173,47 @@ const TenantSlice = createSlice({
       state.cooking = false;
       state.pets = false;
       state.party = false;
+    },
+    editTenant(state, action) {
+      state.type = action.payload.type;
+      state.rentType = action.payload.rentType;
+      state.action = action.payload.action;
+      state.budget = action.payload.budget;
+      state.description = null;
+      const movingDate = new Date(action.payload.movingDate);
+      const year = movingDate.getUTCFullYear();
+      const month = String(movingDate.getUTCMonth() + 1).padStart(2, "0");
+      const day = String(movingDate.getUTCDate()).padStart(2, "0");
+      const formattedDate = `${year}-${month}-${day}`;
+      console.log(formattedDate);
+      state.movingDate = formattedDate;
+      state.images = action.payload.images;
+      state.videos = action.payload.videos;
+      state.amenities = action.payload.amenities;
+      state.interests = action.payload.interests;
+      state.adId = action.payload.id;
+      console.log(action.payload.id);
+      state.city = action.payload.address.city;
+      state.location = action.payload.address.location;
+      state.yourNationality = action.payload.aboutYou.nationality;
+      state.yourAstrologicalSign = action.payload.aboutYou.astrologicalSign;
+      state.yourAge = action.payload.aboutYou.age;
+      state.yourGender = action.payload.aboutYou.gender;
+      state.yourOccupation = action.payload.aboutYou.occupation;
+      state.yourLanguages = action.payload.aboutYou.languages;
+      state.yourLifeStyle = action.payload.aboutYou.lifeStyle;
+
+      state.gender = action.payload.poster.gender;
+      state.lifeStyle = action.payload.socialPreferences.lifeStyle;
+      state.grouping = action.payload.socialPreferences.grouping;
+      state.nationality = action.payload.socialPreferences.nationality;
+      //state.numberOfPeople = action.payload.socialPreferences;
+      state.smoking = action.payload.socialPreferences.smoking;
+      state.drinking = action.payload.socialPreferences.drinking;
+      state.visitors = action.payload.socialPreferences.visitors;
+      state.cooking = action.payload.socialPreferences.cooking;
+      state.pets = action.payload.socialPreferences.pets;
+      state.party = action.payload.socialPreferences.friendParty;
     },
   },
 });

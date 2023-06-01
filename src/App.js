@@ -28,14 +28,7 @@ import AboutBooking from "./pages/AboutBooking";
 import PayRent from "./pages/PayRent";
 import MyAds from "./pages/MyAds";
 import ViewTenant from "./pages/ViewTenant";
-// import firebase, {  onMessageListener } from "./firebase/index";
-import firebase, { messaging, onMessageListener } from "./firebase/index";
-import {
-  getToken,
-  onMessage,
-  getMessaging,
-  deleteToken,
-} from "firebase/messaging";
+
 import StripePaymentCancel from "./pages/StripePaymentCancel";
 import axios from "axios";
 import ChatBody from "./components/Chat/ChatBody";
@@ -55,33 +48,44 @@ const App = () => {
         if (permission === "granted") {
           const fcmToken = await requestForToken();
           if (fcmToken) {
-            // await axios.put(
+            // const { data } = await axios.put(
             //   "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/update-fcm-token",
             //   { fcmToken },
             //   { headers: { Authorization: token } }
             // );
 
-            const { data } = await axios.post(
-              "https://fcm.googleapis.com/fcm/send",
-              {
-                to: token,
+            fetch("https://fcm.googleapis.com/fcm/send", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization:
+                  "bearer AAAAP9DdnvY:APA91bHXKF1b-SoQmOwvU49nZ0lE8wcE6zitWELiu2DHI0mD9726NNVIB_CNPRURAHUIRxa1c4XTyhXxKb6ApciTEgPvxwlbwtXU4IdZ4WEyKiQrKKVR35zBEJdrOMsRmHY2dY6SBr0z",
+              },
+              body: JSON.stringify({
+                to: fcmToken,
                 notification: {
                   title: "Notification Title",
                   body: "Notification Body",
                 },
-              },
-              {
-                headers: {
-                  Authorization:
-                    "key=AAAAJqbmzIw:APA91bH35IWLWsokibEdj3ot37QlVRnuEvA0PMlrrGh5g4nGcZ9mpaYxEeYc3GrEwkT3gNPA_P35LyPIbQbJGzrR2CSaPQM1aeIM0Vrk0uN0yZ0THGAiN2D__k_UldyKkPOjrF2k9xud",
-                },
-              }
-            );
-
-            console.log(data);
+              }),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Failed to send notification");
+                }
+                return response.json();
+              })
+              .then((data) => {
+                console.log("API Response:", data);
+                // Handle the response data as needed
+              })
+              .catch((error) => {
+                console.error("API Error:", error);
+                // Handle the error appropriately
+              });
           }
         } else if (permission === "denied") {
-          alert("You denied for the notification");
+          alert("You denied the notification permission");
         }
       }
     } catch (err) {

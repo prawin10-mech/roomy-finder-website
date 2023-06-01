@@ -95,43 +95,10 @@ const PostAd = () => {
 
     grouping,
     cooking,
+
+    isEdit,
+    adId,
   } = useSelector((state) => state.tenant);
-  console.log(images);
-  console.log(
-    "tttttttttttttttt",
-    type,
-    rentType,
-    action,
-    budget,
-    description,
-    movingDate,
-    images,
-    videos,
-    amenities,
-    interests,
-    city,
-    location,
-    yourNationality,
-    yourAstrologicalSign,
-    yourAge,
-    yourGender,
-    yourOccupation,
-    yourLanguages,
-    yourLifeStyle,
-
-    gender,
-    lifeStyle,
-    nationality,
-
-    smoking,
-    drinking,
-    visitors,
-    pets,
-    party,
-
-    grouping,
-    cooking
-  );
 
   const handleOptionChange = (option) => {
     dispatch(TenantActions.action(option));
@@ -145,6 +112,73 @@ const PostAd = () => {
   const handleDeleteLanguage = (language) => {
     const updatedLanguages = yourLanguages.filter((lang) => lang !== language);
     dispatch(TenantActions.yourLanguages(updatedLanguages));
+  };
+
+  const handleEditAd = async () => {
+    console.log(adId);
+    try {
+      const aboutYou = {
+        age: yourAge,
+        astrologicalSign: yourAstrologicalSign,
+        gender: yourGender,
+        languages: yourLanguages,
+        nationality: yourNationality,
+        occupation: yourOccupation,
+        lifeStyle: yourLifeStyle,
+      };
+
+      const address = {
+        countryCode: "AE",
+        city,
+        location,
+      };
+
+      const socialPreferences = {
+        cooking,
+        drinking,
+        friendParty: party,
+        gender,
+        grouping,
+        gym: false,
+        lifeStyle,
+        nationality,
+        pet: pets,
+        smoking,
+        swimming: false,
+        tv: false,
+        visitors,
+        wifi: false,
+      };
+
+      const obj = {
+        type,
+        rentType,
+        action,
+        aboutYou,
+        budget,
+        description,
+        movingDate,
+        address,
+        amenities,
+        images,
+        interests,
+        socialPreferences,
+        videos,
+      };
+
+      console.log(obj);
+      const { data } = await axios.put(
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/roommate-ad/${adId}`,
+        obj,
+        { headers: { Authorization: token } }
+      );
+      console.log(data);
+      toast.success("Ad posted auccessfully", toastOptions);
+      dispatch(TenantActions.clear());
+    } catch (err) {
+      console.log(err);
+      toast.error("Please try again after some time", toastOptions);
+    }
   };
 
   const handlePostAd = async () => {
@@ -197,9 +231,6 @@ const PostAd = () => {
         videos,
       };
       if (handleValidations()) {
-        console.log("ghjk",obj);
-        console.log("tokentyu", token);
-
         const { data } = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/roommate-ad",
           obj,
@@ -539,21 +570,19 @@ const PostAd = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-         
         }}
       >
         <Typography sx={{ my: 2, fontWeight: "600" }}>
           Please add IMAGES/VIDEOS:{" "}
         </Typography>
-        <Box sx={{display:"flex",flexDirection:"row",width:{md:"50%"}}}>
-
+        <Box
+          sx={{ display: "flex", flexDirection: "row", width: { md: "50%" } }}
+        >
           <ImageInput />
           {/* <CameraInputNew /> */}
-        
+
           <VideoInput />
         </Box>
-        
-         
       </Grid>
 
       {action === "NEED ROOM" && (
@@ -988,6 +1017,7 @@ const PostAd = () => {
               type="date"
               value={movingDate}
               onChange={(event) => {
+                console.log(event.target.value);
                 dispatch(TenantActions.movingDate(event.target.value));
               }}
               InputLabelProps={{
@@ -1801,21 +1831,39 @@ const PostAd = () => {
       </Grid>
 
       <Grid my={2}>
-        <Button
-          onClick={handlePostAd}
-          sx={{
-            borderRadius: "20px",
-            bgcolor: "orange",
-            "&:hover": {
+        {!isEdit ? (
+          <Button
+            onClick={handlePostAd}
+            sx={{
+              borderRadius: "20px",
+              bgcolor: "orange",
               "&:hover": {
-                bgcolor: "#ff9900",
+                "&:hover": {
+                  bgcolor: "#ff9900",
+                },
               },
-            },
-          }}
-          variant="contained"
-        >
-          Submit
-        </Button>
+            }}
+            variant="contained"
+          >
+            Submit
+          </Button>
+        ) : (
+          <Button
+            onClick={handleEditAd}
+            sx={{
+              borderRadius: "20px",
+              bgcolor: "orange",
+              "&:hover": {
+                "&:hover": {
+                  bgcolor: "#ff9900",
+                },
+              },
+            }}
+            variant="contained"
+          >
+            Update Ad
+          </Button>
+        )}
       </Grid>
       <ToastContainer />
     </Grid>

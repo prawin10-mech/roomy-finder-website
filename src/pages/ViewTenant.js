@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -44,9 +45,11 @@ import language from "../assets/icons/languages.png";
 
 import { amenitiesData } from "../utils/AmenitiesData";
 import { InterestsData } from "../utils/InterestsData";
+import { TenantActions } from "../store/Tenant";
 
 const ViewRoom = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const token = localStorage.getItem("token");
   const urlParams = new URLSearchParams(window.location.search);
@@ -60,12 +63,48 @@ const ViewRoom = () => {
   const rooms = useSelector((state) => state.search.availableRooms);
   const [room, setRoom] = useState(rooms.find((room) => room.id === id));
 
+  // const {
+  //   type,
+  //   rentType,
+  //   action,
+  //   budget,
+  //   description,
+  //   movingDate,
+  //   images,
+  //   videos,
+  //   amenities,
+  //   interests,
+  //   country,
+  //   city,
+  //   location,
+  //   yourNationality,
+  //   yourAstrologicalSign,
+  //   yourAge,
+  //   yourGender,
+  //   yourOccupation,
+  //   yourLanguages,
+  //   yourLifeStyle,
+
+  //   gender,
+  //   lifeStyle,
+  //   grouping,
+  //   nationality,
+  //   numberOfPeople,
+  //   smoking,
+  //   drinking,
+  //   visitors,
+  //   cooking,
+  //   pets,
+  //   party,
+  // } = useSelector((state) => state.tenant);
+
   const getPartitionRoomData = async () => {
     try {
       const { data } = await axios.post(
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/roommate-ad/available",
         { countryCode: "AE" }
       );
+
       dispatch(SearchActions.availableRooms(data));
 
       setRoom(data.find((room) => room.id === id));
@@ -92,7 +131,18 @@ const ViewRoom = () => {
     }
   };
 
-  const gotoEditOption = () => {};
+  const editPostAd = async () => {
+    const { data } = await axios.get(
+      `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/roommate-ad/my-ads/${id}`,
+      { headers: { Authorization: token } }
+    );
+
+    dispatch(TenantActions.editTenant(data));
+    dispatch(TenantActions.isEdit(true));
+    navigate("/postAd");
+
+    console.log(data);
+  };
 
   return (
     <Grid sx={{ overFlowX: "hidden" }}>
@@ -130,7 +180,7 @@ const ViewRoom = () => {
                 zIndex: 1,
               }}
               sx={{ borderRadius: "15px" }}
-              onClick={() => gotoEditOption()}
+              onClick={() => editPostAd()}
             >
               <EditIcon />
             </Button>

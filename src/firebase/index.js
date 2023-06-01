@@ -3,15 +3,6 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDe-b_VnsstZIZlDdMYI_7ZH32Tt95W_Gs",
-//   authDomain: "chat-app-4cb99.firebaseapp.com",
-//   projectId: "chat-app-4cb99",
-//   storageBucket: "chat-app-4cb99.appspot.com",
-//   messagingSenderId: "546063757071",
-//   appId: "1:546063757071:web:d92ef71b93d067d601987a",
-//   measurementId: "G-C54WL2VRHP",
-// };
 const firebaseConfig = {
   apiKey: "AIzaSyAObyh2MPBu_Wui39tuQebVwwQEsgH_P-g",
   authDomain: "roomy-finder.firebaseapp.com",
@@ -39,12 +30,12 @@ export const onMessageListener = () =>
 export const requestForToken = () => {
   return getToken(messaging, {
     vapidKey:
-      "BDFMJMNRmeNZgfbB2cjX8d_GVmrroRCSY2F2t5mqoUbH_DOqsDo6WZ2FUE3hCSjBhKxchMso1mOZ-RkJu1pTaHc",
+      "BO-3_Aq1CRnqPI0niMrqFo1SPUnl2qX9aUgwo1UWpeqLkZv9KloLGSHL6xxxY3_-qVh1KGusHtrh4Xs_gW2T7tc",
+    forceRefresh: true,
   })
     .then((currentToken) => {
       if (currentToken) {
         console.log(currentToken);
-
         return currentToken;
       } else {
         console.log(
@@ -56,4 +47,5 @@ export const requestForToken = () => {
       console.log("An error occurred while retrieving token. ", err);
     });
 };
+
 export default app;
