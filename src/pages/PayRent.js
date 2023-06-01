@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { toastOptions } from "../utils/ToastOptions";
 import axios from "axios";
 import { baseUrl } from "../helper";
+import sendNotification from "../components/NotificationReceive";
 
 const PayRent = () => {
   const { id } = useParams();
@@ -73,6 +74,14 @@ const PayRent = () => {
           `${baseURL}/pay-cash`,
           { bookingId },
           { headers: { Authorization: token } }
+        );
+        sendNotification(
+          "new-booking",
+          `Congratulations. You got booked for ${property.ad.type}
+          Monthly
+          Check in: ${property.checkIn}
+          Check out: ${property.checkOut}`,
+          `${property.ad.poster.fcmToken}`
         );
 
         navigate(`/myBookings/aboutBooking/${bookingId}`);

@@ -18,9 +18,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { UserActions } from "../../store/User";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Notification from "../Notifictions";
 
-const pages = ["About Us", "Contact Us", "Our Services", "Post Property","Message"];
-const pageNavigate = ["aboutUs", "contactUs", "", "postProperty","message"];
+const pages = [
+  "About Us",
+  "Contact Us",
+  "Our Services",
+  "Post Property",
+  "Message",
+];
+const pageNavigate = ["aboutUs", "contactUs", "", "postProperty", "message"];
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -127,6 +134,7 @@ const Nav = () => {
 
   return (
     <div className="nav-container p-3 flex justify-between bg-white">
+      <Notification />
       <NavLink to={"/"} className="flex align-content-center">
         <img
           src={RoomyFinderLogo}

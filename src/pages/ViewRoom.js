@@ -39,6 +39,8 @@ import smoking from "../assets/icons/smoking.png";
 import drinking from "../assets/icons/drinking.png";
 import visitors from "../assets/icons/visitors.png";
 
+import sendNotification from "../components/NotificationReceive";
+
 import { amenitiesData } from "../utils/AmenitiesData";
 
 const ViewRoom = () => {
@@ -119,6 +121,7 @@ const ViewRoom = () => {
     if (!token && !user && Date.now() < parseInt(tokenExpiration)) {
       navigate("/login");
     } else {
+      console.log(room);
       try {
         const obj = {
           quantity: totalDuration,
@@ -135,24 +138,47 @@ const ViewRoom = () => {
         );
         if (data) {
           toast.success(
-            "Property booked successfully please wait until it confirms",
+            "Your request has been send to landlord. Please go to 'My Bookings' and follow on with the status of the request",
             toastOptions
           );
+          sendNotification(
+            "booking status",
+            `Reminder: Dear ${room.poster.firstName} ${room.poster.lastName}, We are happy to tell you that a roommate, ${user.firstName} ${user.lastName} have boook your property, ${room.type} in ${room.address.city}. Now, you can either accept or decline the booking.`,
+            `${room.poster.fcmToken}`
+          );
         } else {
-          toast.error(
-            "You have already booked this AD. Please check my bookings",
-            toastOptions
+          // toast.error(
+          //   "You have already booked this AD. Please check my bookings",
+          //   toastOptions
+          // );
+          sendNotification(
+            "booking status",
+            "booking success",
+            `${room.poster.fcmToken}`
           );
         }
       } catch (err) {
         if (err.response.status === 409) {
+          sendNotification(
+            "booking status",
+            "You have already booked this AD. Please check my bookings.",
+            `${room.poster.fcmToken}`
+          );
           toast.error(
             "You have already booked this AD. Please check my bookings",
             toastOptions
           );
         }
         if (err.response.status === 400) {
-          toast.error("All the available rooms are occupied", toastOptions);
+          sendNotification(
+            "booking status",
+            `Sorry! There is no more available unit in this ${room.type}`,
+            `${room.poster.fcmToken}`
+          );
+          toast.error(
+            `Sorry! There is no more available unit in this ${room.type}`,
+            toastOptions
+          );
         }
       }
     }

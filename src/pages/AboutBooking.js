@@ -8,6 +8,7 @@ import BottomBackground from "../components/postPropertyComponents/BottomBackgro
 
 import { getMessaging } from "firebase/messaging";
 import { auth } from "../firebase/index.js";
+import sendNotification from "../components/NotificationReceive.js";
 
 const AboutBooking = () => {
   const { id } = useParams();
@@ -16,6 +17,8 @@ const AboutBooking = () => {
   const [offered, setOffered] = useState(false);
   const token = localStorage.getItem("token");
   const type = JSON.parse(Cookies.get("user")).type;
+
+  console.log(property);
 
   const getMyBookedProperty = async () => {
     try {
@@ -65,6 +68,12 @@ const AboutBooking = () => {
       );
       if (data === "OK") {
         setOffered(true);
+        sendNotification(
+          "booking-offered",
+          `Congratulations. Your rent request to ${property.ad.type} in ${property.ad.address.city} has been approved. Please pay the rent fee amount to get
+          further with the landlord contact information details and check in your new place now !`,
+          property.poster.fcmToken
+        );
       }
     } catch (err) {
       console.log(err);
@@ -79,6 +88,11 @@ const AboutBooking = () => {
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad/landlord/cancel",
         { bookingId },
         { headers: { Authorization: token } }
+      );
+      sendNotification(
+        "booking-declined",
+        `Dear ${property.poster.firstName} ${property.poster.lastName}, sorry the property you choose is not more available. Please choose another option.`,
+        property.poster.fcmToken
       );
       navigate("/myBookings");
       setOffered(false);
@@ -276,7 +290,12 @@ const AboutBooking = () => {
                 {property && property.status === "offered" ? (
                   <Button
                     variant="contained"
-                    color="orange"
+                    sx={{
+                      bgcolor: "orange",
+                      color: "#fff",
+                      borderRadius: "20px",
+                      "&:hover": { bgcolor: "orange" },
+                    }}
                     size="large"
                     onClick={() =>
                       navigate(`/bookings/property/pay-rent/${property.id}`)

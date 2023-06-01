@@ -4,14 +4,10 @@ import {
   Button,
   Box,
   TextField,
-  Stack,
   Typography,
-  Avatar,
-  OutlinedInput,
   IconButton,
   InputAdornment,
   FormControl,
-  InputLabel,
   CircularProgress,
 } from "@mui/material";
 import TopBackground from "../components/postPropertyComponents/TopBackground.js";
@@ -22,36 +18,17 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate, NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import { toastOptions } from "../utils/ToastOptions.js";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import roomyLogo from "../assets/roomyFinderLogo.jpg.png";
 
-const Copyright = (props) => {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <NavLink color="inherit" to="/">
-        RoomyFinder
-      </NavLink>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-};
+import { requestForToken } from "../firebase/index"; // Import the FCM token retrieval function
 
 const Login = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  const [emailError, setEmailError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [hasValue, setHasValue] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -67,13 +44,6 @@ const Login = () => {
   const emailInputHandler = (e) => {
     const emailValue = e.target.value;
     dispatch(UserActions.email(emailValue));
-    setHasValue(e.target.value !== "");
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailValue)) {
-      setEmailError("Please enter a valid email address");
-    } else {
-      setEmailError("");
-    }
   };
 
   const passwordInputHandler = (e) => {
@@ -89,12 +59,16 @@ const Login = () => {
       );
 
       if (response.status === 200) {
+        // Retrieve the FCM token for the user
+        const fcmToken = await requestForToken();
+
         const loginResponse = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/login",
-          { email, password, fcmToken: "123" }
+          { email, password, fcmToken }
         );
 
         const { data } = loginResponse;
+        console.log(data);
         Cookies.set("user", JSON.stringify(data), { expires: 365 });
         localStorage.setItem("token", `bearer ${response.data.token}`);
         const expirationTimestamp = Date.parse(response.data.expireAt);
@@ -113,14 +87,12 @@ const Login = () => {
         throw new Error("Please enter valid credentials");
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || error.message;
       toast.error("Invalid credentials", toastOptions);
       console.log(error);
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <div>
       <TopBackground />
@@ -326,7 +298,7 @@ const Login = () => {
           </Box>
         </Grid>
       </Grid>
-      <Copyright sx={{ mt: 5 }} />
+      {/* <Copyright sx={{ mt: 5 }} /> */}
       <BottomBackground />
       <ToastContainer />
     </div>
