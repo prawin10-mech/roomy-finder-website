@@ -4,13 +4,13 @@ importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js");
 
 // Initialize the Firebase app in the service worker by passing the generated config
 const firebaseConfig = {
-  apiKey: "AIzaSyDOKDwGmCMFHwYr_Evw0xjsxU6iJVy5R88",
-  authDomain: "roomy-finder-website.firebaseapp.com",
-  projectId: "roomy-finder-website",
-  storageBucket: "roomy-finder-website.appspot.com",
-  messagingSenderId: "166008900748",
-  appId: "1:166008900748:web:c6a53572ac53a8163a3fa9",
-  measurementId: "G-TQ7C6DR224",
+  apiKey: "AIzaSyAObyh2MPBu_Wui39tuQebVwwQEsgH_P-g",
+  authDomain: "roomy-finder.firebaseapp.com",
+  projectId: "roomy-finder",
+  storageBucket: "roomy-finder.appspot.com",
+  messagingSenderId: "274087124726",
+  appId: "1:274087124726:web:35b36ff1662386b99d96d7",
+  measurementId: "G-2DXF87HE7B",
 };
 
 firebase.initializeApp(firebaseConfig);
