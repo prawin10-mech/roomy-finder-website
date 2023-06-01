@@ -1565,7 +1565,7 @@ const PostAd = () => {
               </TextField>
               {/* </Box> */}
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <Box sx={{ mt: 2 }}>
                 <TextField
                   placeholder="Add description here"
@@ -1576,7 +1576,7 @@ const PostAd = () => {
                   }
                 />
               </Box>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Grid>
       )}
