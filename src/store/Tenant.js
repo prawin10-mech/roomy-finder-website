@@ -64,10 +64,11 @@ const TenantSlice = createSlice({
       state.movingDate = action.payload;
     },
     images(state, action) {
-      state.images = action.payload;
+      console.log("action.payload", typeof action.payload);
+      state.images = [...state.images, action.payload];
     },
     videos(state, action) {
-      state.videos = action.payload;
+      state.videos = [...state.videos, action.payload];
     },
     amenities(state, action) {
       state.amenities = action.payload;

@@ -96,6 +96,42 @@ const PostAd = () => {
     grouping,
     cooking,
   } = useSelector((state) => state.tenant);
+  console.log(images);
+  console.log(
+    "tttttttttttttttt",
+    type,
+    rentType,
+    action,
+    budget,
+    description,
+    movingDate,
+    images,
+    videos,
+    amenities,
+    interests,
+    city,
+    location,
+    yourNationality,
+    yourAstrologicalSign,
+    yourAge,
+    yourGender,
+    yourOccupation,
+    yourLanguages,
+    yourLifeStyle,
+
+    gender,
+    lifeStyle,
+    nationality,
+
+    smoking,
+    drinking,
+    visitors,
+    pets,
+    party,
+
+    grouping,
+    cooking
+  );
 
   const handleOptionChange = (option) => {
     dispatch(TenantActions.action(option));
@@ -160,8 +196,10 @@ const PostAd = () => {
         type,
         videos,
       };
-      console.log(obj);
       if (handleValidations()) {
+        console.log("ghjk",obj);
+        console.log("tokentyu", token);
+
         const { data } = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/roommate-ad",
           obj,
