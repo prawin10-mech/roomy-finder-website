@@ -39,6 +39,7 @@ import CommercialCarousal from "../components/Card/CommercialCarousal";
 import { PropertyActions } from "../store/Property";
 
 const PostProperty = () => {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [locationdata, setlocationdata] = useState([]);
@@ -81,6 +82,44 @@ const PostProperty = () => {
     poster,
     cooking,
   } = useSelector((state) => state.property);
+
+  console.log(
+    "state",
+    edit,
+    id,
+    type,
+    quantity,
+    quantityTaken,
+    preferedRentType,
+    monthlyPrice,
+    weeklyPrice,
+    dailyPrice,
+    deposit,
+    depositPrice,
+    description,
+    posterType,
+    city,
+    images,
+    videos,
+    amenities,
+    location,
+    buildingName,
+    appartmentNumber,
+    floorNumber,
+    firstName,
+    lastName,
+    email,
+    phone,
+    numberOfPeople,
+    gender,
+    grouping,
+    nationality,
+    smoking,
+    drinking,
+    visitors,
+    poster,
+    cooking
+  );
 
   const postProductHandler = async () => {
     try {
@@ -129,14 +168,14 @@ const PostProperty = () => {
           socialPreferences,
         };
 
-        console.log(obj);
+        console.log("test1",obj)
 
         const { data } = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad",
           obj,
           { headers: { Authorization: token } }
         );
-        console.log(data);
+        console.log("res",data)
         toast.success("Property posted successfully", toastOptions);
 
         //navigate("/");
@@ -147,7 +186,8 @@ const PostProperty = () => {
   };
 
   const handleDepositChange = (e) => {
-    dispatch(PropertyActions.deposit(e.target.value === "Yes"));
+    const data = e.target.value === "Yes" ? true : false;
+    dispatch(PropertyActions.deposit(data));
   };
 
   const validatioHandler = () => {

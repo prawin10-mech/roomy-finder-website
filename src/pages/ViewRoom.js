@@ -158,7 +158,9 @@ const ViewRoom = () => {
     }
   };
 
-  const gotoEditOption = () => {};
+  const gotoEditOption = (AdId) => {
+    navigate("/postProperty", { state: AdId });
+  };
 
   useEffect(() => {
     getPartitionRoomData();
@@ -199,7 +201,7 @@ const ViewRoom = () => {
                 zIndex: 1,
               }}
               sx={{ borderRadius: "15px" }}
-              onClick={() => gotoEditOption()}
+              onClick={() => gotoEditOption(room.id)}
             >
               <EditIcon />
             </Button>
