@@ -87,7 +87,7 @@ const Footer = () => {
       <Toolbar
         sx={{
           display: "flex",
-          paddingY: "3%",
+          paddingY: "1.75%",
           width: { xs: "50%", sm: "80%", md: "100%" },
           paddingRight: { xs: 0, sm: "150px" }, // Added paddingRight for image space
         }}

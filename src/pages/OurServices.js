@@ -166,7 +166,7 @@ const OurServices = () => {
                 />
               </Box>
 
-              <Box sx={{ mt: 1, mb: 2 }}>
+              <Box sx={{ mt: 1, mb: 1 }}>
                 <Typography variant="h5" sx={{ my: 1 }}>
                   Partitions for rent in Sharjah
                 </Typography>
