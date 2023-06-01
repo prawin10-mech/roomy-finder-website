@@ -16,6 +16,8 @@ import { UserActions } from "../store/User";
 import CarouselWithMultipleImage from "../components/CarouselWithMultipleImage";
 import { roomsTypeActions } from "../store/Rooms";
 
+import { requestForToken } from "../firebase/index";
+
 const OurServices = () => {
   const [PartitionAddAvilableRoom, setPartitionAddAvilableRoom] = useState([]);
   const rooms = useSelector((state) => state.room.rooms);
@@ -94,7 +96,7 @@ const OurServices = () => {
     <Box sx={{ position: "relative", width: "100%", height: "100vh" }}>
       <Box
         sx={{
-          height: { xs: "50%", sm: "50%", md: "55%", lg: "35%", xl: "35%" },
+          height: { xs: "50%", sm: "50%", md: "55%", lg: "35%", xl: "55%" },
           backgroundImage:
             "linear-gradient(90deg, rgba(0,1,36,1) 0%, rgba(73,9,121,1) 35%, rgba(192,0,255,1) 100%)",
           backgroundRepeat: "no-repeat",

@@ -1,29 +1,43 @@
-import { Alert } from '@mui/material';
-import React from 'react'
-import firebase, { messaging, onMessageListener } from "../firebase/index";
+import React, { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { requestForToken, onMessageListener } from "../firebase/index";
 
-const Notification = () => {
-    const [show, setShow] = useState(false);
-    const [notification, setNotification] = useState({ title: "", body: "" });
+const Message = () => {
+  requestForToken();
+  const [notification, setNotification] = useState({
+    title: "",
+    body: "",
+  });
+  const notify = () => toast(<ToastDisplay />);
+  function ToastDisplay() {
+    return (
+      <div>
+        <p>
+          <b>{notification?.title}</b>
+        </p>
+        <p>{notification?.body}</p>
+      </div>
+    );
+  }
 
-    onMessageListener()
-      .then((payload) => {
-        console.log(payload, "payload");
-        setShow(true);
-        setNotification({
-          title: payload.notification.title,
-          body: payload.notification.body,
-        });
-        alert(payload.notification.title)
-        // <Alert severity="success" color="info">
-        //   Title:payload.notification.title
-        // </Alert>;
-      })
-      .catch((err) => console.log("failed: ", err));
+  useEffect(() => {
+    if (notification?.title) {
+      notify();
+    }
+  }, [notification]);
 
-  return (
-    <div>Notification</div>
-  )
-}
+  requestForToken();
 
-export default Notification
+  onMessageListener()
+    .then((payload) => {
+      setNotification({
+        title: payload?.notification?.title,
+        body: payload?.notification?.body,
+      });
+    })
+    .catch((err) => console.log("failed: ", err));
+
+  return <Toaster />;
+};
+
+export default Message;
