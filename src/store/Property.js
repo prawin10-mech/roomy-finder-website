@@ -13,7 +13,7 @@ const initialState = {
   monthlyPrice: null,
   weeklyPrice: null,
   dailyPrice: null,
-  deposit: null,
+  deposit: false,
   depositPrice: null,
   description: null,
   posterType: null,
