@@ -34,7 +34,12 @@ const AdvancedSearch = () => {
     setAdvance(!advance);
   };
 
-  const handleClearFilter = () => {
+  const handleClearFilter = async () => {
+    const { data } = await axios.post(
+      `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
+      { countryCode: "AE" }
+    );
+    dispatch(SearchActions.availableRooms(data));
     dispatch(AdvanceSearchActions.clear());
   };
 

@@ -161,7 +161,9 @@ const OurServices = () => {
                 <Typography variant="h5" sx={{ mb: 1 }}>
                   Top affordable sharing option in UAE
                 </Typography>
-                <CarouselWithMultipleImage propertyAddAvilableRoom={rooms} />
+                <CarouselWithMultipleImage
+                  propertyAddAvilableRoom={PartitionAddAvilableRoom}
+                />
               </Box>
 
               <Box sx={{ mt: 1, mb: 2 }}>
