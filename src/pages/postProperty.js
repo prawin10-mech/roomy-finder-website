@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Typography,
-  Button,
-  Select,
-  TextField,
-  MenuItem,
-} from "@mui/material";
+import { Grid, Typography, Button, TextField, MenuItem } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -32,26 +25,19 @@ import {
   riyadhCities,
 } from "../utils/citydata";
 import { toastOptions } from "../utils/ToastOptions";
-
-import bottomBackground from "../assets/bottomBackground.png";
-
-import CommercialCarousal from "../components/Card/CommercialCarousal";
 import { PropertyActions } from "../store/Property";
 
 const PostProperty = () => {
-  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [locationdata, setlocationdata] = useState([]);
   const token = localStorage.getItem("token");
-  const DeviceToken = localStorage.getItem("DeviceToken");
 
   const {
     edit,
     id,
     type,
     quantity,
-    quantityTaken,
     preferedRentType,
     monthlyPrice,
     weeklyPrice,
@@ -74,52 +60,72 @@ const PostProperty = () => {
     phone,
     numberOfPeople,
     gender,
-    grouping,
     nationality,
     smoking,
     drinking,
     visitors,
-    poster,
-    cooking,
   } = useSelector((state) => state.property);
 
-  console.log(
-    "state",
-    edit,
-    id,
-    type,
-    quantity,
-    quantityTaken,
-    preferedRentType,
-    monthlyPrice,
-    weeklyPrice,
-    dailyPrice,
-    deposit,
-    depositPrice,
-    description,
-    posterType,
-    city,
-    images,
-    videos,
-    amenities,
-    location,
-    buildingName,
-    appartmentNumber,
-    floorNumber,
-    firstName,
-    lastName,
-    email,
-    phone,
-    numberOfPeople,
-    gender,
-    grouping,
-    nationality,
-    smoking,
-    drinking,
-    visitors,
-    poster,
-    cooking
-  );
+  const editPropertyHandler = async () => {
+    try {
+      if (validatioHandler()) {
+        const address = {
+          countryCode: "AE",
+          city,
+          location,
+          buildingName,
+          appartmentNumber,
+          floorNumber,
+        };
+
+        const agentInfo = {
+          firstName,
+          lastName,
+          email,
+          phone,
+        };
+
+        const socialPreferences = {
+          numberOfPeople,
+          gender,
+          nationality,
+          smoking: smoking === "yes" ? true : false,
+          drinking: drinking === "yes" ? true : false,
+          visitors: visitors === "yes" ? true : false,
+          cooking: false,
+        };
+        const obj = {
+          type,
+          amenities,
+          quantity: Number(quantity),
+          preferedRentType,
+          monthlyPrice: Number(monthlyPrice),
+          weeklyPrice: Number(weeklyPrice),
+          dailyPrice: Number(dailyPrice),
+          deposit,
+          images,
+          videos,
+          depositPrice: Number(depositPrice),
+          description,
+          posterType,
+          address,
+          agentInfo,
+          socialPreferences,
+        };
+        const { data } = await axios.put(
+          `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/${id}`,
+          obj,
+          { headers: { Authorization: token } }
+        );
+        console.log("res", data);
+        toast.success("Property edited successfully", toastOptions);
+        //navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong", toastOptions);
+    }
+  };
 
   const postProductHandler = async () => {
     try {
@@ -168,14 +174,14 @@ const PostProperty = () => {
           socialPreferences,
         };
 
-        console.log("test1",obj)
+        console.log("test1", obj);
 
         const { data } = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad",
           obj,
           { headers: { Authorization: token } }
         );
-        console.log("res",data)
+        console.log("res", data);
         toast.success("Property posted successfully", toastOptions);
 
         //navigate("/");
@@ -724,7 +730,7 @@ const PostProperty = () => {
           justifyContent="center"
           sx={{ mt: 5, mb: 3 }}
         >
-          {!edit && (
+          {!edit ? (
             <Button
               // color="success"
               style={{ backgroundColor: "orange" }}
@@ -732,6 +738,15 @@ const PostProperty = () => {
               onClick={postProductHandler}
             >
               Add Property
+            </Button>
+          ) : (
+            <Button
+              // color="success"
+              style={{ backgroundColor: "orange" }}
+              variant="contained"
+              onClick={editPropertyHandler}
+            >
+              Update Property
             </Button>
           )}
         </Grid>

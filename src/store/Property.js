@@ -154,7 +154,6 @@ const PropertySlice = createSlice({
     },
     amenities(state, action) {
       state.amenities = action.payload;
-      console.log(state.amenities);
     },
     deleteImage(state, action) {
       state.images = state.images.filter((image, i) => i !== action.payload);
@@ -180,7 +179,7 @@ const PropertySlice = createSlice({
       state.dailyPrice = action.payload.dailyPrice;
       state.deposit = action.payload.deposit;
       state.depositPrice = action.payload.depositPrice;
-      state.description = action.payload.description;
+      state.description = action.payload.description || " ";
       state.posterType = action.payload.posterType;
       state.city = action.payload.address.city;
       state.location = action.payload.address.location;

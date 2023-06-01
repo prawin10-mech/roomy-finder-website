@@ -42,6 +42,7 @@ import visitors from "../assets/icons/visitors.png";
 import sendNotification from "../components/NotificationReceive";
 
 import { amenitiesData } from "../utils/AmenitiesData";
+import { PropertyActions } from "../store/Property";
 
 const ViewRoom = () => {
   const token = localStorage.getItem("token");
@@ -184,8 +185,15 @@ const ViewRoom = () => {
     }
   };
 
-  const gotoEditOption = (AdId) => {
-    navigate("/postProperty", { state: AdId });
+  const gotoEditOption = async (AdId) => {
+    console.log(AdId);
+    const { data } = await axios.get(
+      `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/my-ads/${AdId}`,
+      { headers: { Authorization: token } }
+    );
+    dispatch(PropertyActions.editedData(data));
+    dispatch(PropertyActions.edit(true));
+    navigate("/postProperty");
   };
 
   useEffect(() => {
