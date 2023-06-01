@@ -166,7 +166,6 @@ const PostAd = () => {
         videos,
       };
 
-      console.log(obj);
       const { data } = await axios.put(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/roommate-ad/${adId}`,
         obj,
@@ -176,7 +175,7 @@ const PostAd = () => {
       toast.success("Ad posted auccessfully", toastOptions);
       dispatch(TenantActions.clear());
     } catch (err) {
-      console.log(err);
+      console.error("Error message:", err);
       toast.error("Please try again after some time", toastOptions);
     }
   };
