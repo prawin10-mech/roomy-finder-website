@@ -44,6 +44,8 @@ export const requestForToken = () => {
     .then((currentToken) => {
       if (currentToken) {
         console.log(currentToken);
+
+        return currentToken;
       } else {
         console.log(
           "No registration token available. Request permission to generate one."
