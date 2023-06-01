@@ -19,6 +19,7 @@ import { UserActions } from "../../store/User";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Notification from "../Notifictions";
+import { TenantActions } from "../../store/Tenant";
 
 const pages = [
   "About Us",
@@ -43,6 +44,8 @@ const Nav = () => {
 
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const handleClick = (link) => {
+    dispatch(TenantActions.isEdit(false));
+    dispatch(TenantActions.clear());
     setActiveLink(link);
   };
 
@@ -287,7 +290,9 @@ const Nav = () => {
               color: "#fff",
             },
           }}
-          onClick={() => handleClick("postProperty")}
+          onClick={() => {
+            handleClick("postProperty");
+          }}
           component={NavLink}
           to={user.type === "landlord" ? "/postProperty" : "/postAd"}
         >
