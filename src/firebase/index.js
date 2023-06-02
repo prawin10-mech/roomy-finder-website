@@ -3,8 +3,6 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
-import notification from "../assets/sounds/notification.wav";
-
 const firebaseConfig = {
   apiKey: "AIzaSyAObyh2MPBu_Wui39tuQebVwwQEsgH_P-g",
   authDomain: "roomy-finder.firebaseapp.com",
@@ -21,21 +19,13 @@ export const auth = getAuth(app);
 export const storage = getStorage(app);
 export const messaging = getMessaging(app);
 
-const playNotificationSound = () => {
-  const audio = new Audio(soundFileUrl);
-  audio.play();
-};
-
 export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
       console.log(payload);
-      playNotificationSound();
       resolve(payload);
     });
   });
-
-const soundFileUrl = notification;
 
 export const requestForToken = () => {
   return getToken(messaging, {

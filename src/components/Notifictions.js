@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { onMessageListener } from "../firebase/index";
-import axios from "axios";
+import notification from "../assets/sounds/notification.wav";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
+
+  const playNotificationSound = () => {
+    const audio = new Audio(notification);
+    audio.play();
+  };
+
   const notify = () => {
     console.log("Notification received");
+    playNotificationSound();
     toast(<ToastDisplay />);
   };
 
