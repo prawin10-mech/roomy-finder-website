@@ -9,7 +9,10 @@ const Notification = () => {
     console.log("Notification received");
     let receivedNotifications = localStorage.getItem("notifications");
     if (receivedNotifications) {
-      receivedNotifications = [...receivedNotifications, notification];
+      receivedNotifications = [
+        ...receivedNotifications,
+        JSON.stringify(notification),
+      ];
     } else {
       receivedNotifications = [notification];
     }
