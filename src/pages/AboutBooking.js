@@ -89,7 +89,7 @@ const AboutBooking = () => {
       );
       sendNotification(
         "booking-declined",
-        `Dear ${property.poster.firstName} ${property.poster.lastName}, sorry the property you choose is not more available. Please choose another option.`,
+        `Dear ${property.client.firstName} ${property.client.lastName}, sorry the property you choose is not more available. Please choose another option.`,
         property.client.fcmToken
       );
       navigate("/myBookings");

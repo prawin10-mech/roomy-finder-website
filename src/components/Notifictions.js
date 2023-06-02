@@ -6,17 +6,19 @@ const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
 
   const notify = () => {
-    console.log("Notification received");
     let receivedNotifications = localStorage.getItem("notifications");
+
     if (receivedNotifications) {
-      receivedNotifications = [
-        ...receivedNotifications,
-        JSON.stringify(notification),
-      ];
+      receivedNotifications = JSON.parse(receivedNotifications);
+      receivedNotifications = [...receivedNotifications, notification];
     } else {
       receivedNotifications = [notification];
     }
-    localStorage.setItem("notification", receivedNotifications);
+
+    localStorage.setItem(
+      "notifications",
+      JSON.stringify(receivedNotifications)
+    );
 
     toast(<ToastDisplay />);
   };
@@ -45,10 +47,12 @@ const Notification = () => {
         setNotification({
           title: payload?.notification?.title,
           body: payload?.notification?.body,
+          time: Date.now(),
+          id: Math.random() * 120,
         });
       })
       .catch((err) => console.log("failed: ", err));
-  }, []);
+  }, [notification]);
 
   return <Toaster position="top-right" />;
 };

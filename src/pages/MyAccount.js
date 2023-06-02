@@ -157,7 +157,12 @@ const MyAccount = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
+          <Grid
+            item
+            xs={12}
+            sx={{ width: "100%", maxWidth: "70%" }}
+            onClick={() => navigate("/notifications")}
+          >
             <Grid
               xs={12}
               sx={{
@@ -167,6 +172,7 @@ const MyAccount = () => {
                 bgcolor: "#f0ecf6",
                 width: "100%",
                 borderRadius: "15px",
+                cursor: "pointer",
                 mb: 2,
               }}
             >
