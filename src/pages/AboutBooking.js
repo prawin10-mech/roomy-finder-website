@@ -66,12 +66,12 @@ const AboutBooking = () => {
       );
       if (data === "OK") {
         setOffered(true);
-        // sendNotification(
-        //   "booking-offered",
-        //   `Congratulations. Your rent request to ${property.ad.type} in ${property.ad.address.city} has been approved. Please pay the rent fee amount to get
-        //   further with the landlord contact information details and check in your new place now !`,
-        //   property.poster.fcmToken
-        // );
+        sendNotification(
+          "booking-offered",
+          `Congratulations. Your rent request to ${property.ad.type} in ${property.ad.address.city} has been approved. Please pay the rent fee amount to get
+          further with the landlord contact information details and check in your new place now !`,
+          property.client.fcmToken
+        );
       }
     } catch (err) {
       console.log(err);

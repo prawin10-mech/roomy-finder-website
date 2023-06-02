@@ -139,14 +139,15 @@ const ViewRoom = () => {
           { headers: { Authorization: token } }
         );
         if (data) {
-          toast.success(
-            "Your request has been send to landlord. Please go to 'My Bookings' and follow on with the status of the request",
-            toastOptions
-          );
           sendNotification(
             "booking status",
             `Reminder: Dear ${room.poster.firstName} ${room.poster.lastName}, We are happy to tell you that a roommate, ${user.firstName} ${user.lastName} have boook your property, ${room.type} in ${room.address.city}. Now, you can either accept or decline the booking.`,
             `${room.poster.fcmToken}`
+          );
+
+          toast.success(
+            "Your request has been send to landlord. Please go to 'My Bookings' and follow on with the status of the request",
+            toastOptions
           );
         } else {
           toast.error(
