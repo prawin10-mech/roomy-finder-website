@@ -1,5 +1,16 @@
+import notification from "../assets/sounds/notification.wav";
+
 const sendNotification = async (title, body, fcmToken) => {
-  console.log("helllo");
+  console.log("hello");
+
+  // Define the sound file URL
+  const soundFileUrl = notification;
+
+  const playNotificationSound = () => {
+    const audio = new Audio(soundFileUrl);
+    audio.play();
+  };
+
   const getNotification = async () => {
     //const fcmToken = await requestForToken();
     if (fcmToken) {
@@ -25,7 +36,9 @@ const sendNotification = async (title, body, fcmToken) => {
           return response.json();
         })
         .then((data) => {
-          console.log("notification send:", data);
+          console.log("Notification sent:", data);
+          // Play the notification sound
+          playNotificationSound();
         })
         .catch((error) => {
           console.error("API Error:", error);
