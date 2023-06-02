@@ -13,7 +13,6 @@ const Notification = () => {
 
   const notify = () => {
     console.log("Notification received");
-    playNotificationSound();
     toast(<ToastDisplay />);
   };
 

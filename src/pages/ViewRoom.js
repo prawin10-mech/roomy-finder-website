@@ -412,7 +412,7 @@ const ViewRoom = () => {
                   }}
                 >
                   <Typography sx={{ color: "#00b300", fontWeight: 700 }}>
-                    Available {room?.quantity}
+                    Available {room?.quantity - room?.quantityTaken}
                   </Typography>
                   <Typography sx={{ color: "red", fontWeight: 700 }}>
                     Taken {room?.quantityTaken}
