@@ -37,14 +37,14 @@ const notificationStyle = {
 };
 
 const Notification = () => {
-  const [notifications, setNotification] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
   const deleteNotification = (id) => {
     const updatedNotifications = notifications.filter(
       (notification) => notification.id !== id
     );
     localStorage.setItem("notifications", JSON.stringify(updatedNotifications));
-    // Perform any additional actions or updates as needed
+    setNotifications(updatedNotifications);
   };
 
   const notificationData = notifications?.map((notification) => {
@@ -78,7 +78,10 @@ const Notification = () => {
   });
 
   useEffect(() => {
-    setNotification(JSON.parse(localStorage.getItem("notifications")));
+    const storedNotifications = JSON.parse(
+      localStorage.getItem("notifications")
+    );
+    setNotifications(storedNotifications.reverse() || []);
   }, []);
 
   return (
