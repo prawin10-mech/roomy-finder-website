@@ -7,6 +7,14 @@ const Notification = () => {
 
   const notify = () => {
     console.log("Notification received");
+    let receivedNotifications = localStorage.getItem("notifications");
+    if (receivedNotifications) {
+      receivedNotifications = [...receivedNotifications, notification];
+    } else {
+      receivedNotifications = [notification];
+    }
+    localStorage.setItem("notification", receivedNotifications);
+
     toast(<ToastDisplay />);
   };
 
