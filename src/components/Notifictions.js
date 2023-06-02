@@ -5,7 +5,10 @@ import axios from "axios";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
-  const notify = () => toast(<ToastDisplay />);
+  const notify = () => {
+    console.log("Notification received");
+    toast(<ToastDisplay />);
+  };
 
   function ToastDisplay() {
     return (
@@ -29,7 +32,7 @@ const Notification = () => {
   useEffect(() => {
     onMessageListener()
       .then((payload) => {
-        console.log(payload);
+        console.log("notification received");
         setNotification({
           title: payload?.notification?.title,
           body: payload?.notification?.body,

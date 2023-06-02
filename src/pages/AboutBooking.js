@@ -18,8 +18,6 @@ const AboutBooking = () => {
   const token = localStorage.getItem("token");
   const type = JSON.parse(Cookies.get("user")).type;
 
-  console.log(property);
-
   const getMyBookedProperty = async () => {
     try {
       const { data } = await axios.get(
@@ -68,12 +66,12 @@ const AboutBooking = () => {
       );
       if (data === "OK") {
         setOffered(true);
-        sendNotification(
-          "booking-offered",
-          `Congratulations. Your rent request to ${property.ad.type} in ${property.ad.address.city} has been approved. Please pay the rent fee amount to get
-          further with the landlord contact information details and check in your new place now !`,
-          property.poster.fcmToken
-        );
+        // sendNotification(
+        //   "booking-offered",
+        //   `Congratulations. Your rent request to ${property.ad.type} in ${property.ad.address.city} has been approved. Please pay the rent fee amount to get
+        //   further with the landlord contact information details and check in your new place now !`,
+        //   property.poster.fcmToken
+        // );
       }
     } catch (err) {
       console.log(err);
@@ -92,7 +90,7 @@ const AboutBooking = () => {
       sendNotification(
         "booking-declined",
         `Dear ${property.poster.firstName} ${property.poster.lastName}, sorry the property you choose is not more available. Please choose another option.`,
-        property.poster.fcmToken
+        property.client.fcmToken
       );
       navigate("/myBookings");
       setOffered(false);
@@ -101,12 +99,23 @@ const AboutBooking = () => {
     }
   };
 
-  const cancelTenantBookingHandler = async (bookingId) => {
+  const cancelTenantBookingHandler = async (bookingId, property) => {
     try {
       await axios.post(
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad/tenant/cancel",
         { bookingId },
         { headers: { Authorization: token } }
+      );
+      sendNotification(
+        "booking-cancelled",
+        `Dear ${property.ad.poster.firstName} ${
+          property.ad.poster.lastName
+        }, a client just cancelled ${
+          property.poster.gender === "Male" ? "his" : "her"
+        } booking of your property ${property.ad.type} in ${
+          property.ad.address.city
+        } `,
+        `${property.ad.poster.fcmToken}`
       );
       navigate("/myBookings");
     } catch (err) {
@@ -308,7 +317,9 @@ const AboutBooking = () => {
                     variant="contained"
                     color="error"
                     size="large"
-                    onClick={() => cancelTenantBookingHandler(property.id)}
+                    onClick={() =>
+                      cancelTenantBookingHandler(property.id, property)
+                    }
                   >
                     Cancel booking
                   </Button>

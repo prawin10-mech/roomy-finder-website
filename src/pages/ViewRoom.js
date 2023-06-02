@@ -15,7 +15,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Avatar,
 } from "@mui/material";
 import {
   NavigateNext as CustomNextIcon,
@@ -118,6 +117,8 @@ const ViewRoom = () => {
     }
   };
 
+  console.log(room);
+
   const handleBookRoom = async () => {
     if (!token && !user && Date.now() < parseInt(tokenExpiration)) {
       navigate("/login");
@@ -148,34 +149,34 @@ const ViewRoom = () => {
             `${room.poster.fcmToken}`
           );
         } else {
-          // toast.error(
-          //   "You have already booked this AD. Please check my bookings",
-          //   toastOptions
-          // );
-          sendNotification(
-            "booking status",
-            "booking success",
-            `${room.poster.fcmToken}`
+          toast.error(
+            "You have already booked this AD. Please check my bookings",
+            toastOptions
           );
+          // sendNotification(
+          //   "booking status",
+          //   "You have already booked this AD. Please check my bookings",
+          //   `${room.poster.fcmToken}`
+          // );
         }
       } catch (err) {
         if (err.response.status === 409) {
-          sendNotification(
-            "booking status",
-            "You have already booked this AD. Please check my bookings.",
-            `${room.poster.fcmToken}`
-          );
+          // sendNotification(
+          //   "booking status",
+          //   "You have already booked this AD. Please check my bookings.",
+          //   `${room.poster.fcmToken}`
+          // );
           toast.error(
             "You have already booked this AD. Please check my bookings",
             toastOptions
           );
         }
         if (err.response.status === 400) {
-          sendNotification(
-            "booking status",
-            `Sorry! There is no more available unit in this ${room.type}`,
-            `${room.poster.fcmToken}`
-          );
+          // sendNotification(
+          //   "booking status",
+          //   `Sorry! There is no more available unit in this ${room.type}`,
+          //   `${room.poster.fcmToken}`
+          // );
           toast.error(
             `Sorry! There is no more available unit in this ${room.type}`,
             toastOptions

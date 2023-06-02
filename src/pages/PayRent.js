@@ -33,11 +33,12 @@ const PayRent = () => {
         `${baseURL}/stripe/create-pay-booking-checkout-session`,
         {
           bookingId,
-          successUrl: `${baseUrl}/myBookings/aboutBooking/${bookingId}`,
-          cancelUrl: `${baseUrl}/payment/cancel`,
+          successUrl: `https://roomyfinder.com/myBookings/aboutBooking/${bookingId}`,
+          cancelUrl: `https://roomyfinder.com/payment/cancel`,
         },
         { headers: { Authorization: token } }
       );
+
       window.location.href = data.paymentUrl;
     } catch (err) {
       console.log(err);
