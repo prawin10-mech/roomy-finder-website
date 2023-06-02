@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { onMessageListener } from "../firebase/index";
-import axios from "axios";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
+
   const notify = () => {
     console.log("Notification received");
     toast(<ToastDisplay />);
@@ -21,24 +21,20 @@ const Notification = () => {
     );
   }
 
-  useEffect(() => {
-    if (notification?.title) {
-      notify();
-    }
-  }, [notification]);
-
-  useEffect(() => {}, []);
-
-  useEffect(() => {
+  const setupNotificationListener = () => {
     onMessageListener()
       .then((payload) => {
-        console.log("notification received");
+        console.log("Notification received");
         setNotification({
           title: payload?.notification?.title,
           body: payload?.notification?.body,
         });
       })
-      .catch((err) => console.log("failed: ", err));
+      .catch((err) => console.log("Failed: ", err));
+  };
+
+  useEffect(() => {
+    setupNotificationListener();
   }, []);
 
   return <Toaster position="top-right" />;

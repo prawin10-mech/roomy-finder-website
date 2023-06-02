@@ -1,5 +1,3 @@
-import { requestForToken } from "../firebase/index";
-
 const sendNotification = async (title, body, fcmToken) => {
   console.log("helllo");
   const getNotification = async () => {
