@@ -33,6 +33,7 @@ import Notifications from "./pages/Notification";
 import StripePaymentCancel from "./pages/StripePaymentCancel";
 import axios from "axios";
 import ChatBody from "./components/Chat/ChatBody";
+import NewChatBody from "./components/Chat/NewChatBody";
 import PostAd from "./pages/PostAd";
 import UpgradePlan from "./pages/UpgradePlan";
 import About from "./pages/About";
@@ -146,6 +147,10 @@ const App = () => {
           <Route
             path="/chat/:id"
             element={<PrivateRoute Component={ChatBody} />}
+          />
+          <Route
+            path="/directchat/:id"
+            element={<PrivateRoute Component={NewChatBody} />}
           />
           <Route
             path="/payment/cancel"

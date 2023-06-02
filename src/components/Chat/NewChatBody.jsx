@@ -11,12 +11,18 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import axios from "axios";
+import { useLocation } from 'react-router-dom';
+import { async } from "@firebase/util";
 
-const ChatBody = ({ user, messages, messageSended }) => {
+const NewChatBody = () => {
   const [openEmoji, setOpenEmoji] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const chatContainerRef = useRef(null);
+
+  const location = useLocation();
+  const data12 = location.state;
+  console.log("data990",data12);
 
   const token = localStorage.getItem("token");
 
@@ -24,45 +30,62 @@ const ChatBody = ({ user, messages, messageSended }) => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   };
 
+  console.log("chatMessages",chatMessages);
+
   const getConversations = async () => {
     try {
       const { data } = await axios.get(
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/conversations",
         { headers: { Authorization: token } }
       );
+    //   console.log("datadata",data.lastMessage.senderId)
       // setConversationd(data.find);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const getAllmeaage = async()=>{
+    const updatedMessages = await axios.get(
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.client.id}`,
+        { headers: { Authorization: token } }
+      );
+      console.log(updatedMessages.data,"updatedMessages the updatedMessages");
+      setChatMessages(updatedMessages.data);
+  }
+
   useEffect(() => {
-    setChatMessages(messages);
+    getAllmeaage()
+    // setChatMessages(messages);
     scrollToBottom();
 
     getConversations();
-  }, [messages]);
+  }, []);
 
   const sendMessage = async () => {
     try {
       const { data } = await axios.post(
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
         {
-          recieverFcmToken: user.other.fcmToken,
-          recieverId: user.otherId,
+          recieverFcmToken:  data12.client.fcmToken ,
+          recieverId: data12.client.id ,
           type: "text",
           body: newMessage,
         },
         { headers: { Authorization: token } }
       );
+    //   console.log(data,"here test")
+    //   setChatMessages([...chatMessages,data.body]);
       setNewMessage("");
-      messageSended();
+    //   user && messageSended();
 
       // After sending the message, retrieve the updated conversation messages
       const { data: updatedMessages } = await axios.get(
-        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${user.otherId}`,
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.client.id}`,
         { headers: { Authorization: token } }
       );
+    //   console.log(data,"sending the message");
+    //   console.log(updatedMessages,"updatedMessages the message");
       setChatMessages(updatedMessages);
     } catch (err) {
       console.log(err);
@@ -94,10 +117,12 @@ const ChatBody = ({ user, messages, messageSended }) => {
       >
         <Box>
           <Typography variant="body1" fontWeight={700}>
-            {user?.other?.firstName} {user?.other?.lastName}
+          { `${data12?.client?.firstName} ${data12?.client?.lastName}`}
+            {/* {user?.other?.firstName} {user?.other?.lastName}  */}
           </Typography>
         </Box>
-        <Typography variant="body2">{user?.other?.type}</Typography>
+        {/* <Typography variant="body2">{user?.other?.type}</Typography> */}
+        <Typography variant="body2">{data12?.client?.type}</Typography>
       </Box>
       <Box
         sx={{
@@ -107,11 +132,11 @@ const ChatBody = ({ user, messages, messageSended }) => {
         }}
         ref={chatContainerRef}
       >
-        {chatMessages
-          .slice(0)
-          .reverse()
-          .map((message) => {
-            const isCurrentUser = message?.senderId === user?.otherId;
+        {chatMessages && chatMessages
+        .slice(0)
+          .reverse() 
+        .map((message) => {
+            const isCurrentUser = message?.senderId === data12.client.id;
             return (
               <Grid
                 key={message.id}
@@ -187,4 +212,9 @@ const ChatBody = ({ user, messages, messageSended }) => {
   );
 };
 
-export default ChatBody;
+export default NewChatBody;
+
+
+
+ {/* .slice(0)
+          .reverse() */}
