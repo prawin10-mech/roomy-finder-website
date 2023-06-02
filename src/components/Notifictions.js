@@ -37,6 +37,7 @@ const Notification = () => {
   useEffect(() => {
     if (notification?.title) {
       notify();
+      console.log("notified");
     }
   }, [notification]);
 

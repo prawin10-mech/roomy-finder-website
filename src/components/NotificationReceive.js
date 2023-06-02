@@ -2,7 +2,6 @@ const sendNotification = async (title, body, fcmToken) => {
   console.log("hello");
 
   const getNotification = async () => {
-    //const fcmToken = await requestForToken();
     if (fcmToken) {
       fetch("https://fcm.googleapis.com/fcm/send", {
         method: "POST",
