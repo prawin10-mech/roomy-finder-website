@@ -60,7 +60,7 @@ const Login = () => {
 
       if (response.status === 200) {
         // Retrieve the FCM token for the user
-        const fcmToken = await requestForToken();
+        const fcmToken = (await requestForToken()) || "123456789";
 
         const loginResponse = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/login",

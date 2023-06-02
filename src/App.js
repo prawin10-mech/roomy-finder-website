@@ -28,6 +28,7 @@ import AboutBooking from "./pages/AboutBooking";
 import PayRent from "./pages/PayRent";
 import MyAds from "./pages/MyAds";
 import ViewTenant from "./pages/ViewTenant";
+import Notifications from "./pages/Notification";
 
 import StripePaymentCancel from "./pages/StripePaymentCancel";
 import axios from "axios";
@@ -130,6 +131,10 @@ const App = () => {
           <Route
             path="/myAccount"
             element={<PrivateRoute Component={MyAccount} />}
+          />
+          <Route
+            path="/notifications"
+            element={<PrivateRoute Component={Notifications} />}
           />
 
           <Route path="/about" element={<PrivateRoute Component={About} />} />

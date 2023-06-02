@@ -1,11 +1,27 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { onMessageListener } from "../firebase/index";
-import axios from "axios";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
-  const notify = () => toast(<ToastDisplay />);
+
+  const notify = () => {
+    let receivedNotifications = localStorage.getItem("notifications");
+
+    if (receivedNotifications) {
+      receivedNotifications = JSON.parse(receivedNotifications);
+      receivedNotifications = [...receivedNotifications, notification];
+    } else {
+      receivedNotifications = [notification];
+    }
+
+    localStorage.setItem(
+      "notifications",
+      JSON.stringify(receivedNotifications)
+    );
+
+    toast(<ToastDisplay />);
+  };
 
   function ToastDisplay() {
     return (
@@ -24,19 +40,19 @@ const Notification = () => {
     }
   }, [notification]);
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     onMessageListener()
       .then((payload) => {
-        console.log(payload);
+        console.log("notification received");
         setNotification({
           title: payload?.notification?.title,
           body: payload?.notification?.body,
+          time: Date.now(),
+          id: Math.random() * 120,
         });
       })
       .catch((err) => console.log("failed: ", err));
-  }, []);
+  }, [notification]);
 
   return <Toaster position="top-right" />;
 };

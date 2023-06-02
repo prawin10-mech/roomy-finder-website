@@ -10,4 +10,4 @@ export const cities = [
 
 export const availableRooms = [1, 2, 3, 4, 5];
 
-export const baseUrl = "https://react-rommy.vercel.app/";
+export const baseUrl = "https://roomyfinder.com/";

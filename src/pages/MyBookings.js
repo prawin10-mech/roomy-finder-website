@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
-import { Grid, Typography, CardMedia, CircularProgress, Button, Box } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  CardMedia,
+  CircularProgress,
+  Button,
+  Box,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { UserActions } from "../store/User";
 import DummyImage from "../assets/demo.jpg";
@@ -63,11 +70,11 @@ const MyBookings = () => {
     fetchMyBookings();
   }, []);
 
-
-
+  //myBookings?.slice(0, noOfCount)
   const myBookingData = myBookings
-    ?.slice(0, noOfCount)
+    ?.slice()
     .reverse()
+    .slice(0, noOfCount)
     .map((booking) => (
       <Grid
         key={booking._id}
@@ -181,7 +188,8 @@ const MyBookings = () => {
       <Box sx={{ display: "flex", justifyContent: "end" }}>
         <Button
           sx={{
-            mx:3,my:2,
+            mx: 3,
+            my: 2,
             borderRadius: "20px",
             bgcolor: "orange",
             "&:hover": {
@@ -191,7 +199,9 @@ const MyBookings = () => {
             },
           }}
           variant="contained"
-          onClick={()=>{setnoOfCount(noOfCount+10)}}
+          onClick={() => {
+            setnoOfCount(noOfCount + 10);
+          }}
         >
           Show more
         </Button>

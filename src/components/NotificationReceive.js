@@ -1,9 +1,7 @@
-import { requestForToken } from "../firebase/index";
-
 const sendNotification = async (title, body, fcmToken) => {
-  console.log(title, body);
+  console.log("hello");
+
   const getNotification = async () => {
-    console.log(title, body);
     //const fcmToken = await requestForToken();
     if (fcmToken) {
       fetch("https://fcm.googleapis.com/fcm/send", {
@@ -28,7 +26,7 @@ const sendNotification = async (title, body, fcmToken) => {
           return response.json();
         })
         .then((data) => {
-          console.log("API Response:", data);
+          console.log("Notification sent:", data);
         })
         .catch((error) => {
           console.error("API Error:", error);
