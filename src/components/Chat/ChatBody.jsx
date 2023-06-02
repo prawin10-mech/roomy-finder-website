@@ -124,7 +124,7 @@ const ChatBody = ({ user, messages, messageSended }) => {
                   alignSelf: isCurrentUser ? "flex-start" : "flex-end",
                   marginLeft: isCurrentUser ? 0 : "auto",
                   marginRight: isCurrentUser ? "auto" : 0,
-                  maxWidth: "70%",
+                  maxWidth: "40%",
                 }}
               >
                 <Typography variant="body1">{message.body}</Typography>
