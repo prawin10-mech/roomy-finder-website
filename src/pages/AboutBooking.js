@@ -114,18 +114,10 @@ const AboutBooking = () => {
     }
   };
 
-  const handleChatWithClient = async (clientId) => {
+  const handleChatWithClient = async (property) => {
     try {
-      // Get the messaging service instance
-      const messaging = getMessaging(auth);
-
-      // Generate FCM token for the user
-      const token = await messaging.getToken();
-      // Do something with the token (e.g., send it to the server, store it in the user's profile)
-      console.log("FCM Token:", token);
-
-      // Proceed with handling the chat with the client
-      // ...
+     console.log("property",property)
+     navigate(`/directchat/${property.poster.id}`,{state:property})
     } catch (error) {
       // Handle any errors that occur during token generation
       console.error("Error generating FCM token:", error);
@@ -514,7 +506,7 @@ const AboutBooking = () => {
                       bgcolor: "#ff9900",
                     },
                   }}
-                  onClick={() => handleChatWithClient(property.poster.id)}
+                  onClick={() => handleChatWithClient(property)}
                 >
                   Chat with Client
                 </Button>
