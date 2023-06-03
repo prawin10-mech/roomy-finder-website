@@ -6,8 +6,6 @@ import Cookies from "js-cookie";
 import TopBackground from "../components/postPropertyComponents/TopBackground.js";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground.js";
 
-import { getMessaging } from "firebase/messaging";
-import { auth } from "../firebase/index.js";
 import sendNotification from "../components/NotificationReceive.js";
 
 const AboutBooking = () => {

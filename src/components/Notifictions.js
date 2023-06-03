@@ -6,6 +6,7 @@ const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
 
   const notify = () => {
+    console.log("notified");
     let receivedNotifications = localStorage.getItem("notifications");
 
     if (receivedNotifications) {
@@ -35,11 +36,10 @@ const Notification = () => {
   }
 
   useEffect(() => {
-    if (notification?.title) {
+    if (notification?.title !== "booking") {
       notify();
-      console.log("notified");
     }
-  }, [notification]);
+  }, [setNotification]);
 
   useEffect(() => {
     onMessageListener()
