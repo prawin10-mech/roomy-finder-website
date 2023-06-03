@@ -12,10 +12,10 @@ import AttachmentIcon from "@mui/icons-material/Attachment";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import axios from "axios";
 
-const ChatBody = ({ user, messages, messageSended }) => {
+const ChatBody = ({ user, messages, newMessage }) => {
   const [openEmoji, setOpenEmoji] = useState(false);
-  const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  const [messageInput, setMessageInput] = useState(""); // Define message input state
   const chatContainerRef = useRef(null);
 
   const token = localStorage.getItem("token");
@@ -30,7 +30,6 @@ const ChatBody = ({ user, messages, messageSended }) => {
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/conversations",
         { headers: { Authorization: token } }
       );
-      // setConversationd(data.find);
     } catch (err) {
       console.log(err);
     }
@@ -39,9 +38,15 @@ const ChatBody = ({ user, messages, messageSended }) => {
   useEffect(() => {
     setChatMessages(messages);
     scrollToBottom();
-
     getConversations();
   }, [messages]);
+
+  useEffect(() => {
+    if (newMessage) {
+      setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+      scrollToBottom();
+    }
+  }, [newMessage]);
 
   const sendMessage = async () => {
     try {
@@ -51,26 +56,19 @@ const ChatBody = ({ user, messages, messageSended }) => {
           recieverFcmToken: user.other.fcmToken,
           recieverId: user.otherId,
           type: "text",
-          body: newMessage,
+          body: messageInput, // Use messageInput state instead of newMessage
         },
         { headers: { Authorization: token } }
       );
-      setNewMessage("");
-      messageSended();
-
-      // After sending the message, retrieve the updated conversation messages
-      const { data: updatedMessages } = await axios.get(
-        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${user.otherId}`,
-        { headers: { Authorization: token } }
-      );
-      setChatMessages(updatedMessages);
+      setChatMessages((prevMessages) => [...prevMessages, data]);
+      setMessageInput(""); // Clear the message input
     } catch (err) {
       console.log(err);
     }
   };
 
   const sendMessageInputHandler = (e) => {
-    setNewMessage(e.target.value);
+    setMessageInput(e.target.value); // Update messageInput state
   };
 
   const handleKeyDown = (e) => {

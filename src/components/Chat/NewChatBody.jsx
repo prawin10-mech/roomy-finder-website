@@ -12,7 +12,7 @@ import AttachmentIcon from "@mui/icons-material/Attachment";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import { async } from "@firebase/util";
+import { onMessageListener } from "../../firebase";
 
 const NewChatBody = () => {
   const [openEmoji, setOpenEmoji] = useState(false);

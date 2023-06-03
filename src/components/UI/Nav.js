@@ -66,11 +66,11 @@ const Nav = () => {
   };
 
   const handleLogout = async () => {
-    await axios.put(
-      "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/update-fcm-token",
-      { fcmToken: "123456789" },
-      { headers: { Authorization: token } }
-    );
+    // await axios.put(
+    //   "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/update-fcm-token",
+    //   { fcmToken: "123456789" },
+    //   { headers: { Authorization: token } }
+    // );
     Cookies.remove("user");
     dispatch(UserActions.isLoggedIn(false));
     localStorage.removeItem("token");
