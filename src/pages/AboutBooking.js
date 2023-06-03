@@ -127,10 +127,14 @@ const AboutBooking = () => {
     }
   };
 
-  const handleChatWithClient = async (property) => {
+  const handleChatWithClient = async (property,type) => {
     try {
       console.log("property", property);
-      navigate(`/directchat/${property.poster.id}`, { state: property });
+      if(type==="landlord"){
+        navigate(`/directchat/${property.client.id}`, { state: {property,type }});
+      }else{
+        navigate(`/directchat/${property.poster.id}`, { state: {property,type } });
+      }
     } catch (error) {
       // Handle any errors that occur during token generation
       console.error("Error generating FCM token:", error);
@@ -505,7 +509,7 @@ const AboutBooking = () => {
               >
                 <Button
                   variant="contained"
-                  onClick={() => handleChatWithClient(property)}
+                  onClick={() => handleChatWithClient(property,"roommate")}
                 >
                   Chat with landlord
                 </Button>
@@ -528,7 +532,7 @@ const AboutBooking = () => {
                       bgcolor: "#ff9900",
                     },
                   }}
-                  onClick={() => handleChatWithClient(property)}
+                  onClick={() => handleChatWithClient(property,"landlord")}
                 >
                   Chat with Client
                 </Button>

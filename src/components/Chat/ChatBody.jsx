@@ -8,7 +8,7 @@ import {
   Dialog,
   IconButton,
 } from "@mui/material";
-import ImageZoom from "react-medium-image-zoom";
+// import ImageZoom from "react-medium-image-zoom";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";

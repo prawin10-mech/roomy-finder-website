@@ -6,6 +6,7 @@ import {
   Paper,
   InputBase,
   IconButton,
+  Button,
 } from "@mui/material";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachmentIcon from "@mui/icons-material/Attachment";
@@ -17,9 +18,16 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
 import { PhotoCamera, Delete } from "@mui/icons-material";
 import ModelForChat from "./ModelForChat";
+import ImageIcon from '@mui/icons-material/Image';
+import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import CloseIcon from '@mui/icons-material/Close';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
 const NewChatBody = () => {
+  const [opengallery, setopengallery] = useState(false);
+  const [newModele, setnewModele] = useState(false);
   const [openEmoji, setOpenEmoji] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [newMessagedata, setNewMessagedata] = useState("");
@@ -27,6 +35,11 @@ const NewChatBody = () => {
   const [imageUrls, setimageUrls] = useState([]);
   const [chatMessages, setChatMessages] = useState([]);
   const chatContainerRef = useRef(null);
+
+  const [variabletype, setvariabletype] = useState("text");
+  const [newMessageValue, setNewMessageValue] = useState("");
+  const [newFileName, setnewFileName] = useState("");
+  const [newFileSize, setnewFileSize] = useState("");
 
   const location = useLocation();
   const data12 = location.state;
@@ -54,132 +67,240 @@ const NewChatBody = () => {
   };
 
   const getAllmessage = async () => {
-    const updatedMessages = await axios.get(
-      `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.client.id}`,
-      { headers: { Authorization: token } }
-    );
-    console.log(updatedMessages.data, "updatedMessages the updatedMessages");
-    setChatMessages(updatedMessages.data);
+    if (data12.type === "roommate") {
+      const updatedMessages = await axios.get(
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.poster.id}`,
+        { headers: { Authorization: token } }
+      )
+      console.log(updatedMessages.data, "updatedMessages the updatedMessages")
+      setChatMessages(updatedMessages.data);
+
+    } else {
+      const updatedMessages = await axios.get(
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.client.id}`,
+        { headers: { Authorization: token } }
+      );
+
+      console.log(updatedMessages.data, "updatedMessages the updatedMessages");
+      setChatMessages(updatedMessages.data);
+    }
   };
 
   useEffect(() => {
-    getAllmessage();
+    const timer = setTimeout(() => {
+      getAllmessage();
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  useEffect(() => {
+    // getAllmessage();
     // setChatMessages(messages);
     scrollToBottom();
 
     getConversations();
-  }, []);
+  }, [newMessageValue]);
 
-  useEffect(() => {
-    onMessageListener()
-      .then((payload) => {
-        console.log("payload", payload);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+  console.log("opengallery", opengallery);
 
   const sendMessage = async () => {
+    console.log("ghlam")
     try {
-      let type = "text"
-      let body = newMessage
-      if(imageUrls>0){
-        console.log("6789");
-        type = "file"
-        body= newMessageurl
-      }
-      const { data } = await axios.post(
-        "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
-        {
-          recieverFcmToken: data12.client.fcmToken,
-          recieverId: data12.client.id,
-          type: (newMessageurl ==="" ? "text" : "file"),
-          body : (newMessageurl ==="" ? newMessage : newMessageurl),
-        },
-        { headers: { Authorization: token } }
-      );
-      //   console.log(data,"here test")
-      //   setChatMessages([...chatMessages,data.body]);
-      setNewMessage("");
-      //   user && messageSended();
+      if (data12.type === "roommate") {
 
-      // After sending the message, retrieve the updated conversation messages
-      const { data: updatedMessages } = await axios.get(
-        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.client.id}`,
-        { headers: { Authorization: token } }
-      );
-      //   console.log(data,"sending the message");
-      //   console.log(updatedMessages,"updatedMessages the message");
-      setChatMessages(updatedMessages);
+        if (variabletype === "text") {
+
+          const { data } = await axios.post(
+            "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
+            {
+              recieverFcmToken: data12.property.poster.fcmToken,
+              recieverId: data12.property.poster.id,
+              type: variabletype,
+              body: newMessageValue,
+            },
+            { headers: { Authorization: token } }
+          );
+        }
+
+        if (variabletype !== "text") {
+
+          const { data } = await axios.post(
+            "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
+            {
+              recieverFcmToken: data12.property.poster.fcmToken,
+              recieverId: data12.property.poster.id,
+              type: variabletype,
+              body: newMessageValue,
+              fileName: newFileName,
+              fileSize: newFileSize,
+            },
+            { headers: { Authorization: token } }
+          );
+        }
+
+
+        setnewFileName("")
+        setnewFileSize("")
+        setvariabletype("")
+        setNewMessageValue("");
+
+        const { data: updatedMessages } = await axios.get(
+          `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.poster.id}`,
+          { headers: { Authorization: token } }
+        );
+        setChatMessages(updatedMessages);
+      }
+
+      // check landlord
+      if (data12.type !== "roommate") {
+        // check type is file or text
+        if (variabletype === "text") {
+          const { data } = await axios.post(
+            "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
+            {
+              recieverFcmToken: data12.property.client.fcmToken,
+              recieverId: data12.property.client.id,
+              type: variabletype,
+              body: newMessageValue,
+            },
+            { headers: { Authorization: token } }
+          );
+        }
+
+        if (variabletype !== "text") {
+          const { data } = await axios.post(
+            "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
+            {
+              recieverFcmToken: data12.property.client.fcmToken,
+              recieverId: data12.property.client.id,
+              type: variabletype,
+              body: newMessageValue,
+              fileName: newFileName,
+              fileSize: newFileSize,
+            },
+            { headers: { Authorization: token } }
+          );
+        }
+
+        setnewFileName("")
+        setnewFileSize("")
+        setvariabletype("")
+        setNewMessageValue("");
+
+        const { data: updatedMessages } = await axios.get(
+          `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.client.id}`,
+          { headers: { Authorization: token } }
+        );
+        setChatMessages(updatedMessages);
+      }
     } catch (err) {
       console.log(err);
     }
   };
 
   const sendMessageInputHandler = (e) => {
-    setNewMessage(e.target.value);
-    setNewMessagedata(e.target.value)
+    setvariabletype("text")
+    setNewMessageValue(e.target.value)
+
   };
 
-  const handleImageChange = async (e) => {
-    const files = e.target.files;
-    // setNewMessage(files)
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const storageRef = ref(storage, `images/${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file)
-        .then(() => {
-          getDownloadURL(storageRef)
-            .then((url) => {
-              console.log("tttttoooo");
-              // setNewMessage(url);
-              setNewMessageurl(url)
-              setimageUrls([...imageUrls,url])
-              // dispatch(PropertyActions.images(url));
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          console.log("uploadError", err);
-        });
-    }
-  };
+
 
   const handleDeleteImage = (index) => {
-    setimageUrls(imageUrls.filter((val,id)=>{ return  id!==index}))
-    // dispatch(PropertyActions.deleteImage(index));
-  
+    setNewMessageValue("")
+    // setimageUrls(newMessageValue.filter((val, id) => { return id !== index }))
   };
 
-  
-  console.log("gsdf",imageUrls);
-  const imageUrlsData = imageUrls.map((imageUrl, index) => (
-
-    <Grid item key={index} >
-      <div style={{ position: "relative" }}>
-        <img
-          src={imageUrl}
-          alt={` ${index + 1}`}
-          style={{ maxWidth: 150, maxHeight: 100 }}
-        />
-        <IconButton
-          style={{ position: "absolute", top: 0, right: 0 }}
-          onClick={() => handleDeleteImage(index)}
-        >
-          <Delete />
-        </IconButton>
-      </div>
-    </Grid>
-  ));
-
-
   const handleKeyDown = (e) => {
+    console.log("gh")
     if (e.keyCode === 13) {
       e.preventDefault();
       sendMessage();
+    }
+  };
+
+  const handleImage = async (e) => {
+    setvariabletype("image")
+    const files = e.target.files;
+    const file = files[0];
+    setnewFileName(file.name)
+    setnewFileSize(file.size)
+    // console.log(file.name,"file");
+    // console.log(file.size,"file");
+
+    try {
+      const storageRef = ref(storage, `images/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.then(() => {
+        getDownloadURL(storageRef)
+          .then((url) => {
+            console.log("Upload complete");
+            setNewMessageValue(url);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }).catch((err) => {
+        console.log("Upload error", err);
+      });
+    } catch (error) {
+      console.log("Error occurred", error);
+    }
+  };
+
+  const handleVideo = async (e) => {
+    setvariabletype("video")
+    const files = e.target.files;
+    const file = files[0];
+
+    try {
+      const storageRef = ref(storage, `videos/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.then(() => {
+        getDownloadURL(storageRef)
+          .then((url) => {
+            console.log("Upload complete");
+            setNewMessageValue(url);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }).catch((err) => {
+        console.log("Upload error", err);
+      });
+    } catch (error) {
+      console.log("Error occurred", error);
+    }
+  };
+
+  const handleFile = async (e) => {
+    setvariabletype("file")
+    const files = e.target.files;
+    const file = files[0];
+
+    try {
+      const storageRef = ref(storage, `files/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.then(() => {
+        getDownloadURL(storageRef)
+          .then((url) => {
+            console.log("Upload complete");
+            setNewMessageValue(url);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }).catch((err) => {
+        console.log("Upload error", err);
+      });
+    } catch (error) {
+      console.log("Error occurred", error);
     }
   };
 
@@ -197,12 +318,13 @@ const NewChatBody = () => {
       >
         <Box>
           <Typography variant="body1" fontWeight={700}>
-            {`${data12?.client?.firstName} ${data12?.client?.lastName}`}
-            {/* {user?.other?.firstName} {user?.other?.lastName}  */}
+            {data12.type === "roommate" ? (`${data12?.property.poster?.firstName} ${data12?.property.poster?.lastName}`)
+              : (`${data12?.property?.client?.firstName} ${data12?.property.client?.lastName}`)}
+
           </Typography>
         </Box>
-        {/* <Typography variant="body2">{user?.other?.type}</Typography> */}
-        <Typography variant="body2">{data12?.client?.type}</Typography>
+        <Typography variant="body2">{data12.type === "roommate" ?
+          data12?.property?.poster?.type : data12.property?.client?.type}</Typography>
       </Box>
       <Box
         sx={{
@@ -217,12 +339,13 @@ const NewChatBody = () => {
             .slice(0)
             .reverse()
             .map((message) => {
-              const isCurrentUser = message?.senderId === data12.client.id;
+              const isCurrentUser = data12.type === "roommate" ? (message?.senderId === data12?.property?.poster?.id)
+                : (message?.senderId === data12?.property?.client?.id)
               return (
                 <Grid
                   key={message.id}
                   sx={{
-                    backgroundColor: isCurrentUser ? "purple" : "blue",
+                    backgroundColor: isCurrentUser ? "blue" : "purple",
                     color: "#fff",
                     padding: "8px",
                     borderRadius: "8px",
@@ -230,24 +353,147 @@ const NewChatBody = () => {
                     alignSelf: isCurrentUser ? "flex-start" : "flex-end",
                     marginLeft: isCurrentUser ? 0 : "auto",
                     marginRight: isCurrentUser ? "auto" : 0,
-                    maxWidth: "40%",
+                    width: 'fit-content',
+                    position: "relative",
+                    display: "flex",
+                    flexDirection: "row"
                   }}
                 >
-                <Box>
-                  <Typography variant="body1">{message.body}</Typography>
-                  <ModelForChat />
+                  <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                    {/* {console.log(message,"message")} */}
+                    {/* <Box sx={{display:"flex",flexDirection:"row",}}> */}
 
-                </Box>
+                    {message.type === "text" ? (<Typography variant="body1">{message.body}</Typography>) : (
+                      <img
+                        src={message.body}
+                        alt={` ${message.type}`}
+                        style={{ maxWidth: 200, maxHeight: 100 }}
+                      />
+                    )}
+                    {/* </Box> */}
+
+
+                  </Box>
+                  <Button sx={{ mr: "0", position: "relative" }} onClick={() => setnewModele(!newModele)}><KeyboardArrowDownIcon /></Button>
+                  
                 </Grid>
               );
             })}
+            {
+                    newModele && (<Paper sx={{ width: "100px", height: "100px", display: "flex", flexDirection: "column" }}>
+                      <Button> Delete</Button>
+                      <Button> Reply</Button>
+                    </Paper>)
+                  }
       </Box>
 
-      <Grid container direction="row" justify="center" sx={{width:"100%"}}>
-          {imageUrls.length > 0 && (
-            imageUrlsData
-          ) }
+      {newMessageValue.length > 0 && (
+        <Grid container direction="row" justify="center" sx={{ width: "100%" }}>
+          <Grid item  >
+            <div style={{ position: "relative" }}>
+              <img
+                src={newMessageValue}
+                alt={` ${variabletype}`}
+                style={{ maxWidth: 150, maxHeight: 100 }}
+              />
+              <IconButton
+                style={{ position: "absolute", top: 0, right: 0 }}
+                onClick={handleDeleteImage}
+              >
+                <Delete />
+              </IconButton>
+            </div>
+          </Grid>
         </Grid>
+      )}
+
+      {
+        opengallery &&
+        <Paper sx={{ display: "flex", flexDirection: "column", justifyContent: "end", alignItems: "end", mr: 3 }}>
+          <Box sx={{
+            width: "170px", height: "150px", 
+            position: "relative", display: "flex", flexDirection: "column",
+          }}>
+
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+              onClick={() => {
+                document.getElementById('image-input').click();
+              }}
+            >
+              <ImageIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>Image</Typography>
+              <input
+                id="image-input"
+                hidden
+                accept="image/*"
+                type="file"
+                onChange={handleImage}
+              />
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+              onClick={() => {
+                document.getElementById('video-input').click();
+              }}
+            >
+              <VideoCameraBackIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>Video</Typography>
+              <input
+                id="video-input"
+                hidden
+                accept="video/*"
+                type="file"
+                onChange={handleVideo}
+              />
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+              onClick={() => {
+                document.getElementById('file-input').click();
+              }}
+            >
+              <InsertDriveFileIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>File</Typography>
+              <input
+                id="file-input"
+                hidden
+                type="file"
+                onChange={handleFile}
+              />
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "row", ml: 2, justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={() => setopengallery(false)}>
+              <CloseIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>Cancel</Typography>
+            </Box>
+          </Box>
+        </Paper>
+
+      }
 
       <Paper
         component="form"
@@ -259,13 +505,7 @@ const NewChatBody = () => {
           zIndex: 1,
         }}
       >
-        <IconButton
-          sx={{ p: "10px" }}
-          aria-label="menu"
-          onClick={() => setOpenEmoji(!openEmoji)}
-        >
-          <SentimentDissatisfiedIcon />
-        </IconButton>
+
         <InputBase
           sx={{
             ml: 1,
@@ -276,24 +516,24 @@ const NewChatBody = () => {
             marginRight: "8px",
           }}
           placeholder="Type a message"
-          value={newMessage}
+          value={variabletype === "text" ? newMessageValue : ""}
           inputProps={{ "aria-label": "" }}
           onChange={sendMessageInputHandler}
           onKeyDown={handleKeyDown}
         />
-       
+
 
         <IconButton
           color="primary"
           aria-label="upload picture"
           component="label"
-          onChange={handleImageChange}
+          onClick={() => setopengallery(!opengallery)}
         >
-          <input 
-          hidden accept="image/*,video/*"
-          type="file"
-          multiple
-           />
+          {/* <input
+            hidden accept="image/*,video/*"
+            type="file"
+            multiple
+          /> */}
           <AttachmentIcon />
         </IconButton>
         <IconButton
