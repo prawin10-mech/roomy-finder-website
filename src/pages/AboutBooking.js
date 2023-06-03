@@ -87,11 +87,11 @@ const AboutBooking = () => {
         { bookingId },
         { headers: { Authorization: token } }
       );
-      sendNotification(
-        "booking-declined",
-        `Dear ${property.client.firstName} ${property.client.lastName}, sorry the property you choose is not more available. Please choose another option.`,
-        property.client.fcmToken
-      );
+      // sendNotification(
+      //   "booking-declined",
+      //   `Dear ${property.client.firstName} ${property.client.lastName}, sorry the property you choose is not more available. Please choose another option.`,
+      //   property.client.fcmToken
+      // );
       navigate("/myBookings");
       setOffered(false);
     } catch (err) {
@@ -106,17 +106,17 @@ const AboutBooking = () => {
         { bookingId },
         { headers: { Authorization: token } }
       );
-      sendNotification(
-        "booking-cancelled",
-        `Dear ${property.ad.poster.firstName} ${
-          property.ad.poster.lastName
-        }, a client just cancelled ${
-          property.poster.gender === "Male" ? "his" : "her"
-        } booking of your property ${property.ad.type} in ${
-          property.ad.address.city
-        } `,
-        `${property.ad.poster.fcmToken}`
-      );
+      // sendNotification(
+      //   "booking-cancelled",
+      //   `Dear ${property.ad.poster.firstName} ${
+      //     property.ad.poster.lastName
+      //   }, a client just cancelled ${
+      //     property.poster.gender === "Male" ? "his" : "her"
+      //   } booking of your property ${property.ad.type} in ${
+      //     property.ad.address.city
+      //   } `,
+      //   `${property.ad.poster.fcmToken}`
+      // );
       navigate("/myBookings");
     } catch (err) {
       console.log(err);
@@ -125,8 +125,8 @@ const AboutBooking = () => {
 
   const handleChatWithClient = async (property) => {
     try {
-     console.log("property",property)
-     navigate(`/directchat/${property.poster.id}`,{state:property})
+      console.log("property", property);
+      navigate(`/directchat/${property.poster.id}`, { state: property });
     } catch (error) {
       // Handle any errors that occur during token generation
       console.error("Error generating FCM token:", error);
