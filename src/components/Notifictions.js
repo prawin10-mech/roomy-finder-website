@@ -39,7 +39,7 @@ const Notification = () => {
     if (notification?.title !== "Booking") {
       notify();
     }
-  }, [setNotification]);
+  }, [notification]);
 
   useEffect(() => {
     onMessageListener()
