@@ -18,7 +18,7 @@ const ChatBody = ({ user, messages }) => {
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [messageReceived, setMessageReceived] = useState("");
-  const newMessageSended = onMessageListener();
+
   const chatContainerRef = useRef(null);
 
   const token = localStorage.getItem("token");
@@ -33,17 +33,23 @@ const ChatBody = ({ user, messages }) => {
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/conversations",
         { headers: { Authorization: token } }
       );
+      const newMessageSended = await onMessageListener();
+      setMessageReceived(newMessageSended.data.payload);
+
+      console.log(newMessageSended);
       // setConversationd(data.find);
     } catch (err) {
       console.log(err);
     }
   };
 
+  console.log(messageReceived);
+
   useEffect(() => {
     setChatMessages(messages);
     scrollToBottom();
     getConversations();
-  }, [messages]);
+  }, [messages, messageReceived]);
 
   // useEffect(() => {
   //   const unsubscribe = onMessageListener().then((payload) => {
@@ -56,15 +62,15 @@ const ChatBody = ({ user, messages }) => {
   //   };
   // }, []);
 
-  useEffect(() => {
-    console.log("B");
-    onMessageListener()
-      .then((payload) => {
-        console.log("A");
-        console.log(payload);
-      })
-      .catch((err) => console.log("failed: ", err));
-  }, []);
+  // useEffect(() => {
+  //   console.log("B");
+  //   onMessageListener()
+  //     .then((payload) => {
+  //       console.log("A");
+  //       console.log(payload);
+  //     })
+  //     .catch((err) => console.log("failed: ", err));
+  // }, []);
 
   const sendMessage = async () => {
     try {

@@ -40,7 +40,7 @@ const Notification = () => {
   }
 
   useEffect(() => {
-    if (notification?.title && notification?.title !== "Booking") {
+    if (notification?.title) {
       notify();
     }
   }, [notification]);

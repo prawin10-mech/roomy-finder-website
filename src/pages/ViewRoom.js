@@ -142,13 +142,13 @@ const ViewRoom = () => {
           { headers: { Authorization: token } }
         );
         if (data) {
-          sendNotification(
-            "booking status",
-            `Reminder: Dear ${room.poster.firstName} ${room.poster.lastName}, We are happy to tell you that a roommate, ${user.firstName} ${user.lastName} have book your property, ${room.type} in ${room.address.city}. Now, you can either accept or decline the booking.`,
-            `${room.poster.fcmToken}`,
-            `https://roomyfinder.com/myBookings/aboutBooking/${room.id}`,
-            `${room?.images[0] ? `${room.images[0]}` : "null"}`
-          );
+          // sendNotification(
+          //   "booking status",
+          //   `Reminder: Dear ${room.poster.firstName} ${room.poster.lastName}, We are happy to tell you that a roommate, ${user.firstName} ${user.lastName} have book your property, ${room.type} in ${room.address.city}. Now, you can either accept or decline the booking.`,
+          //   `${room.poster.fcmToken}`,
+          //   `https://roomyfinder.com/myBookings/aboutBooking/${room.id}`,
+          //   `${room?.images[0] ? `${room.images[0]}` : "null"}`
+          // );
           setIsBooked(true);
 
           toast.success(
@@ -205,17 +205,17 @@ const ViewRoom = () => {
       { headers: { Authorization: token } }
     );
     setIsBooked(false);
-    sendNotification(
-      "booking-cancelled",
-      `Dear ${bookedProperty.ad.poster.firstName} ${
-        bookedProperty.ad.poster.lastName
-      }, a client just cancelled ${
-        bookedProperty.poster.gender === "Male" ? "his" : "her"
-      } booking of your property ${bookedProperty.ad.type} in ${
-        bookedProperty.ad.address.city
-      } `,
-      `${bookedProperty.ad.poster.fcmToken}`
-    );
+    // sendNotification(
+    //   "booking-cancelled",
+    //   `Dear ${bookedProperty.ad.poster.firstName} ${
+    //     bookedProperty.ad.poster.lastName
+    //   }, a client just cancelled ${
+    //     bookedProperty.poster.gender === "Male" ? "his" : "her"
+    //   } booking of your property ${bookedProperty.ad.type} in ${
+    //     bookedProperty.ad.address.city
+    //   } `,
+    //   `${bookedProperty.ad.poster.fcmToken}`
+    // );
 
     setCancelDialogOpen(false);
   };
@@ -232,17 +232,17 @@ const ViewRoom = () => {
       { headers: { Authorization: token } }
     );
     setIsBooked(false);
-    sendNotification(
-      "booking-cancelled",
-      `Dear ${bookedProperty.ad.poster.firstName} ${
-        bookedProperty.ad.poster.lastName
-      }, a client just cancelled ${
-        bookedProperty.poster.gender === "Male" ? "his" : "her"
-      } booking of your property ${bookedProperty.ad.type} in ${
-        bookedProperty.ad.address.city
-      } `,
-      `${bookedProperty.ad.poster.fcmToken}`
-    );
+    // sendNotification(
+    //   "booking-cancelled",
+    //   `Dear ${bookedProperty.ad.poster.firstName} ${
+    //     bookedProperty.ad.poster.lastName
+    //   }, a client just cancelled ${
+    //     bookedProperty.poster.gender === "Male" ? "his" : "her"
+    //   } booking of your property ${bookedProperty.ad.type} in ${
+    //     bookedProperty.ad.address.city
+    //   } `,
+    //   `${bookedProperty.ad.poster.fcmToken}`
+    // );
   };
 
   const gotoEditOption = async (AdId) => {
