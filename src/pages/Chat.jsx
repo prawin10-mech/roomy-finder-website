@@ -20,7 +20,6 @@ const Chat = () => {
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState(null);
-  const [newMessage, setNewMessage] = useState(null); // Add newMessage state
 
   const getConversations = async () => {
     try {
@@ -35,6 +34,7 @@ const Chat = () => {
   };
 
   const getConversationMessages = async (conversation) => {
+    console.log(conversation);
     try {
       const { data } = await axios.get(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${conversation.otherId}`,
@@ -47,15 +47,29 @@ const Chat = () => {
     }
   };
 
+  // const sendMessage = async (newMessage) => {
+  //   try {
+  //     const { data } = await axios.post(
+  //       "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
+  //       {
+  //         recieverFcmToken: user.other.fcmToken,
+  //         recieverId: user.otherId,
+  //         type: "text",
+  //         body: newMessage,
+  //       },
+  //       { headers: { Authorization: token } }
+  //     );
+
+  //     // Retrieve the updated conversation list
+  //     getConversations();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   useEffect(() => {
     getConversations();
   }, []);
-
-  useEffect(() => {
-    if (newMessage) {
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-    }
-  }, [newMessage]);
 
   return (
     <>
