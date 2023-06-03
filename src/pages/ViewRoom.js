@@ -141,7 +141,7 @@ const ViewRoom = () => {
         if (data) {
           sendNotification(
             "booking status",
-            `Reminder: Dear ${room.poster.firstName} ${room.poster.lastName}, We are happy to tell you that a roommate, ${user.firstName} ${user.lastName} have boook your property, ${room.type} in ${room.address.city}. Now, you can either accept or decline the booking.`,
+            `Reminder: Dear ${room.poster.firstName} ${room.poster.lastName}, We are happy to tell you that a roommate, ${user.firstName} ${user.lastName} have book your property, ${room.type} in ${room.address.city}. Now, you can either accept or decline the booking.`,
             `${room.poster.fcmToken}`
           );
 

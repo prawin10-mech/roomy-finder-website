@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { toastOptions } from "../utils/ToastOptions";
 import axios from "axios";
-import { baseUrl } from "../helper";
 import sendNotification from "../components/NotificationReceive";
 
 const PayRent = () => {
