@@ -503,7 +503,7 @@ const AboutBooking = () => {
                 spacing={2}
                 sx={{ justifyContent: "center", mt: 5 }}
               >
-                <Button variant="contained">Chat with landlord</Button>
+                <Button variant="contained" onClick={() => handleChatWithClient(property)}>Chat with landlord</Button>
               </Grid>
             )}
             {type === "landlord" && property?.isPayed && (
