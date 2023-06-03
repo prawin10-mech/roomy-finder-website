@@ -64,12 +64,14 @@ const AboutBooking = () => {
       );
       if (data === "OK") {
         setOffered(true);
-        sendNotification(
-          "booking-offered",
-          `Congratulations. Your rent request to ${property.ad.type} in ${property.ad.address.city} has been approved. Please pay the rent fee amount to get
-          further with the landlord contact information details and check in your new place now !`,
-          property.client.fcmToken
-        );
+        // sendNotification(
+        //   "booking-offered",
+        //   `Congratulations. Your rent request to ${property.ad.type} in ${property.ad.address.city} has been approved. Please pay the rent fee amount to get
+        //   further with the landlord contact information details and check in your new place now !`,
+        //   property.client.fcmToken,
+        //   `https://roomyfinder.com/myBookings/aboutBooking/${property?.ad?.id}`,
+        //   `${property?.ad?.images[0] ? `${property.ad?.images[0]}` : "null"}`
+        // );
       }
     } catch (err) {
       console.log(err);
@@ -85,11 +87,13 @@ const AboutBooking = () => {
         { bookingId },
         { headers: { Authorization: token } }
       );
-      sendNotification(
-        "booking-declined",
-        `Dear ${property.client.firstName} ${property.client.lastName}, sorry the property you choose is not more available. Please choose another option.`,
-        property.client.fcmToken
-      );
+      // sendNotification(
+      //   "booking-declined",
+      //   `Dear ${property.client.firstName} ${property.client.lastName}, sorry the property you choose is not more available. Please choose another option.`,
+      //   property.client.fcmToken,
+      //   `https://roomyfinder.com/myBookings/aboutBooking/${property?.ad?.id}`,
+      //   `${property?.ad?.images[0] ? `${property.ad?.images[0]}` : "null"}`
+      // );
       navigate("/myBookings");
       setOffered(false);
     } catch (err) {
@@ -113,7 +117,9 @@ const AboutBooking = () => {
         } booking of your property ${property.ad.type} in ${
           property.ad.address.city
         } `,
-        `${property.ad.poster.fcmToken}`
+        `${property.ad.poster.fcmToken}`,
+        `https://roomyfinder.com/myBookings/aboutBooking/${property?.ad?.id}`,
+        `${property?.ad?.images[0] ? `${property.ad?.images[0]}` : "null"}`
       );
       navigate("/myBookings");
     } catch (err) {
@@ -497,7 +503,12 @@ const AboutBooking = () => {
                 spacing={2}
                 sx={{ justifyContent: "center", mt: 5 }}
               >
-                <Button variant="contained" onClick={() => handleChatWithClient(property)}>Chat with landlord</Button>
+                <Button
+                  variant="contained"
+                  onClick={() => handleChatWithClient(property)}
+                >
+                  Chat with landlord
+                </Button>
               </Grid>
             )}
             {type === "landlord" && property?.isPayed && (

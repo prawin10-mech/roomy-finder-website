@@ -11,11 +11,14 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import axios from "axios";
+import { onMessageListener } from "../../firebase/index";
 
 const ChatBody = ({ user, messages }) => {
   const [openEmoji, setOpenEmoji] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  const [messageReceived, setMessageReceived] = useState("");
+
   const chatContainerRef = useRef(null);
 
   const token = localStorage.getItem("token");
@@ -30,19 +33,44 @@ const ChatBody = ({ user, messages }) => {
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/conversations",
         { headers: { Authorization: token } }
       );
+      const newMessageSended = await onMessageListener();
+      setMessageReceived(newMessageSended.data.payload);
+
+      console.log(newMessageSended);
       // setConversationd(data.find);
     } catch (err) {
       console.log(err);
     }
   };
 
+  console.log(messageReceived);
+
   useEffect(() => {
     setChatMessages(messages);
     scrollToBottom();
     getConversations();
-  }, [messages]);
+  }, [messages, messageReceived]);
 
-  console.log(user);
+  // useEffect(() => {
+  //   const unsubscribe = onMessageListener().then((payload) => {
+  //     console.log("Received message:", payload);
+  //     setChatMessages((prevMessages) => [...prevMessages, payload]);
+  //     scrollToBottom();
+  //   });
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("B");
+  //   onMessageListener()
+  //     .then((payload) => {
+  //       console.log("A");
+  //       console.log(payload);
+  //     })
+  //     .catch((err) => console.log("failed: ", err));
+  // }, []);
 
   const sendMessage = async () => {
     try {

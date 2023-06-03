@@ -19,13 +19,14 @@ export const auth = getAuth(app);
 export const storage = getStorage(app);
 export const messaging = getMessaging(app);
 
-export const onMessageListener = () =>
-  new Promise((resolve) => {
+export const onMessageListener = () => {
+  return new Promise((resolve) => {
     onMessage(messaging, (payload) => {
       console.log("ff", payload);
       resolve(payload);
     });
   });
+};
 
 export const requestForToken = () => {
   return getToken(messaging, {

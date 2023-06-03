@@ -11,10 +11,12 @@ import axios from "axios";
 import EmojiPicker from "emoji-picker-react";
 
 import ChatBody from "../components/Chat/ChatBody";
+import { onMessageListener } from "../firebase/index";
 
 const Chat = () => {
   const [openEmoji, setOpenEmoji] = useState(false);
   const [handleSearch, setHandleSearch] = useState("");
+  const [messageReceived, setMessageReceived] = useState("");
   const token = localStorage.getItem("token");
 
   const [conversations, setConversations] = useState([]);
@@ -28,6 +30,8 @@ const Chat = () => {
         { headers: { Authorization: token } }
       );
       setConversations(data);
+      const newMessageSended = await onMessageListener();
+      setMessageReceived(newMessageSended.data.payload);
     } catch (err) {
       console.log(err);
     }
@@ -70,6 +74,10 @@ const Chat = () => {
   useEffect(() => {
     getConversations();
   }, []);
+
+  useEffect(() => {
+    getConversations();
+  }, [messageReceived]);
 
   return (
     <>

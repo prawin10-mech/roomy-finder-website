@@ -75,14 +75,14 @@ const PayRent = () => {
           { bookingId },
           { headers: { Authorization: token } }
         );
-        sendNotification(
-          "new-booking",
-          `Congratulations. You got booked for ${property.ad.type}
-          Monthly
-          Check in: ${property.checkIn}
-          Check out: ${property.checkOut}`,
-          `${property.ad.poster.fcmToken}`
-        );
+        // sendNotification(
+        //   "new-booking",
+        //   `Congratulations. You got booked for ${property.ad.type}
+        //   Monthly
+        //   Check in: ${property.checkIn}
+        //   Check out: ${property.checkOut}`,
+        //   `${property.ad.poster.fcmToken}`
+        // );
 
         navigate(`/myBookings/aboutBooking/${bookingId}`);
 
@@ -135,7 +135,7 @@ const PayRent = () => {
   }, [property]);
 
   return (
-    <>
+    <Grid margin="auto">
       <Typography variant="h6" sx={{ fontWeight: 700 }}>
         Payment details
       </Typography>
@@ -254,7 +254,7 @@ const PayRent = () => {
         </Grid>
       </Grid>
       <ToastContainer />
-    </>
+    </Grid>
   );
 };
 
