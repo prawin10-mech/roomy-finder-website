@@ -27,6 +27,8 @@ const ChatBody = ({ user, messages }) => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   };
 
+  console.log(messages);
+
   const getConversations = async () => {
     try {
       const { data } = await axios.get(
@@ -50,27 +52,6 @@ const ChatBody = ({ user, messages }) => {
     scrollToBottom();
     getConversations();
   }, [messages, messageReceived]);
-
-  // useEffect(() => {
-  //   const unsubscribe = onMessageListener().then((payload) => {
-  //     console.log("Received message:", payload);
-  //     setChatMessages((prevMessages) => [...prevMessages, payload]);
-  //     scrollToBottom();
-  //   });
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("B");
-  //   onMessageListener()
-  //     .then((payload) => {
-  //       console.log("A");
-  //       console.log(payload);
-  //     })
-  //     .catch((err) => console.log("failed: ", err));
-  // }, []);
 
   const sendMessage = async () => {
     try {
@@ -155,7 +136,33 @@ const ChatBody = ({ user, messages }) => {
                   maxWidth: "40%",
                 }}
               >
-                <Typography variant="body1">{message.body}</Typography>
+                {message.body !== "Sent a image" &&
+                  message.body !== "Sent a video" &&
+                  message.body !== "Sent a file" && (
+                    <Typography variant="body1">{message.body}</Typography>
+                  )}
+                {message.body === "Sent a image" && (
+                  <img
+                    src={message.fileUri}
+                    alt="Sent id"
+                    style={{ maxWidth: "100%" }}
+                  />
+                )}
+                {message.body === "Sent a video" && (
+                  <img
+                    src={message.fileUri}
+                    alt="Sent id"
+                    style={{ maxWidth: "100%" }}
+                  />
+                )}
+
+                {message.body === "Sent a file" && (
+                  <img
+                    src={message.fileUri}
+                    alt="Sent id"
+                    style={{ maxWidth: "100%" }}
+                  />
+                )}
               </Grid>
             );
           })}
