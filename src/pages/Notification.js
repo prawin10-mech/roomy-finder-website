@@ -84,7 +84,9 @@ const Notification = () => {
     const storedNotifications = JSON.parse(
       sessionStorage.getItem("notifications")
     );
-    setNotifications(storedNotifications.reverse() || []);
+    if (storedNotifications) {
+      setNotifications(storedNotifications?.reverse() || []);
+    }
   }, []);
 
   return (
