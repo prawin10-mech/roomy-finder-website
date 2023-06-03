@@ -13,6 +13,7 @@ import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import { async } from "@firebase/util";
+import {onMessageListener} from "../../firebase/index"
 
 const NewChatBody = () => {
   const [openEmoji, setOpenEmoji] = useState(false);
@@ -61,6 +62,12 @@ const NewChatBody = () => {
 
     getConversations();
   }, []);
+
+  useEffect(()=>{
+    onMessageListener().then((payload)=>{
+      console.log("payload",payload);
+    }).catch((err)=>{console.log(err)})
+  })
 
   const sendMessage = async () => {
     try {
