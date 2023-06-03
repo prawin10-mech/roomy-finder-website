@@ -24,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-material-ui-carousel": "^3.4.2",
+    "react-medium-image-zoom": "^5.1.6",
     "react-redux": "^8.0.5",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.10.0",

@@ -5,8 +5,10 @@ import {
   Typography,
   Paper,
   InputBase,
+  Dialog,
   IconButton,
 } from "@mui/material";
+import ImageZoom from "react-medium-image-zoom";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
@@ -18,6 +20,7 @@ const ChatBody = ({ user, messages }) => {
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [messageReceived, setMessageReceived] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const chatContainerRef = useRef(null);
 
@@ -142,11 +145,14 @@ const ChatBody = ({ user, messages }) => {
                     <Typography variant="body1">{message.body}</Typography>
                   )}
                 {message.body === "Sent a image" && (
-                  <img
-                    src={message.fileUri}
-                    alt="Sent id"
-                    style={{ maxWidth: "100%" }}
-                  />
+                  <Box>
+                    <img
+                      src={message.fileUri}
+                      alt="Sent id"
+                      style={{ maxWidth: "100%" }}
+                      onClick={() => setSelectedImage(message.fileUri)}
+                    />
+                  </Box>
                 )}
                 {message.body === "Sent a video" && (
                   <img
@@ -166,6 +172,19 @@ const ChatBody = ({ user, messages }) => {
               </Grid>
             );
           })}
+
+        {selectedImage && (
+          <Dialog
+            onClose={() => setSelectedImage(null)}
+            open={Boolean(selectedImage)}
+          >
+            <img
+              src={selectedImage}
+              alt="Selected"
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+          </Dialog>
+        )}
       </Box>
 
       <Paper
