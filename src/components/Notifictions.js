@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { onMessageListener } from "../firebase/index";
-import notification from "../assets/sounds/notification.wav";
+import notificationAudio from "../assets/sounds/notification.wav";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
@@ -10,7 +10,7 @@ const Notification = () => {
     console.log("notified");
 
     let receivedNotifications = sessionStorage.getItem("notifications");
-    const audio = new Audio(notification);
+    const audio = new Audio(notificationAudio);
     audio.play();
 
     if (receivedNotifications) {
