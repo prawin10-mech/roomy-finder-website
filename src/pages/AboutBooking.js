@@ -6,8 +6,6 @@ import Cookies from "js-cookie";
 import TopBackground from "../components/postPropertyComponents/TopBackground.js";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground.js";
 
-import { getMessaging } from "firebase/messaging";
-import { auth } from "../firebase/index.js";
 import sendNotification from "../components/NotificationReceive.js";
 
 const AboutBooking = () => {
@@ -125,8 +123,8 @@ const AboutBooking = () => {
 
   const handleChatWithClient = async (property) => {
     try {
-     console.log("property",property)
-     navigate(`/directchat/${property.poster.id}`,{state:property})
+      console.log("property", property);
+      navigate(`/directchat/${property.poster.id}`, { state: property });
     } catch (error) {
       // Handle any errors that occur during token generation
       console.error("Error generating FCM token:", error);

@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { onMessageListener } from "../firebase/index";
+import notificationAudio from "../assets/sounds/notification.wav";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
 
   const notify = () => {
-    let receivedNotifications = localStorage.getItem("notifications");
+    console.log("notified");
+
+    let receivedNotifications = sessionStorage.getItem("notifications");
+    const audio = new Audio(notificationAudio);
+    audio.play();
 
     if (receivedNotifications) {
       receivedNotifications = JSON.parse(receivedNotifications);
@@ -15,7 +20,7 @@ const Notification = () => {
       receivedNotifications = [notification];
     }
 
-    localStorage.setItem(
+    sessionStorage.setItem(
       "notifications",
       JSON.stringify(receivedNotifications)
     );
@@ -35,9 +40,8 @@ const Notification = () => {
   }
 
   useEffect(() => {
-    if (notification?.title) {
+    if (notification?.title && notification?.title !== "Booking") {
       notify();
-      console.log("notified");
     }
   }, [notification]);
 

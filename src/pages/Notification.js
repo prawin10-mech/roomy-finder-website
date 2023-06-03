@@ -43,7 +43,10 @@ const Notification = () => {
     const updatedNotifications = notifications.filter(
       (notification) => notification.id !== id
     );
-    localStorage.setItem("notifications", JSON.stringify(updatedNotifications));
+    sessionStorage.setItem(
+      "notifications",
+      JSON.stringify(updatedNotifications)
+    );
     setNotifications(updatedNotifications);
   };
 
@@ -79,9 +82,11 @@ const Notification = () => {
 
   useEffect(() => {
     const storedNotifications = JSON.parse(
-      localStorage.getItem("notifications")
+      sessionStorage.getItem("notifications")
     );
-    setNotifications(storedNotifications.reverse() || []);
+    if (storedNotifications) {
+      setNotifications(storedNotifications?.reverse() || []);
+    }
   }, []);
 
   return (
