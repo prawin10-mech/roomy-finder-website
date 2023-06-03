@@ -7,7 +7,7 @@ const Notification = () => {
 
   const notify = () => {
     console.log("notified");
-    let receivedNotifications = localStorage.getItem("notifications");
+    let receivedNotifications = sessionStorage.getItem("notifications");
 
     if (receivedNotifications) {
       receivedNotifications = JSON.parse(receivedNotifications);
@@ -16,7 +16,7 @@ const Notification = () => {
       receivedNotifications = [notification];
     }
 
-    localStorage.setItem(
+    sessionStorage.setItem(
       "notifications",
       JSON.stringify(receivedNotifications)
     );
