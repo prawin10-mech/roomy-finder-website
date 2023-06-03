@@ -1,4 +1,4 @@
-const sendNotification = async (title, body, fcmToken) => {
+const sendNotification = async (title, body, fcmToken, link, imageUrl) => {
   console.log("hello");
 
   const getNotification = async () => {
@@ -15,6 +15,10 @@ const sendNotification = async (title, body, fcmToken) => {
           notification: {
             title,
             body,
+            image: imageUrl,
+          },
+          data: {
+            link, // Add the link to the data object
           },
         }),
       })

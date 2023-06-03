@@ -135,7 +135,7 @@ const PayRent = () => {
   }, [property]);
 
   return (
-    <>
+    <Grid margin="auto">
       <Typography variant="h6" sx={{ fontWeight: 700 }}>
         Payment details
       </Typography>
@@ -254,7 +254,7 @@ const PayRent = () => {
         </Grid>
       </Grid>
       <ToastContainer />
-    </>
+    </Grid>
   );
 };
 

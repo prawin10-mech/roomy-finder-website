@@ -52,6 +52,11 @@ const ViewRoom = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [value, setValue] = useState("Monthly");
+
+  const [bookedProperty, setBookedProperty] = useState(null);
+  const [isBooked, setIsBooked] = useState(false);
+  const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
+
   const [confirmed, setConfirmed] = useState(false);
   const [preferredRentType, setPreferredRentType] = useState("Monthly");
   let user = Cookies.get("user");
@@ -105,7 +110,6 @@ const ViewRoom = () => {
   };
 
   const handleDeleteAd = async (adId) => {
-    console.log(adId);
     try {
       await axios.delete(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/${adId}`,
@@ -123,7 +127,6 @@ const ViewRoom = () => {
     if (!token && !user && Date.now() < parseInt(tokenExpiration)) {
       navigate("/login");
     } else {
-      console.log(room);
       try {
         const obj = {
           quantity: totalDuration,
@@ -142,13 +145,17 @@ const ViewRoom = () => {
           sendNotification(
             "booking status",
             `Reminder: Dear ${room.poster.firstName} ${room.poster.lastName}, We are happy to tell you that a roommate, ${user.firstName} ${user.lastName} have book your property, ${room.type} in ${room.address.city}. Now, you can either accept or decline the booking.`,
-            `${room.poster.fcmToken}`
+            `${room.poster.fcmToken}`,
+            `https://roomyfinder.com/myBookings/aboutBooking/${room.id}`,
+            `${room?.images[0] ? `${room.images[0]}` : "null"}`
           );
+          setIsBooked(true);
 
           toast.success(
             "Your request has been send to landlord. Please go to 'My Bookings' and follow on with the status of the request",
             toastOptions
           );
+          getMyBookings();
         } else {
           toast.error(
             "You have already booked this AD. Please check my bookings",
@@ -187,8 +194,58 @@ const ViewRoom = () => {
     }
   };
 
+  const handleCancelBookRoom = async () => {
+    setCancelDialogOpen(true);
+  };
+
+  const handleConfirmCancel = async (bookingId) => {
+    await axios.post(
+      "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad/tenant/cancel",
+      { bookingId },
+      { headers: { Authorization: token } }
+    );
+    setIsBooked(false);
+    sendNotification(
+      "booking-cancelled",
+      `Dear ${bookedProperty.ad.poster.firstName} ${
+        bookedProperty.ad.poster.lastName
+      }, a client just cancelled ${
+        bookedProperty.poster.gender === "Male" ? "his" : "her"
+      } booking of your property ${bookedProperty.ad.type} in ${
+        bookedProperty.ad.address.city
+      } `,
+      `${bookedProperty.ad.poster.fcmToken}`
+    );
+
+    setCancelDialogOpen(false);
+  };
+
+  const handleRejectCancel = () => {
+    // Close the cancel dialog box
+    setCancelDialogOpen(false);
+  };
+
+  const handleCancelBookRoom1 = async (bookingId) => {
+    await axios.post(
+      "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad/tenant/cancel",
+      { bookingId },
+      { headers: { Authorization: token } }
+    );
+    setIsBooked(false);
+    sendNotification(
+      "booking-cancelled",
+      `Dear ${bookedProperty.ad.poster.firstName} ${
+        bookedProperty.ad.poster.lastName
+      }, a client just cancelled ${
+        bookedProperty.poster.gender === "Male" ? "his" : "her"
+      } booking of your property ${bookedProperty.ad.type} in ${
+        bookedProperty.ad.address.city
+      } `,
+      `${bookedProperty.ad.poster.fcmToken}`
+    );
+  };
+
   const gotoEditOption = async (AdId) => {
-    console.log(AdId);
     const { data } = await axios.get(
       `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/my-ads/${AdId}`,
       { headers: { Authorization: token } }
@@ -198,8 +255,27 @@ const ViewRoom = () => {
     navigate("/postProperty");
   };
 
+  const getMyBookings = async () => {
+    const { data } = await axios.get(
+      "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad",
+      { headers: { Authorization: token } }
+    );
+    const filterBookings = data.filter((booking) => {
+      return booking.ad.id === id;
+    });
+    const bookedRoom = filterBookings.find(
+      (booking) => booking.status === "pending"
+    );
+
+    if (bookedRoom) {
+      setIsBooked(true);
+      setBookedProperty(bookedRoom);
+    }
+  };
+
   useEffect(() => {
     getPartitionRoomData();
+    getMyBookings();
   }, []);
 
   return (
@@ -694,7 +770,7 @@ const ViewRoom = () => {
             </Grid>
           </Grid>
         </Box>
-        {user?.type === "roommate" && (
+        {user?.type === "roommate" && !isBooked && (
           <Grid item sx={{ display: "flex", justifyContent: "center" }}>
             <Button
               variant="contained"
@@ -714,6 +790,44 @@ const ViewRoom = () => {
             </Button>
           </Grid>
         )}
+        {user?.type === "roommate" && isBooked && (
+          <Grid item sx={{ display: "flex", justifyContent: "center" }}>
+            <Button
+              onClick={() => handleCancelBookRoom()}
+              variant="contained"
+              color="error"
+              sx={{
+                bgcolor: "orange",
+                color: "#fff",
+                borderRadius: "20px",
+                "&:hover": {
+                  color: "deepOrange",
+                  bgcolor: "darkOrange",
+                },
+              }}
+            >
+              Cancel Booking
+            </Button>
+          </Grid>
+        )}
+        <Dialog open={cancelDialogOpen} onClose={handleRejectCancel}>
+          <DialogTitle>Cancel Booking</DialogTitle>
+          <DialogContent>
+            <Typography variant="body1">
+              Are you sure you want to cancel the booking?
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleRejectCancel}>Cancel</Button>
+            <Button
+              onClick={() => handleConfirmCancel(bookedProperty.id)}
+              color="error"
+              variant="contained"
+            >
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
 
         <ToastContainer />
       </Box>

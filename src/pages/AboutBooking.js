@@ -68,7 +68,9 @@ const AboutBooking = () => {
           "booking-offered",
           `Congratulations. Your rent request to ${property.ad.type} in ${property.ad.address.city} has been approved. Please pay the rent fee amount to get
           further with the landlord contact information details and check in your new place now !`,
-          property.client.fcmToken
+          property.client.fcmToken,
+          `https://roomyfinder.com/myBookings/aboutBooking/${property?.ad?.id}`,
+          `${property?.ad?.images[0] ? `${property.ad?.images[0]}` : "null"}`
         );
       }
     } catch (err) {
@@ -88,7 +90,9 @@ const AboutBooking = () => {
       sendNotification(
         "booking-declined",
         `Dear ${property.client.firstName} ${property.client.lastName}, sorry the property you choose is not more available. Please choose another option.`,
-        property.client.fcmToken
+        property.client.fcmToken,
+        `https://roomyfinder.com/myBookings/aboutBooking/${property?.ad?.id}`,
+        `${property?.ad?.images[0] ? `${property.ad?.images[0]}` : "null"}`
       );
       navigate("/myBookings");
       setOffered(false);
@@ -113,7 +117,9 @@ const AboutBooking = () => {
         } booking of your property ${property.ad.type} in ${
           property.ad.address.city
         } `,
-        `${property.ad.poster.fcmToken}`
+        `${property.ad.poster.fcmToken}`,
+        `https://roomyfinder.com/myBookings/aboutBooking/${property?.ad?.id}`,
+        `${property?.ad?.images[0] ? `${property.ad?.images[0]}` : "null"}`
       );
       navigate("/myBookings");
     } catch (err) {
