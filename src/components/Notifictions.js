@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { onMessageListener } from "../firebase/index";
+import notification from "../assets/sounds/notification.wav";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
 
   const notify = () => {
     console.log("notified");
+
     let receivedNotifications = sessionStorage.getItem("notifications");
+    const audio = new Audio(notification);
+    audio.play();
 
     if (receivedNotifications) {
       receivedNotifications = JSON.parse(receivedNotifications);
