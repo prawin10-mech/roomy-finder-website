@@ -13,10 +13,17 @@ import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { onMessageListener } from "../../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase/index";
+import { PhotoCamera, Delete } from "@mui/icons-material";
+
 
 const NewChatBody = () => {
   const [openEmoji, setOpenEmoji] = useState(false);
   const [newMessage, setNewMessage] = useState("");
+  const [newMessagedata, setNewMessagedata] = useState("");
+  const [newMessageurl, setNewMessageurl] = useState("");
+  const [imageUrls, setimageUrls] = useState([]);
   const [chatMessages, setChatMessages] = useState([]);
   const chatContainerRef = useRef(null);
 
@@ -104,7 +111,63 @@ const NewChatBody = () => {
 
   const sendMessageInputHandler = (e) => {
     setNewMessage(e.target.value);
+    setNewMessagedata(e.target.value)
   };
+
+  const handleImageChange = async (e) => {
+    const files = e.target.files;
+    // setNewMessage(files)
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const storageRef = ref(storage, `images/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file)
+        .then(() => {
+          getDownloadURL(storageRef)
+            .then((url) => {
+              console.log("tttttoooo");
+              // setNewMessage(url);
+              setNewMessageurl([...imageUrls,url])
+              setimageUrls([...imageUrls,url])
+              // dispatch(PropertyActions.images(url));
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log("uploadError", err);
+        });
+    }
+  };
+
+  const handleDeleteImage = (index) => {
+    setimageUrls(imageUrls.map((val)=>{
+      console.log(val,"val");
+    }))
+    // dispatch(PropertyActions.deleteImage(index));
+  };
+
+  
+  console.log("gsdf",imageUrls);
+  const imageUrlsData = imageUrls.map((imageUrl, index) => (
+
+    <Grid item key={index} sx={{width:"100%"}}>
+      <div style={{ position: "relative" }}>
+        <img
+          src={imageUrl}
+          alt={` ${index + 1}`}
+          style={{ maxWidth: 150, maxHeight: 100 }}
+        />
+        <IconButton
+          style={{ position: "absolute", top: 0, right: 0 }}
+          onClick={() => handleDeleteImage(index)}
+        >
+          <Delete />
+        </IconButton>
+      </div>
+    </Grid>
+  ));
+
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
@@ -169,6 +232,12 @@ const NewChatBody = () => {
             })}
       </Box>
 
+      <Grid container direction="row" justify="center" sx={{width:"100%"}}>
+          {imageUrls.length > 0 && (
+            imageUrlsData
+          ) }
+        </Grid>
+
       <Paper
         component="form"
         sx={{
@@ -201,13 +270,19 @@ const NewChatBody = () => {
           onChange={sendMessageInputHandler}
           onKeyDown={handleKeyDown}
         />
+       
 
         <IconButton
           color="primary"
           aria-label="upload picture"
           component="label"
+          onChange={handleImageChange}
         >
-          <input hidden accept="image/*" type="file" />
+          <input 
+          hidden accept="image/*" 
+          type="file"
+          multiple
+           />
           <AttachmentIcon />
         </IconButton>
         <IconButton
