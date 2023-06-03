@@ -16,6 +16,7 @@ import { onMessageListener } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
 import { PhotoCamera, Delete } from "@mui/icons-material";
+import ModelForChat from "./ModelForChat";
 
 
 const NewChatBody = () => {
@@ -81,13 +82,20 @@ const NewChatBody = () => {
 
   const sendMessage = async () => {
     try {
+      let type = "text"
+      let body = newMessage
+      if(imageUrls>0){
+        console.log("6789");
+        type = "file"
+        body= newMessageurl
+      }
       const { data } = await axios.post(
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
         {
           recieverFcmToken: data12.client.fcmToken,
           recieverId: data12.client.id,
-          type: "text",
-          body: newMessage,
+          type: (newMessageurl ==="" ? "text" : "file"),
+          body : (newMessageurl ==="" ? newMessage : newMessageurl),
         },
         { headers: { Authorization: token } }
       );
@@ -126,7 +134,7 @@ const NewChatBody = () => {
             .then((url) => {
               console.log("tttttoooo");
               // setNewMessage(url);
-              setNewMessageurl([...imageUrls,url])
+              setNewMessageurl(url)
               setimageUrls([...imageUrls,url])
               // dispatch(PropertyActions.images(url));
             })
@@ -141,17 +149,16 @@ const NewChatBody = () => {
   };
 
   const handleDeleteImage = (index) => {
-    setimageUrls(imageUrls.map((val)=>{
-      console.log(val,"val");
-    }))
+    setimageUrls(imageUrls.filter((val,id)=>{ return  id!==index}))
     // dispatch(PropertyActions.deleteImage(index));
+  
   };
 
   
   console.log("gsdf",imageUrls);
   const imageUrlsData = imageUrls.map((imageUrl, index) => (
 
-    <Grid item key={index} sx={{width:"100%"}}>
+    <Grid item key={index} >
       <div style={{ position: "relative" }}>
         <img
           src={imageUrl}
@@ -226,7 +233,11 @@ const NewChatBody = () => {
                     maxWidth: "40%",
                   }}
                 >
+                <Box>
                   <Typography variant="body1">{message.body}</Typography>
+                  <ModelForChat />
+
+                </Box>
                 </Grid>
               );
             })}
@@ -279,7 +290,7 @@ const NewChatBody = () => {
           onChange={handleImageChange}
         >
           <input 
-          hidden accept="image/*" 
+          hidden accept="image/*,video/*"
           type="file"
           multiple
            />
