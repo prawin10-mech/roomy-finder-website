@@ -23,6 +23,8 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
 
+import sendNotification from "../NotificationReceive";
+
 const ChatBody = ({ user, messages }) => {
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
@@ -59,6 +61,8 @@ const ChatBody = ({ user, messages }) => {
     }
   }, [user.otherId, token]);
 
+  console.log(user);
+
   const sendMessage = async () => {
     try {
       console.log(type);
@@ -73,6 +77,15 @@ const ChatBody = ({ user, messages }) => {
           },
           { headers: { Authorization: token } }
         );
+
+        sendNotification(
+          "Conversation",
+          `${user.lastMessage.body}`,
+          user.other.fcmToken,
+          `http://localhost:3000/directchat/${user.id}`,
+          "null"
+        );
+
         setIsReplied(false);
         setNewMessage("");
 
@@ -93,6 +106,14 @@ const ChatBody = ({ user, messages }) => {
             fileSize: fileSize,
           },
           { headers: { Authorization: token } }
+        );
+
+        sendNotification(
+          "Conversation",
+          `${user.lastMessage.body}`,
+          user.other.fcmToken,
+          `http://localhost:3000/directchat/${user.id}`,
+          "null"
         );
 
         setSelectedFileUrl("");
@@ -119,6 +140,14 @@ const ChatBody = ({ user, messages }) => {
           { headers: { Authorization: token } }
         );
 
+        sendNotification(
+          "Conversation",
+          `${user.lastMessage.body}`,
+          user.other.fcmToken,
+          `http://localhost:3000/directchat/${user.id}`,
+          "null"
+        );
+
         setSelectedFileUrl("");
         setIsReplied(false);
         setType("text");
@@ -141,6 +170,14 @@ const ChatBody = ({ user, messages }) => {
             fileSize: fileSize,
           },
           { headers: { Authorization: token } }
+        );
+
+        sendNotification(
+          "Conversation",
+          `${user.lastMessage.body}`,
+          user.other.fcmToken,
+          `http://localhost:3000/directchat/${user.id}`,
+          "null"
         );
 
         setSelectedFileUrl("");

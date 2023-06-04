@@ -17,6 +17,7 @@ const Chat = () => {
   const [openEmoji, setOpenEmoji] = useState(false);
   const [handleSearch, setHandleSearch] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
+  const [conversationId, setConversationId] = useState("");
   const token = localStorage.getItem("token");
 
   const [conversations, setConversations] = useState([]);
@@ -79,6 +80,10 @@ const Chat = () => {
     getConversations();
   }, [messageReceived]);
 
+  useEffect(() => {
+    getConversationMessages(conversationId);
+  }, [conversations]);
+
   return (
     <>
       <Container
@@ -128,7 +133,10 @@ const Chat = () => {
                     container
                     justifyContent="space-between"
                     sx={{ bgcolor: "grey", my: 1, cursor: "pointer" }}
-                    onClick={() => getConversationMessages(conversation)}
+                    onClick={() => {
+                      getConversationMessages(conversation);
+                      setConversationId(conversation);
+                    }}
                     key={conversation.id}
                   >
                     <Grid container alignItems="center">
