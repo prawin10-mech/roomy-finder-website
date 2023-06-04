@@ -18,17 +18,15 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
 import { PhotoCamera, Delete } from "@mui/icons-material";
 import ModelForChat from "./ModelForChat";
-import ImageIcon from '@mui/icons-material/Image';
-import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import CloseIcon from '@mui/icons-material/Close';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
+import ImageIcon from "@mui/icons-material/Image";
+import VideoCameraBackIcon from "@mui/icons-material/VideoCameraBack";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import CloseIcon from "@mui/icons-material/Close";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const NewChatBody = () => {
   const [opengallery, setopengallery] = useState(false);
   const [newModele, setnewModele] = useState(false);
-  const [openEmoji, setOpenEmoji] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [newMessagedata, setNewMessagedata] = useState("");
   const [newMessageurl, setNewMessageurl] = useState("");
@@ -43,7 +41,6 @@ const NewChatBody = () => {
   const [notTextFile, setnotTextFile] = useState("");
   const location = useLocation();
   const data12 = location.state;
-  console.log("data990", data12);
 
   const token = localStorage.getItem("token");
 
@@ -71,10 +68,9 @@ const NewChatBody = () => {
       const updatedMessages = await axios.get(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.poster.id}`,
         { headers: { Authorization: token } }
-      )
-      console.log(updatedMessages.data, "updatedMessages the updatedMessages")
+      );
+      console.log(updatedMessages.data, "updatedMessages the updatedMessages");
       setChatMessages(updatedMessages.data);
-
     } else {
       const updatedMessages = await axios.get(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.client.id}`,
@@ -104,29 +100,26 @@ const NewChatBody = () => {
     getConversations();
   }, [newMessageValue, newModele]);
 
-  console.log("opengallery", opengallery);
+  console.log(data12);
 
   const sendMessage = async () => {
-    console.log("ghlam")
     try {
       if (data12.type === "roommate") {
-
         if (variabletype === "text") {
-
           const { data } = await axios.post(
             "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
             {
               recieverFcmToken: data12.property.poster.fcmToken,
               recieverId: data12.property.poster.id,
-              type: variabletype,
+              type: "text",
               body: newMessageValue,
             },
             { headers: { Authorization: token } }
           );
+          console.log(data);
         }
 
         if (variabletype !== "text") {
-
           const { data } = await axios.post(
             "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
             {
@@ -178,7 +171,8 @@ const NewChatBody = () => {
               recieverFcmToken: data12.property.client.fcmToken,
               recieverId: data12.property.client.id,
               type: variabletype,
-              body: newMessageValue,
+              body: "Send a image",
+              fileUri: "newMessageValue",
               fileName: newFileName,
               fileSize: newFileSize,
             },
@@ -204,20 +198,16 @@ const NewChatBody = () => {
   };
 
   const sendMessageInputHandler = (e) => {
-    setvariabletype("text")
-    setNewMessageValue(e.target.value)
-
+    setvariabletype("text");
+    setNewMessageValue(e.target.value);
   };
 
-
-
   const handleDeleteImage = (index) => {
-    setNewMessageValue("")
+    setNewMessageValue("");
     // setimageUrls(newMessageValue.filter((val, id) => { return id !== index }))
   };
 
   const handleKeyDown = (e) => {
-    console.log("gh")
     if (e.keyCode === 13) {
       e.preventDefault();
       sendMessage();
@@ -225,7 +215,7 @@ const NewChatBody = () => {
   };
 
   const handleImage = async (e) => {
-    setvariabletype("image")
+    setvariabletype("image");
     const files = e.target.files;
     const file = files[0];
     setnewFileName(file.name)
@@ -256,7 +246,7 @@ const NewChatBody = () => {
   };
 
   const handleVideo = async (e) => {
-    setvariabletype("video")
+    setvariabletype("video");
     const files = e.target.files;
     const file = files[0];
     setnotTextFile(file)
@@ -268,25 +258,27 @@ const NewChatBody = () => {
       const storageRef = ref(storage, `videos/${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.then(() => {
-        getDownloadURL(storageRef)
-          .then((url) => {
-            console.log("Upload complete");
-            setNewMessageValue(url);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }).catch((err) => {
-        console.log("Upload error", err);
-      });
+      uploadTask
+        .then(() => {
+          getDownloadURL(storageRef)
+            .then((url) => {
+              console.log("Upload complete");
+              setNewMessageValue(url);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log("Upload error", err);
+        });
     } catch (error) {
       console.log("Error occurred", error);
     }
   };
 
   const handleFile = async (e) => {
-    setvariabletype("file")
+    setvariabletype("file");
     const files = e.target.files;
     const file = files[0];
     setnotTextFile(file)
@@ -298,18 +290,20 @@ const NewChatBody = () => {
       const storageRef = ref(storage, `files/${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.then(() => {
-        getDownloadURL(storageRef)
-          .then((url) => {
-            console.log("Upload complete");
-            setNewMessageValue(url);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }).catch((err) => {
-        console.log("Upload error", err);
-      });
+      uploadTask
+        .then(() => {
+          getDownloadURL(storageRef)
+            .then((url) => {
+              console.log("Upload complete");
+              setNewMessageValue(url);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log("Upload error", err);
+        });
     } catch (error) {
       console.log("Error occurred", error);
     }
@@ -337,13 +331,16 @@ const NewChatBody = () => {
       >
         <Box>
           <Typography variant="body1" fontWeight={700}>
-            {data12.type === "roommate" ? (`${data12?.property.poster?.firstName} ${data12?.property.poster?.lastName}`)
-              : (`${data12?.property?.client?.firstName} ${data12?.property.client?.lastName}`)}
-
+            {data12.type === "roommate"
+              ? `${data12?.property.poster?.firstName} ${data12?.property.poster?.lastName}`
+              : `${data12?.property?.client?.firstName} ${data12?.property.client?.lastName}`}
           </Typography>
         </Box>
-        <Typography variant="body2">{data12.type === "roommate" ?
-          data12?.property?.poster?.type : data12.property?.client?.type}</Typography>
+        <Typography variant="body2">
+          {data12.type === "roommate"
+            ? data12?.property?.poster?.type
+            : data12.property?.client?.type}
+        </Typography>
       </Box>
       <Box
         sx={{
@@ -359,8 +356,10 @@ const NewChatBody = () => {
             .slice(0)
             .reverse()
             .map((message) => {
-              const isCurrentUser = data12.type === "roommate" ? (message?.senderId === data12?.property?.poster?.id)
-                : (message?.senderId === data12?.property?.client?.id)
+              const isCurrentUser =
+                data12.type === "roommate"
+                  ? message?.senderId === data12?.property?.poster?.id
+                  : message?.senderId === data12?.property?.client?.id;
               return (
                 <Grid
                   key={message.id}
@@ -373,10 +372,10 @@ const NewChatBody = () => {
                     alignSelf: isCurrentUser ? "flex-start" : "flex-end",
                     marginLeft: isCurrentUser ? 0 : "auto",
                     marginRight: isCurrentUser ? "auto" : 0,
-                    width: 'fit-content',
+                    width: "fit-content",
                     position: "relative",
                     display: "flex",
-                    flexDirection: "row"
+                    flexDirection: "row",
                   }}
                 >
                   <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", width: "100%", justifyContent: "space-between" }}>
@@ -550,7 +549,6 @@ const NewChatBody = () => {
           zIndex: 1,
         }}
       >
-
         <InputBase
           sx={{
             ml: 1,
@@ -566,7 +564,6 @@ const NewChatBody = () => {
           onChange={sendMessageInputHandler}
           onKeyDown={handleKeyDown}
         />
-
 
         <IconButton
           color="primary"
