@@ -80,7 +80,7 @@ const ChatBody = ({ user, messages }) => {
 
         sendNotification(
           "Conversation",
-          `${messages[0].body}`,
+          `${newMessage}`,
           user.other.fcmToken,
           `http://localhost:3000/directchat/${user.id}`,
           "null"
@@ -110,7 +110,7 @@ const ChatBody = ({ user, messages }) => {
 
         sendNotification(
           "Conversation",
-          `${messages[0].body}`,
+          `${"Sent a image"}`,
           user.other.fcmToken,
           `http://localhost:3000/directchat/${user.id}`,
           "null"
@@ -142,7 +142,7 @@ const ChatBody = ({ user, messages }) => {
 
         sendNotification(
           "Conversation",
-          `${messages[0].body}`,
+          `${"Sent a video"}`,
           user.other.fcmToken,
           `http://localhost:3000/directchat/${user.id}`,
           "null"
@@ -174,7 +174,7 @@ const ChatBody = ({ user, messages }) => {
 
         sendNotification(
           "Conversation",
-          `${messages[0].body}`,
+          `${"Sent a file"}`,
           user.other.fcmToken,
           `http://localhost:3000/directchat/${user.id}`,
           "null"
