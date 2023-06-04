@@ -40,7 +40,7 @@ const NewChatBody = () => {
   const [newMessageValue, setNewMessageValue] = useState("");
   const [newFileName, setnewFileName] = useState("");
   const [newFileSize, setnewFileSize] = useState("");
-
+  const [notTextFile, setnotTextFile] = useState("");
   const location = useLocation();
   const data12 = location.state;
   console.log("data990", data12);
@@ -102,7 +102,7 @@ const NewChatBody = () => {
     scrollToBottom();
 
     getConversations();
-  }, [newMessageValue]);
+  }, [newMessageValue, newModele]);
 
   console.log("opengallery", opengallery);
 
@@ -142,10 +142,11 @@ const NewChatBody = () => {
         }
 
 
+        setNewMessageValue("");
+        setvariabletype("")
         setnewFileName("")
         setnewFileSize("")
-        setvariabletype("")
-        setNewMessageValue("");
+        setnotTextFile("")
 
         const { data: updatedMessages } = await axios.get(
           `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.poster.id}`,
@@ -185,10 +186,11 @@ const NewChatBody = () => {
           );
         }
 
+        setNewMessageValue("");
+        setvariabletype("")
         setnewFileName("")
         setnewFileSize("")
-        setvariabletype("")
-        setNewMessageValue("");
+        setnotTextFile("")
 
         const { data: updatedMessages } = await axios.get(
           `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.client.id}`,
@@ -228,34 +230,39 @@ const NewChatBody = () => {
     const file = files[0];
     setnewFileName(file.name)
     setnewFileSize(file.size)
+    setnotTextFile(e.target.files);
     // console.log(file.name,"file");
     // console.log(file.size,"file");
 
-    try {
-      const storageRef = ref(storage, `images/${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+    // try {
+    //   const storageRef = ref(storage, `images/${file.name}`);
+    //   const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.then(() => {
-        getDownloadURL(storageRef)
-          .then((url) => {
-            console.log("Upload complete");
-            setNewMessageValue(url);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }).catch((err) => {
-        console.log("Upload error", err);
-      });
-    } catch (error) {
-      console.log("Error occurred", error);
-    }
+    //   uploadTask.then(() => {
+    //     getDownloadURL(storageRef)
+    //       .then((url) => {
+    //         console.log("Upload complete");
+    //         setNewMessageValue(url);
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //       });
+    //   }).catch((err) => {
+    //     console.log("Upload error", err);
+    //   });
+    // } catch (error) {
+    //   console.log("Error occurred", error);
+    // }
   };
 
   const handleVideo = async (e) => {
     setvariabletype("video")
     const files = e.target.files;
     const file = files[0];
+    setnotTextFile(file)
+    setnewFileName(file.name)
+    setnewFileSize(file.size)
+
 
     try {
       const storageRef = ref(storage, `videos/${file.name}`);
@@ -282,6 +289,10 @@ const NewChatBody = () => {
     setvariabletype("file")
     const files = e.target.files;
     const file = files[0];
+    setnotTextFile(file)
+    setnewFileName(file.name)
+    setnewFileSize(file.size)
+
 
     try {
       const storageRef = ref(storage, `files/${file.name}`);
@@ -303,6 +314,14 @@ const NewChatBody = () => {
       console.log("Error occurred", error);
     }
   };
+
+  const handleModelColse = () => {
+    // setnewModele(false)
+    setopengallery(false)
+  }
+  const deleteChat = () => {
+
+  }
 
   return (
     <Box sx={{ paddingBottom: "64px" }}>
@@ -332,6 +351,7 @@ const NewChatBody = () => {
           overflowY: "auto",
           padding: "16px",
         }}
+        onClick={handleModelColse}
         ref={chatContainerRef}
       >
         {chatMessages &&
@@ -359,141 +379,166 @@ const NewChatBody = () => {
                     flexDirection: "row"
                   }}
                 >
-                  <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                    {/* {console.log(message,"message")} */}
-                    {/* <Box sx={{display:"flex",flexDirection:"row",}}> */}
+                  <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", width: "100%", justifyContent: "space-between" }}>
+                    <Box sx={{ width: "80%", display: "flex", flexDirection: "row", pt: "5%", pb: "5%", pl: "10%" }}>
 
-                    {message.type === "text" ? (<Typography variant="body1">{message.body}</Typography>) : (
-                      <img
-                        src={message.body}
-                        alt={` ${message.type}`}
-                        style={{ maxWidth: 200, maxHeight: 100 }}
-                      />
-                    )}
-                    {/* </Box> */}
+                      {message.type === "text" ? (
+                        <Typography variant="body1">{message.body}</Typography>
+                      ) : message.type === "image" ? (
+                        <img
+                          src={message.body}
+                          alt={`${message.type}`}
+                          style={{ width: 'fit-content', maxWidth: "700px", maxHeight: "400px" }}
+                        />
+                      ) : message.type === "video" ? (
+                        <video
+                          src={message.body}
+                          controls
+                          style={{ width: 'auto', height: 'auto', maxWidth: "700px", maxHeight: "400px" }}
+                        />
+                      ) : message.type === "file" ? (
+                        <a href={message.body} download>
+                          Download File
+                        </a>
+                      ) : null}
+
+                    </Box>
+                    <Box sx={{}}>
+                      <Button onClick={() => setnewModele(true)}><KeyboardArrowDownIcon /></Button>
+                    </Box>
+
 
 
                   </Box>
-                  <Button sx={{ mr: "0", position: "relative" }} onClick={() => setnewModele(!newModele)}><KeyboardArrowDownIcon /></Button>
-                  
+
                 </Grid>
               );
             })}
-            {
-                    newModele && (<Paper sx={{ width: "100px", height: "100px", display: "flex", flexDirection: "column" }}>
-                      <Button> Delete</Button>
-                      <Button> Reply</Button>
-                    </Paper>)
-                  }
+        {
+          newModele && (<Paper sx={{ width: "100px", height: "100px", display: "flex", flexDirection: "column", position: "absolute", top: "50%", left: "50%" }}>
+            <Button onClick={() => deleteChat()}> Delete</Button>
+            <Button> Reply</Button>
+            <Button onClick={() => setnewModele(false)}> Cancel</Button>
+
+          </Paper>)
+        }
+        {(notTextFile.length > 0 && variabletype !== "text") && (
+          <Grid container direction="row" justify="center" sx={{ width: "100%" }}>
+            <Grid item  >
+              <div style={{ position: "relative" }}>
+                <img
+                  src={notTextFile}
+                  alt={` ${variabletype}`}
+                  style={{ maxWidth: 150, maxHeight: 100 }}
+                />
+                <IconButton
+                  style={{ position: "absolute", top: 0, right: 0 }}
+                  onClick={handleDeleteImage}
+                >
+                  <Delete />
+                </IconButton>
+              </div>
+            </Grid>
+          </Grid>
+        )}
+
+
+        {
+          opengallery &&
+          <Paper elevation={24} sx={{ width: "170px", height: "150px", position: "absolute", top: "55%", left: "84vw", zIndex: 10 }}>
+            {/* <Paper elevation={24} sx={{ display: "flex", flexDirection: "column", justifyContent: "end", alignItems: "end", mr: 3 }}> */}
+            <Box sx={{
+              bottom: 4, right: 4,
+              display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", mr: "40%"
+            }}>
+
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  cursor: "pointer",
+                  ml: 2,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onClick={() => {
+                  document.getElementById('image-input').click();
+                }}
+              >
+                <ImageIcon />
+                <Typography variant="subtitle2" sx={{ m: 1 }}>Image</Typography>
+                <input
+                  id="image-input"
+                  hidden
+                  accept="image/*"
+                  type="file"
+                  onChange={handleImage}
+                />
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  cursor: "pointer",
+                  ml: 2,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onClick={() => {
+                  document.getElementById('video-input').click();
+                }}
+              >
+                <VideoCameraBackIcon />
+                <Typography variant="subtitle2" sx={{ m: 1 }}>Video</Typography>
+                <input
+                  id="video-input"
+                  hidden
+                  accept="video/*"
+                  type="file"
+                  onChange={handleVideo}
+                />
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  cursor: "pointer",
+                  // ml: 2,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onClick={() => {
+                  document.getElementById('file-input').click();
+                }}
+              >
+                <InsertDriveFileIcon />
+                <Typography variant="subtitle2" sx={{ m: 1 }}>File</Typography>
+                <input
+                  id="file-input"
+                  hidden
+                  type="file"
+                  onChange={handleFile}
+                />
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "row", ml: 2, justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={() => setopengallery(false)}>
+                <CloseIcon />
+                <Typography variant="subtitle2" sx={{ m: 1 }}>Cancel</Typography>
+              </Box>
+            </Box>
+          </Paper>
+
+        }
+
+
+
+        {/*  */}
       </Box>
 
-      {newMessageValue.length > 0 && (
-        <Grid container direction="row" justify="center" sx={{ width: "100%" }}>
-          <Grid item  >
-            <div style={{ position: "relative" }}>
-              <img
-                src={newMessageValue}
-                alt={` ${variabletype}`}
-                style={{ maxWidth: 150, maxHeight: 100 }}
-              />
-              <IconButton
-                style={{ position: "absolute", top: 0, right: 0 }}
-                onClick={handleDeleteImage}
-              >
-                <Delete />
-              </IconButton>
-            </div>
-          </Grid>
-        </Grid>
-      )}
-
-      {
-        opengallery &&
-        <Paper sx={{ display: "flex", flexDirection: "column", justifyContent: "end", alignItems: "end", mr: 3 }}>
-          <Box sx={{
-            width: "170px", height: "150px", 
-            position: "relative", display: "flex", flexDirection: "column",
-          }}>
 
 
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                cursor: "pointer",
-                ml: 2,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-              onClick={() => {
-                document.getElementById('image-input').click();
-              }}
-            >
-              <ImageIcon />
-              <Typography variant="subtitle2" sx={{ m: 1 }}>Image</Typography>
-              <input
-                id="image-input"
-                hidden
-                accept="image/*"
-                type="file"
-                onChange={handleImage}
-              />
-            </Box>
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                cursor: "pointer",
-                ml: 2,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-              onClick={() => {
-                document.getElementById('video-input').click();
-              }}
-            >
-              <VideoCameraBackIcon />
-              <Typography variant="subtitle2" sx={{ m: 1 }}>Video</Typography>
-              <input
-                id="video-input"
-                hidden
-                accept="video/*"
-                type="file"
-                onChange={handleVideo}
-              />
-            </Box>
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                cursor: "pointer",
-                ml: 2,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-              onClick={() => {
-                document.getElementById('file-input').click();
-              }}
-            >
-              <InsertDriveFileIcon />
-              <Typography variant="subtitle2" sx={{ m: 1 }}>File</Typography>
-              <input
-                id="file-input"
-                hidden
-                type="file"
-                onChange={handleFile}
-              />
-            </Box>
-            <Box sx={{ display: "flex", flexDirection: "row", ml: 2, justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={() => setopengallery(false)}>
-              <CloseIcon />
-              <Typography variant="subtitle2" sx={{ m: 1 }}>Cancel</Typography>
-            </Box>
-          </Box>
-        </Paper>
-
-      }
 
       <Paper
         component="form"
