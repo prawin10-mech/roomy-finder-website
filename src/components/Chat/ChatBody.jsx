@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   Box,
   Grid,
@@ -12,11 +12,11 @@ import {
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import axios from "axios";
-import { onMessageListener } from "../../firebase/index";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ReplyIcon from "@mui/icons-material/Reply";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from "@mui/icons-material/Close";
 
 const ChatBody = ({ user, messages }) => {
   const [newMessage, setNewMessage] = useState("");
@@ -26,6 +26,9 @@ const ChatBody = ({ user, messages }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedAttachmentType, setSelectedAttachmentType] = useState("");
   const [expandedMessages, setExpandedMessages] = useState([]);
+  const [isReplied, setIsReplied] = useState(false);
+  const [showAttachmentMenu, setShowAttachmentMenu] = useState(false);
+  const [repliedMessage, setRepliedMessage] = useState("");
 
   const chatContainerRef = useRef(null);
   const token = localStorage.getItem("token");
@@ -34,22 +37,21 @@ const ChatBody = ({ user, messages }) => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   };
 
-  const getConversations = async () => {
+  const getMessages = useCallback(async () => {
     try {
       const { data } = await axios.get(
-        "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/conversations",
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${user.otherId}`,
         { headers: { Authorization: token } }
       );
-      const newMessageSended = await onMessageListener();
-      setMessageReceived(newMessageSended.data.payload);
+      setChatMessages(data);
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [user.otherId, token]);
 
-  const sendMessage = async () => {
+  const sendMessage = useCallback(async () => {
     try {
-      const { data } = await axios.post(
+      await axios.post(
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
         {
           recieverFcmToken: user.other.fcmToken,
@@ -59,17 +61,16 @@ const ChatBody = ({ user, messages }) => {
         },
         { headers: { Authorization: token } }
       );
-      setNewMessage("");
 
-      const { data: updatedMessages } = await axios.get(
-        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${user.otherId}`,
-        { headers: { Authorization: token } }
-      );
-      setChatMessages(updatedMessages);
+      setIsReplied(false);
+      setNewMessage("");
+      setRepliedMessage("");
+
+      getMessages();
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [user.other.fcmToken, user.otherId, newMessage, token, getMessages]);
 
   const sendMessageInputHandler = (e) => {
     setNewMessage(e.target.value);
@@ -82,32 +83,49 @@ const ChatBody = ({ user, messages }) => {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      const { data } = await axios.delete(
-        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages`,
-        { messageIds: [id] },
-        { headers: { Authorization: token } }
-      );
+  const handleDelete = useCallback(
+    async (id) => {
+      try {
+        await axios.delete(
+          `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages`,
+          { data: { messageIds: [id] }, headers: { Authorization: token } }
+        );
 
-      console.log(data);
-      // if (data) {
-      //   const { data: updatedMessages } = await axios.get(
-      //     `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${user.otherId}`,
-      //     { headers: { Authorization: token } }
-      //   );
-      //   setChatMessages(updatedMessages);
-      // }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+        getMessages();
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    [token, getMessages]
+  );
+
+  const handleMessageReply = useCallback(
+    async (id) => {
+      setIsReplied(true);
+
+      try {
+        const { data } = await axios.get(
+          `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/${id}`,
+          { headers: { Authorization: token } }
+        );
+
+        setRepliedMessage(data.body);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    [token]
+  );
 
   useEffect(() => {
     setChatMessages(messages);
     scrollToBottom();
-    getConversations();
-  }, [messages, messageReceived]);
+  }, [messages]);
+
+  useEffect(() => {
+    scrollToBottom();
+    getMessages();
+  }, [getMessages]);
 
   // Component styles
   const styles = {
@@ -166,7 +184,22 @@ const ChatBody = ({ user, messages }) => {
     },
     sendButton: {
       p: "10px",
+      width: "50px",
       color: "#075e54",
+    },
+    attachmentMenu: {
+      position: "absolute",
+      right: 0,
+      bottom: "0",
+      backgroundColor: "#fff",
+      padding: "8px",
+      borderRadius: "4px",
+      boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.2)",
+      zIndex: 1,
+    },
+    attachmentMenuItem: {
+      cursor: "pointer",
+      marginBottom: "4px",
     },
   };
 
@@ -232,7 +265,7 @@ const ChatBody = ({ user, messages }) => {
                   <Box>
                     <IconButton
                       onClick={() => {
-                        // Handle reply option
+                        handleMessageReply(message.id);
                       }}
                     >
                       <Tooltip title="Reply">
@@ -290,31 +323,91 @@ const ChatBody = ({ user, messages }) => {
           </Dialog>
         )}
       </Box>
+      {isReplied && (
+        <Grid
+          container
+          width={"100%"}
+          justifyContent={"space-between"}
+          p={"10px"}
+          sx={{
+            bgcolor: "#d8d8d8",
+            borderRadius: "15px",
+            position: "relative",
+            bottom: 0,
+            right: 0,
+          }}
+        >
+          <Typography sx={{}}>{repliedMessage}</Typography>
+          <Box
+            onClick={() => {
+              setIsReplied(false);
+              setRepliedMessage("");
+            }}
+          >
+            <CloseIcon />
+          </Box>
+        </Grid>
+      )}
+
+      {showAttachmentMenu && (
+        <Box sx={styles.attachmentMenu}>
+          <Typography
+            sx={styles.attachmentMenuItem}
+            onClick={() => {
+              setShowAttachmentMenu(false);
+              // Handle sending picture
+            }}
+          >
+            Send Picture
+          </Typography>
+          <Typography
+            sx={styles.attachmentMenuItem}
+            onClick={() => {
+              setShowAttachmentMenu(false);
+              // Handle sending video
+            }}
+          >
+            Send Video
+          </Typography>
+          <Typography
+            sx={styles.attachmentMenuItem}
+            onClick={() => {
+              setShowAttachmentMenu(false);
+              // Handle sending file
+            }}
+          >
+            Send File
+          </Typography>
+          <Typography
+            sx={styles.attachmentMenuItem}
+            onClick={() => setShowAttachmentMenu(false)}
+          >
+            Cancel
+          </Typography>
+        </Box>
+      )}
       <Paper component="form" sx={styles.inputContainer}>
         <InputBase
           sx={styles.input}
           placeholder="Type a message"
+          inputProps={{ "aria-label": "type a message" }}
           value={newMessage}
-          inputProps={{ "aria-label": "" }}
           onChange={sendMessageInputHandler}
           onKeyDown={handleKeyDown}
         />
         <IconButton
-          color="primary"
-          aria-label="upload picture"
-          component="label"
-          onClick={() => setOpenDialog(true)}
-        >
-          <input hidden accept="image/*" type="file" />
-          <AttachmentIcon />
-        </IconButton>
-        <IconButton
-          color="primary"
-          sx={styles.sendButton}
-          aria-label="directions"
+          sx={styles.iconButton}
+          aria-label="send"
           onClick={sendMessage}
         >
           <SendRoundedIcon />
+        </IconButton>
+        <IconButton
+          sx={styles.iconButton}
+          aria-label="attachment"
+          onClick={() => setShowAttachmentMenu(!showAttachmentMenu)}
+        >
+          <AttachmentIcon />
         </IconButton>
       </Paper>
     </Box>
