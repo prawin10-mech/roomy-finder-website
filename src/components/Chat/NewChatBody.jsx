@@ -51,7 +51,6 @@ const NewChatBody = () => {
   const location = useLocation();
   const data12 = location.state;
 
-
   // const getMessages = useCallback(async () => {
   //   try {
   //     const { data } = await axios.get(
@@ -63,8 +62,6 @@ const NewChatBody = () => {
   //     console.log(err);
   //   }
   // }, [user.otherId, token]);
-
-
 
   // get all message
   const getAllmessage = async () => {
@@ -128,13 +125,12 @@ const NewChatBody = () => {
           );
           setIsReplied(false);
           setNewMessage("");
-  
+
           setRepliedMessage("");
           // getMessages();
         }
 
         if (type === "image") {
-          
           await axios.post(
             "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
             {
@@ -148,7 +144,7 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
-  
+
           setSelectedFileUrl("");
           setIsReplied(false);
           setType("text");
@@ -156,9 +152,8 @@ const NewChatBody = () => {
           setRepliedMessage("");
           // getMessages();
         }
-  
+
         if (type === "video") {
-         
           await axios.post(
             "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
             {
@@ -172,7 +167,7 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
-  
+
           setSelectedFileUrl("");
           setIsReplied(false);
           setType("text");
@@ -180,9 +175,8 @@ const NewChatBody = () => {
           setRepliedMessage("");
           // getMessages();
         }
-  
+
         if (type === "file") {
-         
           await axios.post(
             "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
             {
@@ -196,7 +190,7 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
-  
+
           setSelectedFileUrl("");
           setIsReplied(false);
           setType("text");
@@ -228,13 +222,12 @@ const NewChatBody = () => {
           );
           setIsReplied(false);
           setNewMessage("");
-  
+
           setRepliedMessage("");
           // getMessages();
         }
 
         if (type === "image") {
-          
           await axios.post(
             "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
             {
@@ -248,7 +241,7 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
-  
+
           setSelectedFileUrl("");
           setIsReplied(false);
           setType("text");
@@ -256,9 +249,8 @@ const NewChatBody = () => {
           setRepliedMessage("");
           // getMessages();
         }
-  
+
         if (type === "video") {
-         
           await axios.post(
             "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
             {
@@ -272,7 +264,7 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
-  
+
           setSelectedFileUrl("");
           setIsReplied(false);
           setType("text");
@@ -280,9 +272,8 @@ const NewChatBody = () => {
           setRepliedMessage("");
           // getMessages();
         }
-  
+
         if (type === "file") {
-          
           await axios.post(
             "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
             {
@@ -296,7 +287,7 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
-  
+
           setSelectedFileUrl("");
           setIsReplied(false);
           setType("text");
@@ -316,10 +307,7 @@ const NewChatBody = () => {
     }
   };
 
-
-
-// uska=============
-
+  // uska=============
 
   const handleImage = async (e) => {
     setType("image");
@@ -350,8 +338,6 @@ const NewChatBody = () => {
       console.log("Error occurred", error);
     }
   };
-
- 
 
   const handleVideo = async (e) => {
     setType("video");
@@ -545,7 +531,7 @@ const NewChatBody = () => {
     <Box sx={styles.container}>
       <Box sx={styles.header}>
         <Box>
-        <Typography variant="body1" fontWeight={700}>
+          <Typography variant="body1" fontWeight={700}>
             {data12.type === "roommate"
               ? `${data12?.property.poster?.firstName} ${data12?.property.poster?.lastName}`
               : `${data12?.property?.client?.firstName} ${data12?.property.client?.lastName}`}
@@ -563,9 +549,9 @@ const NewChatBody = () => {
           .reverse()
           .map((message) => {
             const isCurrentUser =
-                data12.type === "roommate"
-                  ? message?.senderId === data12?.property?.poster?.id
-                  : message?.senderId === data12?.property?.client?.id;
+              data12.type === "roommate"
+                ? message?.senderId === data12?.property?.poster?.id
+                : message?.senderId === data12?.property?.client?.id;
             return (
               <Grid
                 key={message.id}
@@ -875,99 +861,109 @@ const NewChatBody = () => {
       </Grid>
 
       {showAttachmentMenu && (
-        <Paper elevation={24} sx={{ width: "170px", height: "150px", position: "absolute", top: "55%", left: "84vw", zIndex: 10 }}>
-        <Box >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              cursor: "pointer",
-              ml: 2,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={() => {
-              document.getElementById("image-input").click();
-            }}
-          >
-            <ImageIcon />
-            <Typography variant="subtitle2" sx={{ m: 1 }}>
-              Image
-            </Typography>
-            <input
-              id="image-input"
-              hidden
-              accept="image/*"
-              type="file"
-              onChange={handleImage}
-            />
-          </Box>
+        <Paper
+          elevation={24}
+          sx={{
+            width: "170px",
+            height: "150px",
+            position: "absolute",
+            top: "55%",
+            left: "84vw",
+            zIndex: 10,
+          }}
+        >
+          <Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                document.getElementById("image-input").click();
+              }}
+            >
+              <ImageIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                Image
+              </Typography>
+              <input
+                id="image-input"
+                hidden
+                accept="image/*"
+                type="file"
+                onChange={handleImage}
+              />
+            </Box>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              cursor: "pointer",
-              ml: 2,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={() => {
-              document.getElementById("video-input").click();
-            }}
-          >
-            <VideoCameraBackIcon />
-            <Typography variant="subtitle2" sx={{ m: 1 }}>
-              Video
-            </Typography>
-            <input
-              id="video-input"
-              hidden
-              accept="video/*"
-              type="file"
-              onChange={handleVideo}
-            />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                document.getElementById("video-input").click();
+              }}
+            >
+              <VideoCameraBackIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                Video
+              </Typography>
+              <input
+                id="video-input"
+                hidden
+                accept="video/*"
+                type="file"
+                onChange={handleVideo}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                // ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                document.getElementById("file-input").click();
+              }}
+            >
+              <InsertDriveFileIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                File
+              </Typography>
+              <input id="file-input" hidden type="file" onChange={handleFile} />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                setShowAttachmentMenu(false);
+                setSelectedFileUrl("");
+              }}
+            >
+              <CloseIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                Cancel
+              </Typography>
+            </Box>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              cursor: "pointer",
-              // ml: 2,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={() => {
-              document.getElementById("file-input").click();
-            }}
-          >
-            <InsertDriveFileIcon />
-            <Typography variant="subtitle2" sx={{ m: 1 }}>
-              File
-            </Typography>
-            <input id="file-input" hidden type="file" onChange={handleFile} />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              ml: 2,
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              setShowAttachmentMenu(false);
-              setSelectedFileUrl("");
-            }}
-          >
-            <CloseIcon />
-            <Typography variant="subtitle2" sx={{ m: 1 }}>
-              Cancel
-            </Typography>
-          </Box>
-        </Box>
-            </Paper>
+        </Paper>
       )}
       <Paper component="form" sx={styles.inputContainer}>
         <InputBase
