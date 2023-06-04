@@ -84,6 +84,9 @@ const NewChatBody = () => {
       console.log(updatedMessages.data, "updatedMessages the updatedMessages");
       setChatMessages(updatedMessages.data);
     }
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
