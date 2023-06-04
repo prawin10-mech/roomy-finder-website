@@ -27,7 +27,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 const NewChatBody = () => {
   const [opengallery, setopengallery] = useState(false);
   const [newModele, setnewModele] = useState(false);
-  const [openEmoji, setOpenEmoji] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [newMessagedata, setNewMessagedata] = useState("");
   const [newMessageurl, setNewMessageurl] = useState("");
