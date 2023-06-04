@@ -184,6 +184,7 @@ const MyAds = () => {
                   sx={{
                     width: "100%",
                     padding: "10px",
+                    height: "200px",
                     overflow: "hidden",
                     borderRadius: "20px ",
                     objectFit: "cover",
@@ -238,8 +239,8 @@ const MyAds = () => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography>Moving date </Typography>
-                    <Typography sx={{ fontWeight: 700 }}>
+                    <Typography sx={{ pr: 2 }}>Moving date </Typography>
+                    <Typography sx={{ fontWeight: 700, pr: 2 }}>
                       {myAd?.movingDate
                         ? new Date(myAd?.movingDate).toLocaleDateString(
                             undefined,

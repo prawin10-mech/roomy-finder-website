@@ -24,6 +24,8 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
 
+import {onMessageListener} from "../../firebase/index"
+
 const NewChatBody = () => {
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
@@ -40,6 +42,9 @@ const NewChatBody = () => {
   const [type, setType] = useState("text");
   const [fileName, setFileName] = useState("");
   const [fileSize, setFileSize] = useState("");
+  const [newValueAdd, setnewValueAdd] = useState("");
+  const [notification, setNotification] = useState({ title: "", body: "" })
+
 
   const chatContainerRef = useRef(null);
   const token = localStorage.getItem("token");
@@ -51,17 +56,7 @@ const NewChatBody = () => {
   const location = useLocation();
   const data12 = location.state;
 
-  // const getMessages = useCallback(async () => {
-  //   try {
-  //     const { data } = await axios.get(
-  //       `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${user.otherId}`,
-  //       { headers: { Authorization: token } }
-  //     );
-  //     setChatMessages(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, [user.otherId, token]);
+  
 
   // get all message
   const getAllmessage = async () => {
@@ -86,27 +81,33 @@ const NewChatBody = () => {
     }
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log("789");
-    }, 2000);
-    getAllmessage();
-
-    return () => {
-      clearTimeout(timer);
-    };
-  });
+  // const MobileOtpSend = async()=>{
+  //   const res = await axios.post("http://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/verify-otp-code",{
+  //     "phone" : "+917899876574"
+  // })
+  // console.log("res",res);
+  // }
+  
+  console.log("newValueAdd",newValueAdd);
 
   useEffect(() => {
-    getAllmessage();
-    // setChatMessages(messages);
     scrollToBottom();
-
-    // getConversations();
-  }, []);
-
-  console.log(data12);
-
+    getAllmessage();
+    onMessageListener()
+      .then((payload) => {
+        // newValueAdd, 
+        setnewValueAdd(payload.data.payload)
+        console.log("message chat received",payload.data.payload);
+        setNotification({
+          title: payload?.notification?.title,
+          body: payload?.notification?.body,
+          time: Date.now(),
+          id: Math.random() * 120,
+        });
+      })
+      .catch((err) => console.log("failed: ", err));
+  }, [notification]);
+ 
   // mera------------
 
   const sendMessage = async () => {
@@ -441,16 +442,7 @@ const NewChatBody = () => {
     [token]
   );
 
-  // useEffect(() => {
-  //   // setChatMessages(messages);
-  //   scrollToBottom();
-  // }, [messages]);
-
-  // useEffect(() => {
-  //   scrollToBottom();
-  //   getMessages();
-  // }, [getMessages]);
-
+  
   // Component styles
   const styles = {
     container: {
