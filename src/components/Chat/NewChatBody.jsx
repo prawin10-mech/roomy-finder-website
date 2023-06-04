@@ -51,7 +51,6 @@ const NewChatBody = () => {
   const location = useLocation();
   const data12 = location.state;
 
-
   // const getMessages = useCallback(async () => {
   //   try {
   //     const { data } = await axios.get(
@@ -63,8 +62,6 @@ const NewChatBody = () => {
   //     console.log(err);
   //   }
   // }, [user.otherId, token]);
-
-
 
   // get all message
   const getAllmessage = async () => {
@@ -125,13 +122,12 @@ const NewChatBody = () => {
           );
           setIsReplied(false);
           setNewMessage("");
-  
+
           setRepliedMessage("");
           // getMessages();
         }
 
         if (type === "image") {
-          
           await axios.post(
             "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
             {
@@ -145,7 +141,7 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
-  
+
           setSelectedFileUrl("");
           setIsReplied(false);
           setType("text");
@@ -154,12 +150,51 @@ const NewChatBody = () => {
           // getMessages();
         }
 
+        if (type === "video") {
+          await axios.post(
+            "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
+            {
+              recieverFcmToken: data12.property.poster.fcmToken,
+              recieverId: data12.property.poster.id,
+              type,
+              body: "Sent a video",
+              fileUri: selectedFileURL,
+              fileName: fileName,
+              fileSize: fileSize,
+            },
+            { headers: { Authorization: token } }
+          );
 
-        setNewMessageValue("");
-        setvariabletype("")
-        setnewFileName("")
-        setnewFileSize("")
-        setnotTextFile("")
+          setSelectedFileUrl("");
+          setIsReplied(false);
+          setType("text");
+          setNewMessage("");
+          setRepliedMessage("");
+          // getMessages();
+        }
+
+        if (type === "file") {
+          await axios.post(
+            "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
+            {
+              recieverFcmToken: data12.property.poster.fcmToken,
+              recieverId: data12.property.poster.id,
+              type,
+              body: "Sent a file",
+              fileUri: selectedFileURL,
+              fileName: fileName,
+              fileSize: fileSize,
+            },
+            { headers: { Authorization: token } }
+          );
+
+          setSelectedFileUrl("");
+          setIsReplied(false);
+          setType("text");
+          setNewMessage("");
+          setRepliedMessage("");
+          // getMessages();
+        }
 
         const { data: updatedMessages } = await axios.get(
           `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.poster.id}`,
@@ -184,13 +219,12 @@ const NewChatBody = () => {
           );
           setIsReplied(false);
           setNewMessage("");
-  
+
           setRepliedMessage("");
           // getMessages();
         }
 
         if (type === "image") {
-          
           await axios.post(
             "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
             {
@@ -204,7 +238,7 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
-  
+
           setSelectedFileUrl("");
           setIsReplied(false);
           setType("text");
@@ -213,11 +247,51 @@ const NewChatBody = () => {
           // getMessages();
         }
 
-        setNewMessageValue("");
-        setvariabletype("")
-        setnewFileName("")
-        setnewFileSize("")
-        setnotTextFile("")
+        if (type === "video") {
+          await axios.post(
+            "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
+            {
+              recieverFcmToken: data12.property.client.fcmToken,
+              recieverId: data12.property.client.id,
+              type,
+              body: "Sent a video",
+              fileUri: selectedFileURL,
+              fileName: fileName,
+              fileSize: fileSize,
+            },
+            { headers: { Authorization: token } }
+          );
+
+          setSelectedFileUrl("");
+          setIsReplied(false);
+          setType("text");
+          setNewMessage("");
+          setRepliedMessage("");
+          // getMessages();
+        }
+
+        if (type === "file") {
+          await axios.post(
+            "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
+            {
+              recieverFcmToken: data12.property.client.fcmToken,
+              recieverId: data12.property.client.id,
+              type,
+              body: "Sent a file",
+              fileUri: selectedFileURL,
+              fileName: fileName,
+              fileSize: fileSize,
+            },
+            { headers: { Authorization: token } }
+          );
+
+          setSelectedFileUrl("");
+          setIsReplied(false);
+          setType("text");
+          setNewMessage("");
+          setRepliedMessage("");
+          // getMessages();
+        }
 
         const { data: updatedMessages } = await axios.get(
           `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.client.id}`,
@@ -230,21 +304,15 @@ const NewChatBody = () => {
     }
   };
 
-
-
-// uska=============
-
+  // uska=============
 
   const handleImage = async (e) => {
     setType("image");
     setShowAttachmentMenu(false);
     const files = e.target.files;
     const file = files[0];
-    setnewFileName(file.name)
-    setnewFileSize(file.size)
-    setnotTextFile(e.target.files);
-    // console.log(file.name,"file");
-    // console.log(file.size,"file");
+    setFileName(file.name);
+    setFileSize(file.size);
 
     try {
       const storageRef = ref(storage, `images/${file.name}`);
@@ -267,15 +335,6 @@ const NewChatBody = () => {
       console.log("Error occurred", error);
     }
   };
-
-  const handleVideo = async (e) => {
-    setvariabletype("video");
-    const files = e.target.files;
-    const file = files[0];
-    setnotTextFile(file)
-    setnewFileName(file.name)
-    setnewFileSize(file.size)
-
 
   const handleVideo = async (e) => {
     setType("video");
@@ -307,13 +366,8 @@ const NewChatBody = () => {
   };
 
   const handleFile = async (e) => {
-    setvariabletype("file");
-    const files = e.target.files;
-    const file = files[0];
-    setnotTextFile(file)
-    setnewFileName(file.name)
-    setnewFileSize(file.size)
-
+    setType("file");
+    const file = e.target.files[0];
 
     try {
       const storageRef = ref(storage, `files/${file.name}`);
@@ -339,13 +393,32 @@ const NewChatBody = () => {
     }
   };
 
-  const handleModelColse = () => {
-    // setnewModele(false)
-    setopengallery(false)
-  }
-  const deleteChat = () => {
+  const sendMessageInputHandler = (e) => {
+    setNewMessage(e.target.value);
+  };
 
-  }
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  const handleDelete = useCallback(
+    async (id) => {
+      try {
+        await axios.delete(
+          `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages`,
+          { data: { messageIds: [id] }, headers: { Authorization: token } }
+        );
+
+        // getMessages();
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    [token]
+  );
 
   const handleMessageReply = useCallback(
     async (id) => {
@@ -455,7 +528,7 @@ const NewChatBody = () => {
     <Box sx={styles.container}>
       <Box sx={styles.header}>
         <Box>
-        <Typography variant="body1" fontWeight={700}>
+          <Typography variant="body1" fontWeight={700}>
             {data12.type === "roommate"
               ? `${data12?.property.poster?.firstName} ${data12?.property.poster?.lastName}`
               : `${data12?.property?.client?.firstName} ${data12?.property.client?.lastName}`}
@@ -473,198 +546,423 @@ const NewChatBody = () => {
           .reverse()
           .map((message) => {
             const isCurrentUser =
-                data12.type === "roommate"
-                  ? message?.senderId === data12?.property?.poster?.id
-                  : message?.senderId === data12?.property?.client?.id;
-              return (
-                <Grid
-                  key={message.id}
-                  sx={{
-                    backgroundColor: isCurrentUser ? "blue" : "purple",
-                    color: "#fff",
-                    padding: "8px",
-                    borderRadius: "8px",
-                    marginBottom: "8px",
-                    alignSelf: isCurrentUser ? "flex-start" : "flex-end",
-                    marginLeft: isCurrentUser ? 0 : "auto",
-                    marginRight: isCurrentUser ? "auto" : 0,
-                    width: "fit-content",
-                    position: "relative",
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
-                  <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", width: "100%", justifyContent: "space-between" }}>
-                    <Box sx={{ width: "80%", display: "flex", flexDirection: "row", pt: "5%", pb: "5%", pl: "10%" }}>
+              data12.type === "roommate"
+                ? message?.senderId === data12?.property?.poster?.id
+                : message?.senderId === data12?.property?.client?.id;
+            return (
+              <Grid
+                key={message.id}
+                sx={{
+                  ...styles.messageContainer,
+                  backgroundColor: isCurrentUser ? "purple" : "blue",
+                  marginLeft: isCurrentUser ? 0 : "auto",
+                  marginRight: isCurrentUser ? "auto" : 0,
+                }}
+              >
+                {message.body !== "Sent a image" &&
+                  message.body !== "Sent a video" &&
+                  message.body !== "Sent a file" && (
+                    <Grid container justifyContent="space-between">
+                      <Typography variant={styles.messageBody} color="white">
+                        {message.body}
+                      </Typography>
+                      <Box
+                        onClick={() => {
+                          const isExpanded = expandedMessages.includes(
+                            message.id
+                          );
+                          if (isExpanded) {
+                            setExpandedMessages(
+                              expandedMessages.filter((id) => id !== message.id)
+                            );
+                          } else {
+                            setExpandedMessages([
+                              ...expandedMessages,
+                              message.id,
+                            ]);
+                          }
+                        }}
+                      >
+                        {expandedMessages.includes(message.id) ? (
+                          <ExpandLessIcon />
+                        ) : (
+                          <ExpandMoreIcon />
+                        )}
+                      </Box>
+                    </Grid>
+                  )}
 
-                      {message.type === "text" ? (
-                        <Typography variant="body1">{message.body}</Typography>
-                      ) : message.type === "image" ? (
-                        <img
-                          src={message.body}
-                          alt={`${message.type}`}
-                          style={{ width: 'fit-content', maxWidth: "700px", maxHeight: "400px" }}
-                        />
-                      ) : message.type === "video" ? (
-                        <video
-                          src={message.body}
-                          controls
-                          style={{ width: 'auto', height: 'auto', maxWidth: "700px", maxHeight: "400px" }}
-                        />
-                      ) : message.type === "file" ? (
-                        <a href={message.body} download>
-                          Download File
-                        </a>
-                      ) : null}
-
+                {message.body === "Sent a image" && (
+                  <Grid>
+                    <Box>
+                      <img
+                        src={message.fileUri}
+                        alt="Sent id"
+                        style={styles.image}
+                        onClick={() => setSelectedImage(message.fileUri)}
+                      />
+                      <Box
+                        onClick={() => {
+                          const isExpanded = expandedMessages.includes(
+                            message.id
+                          );
+                          if (isExpanded) {
+                            setExpandedMessages(
+                              expandedMessages.filter((id) => id !== message.id)
+                            );
+                          } else {
+                            setExpandedMessages([
+                              ...expandedMessages,
+                              message.id,
+                            ]);
+                          }
+                        }}
+                      >
+                        {expandedMessages.includes(message.id) ? (
+                          <ExpandLessIcon />
+                        ) : (
+                          <ExpandMoreIcon />
+                        )}
+                      </Box>
                     </Box>
-                    <Box sx={{}}>
-                      <Button onClick={() => setnewModele(true)}><KeyboardArrowDownIcon /></Button>
+                  </Grid>
+                )}
+                {message.body === "Sent a video" && (
+                  <Grid>
+                    <Box>
+                      <video
+                        src={message.fileUri}
+                        alt="Sent id"
+                        //style={styles.video} // Assuming `styles.video` contains the necessary styles for the video element
+                        onClick={() => setSelectedImage(message.fileUri)}
+                        controls // Add the `controls` attribute to display video controls
+                      />
+                      <Box
+                        onClick={() => {
+                          const isExpanded = expandedMessages.includes(
+                            message.id
+                          );
+                          if (isExpanded) {
+                            setExpandedMessages(
+                              expandedMessages.filter((id) => id !== message.id)
+                            );
+                          } else {
+                            setExpandedMessages([
+                              ...expandedMessages,
+                              message.id,
+                            ]);
+                          }
+                        }}
+                      >
+                        {expandedMessages.includes(message.id) ? (
+                          <ExpandLessIcon />
+                        ) : (
+                          <ExpandMoreIcon />
+                        )}
+                      </Box>
                     </Box>
+                  </Grid>
+                )}
 
+                {message.body === "Sent a file" && (
+                  <Grid>
+                    <Box>
+                      <a href={message.fileUri} download={message.fileName}>
+                        <Typography sx={{ color: "#fff" }}>
+                          <InsertDriveFileIcon
+                            sx={{
+                              marginRight: "0.5em",
+                              verticalAlign: "middle",
+                            }}
+                          />
+                          {message.type}
+                        </Typography>
+                      </a>
 
+                      <Box
+                        onClick={() => {
+                          const isExpanded = expandedMessages.includes(
+                            message.id
+                          );
+                          if (isExpanded) {
+                            setExpandedMessages(
+                              expandedMessages.filter((id) => id !== message.id)
+                            );
+                          } else {
+                            setExpandedMessages([
+                              ...expandedMessages,
+                              message.id,
+                            ]);
+                          }
+                        }}
+                      >
+                        {expandedMessages.includes(message.id) ? (
+                          <ExpandLessIcon />
+                        ) : (
+                          <ExpandMoreIcon />
+                        )}
+                      </Box>
+                    </Box>
+                  </Grid>
+                )}
 
+                {expandedMessages.includes(message.id) && (
+                  <Box>
+                    <IconButton
+                      onClick={() => {
+                        handleMessageReply(message.id);
+                      }}
+                    >
+                      <Tooltip title="Reply">
+                        <ReplyIcon />
+                      </Tooltip>
+                    </IconButton>
+                    <IconButton
+                      onClick={() => {
+                        handleDelete(message.id);
+                      }}
+                    >
+                      <Tooltip title="Delete">
+                        <DeleteIcon />
+                      </Tooltip>
+                    </IconButton>
                   </Box>
+                )}
+              </Grid>
+            );
+          })}
+        {selectedImage && (
+          <Dialog
+            onClose={() => setSelectedImage(null)}
+            open={Boolean(selectedImage)}
+          >
+            <img
+              src={selectedImage}
+              alt="Selected"
+              style={styles.selectedImage}
+            />
+          </Dialog>
+        )}
+      </Box>
+      {isReplied && (
+        <Grid
+          container
+          width={"100%"}
+          justifyContent={"space-between"}
+          p={"10px"}
+          sx={{
+            bgcolor: "#d8d8d8",
+            borderRadius: "15px",
+            position: "relative",
+            bottom: 0,
+            right: 0,
+          }}
+        >
+          <Typography sx={{}}>{repliedMessage}</Typography>
+          <Box
+            onClick={() => {
+              setIsReplied(false);
+              setRepliedMessage("");
+              setSelectedFileUrl("");
+            }}
+          >
+            <CloseIcon />
+          </Box>
+        </Grid>
+      )}
 
-                </Grid>
-              );
-            })}
-        {
-          newModele && (<Paper sx={{ width: "100px", height: "100px", display: "flex", flexDirection: "column", position: "absolute", top: "50%", left: "50%" }}>
-            <Button onClick={() => deleteChat()}> Delete</Button>
-            <Button> Reply</Button>
-            <Button onClick={() => setnewModele(false)}> Cancel</Button>
-
-          </Paper>)
-        }
-        {(notTextFile.length > 0 && variabletype !== "text") && (
-          <Grid container direction="row" justify="center" sx={{ width: "100%" }}>
-            <Grid item  >
-              <div style={{ position: "relative" }}>
-                <img
-                  src={notTextFile}
-                  alt={` ${variabletype}`}
-                  style={{ maxWidth: 150, maxHeight: 100 }}
-                />
-                <IconButton
-                  style={{ position: "absolute", top: 0, right: 0 }}
-                  onClick={handleDeleteImage}
-                >
-                  <Delete />
-                </IconButton>
-              </div>
-            </Grid>
+      <Grid sx={{ position: "relative" }}>
+        {type === "image" && (
+          <Grid
+            container
+            width={"100%"}
+            justifyContent={"space-between"}
+            p={"10px"}
+            sx={{
+              bgcolor: "#d8d8d8",
+              borderRadius: "15px",
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+            }}
+          >
+            <img src={selectedFileURL} alt="send file" width="150px" />
+            <Box
+              onClick={() => {
+                setShowAttachmentMenu(false);
+                setSelectedFileUrl("");
+                setType("text");
+              }}
+            >
+              <CloseIcon />
+            </Box>
+          </Grid>
+        )}
+        {type === "video" && (
+          <Grid
+            container
+            width={"100%"}
+            justifyContent={"space-between"}
+            p={"10px"}
+            sx={{
+              bgcolor: "#d8d8d8",
+              borderRadius: "15px",
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+            }}
+          >
+            {videoUploading ? (
+              <div>Uploading...</div>
+            ) : (
+              <video src={selectedFileURL} alt="send file" width="150px" />
+            )}
+            <Box
+              onClick={() => {
+                setShowAttachmentMenu(false);
+                setSelectedFileUrl("");
+                setType("text");
+              }}
+            >
+              <CloseIcon />
+            </Box>
           </Grid>
         )}
 
-
-        {
-          opengallery &&
-          <Paper elevation={24} sx={{ width: "170px", height: "150px", position: "absolute", top: "55%", left: "84vw", zIndex: 10 }}>
-            {/* <Paper elevation={24} sx={{ display: "flex", flexDirection: "column", justifyContent: "end", alignItems: "end", mr: 3 }}> */}
-            <Box sx={{
-              bottom: 4, right: 4,
-              display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", mr: "40%"
-            }}>
-
-
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  cursor: "pointer",
-                  ml: 2,
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}
-                onClick={() => {
-                  document.getElementById('image-input').click();
-                }}
-              >
-                <ImageIcon />
-                <Typography variant="subtitle2" sx={{ m: 1 }}>Image</Typography>
-                <input
-                  id="image-input"
-                  hidden
-                  accept="image/*"
-                  type="file"
-                  onChange={handleImage}
-                />
-              </Box>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  cursor: "pointer",
-                  ml: 2,
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}
-                onClick={() => {
-                  document.getElementById('video-input').click();
-                }}
-              >
-                <VideoCameraBackIcon />
-                <Typography variant="subtitle2" sx={{ m: 1 }}>Video</Typography>
-                <input
-                  id="video-input"
-                  hidden
-                  accept="video/*"
-                  type="file"
-                  onChange={handleVideo}
-                />
-              </Box>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  cursor: "pointer",
-                  // ml: 2,
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}
-                onClick={() => {
-                  document.getElementById('file-input').click();
-                }}
-              >
-                <InsertDriveFileIcon />
-                <Typography variant="subtitle2" sx={{ m: 1 }}>File</Typography>
-                <input
-                  id="file-input"
-                  hidden
-                  type="file"
-                  onChange={handleFile}
-                />
-              </Box>
-              <Box sx={{ display: "flex", flexDirection: "row", ml: 2, justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={() => setopengallery(false)}>
-                <CloseIcon />
-                <Typography variant="subtitle2" sx={{ m: 1 }}>Cancel</Typography>
-              </Box>
+        {type === "file" && (
+          <Grid
+            container
+            width={"100%"}
+            justifyContent={"space-between"}
+            p={"10px"}
+            sx={{
+              bgcolor: "#d8d8d8",
+              borderRadius: "15px",
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+            }}
+          >
+            <file src={selectedFileURL} alt="send file" width="150px" />
+            <Box
+              onClick={() => {
+                setShowAttachmentMenu(false);
+                setSelectedFileUrl("");
+                setType("text");
+              }}
+            >
+              <CloseIcon />
             </Box>
-          </Paper>
+          </Grid>
+        )}
+      </Grid>
 
-        }
+      {showAttachmentMenu && (
+        <Paper
+          elevation={24}
+          sx={{
+            width: "170px",
+            height: "150px",
+            position: "absolute",
+            top: "55%",
+            left: "84vw",
+            zIndex: 10,
+          }}
+        >
+          <Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                document.getElementById("image-input").click();
+              }}
+            >
+              <ImageIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                Image
+              </Typography>
+              <input
+                id="image-input"
+                hidden
+                accept="image/*"
+                type="file"
+                onChange={handleImage}
+              />
+            </Box>
 
-
-
-        {/*  */}
-      </Box>
-
-
-
-
-      <Paper
-        component="form"
-        sx={{
-          p: "4px",
-          display: "flex",
-          alignItems: "center",
-          backgroundColor: "#f0f0f0",
-          zIndex: 1,
-        }}
-      >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                document.getElementById("video-input").click();
+              }}
+            >
+              <VideoCameraBackIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                Video
+              </Typography>
+              <input
+                id="video-input"
+                hidden
+                accept="video/*"
+                type="file"
+                onChange={handleVideo}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                // ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                document.getElementById("file-input").click();
+              }}
+            >
+              <InsertDriveFileIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                File
+              </Typography>
+              <input id="file-input" hidden type="file" onChange={handleFile} />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                setShowAttachmentMenu(false);
+                setSelectedFileUrl("");
+              }}
+            >
+              <CloseIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                Cancel
+              </Typography>
+            </Box>
+          </Box>
+        </Paper>
+      )}
+      <Paper component="form" sx={styles.inputContainer}>
         <InputBase
           sx={styles.input}
           placeholder="Type a message"
