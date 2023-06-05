@@ -55,7 +55,7 @@ const Notification = () => {
       .finally(() => {
         setIsFirstEffectComplete(!isFirstEffectComplete);
       });
-  }, []);
+  }, [notification]);
 
   useEffect(() => {
     if (isFirstEffectComplete && notification?.title) {
