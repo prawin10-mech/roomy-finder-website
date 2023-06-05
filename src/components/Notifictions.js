@@ -58,6 +58,7 @@ const Notification = () => {
   }, [notification]);
 
   useEffect(() => {
+    console.log("notified me");
     if (isFirstEffectComplete && notification?.title) {
       notify();
     }
