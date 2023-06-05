@@ -5,6 +5,7 @@ import notificationAudio from "../assets/sounds/notification.wav";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
+  const [isFirstEffectComplete, setIsFirstEffectComplete] = useState(false);
 
   const notify = () => {
     console.log("notified");
@@ -40,12 +41,6 @@ const Notification = () => {
   }
 
   useEffect(() => {
-    if (notification?.title) {
-      notify();
-    }
-  });
-
-  useEffect(() => {
     onMessageListener()
       .then((payload) => {
         console.log("notification received");
@@ -56,8 +51,17 @@ const Notification = () => {
           id: Math.random() * 120 * Math.random(),
         });
       })
-      .catch((err) => console.log("failed: ", err));
-  }, [notification]);
+      .catch((err) => console.log("failed: ", err))
+      .finally(() => {
+        setIsFirstEffectComplete(true);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (isFirstEffectComplete && notification?.title) {
+      notify();
+    }
+  }, [notification, isFirstEffectComplete]);
 
   return <Toaster position="top-right" />;
 };
