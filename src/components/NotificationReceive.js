@@ -18,7 +18,7 @@ const sendNotification = async (title, body, fcmToken, link, imageUrl) => {
             image: imageUrl,
           },
           data: {
-            link, // Add the link to the data object
+            link,
           },
         }),
       })

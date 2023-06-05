@@ -53,7 +53,7 @@ const Notification = () => {
       })
       .catch((err) => console.log("failed: ", err))
       .finally(() => {
-        setIsFirstEffectComplete(true);
+        setIsFirstEffectComplete(!isFirstEffectComplete);
       });
   }, []);
 
