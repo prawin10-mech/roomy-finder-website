@@ -318,7 +318,7 @@ const Nav = () => {
           }}
           onClick={() => handleClick("message")}
           component={NavLink}
-          to={"/message"}
+          to={"/chat"}
         >
           Message
         </Button>
