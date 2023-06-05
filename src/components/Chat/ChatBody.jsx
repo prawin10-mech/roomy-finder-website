@@ -88,7 +88,7 @@ const ChatBody = ({ user, messages }) => {
           "Conversation",
           `${newMessage}`,
           user.other.fcmToken,
-          `http://localhost:3000/directchat/${user.id}`,
+          `https://roomyfinder.vercel.app/directchat/${user.id}`,
           "null"
         );
 
@@ -118,7 +118,7 @@ const ChatBody = ({ user, messages }) => {
           "Conversation",
           `${"Sent a image"}`,
           user.other.fcmToken,
-          `http://localhost:3000/directchat/${user.id}`,
+          `https://roomyfinder.vercel.app/directchat/${user.id}`,
           "null"
         );
 
@@ -150,7 +150,7 @@ const ChatBody = ({ user, messages }) => {
           "Conversation",
           `${"Sent a video"}`,
           user.other.fcmToken,
-          `http://localhost:3000/directchat/${user.id}`,
+          `https://roomyfinder.vercel.app/directchat/${user.id}`,
           "null"
         );
 
@@ -182,7 +182,7 @@ const ChatBody = ({ user, messages }) => {
           "Conversation",
           `${"Sent a file"}`,
           user.other.fcmToken,
-          `http://localhost:3000/directchat/${user.id}`,
+          `https://roomyfinder.vercel.app/directchat/${user.id}`,
           "null"
         );
 

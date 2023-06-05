@@ -40,12 +40,6 @@ const Notification = () => {
   }
 
   useEffect(() => {
-    if (notification?.title) {
-      notify();
-    }
-  }, [notification]);
-
-  useEffect(() => {
     onMessageListener()
       .then((payload) => {
         console.log("notification received");
@@ -53,10 +47,16 @@ const Notification = () => {
           title: payload?.notification?.title,
           body: payload?.notification?.body,
           time: Date.now(),
-          id: Math.random() * 120,
+          id: Math.random() * 120 * Math.random(),
         });
       })
       .catch((err) => console.log("failed: ", err));
+  }, [notification]);
+
+  useEffect(() => {
+    if (notification?.title) {
+      notify();
+    }
   }, [notification]);
 
   return <Toaster position="top-right" />;
