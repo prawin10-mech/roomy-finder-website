@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Box,
   Grid,
@@ -6,17 +8,13 @@ import {
   Avatar,
   Container,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import EmojiPicker from "emoji-picker-react";
-
 import ChatBody from "../components/Chat/ChatBody";
-import { onChatMessageListener } from "../firebase/index";
+import { onMessageListener } from "../firebase/index";
 
 const Chat = () => {
   const [handleSearch, setHandleSearch] = useState("");
-  const [messageReceived, setMessageReceived] = useState("");
-  const [conversationId, setConversationId] = useState("");
+  const [messageReceived, setMessageReceived] = useState(null);
+  const [conversationId, setConversationId] = useState(null);
   const token = localStorage.getItem("token");
 
   const [conversations, setConversations] = useState([]);
@@ -30,15 +28,12 @@ const Chat = () => {
         { headers: { Authorization: token } }
       );
       setConversations(data);
-      const newMessageSended = await onChatMessageListener();
-      setMessageReceived(newMessageSended.data.payload);
     } catch (err) {
       console.log(err);
     }
   };
 
   const getConversationMessages = async (conversation) => {
-    console.log(conversation);
     try {
       const { data } = await axios.get(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${conversation.otherId}`,
@@ -51,37 +46,46 @@ const Chat = () => {
     }
   };
 
-  // const sendMessage = async (newMessage) => {
-  //   try {
-  //     const { data } = await axios.post(
-  //       "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
-  //       {
-  //         recieverFcmToken: user.other.fcmToken,
-  //         recieverId: user.otherId,
-  //         type: "text",
-  //         body: newMessage,
-  //       },
-  //       { headers: { Authorization: token } }
-  //     );
-
-  //     // Retrieve the updated conversation list
-  //     getConversations();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   useEffect(() => {
     getConversations();
   }, []);
 
   useEffect(() => {
-    getConversations();
+    const fetchNewMessage = async () => {
+      const newMessage = await onMessageListener();
+      setMessageReceived(newMessage);
+    };
+
+    if (messageReceived) {
+      fetchNewMessage();
+    }
   }, [messageReceived]);
 
   useEffect(() => {
-    getConversationMessages(conversationId);
-  }, [conversations]);
+    if (conversationId) {
+      getConversationMessages(conversationId);
+    }
+  }, [conversationId]);
+
+  const sendMessage = async (newMessage) => {
+    try {
+      const { data } = await axios.post(
+        "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
+        {
+          recieverFcmToken: user.other.fcmToken,
+          recieverId: user.otherId,
+          type: "text",
+          body: newMessage,
+        },
+        { headers: { Authorization: token } }
+      );
+
+      // Retrieve the updated conversation list
+      getConversations();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -127,15 +131,18 @@ const Chat = () => {
                 const createdAt = new Date(conversation?.lastMessage.createdAt);
                 const hours = createdAt.getHours();
                 const minutes = createdAt.getMinutes();
+                const isUnread = !messages.some((msg) => msg.isRead);
+
                 return (
                   <Grid
                     container
                     justifyContent="space-between"
-                    sx={{ bgcolor: "grey", my: 1, cursor: "pointer" }}
-                    onClick={() => {
-                      getConversationMessages(conversation);
-                      setConversationId(conversation);
+                    sx={{
+                      bgcolor: isUnread ? "grey" : "transparent",
+                      my: 1,
+                      cursor: "pointer",
                     }}
+                    onClick={() => setConversationId(conversation)}
                     key={conversation.id}
                   >
                     <Grid
@@ -150,7 +157,7 @@ const Chat = () => {
                             {conversation?.other?.firstName}{" "}
                             {conversation?.other?.lastName}
                           </Typography>
-                          {!messages[0]?.isRead ? (
+                          {!isUnread ? (
                             <Typography
                               sx={{
                                 marginLeft: 1,
@@ -190,7 +197,7 @@ const Chat = () => {
               <ChatBody
                 user={user}
                 messages={messages}
-                //messageSended={sendMessage}
+                messageSended={sendMessage}
               />
             )}
           </Grid>
