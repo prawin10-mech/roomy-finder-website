@@ -30,6 +30,16 @@ export const onMessageListener = () => {
   });
 };
 
+export const onChatMessageListener = () => {
+  return new Promise((resolve) => {
+    onMessage(messaging, (payload) => {
+      console.log("hh", payload);
+      <Notification />;
+      resolve(payload);
+    });
+  });
+};
+
 export const requestForToken = () => {
   return getToken(messaging, {
     vapidKey:
