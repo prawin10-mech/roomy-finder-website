@@ -453,7 +453,7 @@ const ChatBody = ({ user, messages }) => {
         <Typography variant="body2">{user?.other?.type}</Typography>
       </Box>
       <Box sx={styles.chatContainer} ref={chatContainerRef}>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Box sx={{ display: "flex", justifyContent: "center",position:"relative" }}>
           {/* <Paper elevation={16} sx={{display:"flex",justifyContent:"center",p:2,borderRadius:"20px",width:"150px"}}> */}
 
           {showLoadMore && (
@@ -789,25 +789,25 @@ const ChatBody = ({ user, messages }) => {
 
             "@media (max-width: 325px)": {
               // left: "58%",
-              // top: "90%",
-              top: "99%",
+              top: "210%",
+              // buttom: "-40px",
               right: 5,
             },
             "@media (max-width: 426px) and (min-width: 326px)": {
               right: 5,
-              top: "99%",
+              top: "210%",
             },
             "@media (max-width: 769px) and (min-width: 427px)": {
               right: 5,
-              top: "99%",
+              top: "105%",
             },
             "@media (max-width: 1025px) and (min-width: 770px)": {
-              right: 5,
+              right: 9,
               // buttom:-20,
               top: "99%",
             },
             "@media (max-width: 1445px) and (min-width: 1025px)": {
-              right: 5,
+              right: "10%",
               // buttom:-20,
               top: "99%",
             },
