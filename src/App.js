@@ -38,6 +38,7 @@ import PostAd from "./pages/PostAd";
 import UpgradePlan from "./pages/UpgradePlan";
 import About from "./pages/About";
 import Message from "./pages/Message";
+import NewSignUpPage from "./pages/NewSignUpPage";
 import Notification from "./components/Notifictions";
 
 const App = () => {
@@ -146,6 +147,8 @@ const App = () => {
           {/* <Route path="/chat" element={<Chat />} /> */}
           <Route path="/allAvailableRooms" element={<AllRooms />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/newsignup" element={<NewSignUpPage />} />
+          
           <Route path="/rooms/view-room/:id" element={<ViewRoom />} />
           <Route path="/sp" element={<SecondPage />} />
           <Route path="/login" element={<Login />} />

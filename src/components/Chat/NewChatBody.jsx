@@ -8,6 +8,7 @@ import {
   Dialog,
   IconButton,
   Tooltip,
+  Button,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
@@ -45,6 +46,8 @@ const NewChatBody = () => {
   const [fileSize, setFileSize] = useState("");
   const [newValueAdd, setnewValueAdd] = useState("");
   const [notification, setNotification] = useState({ title: "", body: "" });
+  const [loadData, setloadData] = useState(10);
+  const [showLoadMore, setshowLoadMore] = useState(false);
 
   const chatContainerRef = useRef(null);
   const token = localStorage.getItem("token");
@@ -63,6 +66,9 @@ const NewChatBody = () => {
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.poster.id}`,
         { headers: { Authorization: token } }
       );
+      if(updatedMessages.data.length>10){
+        setshowLoadMore(true)
+      }
       console.log(updatedMessages.data, "updatedMessages the updatedMessages");
       setChatMessages(updatedMessages.data);
     } else {
@@ -72,12 +78,19 @@ const NewChatBody = () => {
       );
 
       console.log(updatedMessages.data, "updatedMessages the updatedMessages");
+      if(updatedMessages.data.length>10){
+        setshowLoadMore(true)
+      }
       setChatMessages(updatedMessages.data);
     }
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
+
+    // if(chatMessages.length>10){
+    //   setshowLoadMore(true)
+    // }
   };
 
   // const MobileOtpSend = async()=>{
@@ -105,6 +118,9 @@ const NewChatBody = () => {
 
       scrollToBottom();
       getAllmessage();
+      if(chatMessages.length>10){
+        setshowLoadMore(true)
+      }
   }, [notification]);
 
   // mera------------
@@ -551,6 +567,14 @@ const NewChatBody = () => {
     },
   };
 
+  const loadmoredata =() =>{
+
+    if(chatMessages.length>10){
+      setloadData(loadData + 10)
+    }
+  }
+  console.log(showLoadMore);
+  console.log(loadData);
   return (
     <Box sx={styles.container}>
       <Box sx={styles.header}>
@@ -568,8 +592,11 @@ const NewChatBody = () => {
         </Typography>
       </Box>
       <Box sx={styles.chatContainer} ref={chatContainerRef}>
+      <Box sx={{display:"flex",justifyContent:"center",}}>
+      {showLoadMore && <Button onClick={loadmoredata} sx={{p:2,borderRadius:"20px",width:"150px"}}>Load More</Button>}
+      </Box>
         {chatMessages
-          .slice(0)
+          .slice(0,loadData)
           .reverse()
           .map((message) => {
             const isCurrentUser =
@@ -894,22 +921,30 @@ const NewChatBody = () => {
             top: "55%",
             
             "@media (max-width: 325px)": {
-              left: "58%",
+              // left: "58%",
+              right:5,
                 },
                 "@media (max-width: 426px) and (min-width: 326px)": {
-                  left: "60%",
+                  // left: "60%",
+                  right:5,
                 },
                 "@media (max-width: 769px) and (min-width: 427px)": {
-                  left: "84%",
+                  // left: "84%",
+                  right:5,
                 },
                  "@media (max-width: 1025px) and (min-width: 770px)": {
-                  left: "83%",
+                  // left: "83%",
+                  right:5,
                 },
                 "@media (max-width: 1445px) and (min-width: 1025px)": {
-                  left: "87%",
+                  // left: "87%",
+                  right:5,
+                  top: "59%",
                 },
                 "@media (max-width: 2250px) and (min-width: 1445px)": {
-                  left: "60%",
+                  // left: "60%",
+                  right:5,
+                  top: "70%",
                 },
             zIndex: 10,
           }}
