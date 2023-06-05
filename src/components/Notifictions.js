@@ -5,27 +5,32 @@ import notificationAudio from "../assets/sounds/notification.wav";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
+  const [notificationReceived, setNotificationReceived] = useState(false);
 
   const notify = () => {
-    console.log("notified");
+    try {
+      console.log("notified");
 
-    let receivedNotifications = sessionStorage.getItem("notifications");
-    const audio = new Audio(notificationAudio);
-    audio.play();
+      let receivedNotifications = sessionStorage.getItem("notifications");
+      const audio = new Audio(notificationAudio);
+      audio.play();
 
-    if (receivedNotifications) {
-      receivedNotifications = JSON.parse(receivedNotifications);
-      receivedNotifications = [...receivedNotifications, notification];
-    } else {
-      receivedNotifications = [notification];
+      if (receivedNotifications) {
+        receivedNotifications = JSON.parse(receivedNotifications);
+        receivedNotifications = [...receivedNotifications, notification];
+      } else {
+        receivedNotifications = [notification];
+      }
+
+      sessionStorage.setItem(
+        "notifications",
+        JSON.stringify(receivedNotifications)
+      );
+
+      toast(<ToastDisplay />);
+    } catch (err) {
+      console.log(err);
     }
-
-    sessionStorage.setItem(
-      "notifications",
-      JSON.stringify(receivedNotifications)
-    );
-
-    toast(<ToastDisplay />);
   };
 
   function ToastDisplay() {
@@ -49,6 +54,7 @@ const Notification = () => {
           time: Date.now(),
           id: Math.random() * 120 * Math.random(),
         });
+        setNotificationReceived(!notificationReceived);
       })
       .catch((err) => console.log("failed: ", err));
   }, [notification]);
@@ -57,7 +63,7 @@ const Notification = () => {
     if (notification?.title) {
       notify();
     }
-  }, [notification]);
+  }, [notificationReceived]);
 
   return <Toaster position="top-right" />;
 };

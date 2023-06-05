@@ -11,10 +11,9 @@ import axios from "axios";
 import EmojiPicker from "emoji-picker-react";
 
 import ChatBody from "../components/Chat/ChatBody";
-import { onMessageListener } from "../firebase/index";
+import { onChatMessageListener } from "../firebase/index";
 
 const Chat = () => {
-  const [openEmoji, setOpenEmoji] = useState(false);
   const [handleSearch, setHandleSearch] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
   const [conversationId, setConversationId] = useState("");
@@ -31,7 +30,7 @@ const Chat = () => {
         { headers: { Authorization: token } }
       );
       setConversations(data);
-      const newMessageSended = await onMessageListener();
+      const newMessageSended = await onChatMessageListener();
       setMessageReceived(newMessageSended.data.payload);
     } catch (err) {
       console.log(err);
@@ -139,19 +138,38 @@ const Chat = () => {
                     }}
                     key={conversation.id}
                   >
-                    <Grid container alignItems="center" sx={{ml:{md:2},pt:{md:1}}}>
+                    <Grid
+                      container
+                      alignItems="center"
+                      sx={{ ml: { md: 2 }, pt: { md: 1 } }}
+                    >
                       <Avatar />
-                      <Grid item sx={{ml:{md:2},pt:{md:1}}}>
-                        <Typography sx={{ fontWeight: 600 }}>
-                          {conversation?.other?.firstName}{" "}
-                          {conversation?.other?.lastName}
-                        </Typography>
+                      <Grid item>
+                        <Grid container>
+                          <Typography sx={{ fontWeight: 600 }}>
+                            {conversation?.other?.firstName}{" "}
+                            {conversation?.other?.lastName}
+                          </Typography>
+                          {!messages[0]?.isRead ? (
+                            <Typography
+                              sx={{
+                                marginLeft: 1,
+                                color: "primary.main",
+                                fontWeight: 900,
+                                fontSize: "3rem", // Increase the font size to make the dot bigger
+                                lineHeight: 0, // Remove line height to prevent extra space around the dot
+                              }}
+                            >
+                              .
+                            </Typography>
+                          ) : null}
+                        </Grid>
                         <Typography>
                           {conversation?.lastMessage?.body}
                         </Typography>
                       </Grid>
                     </Grid>
-                    <Grid item sx={{ml:{md:2}}}>
+                    <Grid item sx={{ ml: { md: 2 } }}>
                       <Typography>{`${hours}:${minutes}`}</Typography>
                     </Grid>
                   </Grid>
@@ -168,11 +186,6 @@ const Chat = () => {
               pl: 1,
             }}
           >
-            {openEmoji && (
-              <Box sx={{ position: "absolute" }}>
-                <EmojiPicker />
-              </Box>
-            )}
             {user && (
               <ChatBody
                 user={user}

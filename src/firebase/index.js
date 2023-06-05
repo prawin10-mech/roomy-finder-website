@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import Notification from "../components/Notifictions";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAObyh2MPBu_Wui39tuQebVwwQEsgH_P-g",
@@ -22,7 +23,18 @@ export const messaging = getMessaging(app);
 export const onMessageListener = () => {
   return new Promise((resolve) => {
     onMessage(messaging, (payload) => {
-      console.log("ff", payload);
+      console.log("hh", payload);
+      <Notification />;
+      resolve(payload);
+    });
+  });
+};
+
+export const onChatMessageListener = () => {
+  return new Promise((resolve) => {
+    onMessage(messaging, (payload) => {
+      console.log("hh", payload);
+      <Notification />;
       resolve(payload);
     });
   });
