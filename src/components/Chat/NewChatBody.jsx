@@ -87,8 +87,6 @@ const NewChatBody = () => {
   // console.log("res",res);
   // }
 
-  console.log("newValueAdd", newValueAdd);
-
   useEffect(() => {
     scrollToBottom();
     getAllmessage();

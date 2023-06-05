@@ -43,7 +43,7 @@ const Notification = () => {
     if (notification?.title) {
       notify();
     }
-  }, [notification]);
+  });
 
   useEffect(() => {
     onMessageListener()
@@ -53,7 +53,7 @@ const Notification = () => {
           title: payload?.notification?.title,
           body: payload?.notification?.body,
           time: Date.now(),
-          id: Math.random() * 120,
+          id: Math.random() * 120 * Math.random(),
         });
       })
       .catch((err) => console.log("failed: ", err));
