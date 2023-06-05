@@ -141,7 +141,7 @@ const Chat = () => {
                     <Grid
                       container
                       alignItems="center"
-                      sx={{ ml: { md: 2 }, pt: { md: 1 } }}
+                      sx={{ ml: {xs:"3px", md: 2 }, pt: {xs:"3px", md: 1 } }}
                     >
                       <Avatar />
                       <Grid item>
@@ -169,7 +169,7 @@ const Chat = () => {
                         </Typography>
                       </Grid>
                     </Grid>
-                    <Grid item sx={{ ml: { md: 2 } }}>
+                    <Grid item sx={{ ml: {xs:"3px", md: 2 } }}>
                       <Typography>{`${hours}:${minutes}`}</Typography>
                     </Grid>
                   </Grid>

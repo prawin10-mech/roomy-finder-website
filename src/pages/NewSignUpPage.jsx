@@ -255,10 +255,14 @@ export default function NewSignUpPage() {
         handleClickOpen()
         try {
             const fullnumber = countryCode+phone
-            console.log("data send otp",fullnumber);
+            console.log("data send otp123",phone);
 
-            const data = await axios.post("http://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/send-otp-code", {
-                 phone:"+917899876574"
+            console.log("data send otp123",countryCode);
+            console.log("data send otp123",fullnumber);
+
+
+            const {data} = await axios.post("https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/send-otp-code", {
+                 phone:fullnumber
             })
             console.log("data send otp",data);
         } catch (err) {
@@ -267,25 +271,39 @@ export default function NewSignUpPage() {
     }
     const verifyOTP = async () => {
         try{
-            if(mobileotp > 6){
-            }
-            else if(mobileotp<6){
+            
+            const fullnumber = countryCode+phone
+            console.log("fullnumber",fullnumber,mobileotp);
+            const { data } = await axios.post("https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/verify-otp-code",{
+                phone:fullnumber,
+                code : mobileotp
+            })
+            console.log("data verify otp",data);
+            // if(data){
+            //     handleSubmit()
+            // }
+            // else{
 
-            }
-            else{
-                const fullnumber = countryCode+phone
-                const { data } = await axios.post("http://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/verify-otp-code",{
-                    phone:fullnumber,
-                    "code" : mobileotp
-                })
-                console.log("data verify otp",data);
-                if(data){
-                    handleSubmit()
-                }
-                else{
+            // }
+            // if(mobileotp > 6){
+            // }
+            // else if(mobileotp<6){
 
-                }
-            }
+            // }
+            // else{
+            //     // const fullnumber = countryCode+phone
+            //     // const { data } = await axios.post("https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/verify-otp-code",{
+            //     //     phone:fullnumber,
+            //     //     "code" : mobileotp
+            //     // })
+            //     // console.log("data verify otp",data);
+            //     // if(data){
+            //     //     handleSubmit()
+            //     // }
+            //     // else{
+
+            //     // }
+            // }
 
         }catch(err){
             console.log(err);
