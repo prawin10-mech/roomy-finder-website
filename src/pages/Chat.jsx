@@ -12,7 +12,6 @@ import EmojiPicker from "emoji-picker-react";
 
 import ChatBody from "../components/Chat/ChatBody";
 import { onMessageListener } from "../firebase/index";
-import Notification from "../components/Notifictions";
 
 const Chat = () => {
   const [openEmoji, setOpenEmoji] = useState(false);
@@ -87,7 +86,6 @@ const Chat = () => {
 
   return (
     <>
-      <Notification />
       <Container
         xs={12}
         sm={12}

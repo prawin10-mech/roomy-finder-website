@@ -5,6 +5,7 @@ import notificationAudio from "../assets/sounds/notification.wav";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
+  const [notificationReceived, setNotificationReceived] = useState(false);
 
   const notify = () => {
     console.log("notified");
@@ -49,9 +50,7 @@ const Notification = () => {
           time: Date.now(),
           id: Math.random() * 120 * Math.random(),
         });
-        if (notification?.title) {
-          notify();
-        }
+        setNotificationReceived(!notificationReceived);
       })
       .catch((err) => console.log("failed: ", err));
   }, [notification]);
@@ -60,7 +59,7 @@ const Notification = () => {
     if (notification?.title) {
       notify();
     }
-  }, [notification]);
+  }, [notificationReceived]);
 
   return <Toaster position="top-right" />;
 };
