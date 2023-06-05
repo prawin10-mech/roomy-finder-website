@@ -436,7 +436,7 @@ const ChatBody = ({ user, messages }) => {
       setloadData(loadData + 10)
     }
   }
-  console.log("showLoadMore",showLoadMore);
+  
 
   return (
     <Box sx={styles.container}>
@@ -450,11 +450,7 @@ const ChatBody = ({ user, messages }) => {
       </Box>
       <Box sx={styles.chatContainer} ref={chatContainerRef}>
       <Box sx={{display:"flex",justifyContent:"center",}}>
-
-      {/* <Paper elevation={16} sx={{display:"flex",justifyContent:"center",p:2,borderRadius:"20px",width:"150px"}}> */}
-
       {showLoadMore && <Button onClick={loadmoredata} sx={{p:2,borderRadius:"20px",width:"150px"}}>Load More</Button>}
-      {/* </Paper> */}
       </Box>
         {chatMessages
           .slice(0,loadData)

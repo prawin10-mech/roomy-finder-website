@@ -56,7 +56,7 @@ const Chat = () => {
   //   try {
   //     const { data } = await axios.post(
   //       "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
-  //       {
+  //       {n
   //         recieverFcmToken: user.other.fcmToken,
   //         recieverId: user.otherId,
   //         type: "text",
