@@ -29,15 +29,16 @@ import PayRent from "./pages/PayRent";
 import MyAds from "./pages/MyAds";
 import ViewTenant from "./pages/ViewTenant";
 import Notifications from "./pages/Notification";
+import AccountBalance from "./pages/AccountBalance";
 
 import StripePaymentCancel from "./pages/StripePaymentCancel";
-import axios from "axios";
 import ChatBody from "./components/Chat/ChatBody";
 import NewChatBody from "./components/Chat/NewChatBody";
 import PostAd from "./pages/PostAd";
 import UpgradePlan from "./pages/UpgradePlan";
 import About from "./pages/About";
 import Message from "./pages/Message";
+import Notification from "./components/Notifictions";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -50,40 +51,6 @@ const App = () => {
         if (permission === "granted") {
           const fcmToken = await requestForToken();
           if (fcmToken) {
-            // const { data } = await axios.put(
-            //   "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/update-fcm-token",
-            //   { fcmToken },
-            //   { headers: { Authorization: token } }
-            // );
-            // fetch("https://fcm.googleapis.com/fcm/send", {
-            //   method: "POST",
-            //   headers: {
-            //     "Content-Type": "application/json",
-            //     Authorization:
-            //       "bearer AAAAP9DdnvY:APA91bHXKF1b-SoQmOwvU49nZ0lE8wcE6zitWELiu2DHI0mD9726NNVIB_CNPRURAHUIRxa1c4XTyhXxKb6ApciTEgPvxwlbwtXU4IdZ4WEyKiQrKKVR35zBEJdrOMsRmHY2dY6SBr0z",
-            //   },
-            //   body: JSON.stringify({
-            //     to: fcmToken,
-            //     notification: {
-            //       title: "Notification Title",
-            //       body: "Notification Body",
-            //     },
-            //   }),
-            // })
-            //   .then((response) => {
-            //     if (!response.ok) {
-            //       throw new Error("Failed to send notification");
-            //     }
-            //     return response.json();
-            //   })
-            //   .then((data) => {
-            //     console.log("API Response:", data);
-            //     // Handle the response data as needed
-            //   })
-            //   .catch((error) => {
-            //     console.error("API Error:", error);
-            //     // Handle the error appropriately
-            //   });
           }
         } else if (permission === "denied") {
           alert("You denied the notification permission");
@@ -147,6 +114,11 @@ const App = () => {
           <Route
             path="/chat/:id"
             element={<PrivateRoute Component={ChatBody} />}
+          />
+
+          <Route
+            path="/:token/account-balance"
+            element={<PrivateRoute Component={AccountBalance} />}
           />
           <Route
             path="/directchat/:id"

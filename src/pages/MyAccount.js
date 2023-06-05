@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Box, Typography, Button, Avatar } from "@mui/material";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,8 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 const MyAccount = () => {
   const user = JSON.parse(Cookies.get("user"));
   const navigate = useNavigate();
+  const token = localStorage.getItem("token").split(" ")[1];
+  const [accountBalance, setAccountBalance] = useState(0);
 
   const viewProfileHandle = () => {
     navigate("/viewProfile");
@@ -64,6 +66,18 @@ const MyAccount = () => {
   };
 
   console.log(user);
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      const { data } = await axios.get(
+        "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/profile/account-details",
+        { headers: { Authorization: "bearer " + token } }
+      );
+      console.log(data);
+      setAccountBalance(data.accountBalance);
+    };
+    fetchBalance();
+  });
 
   return (
     <>
@@ -314,7 +328,14 @@ const MyAccount = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ width: "100%", maxWidth: "70%" }}>
+          <Grid
+            item
+            xs={12}
+            sx={{ width: "100%", maxWidth: "70%", cursor: "pointer" }}
+            onClick={() => {
+              navigate(`/${token}/account-balance`);
+            }}
+          >
             <Grid
               sx={{
                 display: "flex",
@@ -326,15 +347,20 @@ const MyAccount = () => {
               }}
             >
               <Box sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <Avatar sx={{ m: 1 }}>
                     <AccountBalanceWalletIcon />
                   </Avatar>
                 </Box>
 
-                <Box>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Typography>Account Balance</Typography>
-                  <Typography>0 AED</Typography>
                 </Box>
               </Box>
               <Box>

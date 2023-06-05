@@ -8,6 +8,7 @@ import {
   Dialog,
   IconButton,
   Tooltip,
+  Avatar,
 } from "@mui/material";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachmentIcon from "@mui/icons-material/Attachment";
@@ -416,11 +417,16 @@ const ChatBody = ({ user, messages }) => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.header}>
-        <Box>
-          <Typography variant="body1" fontWeight={700}>
-            {user?.other?.firstName} {user?.other?.lastName}
-          </Typography>
-        </Box>
+        <Grid container alignContent="center">
+          <Box sx={{ mr: 2 }}>
+            <Avatar>{user?.other?.firstName.split("")[0]}</Avatar>
+          </Box>
+          <Box sx={{ height: "100%", direction: "flex", alignItems: "center" }}>
+            <Typography variant="body1" fontWeight={700}>
+              {user?.other?.firstName} {user?.other?.lastName}
+            </Typography>
+          </Box>
+        </Grid>
         <Typography variant="body2">{user?.other?.type}</Typography>
       </Box>
       <Box sx={styles.chatContainer} ref={chatContainerRef}>

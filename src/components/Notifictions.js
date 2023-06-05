@@ -39,25 +39,25 @@ const Notification = () => {
     );
   }
 
-  useEffect(() => {
-    onMessageListener()
-      .then((payload) => {
-        console.log("notification received");
-        setNotification({
-          title: payload?.notification?.title,
-          body: payload?.notification?.body,
-          time: Date.now(),
-          id: Math.random() * 120 * Math.random(),
-        });
-      })
-      .catch((err) => console.log("failed: ", err));
-  }, [notification]);
+  // useEffect(() => {
+  //   onMessageListener()
+  //     .then((payload) => {
+  //       console.log("notification received");
+  //       setNotification({
+  //         title: payload?.notification?.title,
+  //         body: payload?.notification?.body,
+  //         time: Date.now(),
+  //         id: Math.random() * 120 * Math.random(),
+  //       });
+  //     })
+  //     .catch((err) => console.log("failed: ", err));
+  // }, [notification]);
 
-  useEffect(() => {
-    if (notification?.title) {
-      notify();
-    }
-  }, [notification]);
+  // useEffect(() => {
+  //   if (notification?.title) {
+  //     notify();
+  //   }
+  // }, [notification]);
 
   return <Toaster position="top-right" />;
 };

@@ -12,6 +12,7 @@ import EmojiPicker from "emoji-picker-react";
 
 import ChatBody from "../components/Chat/ChatBody";
 import { onMessageListener } from "../firebase/index";
+import Notification from "../components/Notifictions";
 
 const Chat = () => {
   const [openEmoji, setOpenEmoji] = useState(false);
@@ -86,6 +87,7 @@ const Chat = () => {
 
   return (
     <>
+      <Notification />
       <Container
         xs={12}
         sm={12}
@@ -142,10 +144,25 @@ const Chat = () => {
                     <Grid container alignItems="center">
                       <Avatar />
                       <Grid item>
-                        <Typography sx={{ fontWeight: 600 }}>
-                          {conversation?.other?.firstName}{" "}
-                          {conversation?.other?.lastName}
-                        </Typography>
+                        <Grid container>
+                          <Typography sx={{ fontWeight: 600 }}>
+                            {conversation?.other?.firstName}{" "}
+                            {conversation?.other?.lastName}
+                          </Typography>
+                          {!messages[0]?.isRead ? (
+                            <Typography
+                              sx={{
+                                marginLeft: 1,
+                                color: "primary.main",
+                                fontWeight: 900,
+                                fontSize: "3rem", // Increase the font size to make the dot bigger
+                                lineHeight: 0, // Remove line height to prevent extra space around the dot
+                              }}
+                            >
+                              .
+                            </Typography>
+                          ) : null}
+                        </Grid>
                         <Typography>
                           {conversation?.lastMessage?.body}
                         </Typography>
