@@ -24,7 +24,8 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
 
-import {onMessageListener} from "../../firebase/index"
+import { onMessageListener } from "../../firebase/index";
+import sendNotification from "../NotificationReceive";
 
 const NewChatBody = () => {
   const [newMessage, setNewMessage] = useState("");
@@ -43,8 +44,7 @@ const NewChatBody = () => {
   const [fileName, setFileName] = useState("");
   const [fileSize, setFileSize] = useState("");
   const [newValueAdd, setnewValueAdd] = useState("");
-  const [notification, setNotification] = useState({ title: "", body: "" })
-
+  const [notification, setNotification] = useState({ title: "", body: "" });
 
   const chatContainerRef = useRef(null);
   const token = localStorage.getItem("token");
@@ -55,8 +55,6 @@ const NewChatBody = () => {
 
   const location = useLocation();
   const data12 = location.state;
-
-  
 
   // get all message
   const getAllmessage = async () => {
@@ -77,7 +75,8 @@ const NewChatBody = () => {
       setChatMessages(updatedMessages.data);
     }
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   };
 
@@ -87,17 +86,17 @@ const NewChatBody = () => {
   // })
   // console.log("res",res);
   // }
-  
-  console.log("newValueAdd",newValueAdd);
+
+  console.log("newValueAdd", newValueAdd);
 
   useEffect(() => {
     scrollToBottom();
     getAllmessage();
     onMessageListener()
       .then((payload) => {
-        // newValueAdd, 
-        setnewValueAdd(payload.data.payload)
-        console.log("message chat received",payload.data.payload);
+        // newValueAdd,
+        setnewValueAdd(payload.data.payload);
+        console.log("message chat received", payload.data.payload);
         setNotification({
           title: payload?.notification?.title,
           body: payload?.notification?.body,
@@ -107,7 +106,7 @@ const NewChatBody = () => {
       })
       .catch((err) => console.log("failed: ", err));
   }, [notification]);
- 
+
   // mera------------
 
   const sendMessage = async () => {
@@ -123,6 +122,14 @@ const NewChatBody = () => {
               body: newMessage,
             },
             { headers: { Authorization: token } }
+          );
+
+          sendNotification(
+            "Conversation",
+            `${newMessage}`,
+            data12.property.poster.fcmToken,
+            `https://roomyfinder.vercel.app/chat`,
+            "null"
           );
           setIsReplied(false);
           setNewMessage("");
@@ -144,6 +151,14 @@ const NewChatBody = () => {
               fileSize: fileSize,
             },
             { headers: { Authorization: token } }
+          );
+
+          sendNotification(
+            "Conversation",
+            `Send a image`,
+            data12.property.poster.fcmToken,
+            `https://roomyfinder.vercel.app/chat`,
+            `${selectedFileURL}`
           );
 
           setSelectedFileUrl("");
@@ -168,6 +183,13 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
+          sendNotification(
+            "Conversation",
+            `Send a video`,
+            data12.property.poster.fcmToken,
+            `https://roomyfinder.vercel.app/chat`,
+            "null"
+          );
 
           setSelectedFileUrl("");
           setIsReplied(false);
@@ -190,6 +212,14 @@ const NewChatBody = () => {
               fileSize: fileSize,
             },
             { headers: { Authorization: token } }
+          );
+
+          sendNotification(
+            "Conversation",
+            `Sent a file`,
+            data12.property.poster.fcmToken,
+            `https://roomyfinder.vercel.app/chat`,
+            "null"
           );
 
           setSelectedFileUrl("");
@@ -442,7 +472,6 @@ const NewChatBody = () => {
     [token]
   );
 
-  
   // Component styles
   const styles = {
     container: {
