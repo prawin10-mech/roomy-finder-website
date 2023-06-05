@@ -42,6 +42,8 @@ const ChatBody = ({ user, messages }) => {
   const [type, setType] = useState("text");
   const [fileName, setFileName] = useState("");
   const [fileSize, setFileSize] = useState("");
+  const [loadData, setloadData] = useState(10);
+  const [showLoadMore, setshowLoadMore] = useState(false);
 
   const chatContainerRef = useRef(null);
   const token = localStorage.getItem("token");
@@ -57,6 +59,9 @@ const ChatBody = ({ user, messages }) => {
         { headers: { Authorization: token } }
       );
       setChatMessages(data);
+      if (chatMessages.length > 10) {
+        setshowLoadMore(true);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -331,17 +336,27 @@ const ChatBody = ({ user, messages }) => {
   useEffect(() => {
     setChatMessages(messages);
     scrollToBottom();
+    if (chatMessages.length > 10) {
+      setshowLoadMore(true);
+    }
+    if (messages.length > 10) {
+      setshowLoadMore(true);
+    }
   }, [messages]);
 
   useEffect(() => {
     scrollToBottom();
     getMessages();
+    if (chatMessages.length > 10) {
+      setshowLoadMore(true);
+    }
   }, [getMessages]);
 
   // Component styles
   const styles = {
     container: {
-      paddingBottom: "64px",
+      height: "100% ",
+      // paddingBottom: "64px",
     },
     header: {
       display: "flex",
@@ -352,9 +367,10 @@ const ChatBody = ({ user, messages }) => {
       color: "#fff",
     },
     chatContainer: {
-      height: "calc(100vh - 264px)",
+      height: "calc(100vh - 50px)",
       overflowY: "auto",
       padding: "16px",
+      overflowX: "hidden",
     },
     messageContainer: {
       color: "#000",
@@ -413,6 +429,12 @@ const ChatBody = ({ user, messages }) => {
       marginBottom: "4px",
     },
   };
+  const loadmoredata = () => {
+    if (chatMessages.length > 10) {
+      setloadData(loadData + 10);
+    }
+  };
+  console.log("showLoadMore", showLoadMore);
 
   return (
     <Box sx={styles.container}>
@@ -430,8 +452,21 @@ const ChatBody = ({ user, messages }) => {
         <Typography variant="body2">{user?.other?.type}</Typography>
       </Box>
       <Box sx={styles.chatContainer} ref={chatContainerRef}>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          {/* <Paper elevation={16} sx={{display:"flex",justifyContent:"center",p:2,borderRadius:"20px",width:"150px"}}> */}
+
+          {showLoadMore && (
+            <Button
+              onClick={loadmoredata}
+              sx={{ p: 2, borderRadius: "20px", width: "150px" }}
+            >
+              Load More
+            </Button>
+          )}
+          {/* </Paper> */}
+        </Box>
         {chatMessages
-          .slice(0)
+          .slice(0, loadData)
           .reverse()
           .map((message) => {
             const isCurrentUser = message?.senderId === user?.otherId;
@@ -744,96 +779,136 @@ const ChatBody = ({ user, messages }) => {
       </Grid>
 
       {showAttachmentMenu && (
-        <Box sx={styles.attachmentMenu}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              cursor: "pointer",
-              ml: 2,
-              alignItems: "center",
-            }}
-            onClick={() => {
-              document.getElementById("image-input").click();
-            }}
-          >
-            <ImageIcon />
-            <Typography variant="subtitle2" sx={{ m: 1 }}>
-              Image
-            </Typography>
-            <input
-              id="image-input"
-              hidden
-              accept="image/*"
-              type="file"
-              onChange={handleImage}
-            />
-          </Box>
+        <Paper
+          elevation={24}
+          sx={{
+            width: { xs: "120px", md: "165px" },
+            height: { xs: "150px", md: "150px" },
+            position: "absolute",
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              cursor: "pointer",
-              ml: 2,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={() => {
-              document.getElementById("video-input").click();
-            }}
-          >
-            <VideoCameraBackIcon />
-            <Typography variant="subtitle2" sx={{ m: 1 }}>
-              Video
-            </Typography>
-            <input
-              id="video-input"
-              hidden
-              accept="video/*"
-              type="file"
-              onChange={handleVideo}
-            />
+            "@media (max-width: 325px)": {
+              // left: "58%",
+              // top: "90%",
+              top: "99%",
+              right: 5,
+            },
+            "@media (max-width: 426px) and (min-width: 326px)": {
+              right: 5,
+              top: "99%",
+            },
+            "@media (max-width: 769px) and (min-width: 427px)": {
+              right: 5,
+              top: "99%",
+            },
+            "@media (max-width: 1025px) and (min-width: 770px)": {
+              right: 5,
+              // buttom:-20,
+              top: "99%",
+            },
+            "@media (max-width: 1445px) and (min-width: 1025px)": {
+              right: 5,
+              // buttom:-20,
+              top: "99%",
+            },
+            "@media (max-width: 2250px) and (min-width: 1445px)": {
+              right: 5,
+              top: "55%",
+            },
+            zIndex: 10,
+          }}
+        >
+          <Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                document.getElementById("image-input").click();
+              }}
+            >
+              <ImageIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                Image
+              </Typography>
+              <input
+                id="image-input"
+                hidden
+                accept="image/*"
+                type="file"
+                onChange={handleImage}
+              />
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                document.getElementById("video-input").click();
+              }}
+            >
+              <VideoCameraBackIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                Video
+              </Typography>
+              <input
+                id="video-input"
+                hidden
+                accept="video/*"
+                type="file"
+                onChange={handleVideo}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                cursor: "pointer",
+                // ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                document.getElementById("file-input").click();
+              }}
+            >
+              <InsertDriveFileIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                File
+              </Typography>
+              <input id="file-input" hidden type="file" onChange={handleFile} />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                ml: 2,
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                setShowAttachmentMenu(false);
+                setSelectedFileUrl("");
+              }}
+            >
+              <CloseIcon />
+              <Typography variant="subtitle2" sx={{ m: 1 }}>
+                Cancel
+              </Typography>
+            </Box>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              cursor: "pointer",
-              ml: 2,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={() => {
-              document.getElementById("file-input").click();
-            }}
-          >
-            <InsertDriveFileIcon />
-            <Typography variant="subtitle2" sx={{ m: 1 }}>
-              File
-            </Typography>
-            <input id="file-input" hidden type="file" onChange={handleFile} />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              ml: 2,
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              setShowAttachmentMenu(false);
-              setSelectedFileUrl("");
-            }}
-          >
-            <CloseIcon />
-            <Typography variant="subtitle2" sx={{ m: 1 }}>
-              Cancel
-            </Typography>
-          </Box>
-        </Box>
+        </Paper>
       )}
       <Paper component="form" sx={styles.inputContainer}>
         <InputBase

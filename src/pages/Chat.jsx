@@ -141,7 +141,11 @@ const Chat = () => {
                     }}
                     key={conversation.id}
                   >
-                    <Grid container alignItems="center">
+                    <Grid
+                      container
+                      alignItems="center"
+                      sx={{ ml: { md: 2 }, pt: { md: 1 } }}
+                    >
                       <Avatar />
                       <Grid item>
                         <Grid container>
@@ -168,7 +172,7 @@ const Chat = () => {
                         </Typography>
                       </Grid>
                     </Grid>
-                    <Grid item>
+                    <Grid item sx={{ ml: { md: 2 } }}>
                       <Typography>{`${hours}:${minutes}`}</Typography>
                     </Grid>
                   </Grid>

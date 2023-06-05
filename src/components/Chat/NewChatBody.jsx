@@ -88,8 +88,7 @@ const NewChatBody = () => {
   // }
 
   useEffect(() => {
-    scrollToBottom();
-    getAllmessage();
+   
     onMessageListener()
       .then((payload) => {
         // newValueAdd,
@@ -103,6 +102,9 @@ const NewChatBody = () => {
         });
       })
       .catch((err) => console.log("failed: ", err));
+
+      scrollToBottom();
+      getAllmessage();
   }, [notification]);
 
   // mera------------
@@ -473,7 +475,8 @@ const NewChatBody = () => {
   // Component styles
   const styles = {
     container: {
-      paddingBottom: "64px",
+      height: "100pt ",
+      // paddingBottom: "64px",
     },
     header: {
       display: "flex",
@@ -484,7 +487,8 @@ const NewChatBody = () => {
       color: "#fff",
     },
     chatContainer: {
-      height: "calc(100vh - 264px)",
+      // height: "calc(100vh )",
+      height: "calc(100vh - 200px)",
       overflowY: "auto",
       padding: "16px",
     },
@@ -510,9 +514,10 @@ const NewChatBody = () => {
     inputContainer: {
       p: "4px",
       display: "flex",
-      alignItems: "center",
+      alignItems: "end",
       backgroundColor: "#f0f0f0",
       zIndex: 1,
+      flexShrink: 0
     },
     iconButton: {
       p: "10px",
@@ -883,11 +888,29 @@ const NewChatBody = () => {
         <Paper
           elevation={24}
           sx={{
-            width: "170px",
-            height: "150px",
+            width: {xs:"120px",md:"165px"},
+            height: {xs:"150px",md:"150px"},
             position: "absolute",
             top: "55%",
-            left: "84vw",
+            
+            "@media (max-width: 325px)": {
+              left: "58%",
+                },
+                "@media (max-width: 426px) and (min-width: 326px)": {
+                  left: "60%",
+                },
+                "@media (max-width: 769px) and (min-width: 427px)": {
+                  left: "84%",
+                },
+                 "@media (max-width: 1025px) and (min-width: 770px)": {
+                  left: "83%",
+                },
+                "@media (max-width: 1445px) and (min-width: 1025px)": {
+                  left: "87%",
+                },
+                "@media (max-width: 2250px) and (min-width: 1445px)": {
+                  left: "60%",
+                },
             zIndex: 10,
           }}
         >
