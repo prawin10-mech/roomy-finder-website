@@ -15,7 +15,6 @@ const Chat = () => {
   const [handleSearch, setHandleSearch] = useState("");
   const [messageReceived, setMessageReceived] = useState(null);
   const [conversationId, setConversationId] = useState(null);
-  const [update, setUpdate] = useState(null);
   const token = localStorage.getItem("token");
 
   const [conversations, setConversations] = useState([]);
@@ -34,12 +33,6 @@ const Chat = () => {
     }
   };
 
-  const getUpdatedConversations = () => {
-    setUpdate(!update);
-  };
-
-  console.log(conversations);
-
   const getConversationMessages = async (conversation) => {
     try {
       const { data } = await axios.get(
@@ -55,7 +48,7 @@ const Chat = () => {
 
   useEffect(() => {
     getConversations();
-  }, [messageReceived, update]);
+  }, []);
 
   useEffect(() => {
     const fetchNewMessage = async () => {
@@ -97,12 +90,6 @@ const Chat = () => {
     }
   };
 
-  const sortedConversations = conversations.sort((a, b) => {
-    const createdAtA = new Date(a?.lastMessage?.createdAt);
-    const createdAtB = new Date(b?.lastMessage?.createdAt);
-    return createdAtB - createdAtA;
-  });
-
   return (
     <>
       <Container
@@ -143,12 +130,11 @@ const Chat = () => {
                 value={handleSearch}
                 variant="outlined"
               />
-              {sortedConversations.map((conversation) => {
+              {conversations.map((conversation) => {
                 const createdAt = new Date(conversation?.lastMessage.createdAt);
                 const hours = createdAt.getHours();
                 const minutes = createdAt.getMinutes();
                 const isUnread = !messages.some((msg) => msg.isRead);
-                console.log(conversation);
 
                 return (
                   <Grid
@@ -218,7 +204,6 @@ const Chat = () => {
                 user={user}
                 messages={messages}
                 messageSended={sendMessage}
-                update={getUpdatedConversations}
               />
             )}
           </Grid>

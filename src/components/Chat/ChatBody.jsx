@@ -27,7 +27,7 @@ import { storage } from "../../firebase/index";
 
 import sendNotification from "../NotificationReceive";
 
-const ChatBody = ({ user, messages, update }) => {
+const ChatBody = ({ user, messages }) => {
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [messageReceived, setMessageReceived] = useState("");
@@ -60,8 +60,6 @@ const ChatBody = ({ user, messages, update }) => {
         { headers: { Authorization: token } }
       );
       setChatMessages(data);
-      update();
-      scrollToBottom();
       if (chatMessages.length > 10) {
         setshowLoadMore(true);
       }
@@ -333,7 +331,7 @@ const ChatBody = ({ user, messages, update }) => {
 
   useEffect(() => {
     setChatMessages(messages);
-    //scrollToBottom();
+    scrollToBottom();
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
     }
@@ -343,7 +341,7 @@ const ChatBody = ({ user, messages, update }) => {
   }, [messages]);
 
   useEffect(() => {
-    //scrollToBottom();
+    scrollToBottom();
     getMessages();
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
@@ -353,8 +351,7 @@ const ChatBody = ({ user, messages, update }) => {
   // Component styles
   const styles = {
     container: {
-      height: "80% ",
-      position: "relative",
+      height: "100% ",
       // paddingBottom: "64px",
     },
     header: {
@@ -450,13 +447,7 @@ const ChatBody = ({ user, messages, update }) => {
         <Typography variant="body2">{user?.other?.type}</Typography>
       </Box>
       <Box sx={styles.chatContainer} ref={chatContainerRef}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            position: "relative",
-          }}
-        >
+        <Box sx={{ display: "flex", justifyContent: "center",position:"relative" }}>
           {/* <Paper elevation={16} sx={{display:"flex",justifyContent:"center",p:2,borderRadius:"20px",width:"150px"}}> */}
 
           {showLoadMore && (
@@ -784,44 +775,42 @@ const ChatBody = ({ user, messages, update }) => {
 
       {showAttachmentMenu && (
         <Paper
-          // elevation={24}
+          elevation={24}
           sx={{
             width: { xs: "120px", md: "165px" },
             height: { xs: "150px", md: "150px" },
             position: "absolute",
-            right: 0,
-            bottom: "50px",
 
-            // "@media (max-width: 325px)": {
-            //   // left: "58%",
-            //   top: "210%",
-            //   // buttom: "-40px",
-            //   right: 5,
-            //   bottom: 0,
-            // },
-            // "@media (max-width: 426px) and (min-width: 326px)": {
-            //   right: 5,
-            //   top: "210%",
-            // },
-            // "@media (max-width: 769px) and (min-width: 427px)": {
-            //   right: 5,
-            //   top: "105%",
-            // },
-            // "@media (max-width: 1025px) and (min-width: 770px)": {
-            //   right: 9,
-            //   // buttom:-20,
-            //   top: "99%",
-            // },
-            // "@media (max-width: 1445px) and (min-width: 1025px)": {
-            //   right: "10%",
-            //   // buttom:-20,
-            //   top: "99%",
-            // },
-            // "@media (max-width: 2250px) and (min-width: 1445px)": {
-            //   right: 5,
-            //   top: "55%",
-            // },
-            // zIndex: 10,
+            "@media (max-width: 325px)": {
+              // left: "58%",
+              top: "210%",
+              // buttom: "-40px",
+              right: 5,
+              bottom: 0,
+            },
+            "@media (max-width: 426px) and (min-width: 326px)": {
+              right: 5,
+              top: "210%",
+            },
+            "@media (max-width: 769px) and (min-width: 427px)": {
+              right: 5,
+              top: "105%",
+            },
+            "@media (max-width: 1025px) and (min-width: 770px)": {
+              right: 9,
+              // buttom:-20,
+              top: "99%",
+            },
+            "@media (max-width: 1445px) and (min-width: 1025px)": {
+              right: "10%",
+              // buttom:-20,
+              top: "99%",
+            },
+            "@media (max-width: 2250px) and (min-width: 1445px)": {
+              right: 5,
+              top: "55%",
+            },
+            zIndex: 10,
           }}
         >
           <Box>
