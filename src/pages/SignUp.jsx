@@ -25,6 +25,10 @@ import {
   IconButton,
   InputAdornment,
   CircularProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -35,6 +39,7 @@ import { SignupActions } from "../store/Signup";
 import axios from "axios";
 import { toastOptions } from "../utils/ToastOptions";
 import { toast, ToastContainer } from "react-toastify";
+import ConfirmDialog from "../components/ConfirmDialog";
 
 function Copyright(props) {
   return (
@@ -73,12 +78,17 @@ export default function SignUp() {
     landlordAgrement,
   } = useSelector((state) => state.signup);
 
+  const token = localStorage.getItem("token");
+
   const [showPassword, setShowPassword] = React.useState(false);
   const [sendedOtp, setSendedOtp] = useState(null);
   const [otp, setOtp] = useState(null);
   const [sendedOtpToMail, setSendedOtpToMail] = useState(false);
   const [sendedOtpLoading, setSendedOtpLoading] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
+
+  const [mobileOptVerify, setMobileOtpVerify] = useState(false);
+  const [enteredMobileOtp, setEnteredMobileOtp] = useState("");
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -178,6 +188,7 @@ export default function SignUp() {
       setSendedOtp(data.code);
     } catch (err) {
       console.log(err);
+      toast.error("Email verification failed", toastOptions);
     } finally {
       setSendedOtpLoading(false);
     }
@@ -195,7 +206,44 @@ export default function SignUp() {
     " {countryNameEn}: +{countryCallingCode}"
   );
 
-  const handleSubmit = async (event) => {
+  const verifyNumberOtp = async () => {
+    try {
+      const { data } = await axios.post(
+        "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/verify-otp-code",
+        { phone: countryCode + phone, code: enteredMobileOtp }
+      );
+      setEnteredMobileOtp("");
+      console.log(data);
+      return true;
+    } catch (err) {
+      console.log(err);
+      if (err.response.status === 403) {
+        toast.error("Invalid Otp");
+        return false;
+      } else {
+        toast.error("Otp verification failed", toastOptions);
+        return false;
+      }
+    }
+  };
+
+  const sendOtpToNumber = async () => {
+    try {
+      if (handleVaidation()) {
+        const { data } = await axios.post(
+          "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/send-otp-code",
+          { phone: countryCode + phone }
+        );
+        console.log(data);
+        setMobileOtpVerify(true);
+      }
+    } catch (err) {
+      toast.error("Otp sending failed", toastOptions);
+      console.log(err);
+    }
+  };
+
+  const handleSignupUser = async (event) => {
     event.preventDefault();
     try {
       const obj = {
@@ -209,7 +257,7 @@ export default function SignUp() {
         gender,
         fcmToken: "123",
       };
-      if (handleVaidation()) {
+      if (verifyNumberOtp()) {
         const { data } = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/credentials",
           obj
@@ -222,10 +270,6 @@ export default function SignUp() {
       }
       console.log(err.response.status);
     }
-  };
-
-  const handleVerifyNumber = async () => {
-    //verify number before signup
   };
 
   useEffect(() => {}, [confirmPassword, password]);
@@ -250,12 +294,7 @@ export default function SignUp() {
             <Typography component="h1" variant="h5">
               Sign up
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 3 }}
-            >
+            <Box component="form" noValidate sx={{ mt: 3 }}>
               <FormControl
                 sx={{
                   display: "flex",
@@ -571,13 +610,50 @@ export default function SignUp() {
                 </Grid>
               </Grid>
               <Button
-                type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={sendOtpToNumber}
               >
                 Sign Up
               </Button>
+
+              <Dialog
+                open={mobileOptVerify}
+                onClose={() => setMobileOtpVerify(false)}
+              >
+                <DialogTitle fontWeight={700}>Please verify otp</DialogTitle>
+
+                <DialogActions>
+                  <Grid
+                    container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={2}
+                  >
+                    <Grid item>
+                      <TextField
+                        type="number"
+                        onChange={(e) => setEnteredMobileOtp(e.target.value)}
+                        value={enteredMobileOtp}
+                        min={1}
+                        max={6}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        onClick={handleSignupUser}
+                        color="secondary"
+                        variant="outlined"
+                      >
+                        Confirm
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </DialogActions>
+              </Dialog>
+
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link href="/login" variant="body2">

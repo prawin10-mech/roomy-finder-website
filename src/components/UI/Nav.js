@@ -21,8 +21,6 @@ import Cookies from "js-cookie";
 import Notification from "../Notifictions";
 import { TenantActions } from "../../store/Tenant";
 
-import Message from "../../pages/Message";
-
 const pages = [
   "About Us",
   "Contact Us",

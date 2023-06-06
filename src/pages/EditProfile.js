@@ -38,8 +38,6 @@ const EditProfile = () => {
     (state) => state.user
   );
 
-  console.log(fcmToken);
-
   const [verified, setVerified] = useState(false);
   const [otp, setOtp] = useState(false);
   const [sendedOtp, setSendedOtp] = useState(null);

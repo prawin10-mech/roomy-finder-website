@@ -353,7 +353,7 @@ const ChatBody = ({ user, messages, update }) => {
   // Component styles
   const styles = {
     container: {
-      height: "80% ",
+      maxHeight: "80%",
       position: "relative",
       // paddingBottom: "64px",
     },
