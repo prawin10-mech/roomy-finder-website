@@ -353,6 +353,7 @@ const ChatBody = ({ user, messages, update }) => {
   const styles = {
     container: {
       height: "100% ",
+      position: "relative",
       // paddingBottom: "64px",
     },
     header: {
@@ -782,42 +783,44 @@ const ChatBody = ({ user, messages, update }) => {
 
       {showAttachmentMenu && (
         <Paper
-          elevation={24}
+          // elevation={24}
           sx={{
             width: { xs: "120px", md: "165px" },
             height: { xs: "150px", md: "150px" },
             position: "absolute",
+            right: 0,
+            bottom: "50px",
 
-            "@media (max-width: 325px)": {
-              // left: "58%",
-              top: "210%",
-              // buttom: "-40px",
-              right: 5,
-              bottom: 0,
-            },
-            "@media (max-width: 426px) and (min-width: 326px)": {
-              right: 5,
-              top: "210%",
-            },
-            "@media (max-width: 769px) and (min-width: 427px)": {
-              right: 5,
-              top: "105%",
-            },
-            "@media (max-width: 1025px) and (min-width: 770px)": {
-              right: 9,
-              // buttom:-20,
-              top: "99%",
-            },
-            "@media (max-width: 1445px) and (min-width: 1025px)": {
-              right: "10%",
-              // buttom:-20,
-              top: "99%",
-            },
-            "@media (max-width: 2250px) and (min-width: 1445px)": {
-              right: 5,
-              top: "55%",
-            },
-            zIndex: 10,
+            // "@media (max-width: 325px)": {
+            //   // left: "58%",
+            //   top: "210%",
+            //   // buttom: "-40px",
+            //   right: 5,
+            //   bottom: 0,
+            // },
+            // "@media (max-width: 426px) and (min-width: 326px)": {
+            //   right: 5,
+            //   top: "210%",
+            // },
+            // "@media (max-width: 769px) and (min-width: 427px)": {
+            //   right: 5,
+            //   top: "105%",
+            // },
+            // "@media (max-width: 1025px) and (min-width: 770px)": {
+            //   right: 9,
+            //   // buttom:-20,
+            //   top: "99%",
+            // },
+            // "@media (max-width: 1445px) and (min-width: 1025px)": {
+            //   right: "10%",
+            //   // buttom:-20,
+            //   top: "99%",
+            // },
+            // "@media (max-width: 2250px) and (min-width: 1445px)": {
+            //   right: 5,
+            //   top: "55%",
+            // },
+            // zIndex: 10,
           }}
         >
           <Box>
