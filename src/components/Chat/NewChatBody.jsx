@@ -28,6 +28,8 @@ import { storage } from "../../firebase/index";
 import { onMessageListener } from "../../firebase/index";
 import sendNotification from "../NotificationReceive";
 
+
+
 const NewChatBody = () => {
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
@@ -52,12 +54,25 @@ const NewChatBody = () => {
   const chatContainerRef = useRef(null);
   const token = localStorage.getItem("token");
 
-  const scrollToBottom = () => {
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-  };
+  // const scrollToBottom = () => {
+  //   chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  // };
 
   const location = useLocation();
   const data12 = location.state;
+
+  useEffect(() => {
+    console.log("onMessageListener",onMessageListener());
+    const fetchNewMessage = async () => {
+      const newMessage = await onMessageListener();
+      console.log("tt",newMessage);
+      setMessageReceived(newMessage);
+    };
+
+    if (messageReceived) {
+      fetchNewMessage();
+    }
+  }, [messageReceived]);
 
   // get all message
   const getAllmessage = async () => {
@@ -99,21 +114,42 @@ const NewChatBody = () => {
   // }
 
   useEffect(() => {
-    onMessageListener()
-      .then((payload) => {
-        // newValueAdd,
-        setnewValueAdd(payload.data.payload);
-        console.log("message chat received", payload.data.payload);
-        setNotification({
-          title: payload?.notification?.title,
-          body: payload?.notification?.body,
-          time: Date.now(),
-          id: Math.random() * 120,
-        });
-      })
-      .catch((err) => console.log("failed: ", err));
+   
 
-    scrollToBottom();
+    const intervalId = setInterval(getAllmessage, 2000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  useEffect(() => {
+    // let test1 = true
+    if(messageReceived){
+
+      onMessageListener()
+        .then((payload) => {
+          // newValueAdd,
+          setnewValueAdd(payload.data.payload);
+          console.log("message chat received", payload.data.payload);
+          setNotification({
+            title: payload?.notification?.title,
+            body: payload?.notification?.body,
+            time: Date.now(),
+            id: Math.random() * 120,
+          });
+        })
+        .catch((err) => console.log("failed: ", err));
+    }else{
+
+      const intervalId = setInterval(getAllmessage, 2000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+    }
+
+    // scrollToBottom();
     getAllmessage();
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
@@ -569,8 +605,8 @@ const NewChatBody = () => {
       setloadData(loadData + 10);
     }
   };
-  console.log(showLoadMore);
-  console.log(loadData);
+  // console.log(showLoadMore);
+  // console.log(loadData);
   return (
     <Box sx={styles.container}>
       <Box sx={styles.header}>
