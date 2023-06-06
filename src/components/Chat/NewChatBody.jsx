@@ -66,10 +66,9 @@ const NewChatBody = () => {
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${data12.property.poster.id}`,
         { headers: { Authorization: token } }
       );
-      if(updatedMessages.data.length>10){
-        setshowLoadMore(true)
+      if (updatedMessages.data.length > 10) {
+        setshowLoadMore(true);
       }
-      console.log(updatedMessages.data, "updatedMessages the updatedMessages");
       setChatMessages(updatedMessages.data);
     } else {
       const updatedMessages = await axios.get(
@@ -77,9 +76,8 @@ const NewChatBody = () => {
         { headers: { Authorization: token } }
       );
 
-      console.log(updatedMessages.data, "updatedMessages the updatedMessages");
-      if(updatedMessages.data.length>10){
-        setshowLoadMore(true)
+      if (updatedMessages.data.length > 10) {
+        setshowLoadMore(true);
       }
       setChatMessages(updatedMessages.data);
     }
@@ -101,7 +99,6 @@ const NewChatBody = () => {
   // }
 
   useEffect(() => {
-   
     onMessageListener()
       .then((payload) => {
         // newValueAdd,
@@ -116,11 +113,11 @@ const NewChatBody = () => {
       })
       .catch((err) => console.log("failed: ", err));
 
-      scrollToBottom();
-      getAllmessage();
-      if(chatMessages.length>10){
-        setshowLoadMore(true)
-      }
+    scrollToBottom();
+    getAllmessage();
+    if (chatMessages.length > 10) {
+      setshowLoadMore(true);
+    }
   }, [notification]);
 
   // mera------------
@@ -533,7 +530,7 @@ const NewChatBody = () => {
       alignItems: "end",
       backgroundColor: "#f0f0f0",
       zIndex: 1,
-      flexShrink: 0
+      flexShrink: 0,
     },
     iconButton: {
       p: "10px",
@@ -567,12 +564,11 @@ const NewChatBody = () => {
     },
   };
 
-  const loadmoredata =() =>{
-
-    if(chatMessages.length>10){
-      setloadData(loadData + 10)
+  const loadmoredata = () => {
+    if (chatMessages.length > 10) {
+      setloadData(loadData + 10);
     }
-  }
+  };
   console.log(showLoadMore);
   console.log(loadData);
   return (
@@ -592,11 +588,18 @@ const NewChatBody = () => {
         </Typography>
       </Box>
       <Box sx={styles.chatContainer} ref={chatContainerRef}>
-      <Box sx={{display:"flex",justifyContent:"center",}}>
-      {showLoadMore && <Button onClick={loadmoredata} sx={{p:2,borderRadius:"20px",width:"150px"}}>Load More</Button>}
-      </Box>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          {showLoadMore && (
+            <Button
+              onClick={loadmoredata}
+              sx={{ p: 2, borderRadius: "20px", width: "150px" }}
+            >
+              Load More
+            </Button>
+          )}
+        </Box>
         {chatMessages
-          .slice(0,loadData)
+          .slice(0, loadData)
           .reverse()
           .map((message) => {
             const isCurrentUser =
@@ -915,37 +918,37 @@ const NewChatBody = () => {
         <Paper
           elevation={24}
           sx={{
-            width: {xs:"120px",md:"165px"},
-            height: {xs:"150px",md:"150px"},
+            width: { xs: "120px", md: "165px" },
+            height: { xs: "150px", md: "150px" },
             position: "absolute",
             top: "55%",
-            
+
             "@media (max-width: 325px)": {
               // left: "58%",
-              right:5,
-                },
-                "@media (max-width: 426px) and (min-width: 326px)": {
-                  // left: "60%",
-                  right:5,
-                },
-                "@media (max-width: 769px) and (min-width: 427px)": {
-                  // left: "84%",
-                  right:5,
-                },
-                 "@media (max-width: 1025px) and (min-width: 770px)": {
-                  // left: "83%",
-                  right:5,
-                },
-                "@media (max-width: 1445px) and (min-width: 1025px)": {
-                  // left: "87%",
-                  right:5,
-                  top: "59%",
-                },
-                "@media (max-width: 2250px) and (min-width: 1445px)": {
-                  // left: "60%",
-                  right:5,
-                  top: "70%",
-                },
+              right: 5,
+            },
+            "@media (max-width: 426px) and (min-width: 326px)": {
+              // left: "60%",
+              right: 5,
+            },
+            "@media (max-width: 769px) and (min-width: 427px)": {
+              // left: "84%",
+              right: 5,
+            },
+            "@media (max-width: 1025px) and (min-width: 770px)": {
+              // left: "83%",
+              right: 5,
+            },
+            "@media (max-width: 1445px) and (min-width: 1025px)": {
+              // left: "87%",
+              right: 5,
+              top: "59%",
+            },
+            "@media (max-width: 2250px) and (min-width: 1445px)": {
+              // left: "60%",
+              right: 5,
+              top: "70%",
+            },
             zIndex: 10,
           }}
         >

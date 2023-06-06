@@ -27,7 +27,7 @@ import { storage } from "../../firebase/index";
 
 import sendNotification from "../NotificationReceive";
 
-const ChatBody = ({ user, messages }) => {
+const ChatBody = ({ user, messages, update }) => {
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [messageReceived, setMessageReceived] = useState("");
@@ -60,6 +60,7 @@ const ChatBody = ({ user, messages }) => {
         { headers: { Authorization: token } }
       );
       setChatMessages(data);
+      update();
       if (chatMessages.length > 10) {
         setshowLoadMore(true);
       }
@@ -447,7 +448,13 @@ const ChatBody = ({ user, messages }) => {
         <Typography variant="body2">{user?.other?.type}</Typography>
       </Box>
       <Box sx={styles.chatContainer} ref={chatContainerRef}>
-        <Box sx={{ display: "flex", justifyContent: "center",position:"relative" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            position: "relative",
+          }}
+        >
           {/* <Paper elevation={16} sx={{display:"flex",justifyContent:"center",p:2,borderRadius:"20px",width:"150px"}}> */}
 
           {showLoadMore && (
