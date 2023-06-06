@@ -49,9 +49,9 @@ const ChatBody = ({ user, messages, update }) => {
   const chatContainerRef = useRef(null);
   const token = localStorage.getItem("token");
 
-  // const scrollToBottom = () => {
-  //   chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-  // };
+  const scrollToBottom = () => {
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  };
 
   const getMessages = async () => {
     try {
@@ -61,6 +61,7 @@ const ChatBody = ({ user, messages, update }) => {
       );
       setChatMessages(data);
       update();
+      scrollToBottom();
       if (chatMessages.length > 10) {
         setshowLoadMore(true);
       }
@@ -352,7 +353,7 @@ const ChatBody = ({ user, messages, update }) => {
   // Component styles
   const styles = {
     container: {
-      height: "100% ",
+      height: "80% ",
       position: "relative",
       // paddingBottom: "64px",
     },

@@ -30,7 +30,7 @@ const pages = [
   "Post Property",
   "Message",
 ];
-const pageNavigate = ["aboutUs", "contactUs", "", "postProperty", "message"];
+const pageNavigate = ["aboutUs", "contactUs", "", "postProperty", "chat"];
 
 const Nav = () => {
   const dispatch = useDispatch();
