@@ -53,13 +53,14 @@ const Chat = () => {
   useEffect(() => {
     const fetchNewMessage = async () => {
       const newMessage = await onMessageListener();
+      console.log(newMessage);
       setMessageReceived(newMessage);
     };
 
     if (messageReceived) {
       fetchNewMessage();
     }
-  }, [messageReceived]);
+  }, [messageReceived, conversationId]);
 
   useEffect(() => {
     if (conversationId) {
@@ -79,6 +80,8 @@ const Chat = () => {
         },
         { headers: { Authorization: token } }
       );
+
+      console.log(data);
 
       // Retrieve the updated conversation list
       getConversations();
@@ -148,7 +151,10 @@ const Chat = () => {
                     <Grid
                       container
                       alignItems="center"
-                      sx={{ ml: {xs:"3px", md: 2 }, pt: {xs:"3px", md: 1 } }}
+                      sx={{
+                        ml: { xs: "3px", md: 2 },
+                        pt: { xs: "3px", md: 1 },
+                      }}
                     >
                       <Avatar />
                       <Grid item>
@@ -157,7 +163,7 @@ const Chat = () => {
                             {conversation?.other?.firstName}{" "}
                             {conversation?.other?.lastName}
                           </Typography>
-                          {!isUnread ? (
+                          {/* {!isUnread ? (
                             <Typography
                               sx={{
                                 marginLeft: 1,
@@ -169,14 +175,14 @@ const Chat = () => {
                             >
                               .
                             </Typography>
-                          ) : null}
+                          ) : null} */}
                         </Grid>
                         <Typography>
                           {conversation?.lastMessage?.body}
                         </Typography>
                       </Grid>
                     </Grid>
-                    <Grid item sx={{ ml: {xs:"3px", md: 2 } }}>
+                    <Grid item sx={{ ml: { xs: "3px", md: 2 } }}>
                       <Typography>{`${hours}:${minutes}`}</Typography>
                     </Grid>
                   </Grid>

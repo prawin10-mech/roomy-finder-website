@@ -53,7 +53,7 @@ const ChatBody = ({ user, messages }) => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   };
 
-  const getMessages = useCallback(async () => {
+  const getMessages = async () => {
     try {
       const { data } = await axios.get(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${user.otherId}`,
@@ -66,13 +66,10 @@ const ChatBody = ({ user, messages }) => {
     } catch (err) {
       console.log(err);
     }
-  }, [user.otherId, token]);
-
-  console.log(user);
+  };
 
   const sendMessage = async () => {
     try {
-      console.log(type);
       if (type === "text") {
         await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
@@ -229,8 +226,6 @@ const ChatBody = ({ user, messages }) => {
       console.log("Error occurred", error);
     }
   };
-
-  console.log(messages);
 
   const handleVideo = async (e) => {
     setType("video");
@@ -435,7 +430,6 @@ const ChatBody = ({ user, messages }) => {
       setloadData(loadData + 10);
     }
   };
-  console.log("showLoadMore", showLoadMore);
 
   return (
     <Box sx={styles.container}>
@@ -792,6 +786,7 @@ const ChatBody = ({ user, messages }) => {
               // top: "90%",
               top: "99%",
               right: 5,
+              bottom: 0,
             },
             "@media (max-width: 426px) and (min-width: 326px)": {
               right: 5,
@@ -922,17 +917,17 @@ const ChatBody = ({ user, messages }) => {
         />
         <IconButton
           sx={styles.iconButton}
-          aria-label="send"
-          onClick={sendMessage}
-        >
-          <SendRoundedIcon />
-        </IconButton>
-        <IconButton
-          sx={styles.iconButton}
           aria-label="attachment"
           onClick={() => setShowAttachmentMenu(!showAttachmentMenu)}
         >
           <AttachmentIcon />
+        </IconButton>
+        <IconButton
+          sx={styles.iconButton}
+          aria-label="send"
+          onClick={sendMessage}
+        >
+          <SendRoundedIcon />
         </IconButton>
       </Paper>
     </Box>

@@ -196,6 +196,7 @@ export default function NewSignUpPage() {
             setSendedOtp(data.code);
         } catch (err) {
             console.log(err);
+            toast.error("Something went wrong", toastOptions)
         } finally {
             setSendedOtpLoading(false);
         }
