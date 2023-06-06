@@ -67,7 +67,7 @@ const ChatBody = ({ user, messages }) => {
     } catch (err) {
       console.log(err);
     }
-  }, [user.otherId, token]);
+  }, [messages, chatMessages, user.otherId, token]);
 
   const sendMessage = async () => {
     try {
@@ -342,7 +342,6 @@ const ChatBody = ({ user, messages }) => {
   }, [messages]);
 
   useEffect(() => {
-    //scrollToBottom();
     getMessages();
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
