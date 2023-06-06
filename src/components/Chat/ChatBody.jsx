@@ -53,12 +53,13 @@ const ChatBody = ({ user, messages }) => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   };
 
-  const getMessages = async () => {
+  const getMessages = useCallback(async () => {
     try {
       const { data } = await axios.get(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${user.otherId}`,
         { headers: { Authorization: token } }
       );
+      console.log("data rendered");
       setChatMessages(data);
       if (chatMessages.length > 10) {
         setshowLoadMore(true);
@@ -66,7 +67,7 @@ const ChatBody = ({ user, messages }) => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [user.otherId, token]);
 
   const sendMessage = async () => {
     try {
