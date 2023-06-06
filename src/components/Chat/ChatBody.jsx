@@ -331,7 +331,7 @@ const ChatBody = ({ user, messages }) => {
 
   useEffect(() => {
     setChatMessages(messages);
-    //scrollToBottom();
+    scrollToBottom();
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
     }
@@ -341,7 +341,7 @@ const ChatBody = ({ user, messages }) => {
   }, [messages]);
 
   useEffect(() => {
-    //scrollToBottom();
+    scrollToBottom();
     getMessages();
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
@@ -442,6 +442,9 @@ const ChatBody = ({ user, messages }) => {
             <Typography variant="body1" fontWeight={700}>
               {user?.other?.firstName} {user?.other?.lastName}
             </Typography>
+            <Typography variant="body1" fontWeight={700}>
+              From: {user?.other?.country}
+            </Typography>
           </Box>
         </Grid>
         <Typography variant="body2">{user?.other?.type}</Typography>
@@ -472,184 +475,201 @@ const ChatBody = ({ user, messages }) => {
           .map((message) => {
             const isCurrentUser = message?.senderId === user?.otherId;
             return (
-              <Grid
-                key={message.id}
-                sx={{
-                  ...styles.messageContainer,
-                  backgroundColor: isCurrentUser ? "purple" : "blue",
-                  marginLeft: isCurrentUser ? 0 : "auto",
-                  marginRight: isCurrentUser ? "auto" : 0,
-                }}
-              >
-                {message.body !== "Sent a image" &&
-                  message.body !== "Sent a video" &&
-                  message.body !== "Sent a file" && (
-                    <Grid container justifyContent="space-between">
-                      <Typography variant={styles.messageBody} color="white">
-                        {message.body}
-                      </Typography>
-                      <Box
-                        onClick={() => {
-                          const isExpanded = expandedMessages.includes(
-                            message.id
-                          );
-                          if (isExpanded) {
-                            setExpandedMessages(
-                              expandedMessages.filter((id) => id !== message.id)
+              <Grid container>
+                {isCurrentUser && (
+                  <Avatar>
+                    {user.other.profilePicture
+                      ? user.other.profilePicture
+                      : user?.other?.firstName.split("")[0]}
+                  </Avatar>
+                )}
+                <Grid
+                  key={message.id}
+                  sx={{
+                    ...styles.messageContainer,
+                    backgroundColor: isCurrentUser ? "purple" : "blue",
+                    marginLeft: isCurrentUser ? 0 : "auto",
+                    marginRight: isCurrentUser ? "auto" : 0,
+                  }}
+                >
+                  {message.body !== "Sent a image" &&
+                    message.body !== "Sent a video" &&
+                    message.body !== "Sent a file" && (
+                      <Grid container justifyContent="space-between">
+                        <Typography variant={styles.messageBody} color="white">
+                          {message.body}
+                        </Typography>
+                        <Box
+                          onClick={() => {
+                            const isExpanded = expandedMessages.includes(
+                              message.id
                             );
-                          } else {
-                            setExpandedMessages([
-                              ...expandedMessages,
-                              message.id,
-                            ]);
-                          }
-                        }}
-                      >
-                        {expandedMessages.includes(message.id) ? (
-                          <ExpandLessIcon />
-                        ) : (
-                          <ExpandMoreIcon />
-                        )}
+                            if (isExpanded) {
+                              setExpandedMessages(
+                                expandedMessages.filter(
+                                  (id) => id !== message.id
+                                )
+                              );
+                            } else {
+                              setExpandedMessages([
+                                ...expandedMessages,
+                                message.id,
+                              ]);
+                            }
+                          }}
+                        >
+                          {expandedMessages.includes(message.id) ? (
+                            <ExpandLessIcon />
+                          ) : (
+                            <ExpandMoreIcon />
+                          )}
+                        </Box>
+                      </Grid>
+                    )}
+
+                  {message.body === "Sent a image" && (
+                    <Grid>
+                      <Box>
+                        <img
+                          src={message.fileUri}
+                          alt="Sent id"
+                          style={styles.image}
+                          onClick={() => setSelectedImage(message.fileUri)}
+                        />
+                        <Box
+                          onClick={() => {
+                            const isExpanded = expandedMessages.includes(
+                              message.id
+                            );
+                            if (isExpanded) {
+                              setExpandedMessages(
+                                expandedMessages.filter(
+                                  (id) => id !== message.id
+                                )
+                              );
+                            } else {
+                              setExpandedMessages([
+                                ...expandedMessages,
+                                message.id,
+                              ]);
+                            }
+                          }}
+                        >
+                          {expandedMessages.includes(message.id) ? (
+                            <ExpandLessIcon />
+                          ) : (
+                            <ExpandMoreIcon />
+                          )}
+                        </Box>
+                      </Box>
+                    </Grid>
+                  )}
+                  {message.body === "Sent a video" && (
+                    <Grid>
+                      <Box>
+                        <video
+                          src={message.fileUri}
+                          alt="Sent id"
+                          //style={styles.video} // Assuming `styles.video` contains the necessary styles for the video element
+                          onClick={() => setSelectedImage(message.fileUri)}
+                          controls // Add the `controls` attribute to display video controls
+                        />
+                        <Box
+                          onClick={() => {
+                            const isExpanded = expandedMessages.includes(
+                              message.id
+                            );
+                            if (isExpanded) {
+                              setExpandedMessages(
+                                expandedMessages.filter(
+                                  (id) => id !== message.id
+                                )
+                              );
+                            } else {
+                              setExpandedMessages([
+                                ...expandedMessages,
+                                message.id,
+                              ]);
+                            }
+                          }}
+                        >
+                          {expandedMessages.includes(message.id) ? (
+                            <ExpandLessIcon />
+                          ) : (
+                            <ExpandMoreIcon />
+                          )}
+                        </Box>
                       </Box>
                     </Grid>
                   )}
 
-                {message.body === "Sent a image" && (
-                  <Grid>
-                    <Box>
-                      <img
-                        src={message.fileUri}
-                        alt="Sent id"
-                        style={styles.image}
-                        onClick={() => setSelectedImage(message.fileUri)}
-                      />
-                      <Box
-                        onClick={() => {
-                          const isExpanded = expandedMessages.includes(
-                            message.id
-                          );
-                          if (isExpanded) {
-                            setExpandedMessages(
-                              expandedMessages.filter((id) => id !== message.id)
+                  {message.body === "Sent a file" && (
+                    <Grid>
+                      <Box>
+                        <a href={message.fileUri} download={message.fileName}>
+                          <Typography sx={{ color: "#fff" }}>
+                            <InsertDriveFileIcon
+                              sx={{
+                                marginRight: "0.5em",
+                                verticalAlign: "middle",
+                              }}
+                            />
+                            {message.type}
+                          </Typography>
+                        </a>
+
+                        <Box
+                          onClick={() => {
+                            const isExpanded = expandedMessages.includes(
+                              message.id
                             );
-                          } else {
-                            setExpandedMessages([
-                              ...expandedMessages,
-                              message.id,
-                            ]);
-                          }
+                            if (isExpanded) {
+                              setExpandedMessages(
+                                expandedMessages.filter(
+                                  (id) => id !== message.id
+                                )
+                              );
+                            } else {
+                              setExpandedMessages([
+                                ...expandedMessages,
+                                message.id,
+                              ]);
+                            }
+                          }}
+                        >
+                          {expandedMessages.includes(message.id) ? (
+                            <ExpandLessIcon />
+                          ) : (
+                            <ExpandMoreIcon />
+                          )}
+                        </Box>
+                      </Box>
+                    </Grid>
+                  )}
+
+                  {expandedMessages.includes(message.id) && (
+                    <Box>
+                      <IconButton
+                        onClick={() => {
+                          handleMessageReply(message.id);
                         }}
                       >
-                        {expandedMessages.includes(message.id) ? (
-                          <ExpandLessIcon />
-                        ) : (
-                          <ExpandMoreIcon />
-                        )}
-                      </Box>
-                    </Box>
-                  </Grid>
-                )}
-                {message.body === "Sent a video" && (
-                  <Grid>
-                    <Box>
-                      <video
-                        src={message.fileUri}
-                        alt="Sent id"
-                        //style={styles.video} // Assuming `styles.video` contains the necessary styles for the video element
-                        onClick={() => setSelectedImage(message.fileUri)}
-                        controls // Add the `controls` attribute to display video controls
-                      />
-                      <Box
+                        <Tooltip title="Reply">
+                          <ReplyIcon />
+                        </Tooltip>
+                      </IconButton>
+                      <IconButton
                         onClick={() => {
-                          const isExpanded = expandedMessages.includes(
-                            message.id
-                          );
-                          if (isExpanded) {
-                            setExpandedMessages(
-                              expandedMessages.filter((id) => id !== message.id)
-                            );
-                          } else {
-                            setExpandedMessages([
-                              ...expandedMessages,
-                              message.id,
-                            ]);
-                          }
+                          handleDelete(message.id);
                         }}
                       >
-                        {expandedMessages.includes(message.id) ? (
-                          <ExpandLessIcon />
-                        ) : (
-                          <ExpandMoreIcon />
-                        )}
-                      </Box>
+                        <Tooltip title="Delete">
+                          <DeleteIcon />
+                        </Tooltip>
+                      </IconButton>
                     </Box>
-                  </Grid>
-                )}
-
-                {message.body === "Sent a file" && (
-                  <Grid>
-                    <Box>
-                      <a href={message.fileUri} download={message.fileName}>
-                        <Typography sx={{ color: "#fff" }}>
-                          <InsertDriveFileIcon
-                            sx={{
-                              marginRight: "0.5em",
-                              verticalAlign: "middle",
-                            }}
-                          />
-                          {message.type}
-                        </Typography>
-                      </a>
-
-                      <Box
-                        onClick={() => {
-                          const isExpanded = expandedMessages.includes(
-                            message.id
-                          );
-                          if (isExpanded) {
-                            setExpandedMessages(
-                              expandedMessages.filter((id) => id !== message.id)
-                            );
-                          } else {
-                            setExpandedMessages([
-                              ...expandedMessages,
-                              message.id,
-                            ]);
-                          }
-                        }}
-                      >
-                        {expandedMessages.includes(message.id) ? (
-                          <ExpandLessIcon />
-                        ) : (
-                          <ExpandMoreIcon />
-                        )}
-                      </Box>
-                    </Box>
-                  </Grid>
-                )}
-
-                {expandedMessages.includes(message.id) && (
-                  <Box>
-                    <IconButton
-                      onClick={() => {
-                        handleMessageReply(message.id);
-                      }}
-                    >
-                      <Tooltip title="Reply">
-                        <ReplyIcon />
-                      </Tooltip>
-                    </IconButton>
-                    <IconButton
-                      onClick={() => {
-                        handleDelete(message.id);
-                      }}
-                    >
-                      <Tooltip title="Delete">
-                        <DeleteIcon />
-                      </Tooltip>
-                    </IconButton>
-                  </Box>
-                )}
+                  )}
+                </Grid>
               </Grid>
             );
           })}
