@@ -27,6 +27,8 @@ import { storage } from "../../firebase/index";
 
 import sendNotification from "../NotificationReceive";
 
+import { onMessageListener } from "../../firebase/index";
+
 const ChatBody = ({ user, messages }) => {
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
@@ -60,14 +62,43 @@ const ChatBody = ({ user, messages }) => {
         { headers: { Authorization: token } }
       );
       console.log("data rendered");
+      console.log(data);
       setChatMessages(data);
-      if (chatMessages.length > 10) {
+      if (data.length > 10) {
         setshowLoadMore(true);
       }
     } catch (err) {
       console.log(err);
     }
-  }, [messages, chatMessages, user.otherId, token]);
+  }, [user.otherId, token]);
+
+  useEffect(() => {
+    const fetchNewMessage = async () => {
+      const newMessage = await onMessageListener();
+      console.log("tt", newMessage);
+      setMessageReceived(!messageReceived);
+    };
+    if (messageReceived) {
+      fetchNewMessage();
+    }
+  }, [messageReceived]);
+
+  useEffect(() => {
+    setChatMessages(messages);
+    if (chatMessages.length > 10) {
+      setshowLoadMore(true);
+    }
+    if (messages.length > 10) {
+      setshowLoadMore(true);
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    getMessages();
+    if (chatMessages.length > 10) {
+      setshowLoadMore(true);
+    }
+  }, [messageReceived]);
 
   const sendMessage = async () => {
     try {
@@ -309,7 +340,7 @@ const ChatBody = ({ user, messages }) => {
         console.log(err);
       }
     },
-    [token, getMessages]
+    [token]
   );
 
   const handleMessageReply = useCallback(
@@ -329,24 +360,6 @@ const ChatBody = ({ user, messages }) => {
     },
     [token]
   );
-
-  useEffect(() => {
-    setChatMessages(messages);
-    //scrollToBottom();
-    if (chatMessages.length > 10) {
-      setshowLoadMore(true);
-    }
-    if (messages.length > 10) {
-      setshowLoadMore(true);
-    }
-  }, [messages]);
-
-  useEffect(() => {
-    getMessages();
-    if (chatMessages.length > 10) {
-      setshowLoadMore(true);
-    }
-  }, [getMessages]);
 
   // Component styles
   const styles = {
