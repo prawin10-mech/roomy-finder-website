@@ -331,7 +331,7 @@ const ChatBody = ({ user, messages }) => {
 
   useEffect(() => {
     setChatMessages(messages);
-    scrollToBottom();
+    //scrollToBottom();
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
     }
@@ -341,7 +341,7 @@ const ChatBody = ({ user, messages }) => {
   }, [messages]);
 
   useEffect(() => {
-    scrollToBottom();
+    //scrollToBottom();
     getMessages();
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
