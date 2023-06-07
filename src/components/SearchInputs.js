@@ -206,6 +206,9 @@ const SearchInputs = () => {
       marginLeft: { xs: 0, lg: 2 },
       backgroundColor: "purple.700",
       borderRadius: "md",
+      bgcolor: "orange",
+      color: "#fff",
+      "&:hover": { bgcolor: "orange" },
     },
     advancedSearchContainer: {
       marginTop: 2,
@@ -314,7 +317,7 @@ const SearchInputs = () => {
             startIcon={<SearchIcon />}
             disabled={isLoading}
           >
-            {isLoading ? "Loading..." : "Search"}
+            {isLoading ? "Loading" : "Search"}
           </Button>
         </Box>
       </Box>

@@ -8,6 +8,7 @@ import AddWithCarousel from "../components/Card/CardForOurServics";
 import axios from "axios";
 import Footer from "../components/Footer";
 import Cookies from "js-cookie";
+import MainBg from "../assets/mainBg.png";
 
 import { SearchActions } from "../store/Search";
 import { useDispatch, useSelector } from "react-redux";
@@ -97,8 +98,9 @@ const OurServices = () => {
       <Box
         sx={{
           height: { xs: "50%", sm: "50%", md: "55%", lg: "35%", xl: "55%" },
-          backgroundImage:
-            "linear-gradient(90deg, rgba(0,1,36,1) 0%, rgba(73,9,121,1) 35%, rgba(192,0,255,1) 100%)",
+          // backgroundImage:
+          //   "linear-gradient(90deg, rgba(0,1,36,1) 0%, rgba(73,9,121,1) 35%, rgba(192,0,255,1) 100%)",
+          backgroundImage: `url("${MainBg}")`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           marginBottom: "50px",
@@ -155,10 +157,16 @@ const OurServices = () => {
             </Grid>
           </Grid>
 
-          <Box sx={{ pt: { xs: 6 } }}>
+          <Box sx={{ pt: { xs: 6 }, margin: "auto", maxWidth: "80%" }}>
             <CityCarousel />
             <Rooms />
-            <Box sx={{ display: "flex", flexDirection: "column", mb: 4 }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                mb: 4,
+              }}
+            >
               <Box sx={{ mb: 1 }}>
                 <Typography variant="h5" sx={{ mb: 1 }}>
                   Top affordable sharing option in UAE
@@ -177,10 +185,11 @@ const OurServices = () => {
                   PartitionAddAvilableRoom={PartitionAddAvilableRoom}
                 />
               </Box>
-              <AddWithCarousel />
             </Box>
+
             {/* <AvailableRooms /> */}
           </Box>
+          <AddWithCarousel />
           <Footer />
         </Box>
       </Box>

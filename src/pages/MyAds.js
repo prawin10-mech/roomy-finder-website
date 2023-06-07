@@ -19,7 +19,7 @@ const MyAds = () => {
   const token = localStorage.getItem("token");
   const [myAds, setMyAds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-    const [noOfCount, setnoOfCount] = useState(8);
+  const [noOfCount, setnoOfCount] = useState(8);
   const navigate = useNavigate();
 
   const fetchMyAds = async () => {
@@ -41,6 +41,8 @@ const MyAds = () => {
       console.log(err);
     }
   };
+
+  console.log(myAds);
 
   const myAdsData =
     type === "landlord"

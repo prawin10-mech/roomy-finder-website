@@ -1,12 +1,4 @@
-export const cities = [
-  "Dubai",
-  "Abu Dhabi",
-  "Sharjah",
-  "Ras Al Kima",
-  "Umm Al-Quwain",
-  "Jeddah",
-  "Ajman",
-];
+export const cities = ["UAE", "USA", "Saudi", "India", "Egypt"];
 
 export const availableRooms = [1, 2, 3, 4, 5];
 
