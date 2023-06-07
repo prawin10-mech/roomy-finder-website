@@ -104,6 +104,7 @@ const OurServices = () => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           marginBottom: "50px",
+          
         }}
       >
         <Box
@@ -115,8 +116,8 @@ const OurServices = () => {
         //   bottom: 0,
         // }}
         >
-          <Grid container justifyContent="space-between" alignItems="center">
-            <Grid item xs={12} sm={8}>
+          <Grid container justifyContent="space-between" alignItems="center" >
+            <Grid item xs={12} sm={8} >
               <Box
                 sx={{
                   pt: { xs: 8, md: 13 },
@@ -150,6 +151,7 @@ const OurServices = () => {
                   display: "flex",
                   justifyContent: "flex-end",
                   height: "100%",
+                  px:4,
                 }}
               >
                 <FloatingImage />
@@ -157,6 +159,7 @@ const OurServices = () => {
             </Grid>
           </Grid>
 
+<<<<<<< HEAD
           <Box sx={{ pt: { xs: 6 }, margin: "auto", maxWidth: "80%" }}>
             <CityCarousel />
             <Rooms />
@@ -167,8 +170,14 @@ const OurServices = () => {
                 mb: 4,
               }}
             >
+=======
+          <Box sx={{ pt: { xs: 6 },pl:{md:8,sm:6,xs:4},pr:{md:8,sm:6,xs:4} }}>
+            <CityCarousel />
+            <Rooms />
+            <Box sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
+>>>>>>> 6621adbacce18d90d42c679309cf38a96f295cf7
               <Box sx={{ mb: 1 }}>
-                <Typography variant="h5" sx={{ mb: 1 }}>
+                <Typography variant="h5" sx={{ mb: 1,pl:{md:3,sm:2,xs:1} }}>
                   Top affordable sharing option in UAE
                 </Typography>
                 <CarouselWithMultipleImage
@@ -177,7 +186,7 @@ const OurServices = () => {
               </Box>
 
               <Box sx={{ mt: 1, mb: 1 }}>
-                <Typography variant="h5" sx={{ my: 1 }}>
+                <Typography variant="h5" sx={{ my: 1,pl:{md:3,sm:2,xs:1} }}>
                   Partitions for rent in Sharjah
                 </Typography>
 
@@ -185,6 +194,13 @@ const OurServices = () => {
                   PartitionAddAvilableRoom={PartitionAddAvilableRoom}
                 />
               </Box>
+<<<<<<< HEAD
+=======
+              <Box sx={{ mt: 1, mb: 1 ,pl:{md:3,sm:2,xs:1},pr:{md:3,sm:2,xs:1}}}>
+                
+              <AddWithCarousel />
+              </Box>
+>>>>>>> 6621adbacce18d90d42c679309cf38a96f295cf7
             </Box>
 
             {/* <AvailableRooms /> */}

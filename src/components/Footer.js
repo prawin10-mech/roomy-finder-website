@@ -83,7 +83,7 @@ const Footer = () => {
   };
 
   return (
-    <Grid sx={{ display: "block", overflowX: "hidden" }}>
+    <Grid sx={{ display: "block", overflowX: "hidden",pt:"6px" }}>
       <Toolbar
         sx={{
           display: "flex",
