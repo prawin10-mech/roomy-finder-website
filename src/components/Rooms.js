@@ -73,7 +73,12 @@ const Rooms = () => {
         alignItems="center"
         sx={{ width: "95%", margin: "auto", my: 3 }}
       >
-        <Grid item xs={12} sm={6}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          sx={{ marginBottom: { xs: 2, sm: 0 }, padding: "20px" }}
+        >
           <Box sx={backgroundStyles}>
             <Typography
               sx={{ color: "#fff", fontWeight: "700", fontSize: "22px", mb: 1 }}
@@ -107,7 +112,12 @@ const Rooms = () => {
             </Button>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          sx={{ marginBottom: { xs: 2, sm: 0 }, padding: "20px" }}
+        >
           <Box sx={backgroundStyles2}>
             <Typography
               sx={{

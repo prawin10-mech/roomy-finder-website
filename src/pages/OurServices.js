@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FloatingImage from "../components/FloatingImage";
 import Search from "../components/Search";
 import CityCarousel from "../components/UI/CityCarousel";
+import CitiesInUae from "../components/UI/CitiesInUae";
 import Rooms from "../components/Rooms";
 import { Typography, Box, Grid } from "@mui/material";
 import AddWithCarousel from "../components/Card/CardForOurServics";
@@ -169,6 +170,7 @@ const OurServices = () => {
           >
             <CityCarousel />
             <Rooms />
+            <CitiesInUae />
             <Box sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
               <Box sx={{ mb: 1 }}>
                 <Typography

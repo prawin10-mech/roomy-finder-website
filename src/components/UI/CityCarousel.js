@@ -9,21 +9,34 @@ import Egypt from "../../assets/cityCarousel/egypt.jpg";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { NavLink } from "react-router-dom";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import { toastOptions } from "../../utils/ToastOptions";
 
 const CityCarousel = () => {
   const [currentCityIndex, setCurrentCityIndex] = useState(0);
   const [carouselCities, setCarouselCities] = useState([]);
+  const isMediumScreen = useMediaQuery("(min-width: 768px)");
+  const availableRooms = useSelector((state) => state.search.availableRooms);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const updateCarouselCities = () => {
-      const slicedCities = cities.slice(currentCityIndex, currentCityIndex + 5);
-      const remainingCities = cities.slice(0, 5 - slicedCities.length);
+      const slicedCities = cities.slice(
+        currentCityIndex,
+        currentCityIndex + (isMediumScreen ? 5 : 3)
+      );
+      const remainingCities = cities.slice(
+        0,
+        (isMediumScreen ? 5 : 3) - slicedCities.length
+      );
       setCarouselCities(slicedCities.concat(remainingCities));
     };
 
     updateCarouselCities();
-  }, [currentCityIndex]);
+  }, [currentCityIndex, isMediumScreen]);
 
   console.log(carouselCities);
 
@@ -92,26 +105,80 @@ const CityCarousel = () => {
     };
 
     return (
-      <Grid item xs={12}>
-        <NavLink to="/sp">
-          <img
-            src={imageSrc}
-            alt={altText}
-            style={{
-              objectFit: "cover",
-              margin: "auto",
-              borderRadius: "10px",
-              transform: `scale(${scale})`,
-              position: position,
-              zIndex: zIndex,
-              marginLeft: overlap,
-              marginRight: overlap,
-              maxWidth: "100%",
-              maxHeight: "100%",
-              boxShadow: boxShadow,
+      <Grid
+        item
+        xs={12}
+        sx={{ cursor: "pointer", padding: 0 }}
+        // onClick={async (e) => {
+        //   try {
+        //     console.log(altText);
+        //     if (altText === "UAE") {
+        //       const { data } = await axios.get(
+        //         "http://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/recomended?countryCode=AE"
+        //       );
+        //       console.log(data.propertyAds);
+        //       dispatch(SearchActions.availableRooms(data.propertyAds));
+        //     }
+        //     if (altText === "Saudi") {
+        //       const { data } = await axios.get(
+        //         "http://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/recomended?countryCode=SA"
+        //       );
+
+        //       console.log(data.propertyAds);
+        //       dispatch(SearchActions.availableRooms(data.propertyAds));
+        //     } else {
+        //       dispatch(SearchActions.availableRooms(null));
+        //     }
+        //   } catch (err) {
+        //     console.log(err);
+        //   }
+        // }}
+      >
+        {altText === "UAE" ? (
+          <NavLink to="/sp">
+            <img
+              src={imageSrc}
+              alt={altText}
+              style={{
+                objectFit: "cover",
+                margin: "auto",
+                borderRadius: "10px",
+                transform: `scale(${scale})`,
+                position: position,
+                zIndex: zIndex,
+                marginLeft: overlap,
+                marginRight: overlap,
+                maxWidth: "100%",
+                // maxHeight: "100%",
+                boxShadow: boxShadow,
+              }}
+            />
+          </NavLink>
+        ) : (
+          <Grid
+            onClick={() => {
+              toast.success("Coming soon", toastOptions);
             }}
-          />
-        </NavLink>
+          >
+            <img
+              src={imageSrc}
+              alt={altText}
+              style={{
+                objectFit: "cover",
+                margin: "auto",
+                borderRadius: "10px",
+                transform: `scale(${scale})`,
+                position: position,
+                zIndex: zIndex,
+                marginLeft: overlap,
+                marginRight: overlap,
+                maxWidth: "100%",
+                // maxHeight: "100%",
+                boxShadow: boxShadow,
+              }}
+            />
+          </Grid>
+        )}
         {showCityName ? (
           <Box sx={cityNameStyles}>
             <Typography
@@ -142,10 +209,10 @@ const CityCarousel = () => {
 
   const cityImages = [
     { city: "USA", imageSrc: USA, altText: "USA" },
-    { city: "UAE", imageSrc: UAE, altText: "UAE" },
     { city: "Saudi", imageSrc: Saudi, altText: "Saudi" },
     { city: "India", imageSrc: India, altText: "India" },
     { city: "Egypt", imageSrc: Egypt, altText: "Egypt" },
+    { city: "UAE", imageSrc: UAE, altText: "UAE" },
   ];
 
   const carouselItems = carouselCities.map((city, index) => {
@@ -153,7 +220,7 @@ const CityCarousel = () => {
 
     let styles = isActive
       ? {
-          minHeight: "45vh",
+          minHeight: { xs: 0, md: "20vh", lg: "45vh" },
           borderRadius: "10px",
           display: "flex",
           justifyContent: "center",
@@ -168,19 +235,19 @@ const CityCarousel = () => {
       styles = {
         ...styles,
         position: "relative",
-        zIndex: 1,
+        zIndex: 10,
       };
     } else if (Math.abs(index - 2) === 1) {
       styles = {
         ...styles,
         scale: 1.8,
-        zIndex: 0.2,
+        zIndex: 5,
       };
     } else if (index === 0 || index === 4) {
       styles = {
         ...styles,
         scale: 1.6,
-        zIndex: -30,
+        zIndex: 1,
       };
     }
 
@@ -251,6 +318,7 @@ const CityCarousel = () => {
           onClick={handleNextClick}
         />
       </Box>
+      <ToastContainer />
     </Box>
   );
 };
