@@ -194,6 +194,7 @@ const SearchInputs = () => {
       width: "100%", // Add this line to set the width to 100%
     },
     buttonContainer: {
+      
       flex: { xs: "1 1 100%", lg: "1 1 auto" },
       display: "flex",
       alignItems: "center",
@@ -204,7 +205,7 @@ const SearchInputs = () => {
       padding: 2,
       border: "2px solid slate",
       marginLeft: { xs: 0, lg: 2 },
-      backgroundColor: "purple.700",
+      backgroundColor: "orange",
       borderRadius: "md",
     },
     advancedSearchContainer: {
@@ -308,7 +309,7 @@ const SearchInputs = () => {
         <Box sx={styles.buttonContainer}>
           <Button
             variant="contained"
-            color="primary"
+            // color="primary"
             sx={styles.button}
             onClick={handleSearch}
             startIcon={<SearchIcon />}
