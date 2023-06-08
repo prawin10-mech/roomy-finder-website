@@ -9,7 +9,6 @@ import AddWithCarousel from "../components/Card/CardForOurServics";
 import axios from "axios";
 import Footer from "../components/Footer";
 import Cookies from "js-cookie";
-import MainBg from "../assets/mainBg.png";
 
 import { SearchActions } from "../store/Search";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +18,7 @@ import CarouselWithMultipleImage from "../components/CarouselWithMultipleImage";
 import { roomsTypeActions } from "../store/Rooms";
 
 import { requestForToken } from "../firebase/index";
+import headerimage from "../assets/Home/34213422.PNG"
 
 const OurServices = () => {
   const [PartitionAddAvilableRoom, setPartitionAddAvilableRoom] = useState([]);
@@ -98,14 +98,14 @@ const OurServices = () => {
     <Box sx={{ position: "relative", width: "100%", height: "100vh" }}>
       <Box
         sx={{
-          height: { xs: "50%", sm: "50%", md: "55%", lg: "35%", xl: "55%" },
-          // backgroundImage:
-          //   "linear-gradient(90deg, rgba(0,1,36,1) 0%, rgba(73,9,121,1) 35%, rgba(192,0,255,1) 100%)",
-          backgroundImage: `url("${MainBg}")`,
+          height: { xs: "50%", sm: "50%", md: "55%", lg: "40%", xl: "55%" },
+          backgroundImage:
+          `url(${headerimage})`,
+          backgroundPosition: "center", // Add this line
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           marginBottom: "50px",
-          zIndex: -1000,
+          
         }}
       >
         <Box
@@ -117,8 +117,8 @@ const OurServices = () => {
         //   bottom: 0,
         // }}
         >
-          <Grid container justifyContent="space-between" alignItems="center">
-            <Grid item xs={12} sm={8}>
+          <Grid container justifyContent="space-between" alignItems="center" >
+            <Grid item xs={12} sm={8} >
               <Box
                 sx={{
                   pt: { xs: 8, md: 13 },
@@ -152,7 +152,7 @@ const OurServices = () => {
                   display: "flex",
                   justifyContent: "flex-end",
                   height: "100%",
-                  px: 4,
+                  px:4,
                 }}
               >
                 <FloatingImage />
@@ -160,23 +160,13 @@ const OurServices = () => {
             </Grid>
           </Grid>
 
-          <Box
-            sx={{
-              pt: { xs: 6 },
-              pl: { md: 8, sm: 6, xs: 4 },
-              pr: { md: 8, sm: 6, xs: 4 },
-              zIndex: 5,
-            }}
-          >
+          <Box sx={{ pt: { xs: 6 },pl:{md:8,sm:6,xs:4},pr:{md:8,sm:6,xs:4} }}>
             <CityCarousel />
             <Rooms />
             <CitiesInUae />
             <Box sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
               <Box sx={{ mb: 1 }}>
-                <Typography
-                  variant="h5"
-                  sx={{ mb: 1, pl: { md: 3, sm: 2, xs: 1 } }}
-                >
+                <Typography variant="h5" sx={{ mb: 1,pl:{md:3,sm:2,xs:1} }}>
                   Top affordable sharing option in UAE
                 </Typography>
                 <CarouselWithMultipleImage
@@ -185,10 +175,7 @@ const OurServices = () => {
               </Box>
 
               <Box sx={{ mt: 1, mb: 1 }}>
-                <Typography
-                  variant="h5"
-                  sx={{ my: 1, pl: { md: 3, sm: 2, xs: 1 } }}
-                >
+                <Typography variant="h5" sx={{ my: 1,pl:{md:3,sm:2,xs:1} }}>
                   Partitions for rent in Sharjah
                 </Typography>
 
@@ -196,22 +183,13 @@ const OurServices = () => {
                   PartitionAddAvilableRoom={PartitionAddAvilableRoom}
                 />
               </Box>
-
-              {/* <Box
-                sx={{
-                  mt: 1,
-                  mb: 1,
-                  pl: { md: 3, sm: 2, xs: 1 },
-                  pr: { md: 3, sm: 2, xs: 1 },
-                }}
-              >
-                <AddWithCarousel />
-              </Box> */}
+              <Box sx={{ mt: 1, mb: 1 ,pl:{md:3,sm:2,xs:1},pr:{md:3,sm:2,xs:1}}}>
+                
+              <AddWithCarousel />
+              </Box>
             </Box>
-
             {/* <AvailableRooms /> */}
           </Box>
-          <AddWithCarousel />
           <Footer />
         </Box>
       </Box>

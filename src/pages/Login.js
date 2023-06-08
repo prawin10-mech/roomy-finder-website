@@ -108,9 +108,9 @@ const Login = () => {
             marginY: 4,
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+          {/* <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
             <img src={roomyLogo} alt="roomy logo" width={"100px"} />
-          </Box>
+          </Box> */}
           <Box
             sx={{
               px: 4,
