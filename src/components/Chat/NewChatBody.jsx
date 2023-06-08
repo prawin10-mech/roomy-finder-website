@@ -26,6 +26,8 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
 
+import bottomBackground from '../../assets/bottomBackground.png'
+
 import { onMessageListener } from "../../firebase/index";
 import sendNotification from "../NotificationReceive";
 
@@ -536,29 +538,34 @@ const NewChatBody = () => {
       height: "100pt ",
       maxWidth: "70%",
       margin: "auto",
+      backgroundColor: "#F6F4FF",
       // paddingBottom: "64px",
     },
     header: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      backgroundColor: "#075e54",
+      backgroundColor: "#F6F4FF",
       padding: "8px 16px",
       color: "#fff",
+      borderBottom: 1,
+      borderColor: 'black' 
     },
     chatContainer: {
       // height: "calc(100vh )",
       height: "calc(100vh - 200px)",
       overflowY: "auto",
       padding: "16px",
+      backgroundColor: "#F6F4FF",
     },
     messageContainer: {
       color: "#000",
       padding: "8px",
-      borderRadius: "8px",
+      borderRadius: "20px",
       marginBottom: "8px",
       alignSelf: "flex-start",
       maxWidth: "40%",
+      marginLeft:"10px",
     },
     messageBody: {
       variant: "body1",
@@ -619,22 +626,37 @@ const NewChatBody = () => {
   // console.log(showLoadMore);
   // console.log(loadData);
   return (
+    <>
+       <Box
+        xs={12}
+        sx={{
+          py: 3,
+          height:"100px",
+          backgroundImage: `url(${bottomBackground})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center", // Add this line
+          backgroundSize: "cover",
+          display: "flex",
+          px: 5,
+        }}
+      />
+
     <Box sx={styles.container}>
       <Box sx={styles.header}>
         <Box>
-          <Typography variant="body1" fontWeight={700}>
+          <Typography variant="body1" fontWeight={600} color={"black"}>
             {data12.type === "roommate"
               ? `${data12?.property.poster?.firstName} ${data12?.property.poster?.lastName}`
               : `${data12?.property?.client?.firstName} ${data12?.property.client?.lastName}`}
           </Typography>
-          <Typography variant="body1" fontWeight={700}>
+          <Typography variant="body1" fontWeight={500} color={"black"}>
             From:{" "}
             {data12.type === "roommate"
               ? `${data12?.property.poster?.country}`
               : `${data12?.property?.client?.country}`}
           </Typography>
         </Box>
-        <Typography variant="body2">
+        <Typography variant="body2" color={"black"}>
           {data12.type === "roommate"
             ? data12?.property?.poster?.type
             : data12.property?.client?.type}
@@ -662,7 +684,7 @@ const NewChatBody = () => {
             return (
               <Grid container>
                 {isCurrentUser && (
-                  <Avatar>
+                  <Avatar sx={{mr:1}}>
                     {isCurrentUser === "roommate"
                       ? data12.property.poster.profilePicture
                         ? data12.property.poster.profilePicture
@@ -674,9 +696,9 @@ const NewChatBody = () => {
                 )}
                 <Grid
                   key={message.id}
-                  sx={{
+                  sx={{ 
                     ...styles.messageContainer,
-                    backgroundColor: isCurrentUser ? "purple" : "blue",
+                    backgroundColor: isCurrentUser ? "#E7E7ED" : "#AC84B8",
                     marginLeft: isCurrentUser ? 0 : "auto",
                     marginRight: isCurrentUser ? "auto" : 0,
                   }}
@@ -685,7 +707,7 @@ const NewChatBody = () => {
                     message.body !== "Sent a video" &&
                     message.body !== "Sent a file" && (
                       <Grid container justifyContent="space-between">
-                        <Typography variant={styles.messageBody} color="white">
+                        <Typography variant={styles.messageBody} color="black">
                           {message.body}
                         </Typography>
                         <Box
@@ -1144,6 +1166,21 @@ const NewChatBody = () => {
         </IconButton>
       </Paper>
     </Box>
+    {/* <Box
+        xs={12}
+        sx={{
+          py: 3,
+          height:"50px",
+          backgroundImage: `url(${bottomBackground})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center", // Add this line
+          backgroundSize: "cover",
+          display: "flex",
+          px: 5,
+        }}
+      /> */}
+      {/* </Box> */}
+    </>
   );
 };
 
