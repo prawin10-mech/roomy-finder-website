@@ -1,18 +1,37 @@
 import React from "react";
-import RoomBuilding from "../assets/roomBuilding.png";
-import RoomWomen from "../assets/roomWomen.png";
+import { Grid, Box, Typography, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { roomsTypeActions } from "../store/Rooms";
-import { SearchActions } from "../store/Search";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { SearchActions } from "../store/Search";
+import { roomsTypeActions } from "../store/Rooms";
+import axios from "axios";
+
+import FindRoommate from "../assets/rooms/FindRoommate.jpg";
+import FindRoom from "../assets/rooms/FindRoom.jpg";
 
 const Rooms = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const activeLink = useSelector((state) => state.room.roomsType);
 
-  const handleProperty = async () => {
+  const backgroundStyles = {
+    backgroundImage: `url(${FindRoom})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    borderRadius: "20px",
+    padding: "25px",
+    height: "100%",
+  };
+
+  const backgroundStyles2 = {
+    backgroundImage: `url(${FindRoommate})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    borderRadius: "20px",
+    padding: "25px",
+    height: "100%",
+  };
+
+  const findRoom = async () => {
     try {
       const { data } = await axios.post(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
@@ -29,17 +48,17 @@ const Rooms = () => {
     }
   };
 
-  const handleRoomMate = async () => {
+  const findRoommate = async () => {
     try {
       const { data } = await axios.post(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/roommate-ad/available`,
         { countryCode: "AE" }
       );
       dispatch(roomsTypeActions.availableRooms(data));
-      dispatch(roomsTypeActions.propertyAds());
+      dispatch(roomsTypeActions.roommateAds());
+
       dispatch(SearchActions.availableRooms(data));
       dispatch(SearchActions.roomSearch("roommate"));
-
       navigate("/sp");
     } catch (err) {
       console.log(err);
@@ -47,61 +66,88 @@ const Rooms = () => {
   };
 
   return (
-    <div className="flex justify-center mt-10">
-      <div className="m-10 flex md:flex-row gap-10">
-        <div
-          className="flex flex-col md:flex-row cursor-pointer"
-          onClick={() => handleProperty()}
-        >
-          <img
-            src={RoomBuilding}
-            alt="property"
-            width={"200px"}
-            className="h-auto md:h-40 w-auto md:w-40 mx-auto md:mx-0 relative md:left-19 bottom-[18px] w-full md:w-auto md:block hidden"
-          />
-          <p
-            className={`p-5 md:p-10 h-auto md:h-32 w-auto md:w-64 text-center text-xl bg-white shadow-md text-orange-500 flex-1 md:ml-[-40px] font-bold ${
-              activeLink === "property"
-                ? "border-x-2 border-t-2 border-purple-500 rounded-md bg-white text-purple-600"
-                : "rounded-md"
-            }`}
-            style={{
-              boxShadow: "0 0 20px 5px rgba(0,0,0,0.75)",
-              WebkitBoxShadow: "0 0 20px 5px rgba(0,0,0,0.75)",
-              MozBoxShadow: "0 0 20px 5px rgba(0,0,0,0.75)",
-            }}
-          >
-            Find Room
-          </p>
-        </div>
-
-        <div
-          className="flex flex-col md:flex-row cursor-pointer"
-          onClick={() => handleRoomMate()}
-        >
-          <img
-            src={RoomWomen}
-            alt="roommateAds"
-            width={"200px"}
-            className="h-auto md:h-48 w-auto md:w-40 mx-auto md:mx-0 relative md:left-24 bottom-[40px] w-full md:w-auto md:block hidden"
-          />
-          <p
-            className={`p-5 md:p-10 h-auto md:h-32 w-auto md:w-64 text-center text-xl bg-white text-orange-500 shadow-md flex-1 font-bold ${
-              activeLink === "roommate"
-                ? "border-x-2 border-t-2 border-purple-500 rounded-md bg-white text-purple-600"
-                : "rounded-md"
-            }`}
-            style={{
-              boxShadow: "0 0 20px 5px rgba(0,0,0,0.75)",
-              WebkitBoxShadow: "0 0 20px 5px rgba(0,0,0,0.75)",
-              MozBoxShadow: "0 0 20px 5px rgba(0,0,0,0.75)",
-            }}
-          >
-            Find Roommate
-          </p>
-        </div>
-      </div>
-    </div>
+    <Grid margin="auto">
+      <Grid
+        container
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ width: "95%", margin: "auto", my: 3 }}
+      >
+        <Grid item xs={12} sm={6}>
+          <Box sx={backgroundStyles}>
+            <Typography
+              sx={{ color: "#fff", fontWeight: "700", fontSize: "22px", mb: 1 }}
+            >
+              FIND ROOM
+            </Typography>
+            <Typography
+              sx={{
+                color: "#fff",
+                fontSize: "20px",
+                maxWidth: { xs: "60%", md: "40%" },
+                wordWrap: "break-word",
+                mb: 1,
+              }}
+            >
+              +50,000 room and sharing options
+            </Typography>
+            <Button
+              variant="contained"
+              sx={{
+                borderRadius: "20px",
+                fontWeight: "700",
+                bgcolor: "#fff",
+                color: "purple",
+                "&:hover": { bgcolor: "#fff" },
+                mb: 1,
+              }}
+              onClick={findRoom}
+            >
+              Search
+            </Button>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Box sx={backgroundStyles2}>
+            <Typography
+              sx={{
+                color: "purple",
+                fontWeight: "700",
+                fontSize: "22px",
+                mb: 1,
+              }}
+            >
+              FIND ROOMMATE
+            </Typography>
+            <Typography
+              sx={{
+                color: "purple",
+                fontSize: "20px",
+                maxWidth: { xs: "60%", md: "40%" },
+                wordWrap: "break-word",
+                mb: 1,
+              }}
+            >
+              +25,000 roommate profiles
+            </Typography>
+            <Button
+              variant="contained"
+              sx={{
+                borderRadius: "20px",
+                fontWeight: "700",
+                bgcolor: "#fff",
+                color: "purple",
+                "&:hover": { bgcolor: "#fff" },
+                mb: 1,
+              }}
+              onClick={findRoommate}
+            >
+              Search
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

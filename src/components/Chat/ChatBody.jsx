@@ -73,6 +73,7 @@ const ChatBody = ({ user, messages }) => {
   }, [user.otherId, token]);
 
   useEffect(() => {
+    console.log("last");
     const fetchNewMessage = async () => {
       const newMessage = await onMessageListener();
       console.log("tt", newMessage);
@@ -85,6 +86,7 @@ const ChatBody = ({ user, messages }) => {
 
   useEffect(() => {
     setChatMessages(messages);
+    console.log("middle");
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
     }
@@ -95,6 +97,7 @@ const ChatBody = ({ user, messages }) => {
 
   useEffect(() => {
     getMessages();
+    console.log("last");
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
     }
