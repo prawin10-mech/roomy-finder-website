@@ -145,7 +145,7 @@ const CitiesInUae = () => {
   };
 
   return (
-    <Grid maxWidth={"96%"} sx={{ margin: "auto", overflow: "hidden" }}>
+    <Grid maxWidth={"90%"} sx={{ margin: "auto" }}>
       <Typography
         variant="h5"
         sx={{
