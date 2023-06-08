@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FloatingImage from "../components/FloatingImage";
 import Search from "../components/Search";
 import CityCarousel from "../components/UI/CityCarousel";
+import CitiesInUae from "../components/UI/CitiesInUae";
 import Rooms from "../components/Rooms";
 import { Typography, Box, Grid } from "@mui/material";
 import AddWithCarousel from "../components/Card/CardForOurServics";
@@ -163,6 +164,7 @@ const OurServices = () => {
           <Box sx={{ pt: { xs: 6 },pl:{md:8,sm:6,xs:4},pr:{md:8,sm:6,xs:4} }}>
             <CityCarousel />
             <Rooms />
+            <CitiesInUae />
             <Box sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
               <Box sx={{ mb: 1 }}>
                 <Typography variant="h5" sx={{ mb: 1,pl:{md:3,sm:2,xs:1} }}>
