@@ -142,8 +142,8 @@ const CityCarousel = () => {
 
   const cityImages = [
     { city: "USA", imageSrc: USA, altText: "USA" },
-    { city: "Saudi", imageSrc: Saudi, altText: "Saudi" },
     { city: "UAE", imageSrc: UAE, altText: "UAE" },
+    { city: "Saudi", imageSrc: Saudi, altText: "Saudi" },
     { city: "India", imageSrc: India, altText: "India" },
     { city: "Egypt", imageSrc: Egypt, altText: "Egypt" },
   ];
@@ -174,13 +174,13 @@ const CityCarousel = () => {
       styles = {
         ...styles,
         scale: 1.8,
-        zIndex: -10,
+        zIndex: 0.2,
       };
     } else if (index === 0 || index === 4) {
       styles = {
         ...styles,
         scale: 1.6,
-        zIndex: -55,
+        zIndex: -30,
       };
     }
 
