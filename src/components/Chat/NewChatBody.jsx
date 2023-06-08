@@ -60,17 +60,17 @@ const NewChatBody = () => {
   const location = useLocation();
   const data12 = location.state;
 
-  useEffect(() => {
-    const fetchNewMessage = async () => {
-      const newMessage = await onMessageListener();
-      console.log("tt", newMessage);
-      setMessageReceived(newMessage);
-    };
+  // useEffect(() => {
+  //   const fetchNewMessage = async () => {
+  //     const newMessage = await onMessageListener();
+  //     console.log("tt", newMessage);
+  //     setMessageReceived(newMessage);
+  //   };
 
-    if (messageReceived) {
-      fetchNewMessage();
-    }
-  }, [messageReceived]);
+  //   if (messageReceived) {
+  //     fetchNewMessage();
+  //   }
+  // }, [messageReceived]);
 
   // get all message
   const getAllmessage = async () => {
@@ -111,37 +111,50 @@ const NewChatBody = () => {
   // console.log("res",res);
   // }
 
-  useEffect(() => {
-    const intervalId = setInterval(getAllmessage, 2000);
+  // useEffect(() => {
+  //   const intervalId = setInterval(getAllmessage, 2000);
 
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, []);
 
   useEffect(() => {
+    onMessageListener()
+    .then((payload) => {
+      // newValueAdd,
+      setnewValueAdd(payload.data.payload);
+      console.log("message chat received", payload.data.payload);
+      setNotification({
+        title: payload?.notification?.title,
+        body: payload?.notification?.body,
+        time: Date.now(),
+        id: Math.random() * 120,
+      });
+    })
+    .catch((err) => console.log("failed: ", err));
     // let test1 = true
-    if (messageReceived) {
-      onMessageListener()
-        .then((payload) => {
-          // newValueAdd,
-          setnewValueAdd(payload.data.payload);
-          console.log("message chat received", payload.data.payload);
-          setNotification({
-            title: payload?.notification?.title,
-            body: payload?.notification?.body,
-            time: Date.now(),
-            id: Math.random() * 120,
-          });
-        })
-        .catch((err) => console.log("failed: ", err));
-    } else {
-      const intervalId = setInterval(getAllmessage, 2000);
+    // if (messageReceived) {
+    //   onMessageListener()
+    //     .then((payload) => {
+    //       // newValueAdd,
+    //       setnewValueAdd(payload.data.payload);
+    //       console.log("message chat received", payload.data.payload);
+    //       setNotification({
+    //         title: payload?.notification?.title,
+    //         body: payload?.notification?.body,
+    //         time: Date.now(),
+    //         id: Math.random() * 120,
+    //       });
+    //     })
+    //     .catch((err) => console.log("failed: ", err));
+    // } else {
+    //   const intervalId = setInterval(getAllmessage, 2000);
 
-      return () => {
-        clearInterval(intervalId);
-      };
-    }
+    //   return () => {
+    //     clearInterval(intervalId);
+    //   };
+    // }
 
     // scrollToBottom();
     getAllmessage();
