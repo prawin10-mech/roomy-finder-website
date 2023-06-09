@@ -23,7 +23,7 @@ const Search = () => {
         flexDirection: "column",
         justifyContent: "space-between",
         "@media (max-width: 960px)": {
-          margin: "20px 0",
+          margin: "10px 0",
         },
       }}
     >

@@ -63,17 +63,17 @@ const NewChatBody = () => {
   const location = useLocation();
   const data12 = location.state;
 
-  useEffect(() => {
-    const fetchNewMessage = async () => {
-      const newMessage = await onMessageListener();
-      console.log("tt", newMessage);
-      setMessageReceived(newMessage);
-    };
+  // useEffect(() => {
+  //   const fetchNewMessage = async () => {
+  //     const newMessage = await onMessageListener();
+  //     console.log("tt", newMessage);
+  //     setMessageReceived(newMessage);
+  //   };
 
-    if (messageReceived) {
-      fetchNewMessage();
-    }
-  }, [messageReceived]);
+  //   if (messageReceived) {
+  //     fetchNewMessage();
+  //   }
+  // }, [messageReceived]);
 
   // get all message
   const getAllmessage = async () => {
@@ -114,37 +114,50 @@ const NewChatBody = () => {
   // console.log("res",res);
   // }
 
-  useEffect(() => {
-    const intervalId = setInterval(getAllmessage, 2000);
+  // useEffect(() => {
+  //   const intervalId = setInterval(getAllmessage, 2000);
 
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, []);
 
   useEffect(() => {
+    onMessageListener()
+      .then((payload) => {
+        // newValueAdd,
+        setnewValueAdd(payload.data.payload);
+        console.log("message chat received", payload.data.payload);
+        setNotification({
+          title: payload?.notification?.title,
+          body: payload?.notification?.body,
+          time: Date.now(),
+          id: Math.random() * 120,
+        });
+      })
+      .catch((err) => console.log("failed: ", err));
     // let test1 = true
-    if (messageReceived) {
-      onMessageListener()
-        .then((payload) => {
-          // newValueAdd,
-          setnewValueAdd(payload.data.payload);
-          console.log("message chat received", payload.data.payload);
-          setNotification({
-            title: payload?.notification?.title,
-            body: payload?.notification?.body,
-            time: Date.now(),
-            id: Math.random() * 120,
-          });
-        })
-        .catch((err) => console.log("failed: ", err));
-    } else {
-      const intervalId = setInterval(getAllmessage, 2000);
+    // if (messageReceived) {
+    //   onMessageListener()
+    //     .then((payload) => {
+    //       // newValueAdd,
+    //       setnewValueAdd(payload.data.payload);
+    //       console.log("message chat received", payload.data.payload);
+    //       setNotification({
+    //         title: payload?.notification?.title,
+    //         body: payload?.notification?.body,
+    //         time: Date.now(),
+    //         id: Math.random() * 120,
+    //       });
+    //     })
+    //     .catch((err) => console.log("failed: ", err));
+    // } else {
+    //   const intervalId = setInterval(getAllmessage, 2000);
 
-      return () => {
-        clearInterval(intervalId);
-      };
-    }
+    //   return () => {
+    //     clearInterval(intervalId);
+    //   };
+    // }
 
     // scrollToBottom();
     getAllmessage();
@@ -386,8 +399,6 @@ const NewChatBody = () => {
     }
   };
 
-  // uska=============
-
   const handleImage = async (e) => {
     setType("image");
     setShowAttachmentMenu(false);
@@ -544,14 +555,16 @@ const NewChatBody = () => {
       height: "calc(100vh - 200px)",
       overflowY: "auto",
       padding: "16px",
+      backgroundColor: "#F6F4FF",
     },
     messageContainer: {
       color: "#000",
       padding: "8px",
-      borderRadius: "8px",
+      borderRadius: "20px",
       marginBottom: "8px",
       alignSelf: "flex-start",
       maxWidth: "40%",
+      marginLeft: "10px",
     },
     messageBody: {
       variant: "body1",

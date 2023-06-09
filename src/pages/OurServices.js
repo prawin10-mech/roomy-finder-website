@@ -121,17 +121,17 @@ const OurServices = () => {
             <Grid item xs={12} sm={8} >
               <Box
                 sx={{
-                  pt: { xs: 8, md: 13 },
+                  pt: { xs: 8, md: 12 },
                   px: { xs: 2, md: 2 },
                   ml: { xs: 0, sm: 0, md: 12 },
                 }}
               >
                 <Typography
-                  variant="h3"
+                  variant="h4"
                   sx={{
                     fontWeight: "bold",
                     color: "white",
-                    mb: 3,
+                    mb: "10px",
                     px: { xs: 1 },
                     textAlign: { xs: "center", md: "left" },
                   }}
@@ -149,6 +149,7 @@ const OurServices = () => {
             >
               <Box
                 sx={{
+                  mt:"20%",
                   display: "flex",
                   justifyContent: "flex-end",
                   height: "100%",
