@@ -69,6 +69,8 @@ const Chat = () => {
     getConversations();
   }, []);
 
+  console.log(messageReceived);
+
   useEffect(() => {
     const fetchNewMessage = async () => {
       const newMessage = await onMessageListener();
