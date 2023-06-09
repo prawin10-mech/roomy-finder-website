@@ -367,19 +367,21 @@ const ChatBody = ({ user, messages }) => {
   // Component styles
   const styles = {
     container: {
-      height: "100% ",
+      height: "75vh ",
+      bgcolor: "",
+      position: "relative",
       // paddingBottom: "64px",
     },
     header: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      backgroundColor: "#075e54",
+      backgroundColor: "#fff",
       padding: "8px 16px",
       color: "#fff",
     },
     chatContainer: {
-      height: "calc(100vh - 50px)",
+      height: "calc(55vh)",
       overflowY: "auto",
       padding: "16px",
       overflowX: "hidden",
@@ -387,7 +389,7 @@ const ChatBody = ({ user, messages }) => {
     messageContainer: {
       color: "#000",
       padding: "8px",
-      borderRadius: "8px",
+      borderRadius: "20px",
       marginBottom: "8px",
       alignSelf: "flex-start",
       maxWidth: "40%",
@@ -451,19 +453,25 @@ const ChatBody = ({ user, messages }) => {
     <Box sx={styles.container}>
       <Box sx={styles.header}>
         <Grid container alignContent="center">
-          <Box sx={{ mr: 2 }}>
+          {/* <Box sx={{ mr: 2 }}>
             <Avatar>{user?.other?.firstName.split("")[0]}</Avatar>
-          </Box>
+          </Box> */}
           <Box sx={{ height: "100%", direction: "flex", alignItems: "center" }}>
-            <Typography variant="body1" fontWeight={700}>
+            <Typography variant="body1" fontWeight={700} sx={{ color: "#000" }}>
               {user?.other?.firstName} {user?.other?.lastName}
             </Typography>
-            <Typography variant="body1" fontWeight={700}>
+            <Typography variant="body1" fontWeight={500} sx={{ color: "#000" }}>
               From: {user?.other?.country}
             </Typography>
           </Box>
         </Grid>
-        <Typography variant="body2">{user?.other?.type}</Typography>
+        <Typography
+          variant="body2"
+          fontWeight={600}
+          sx={{ color: "slateGrey" }}
+        >
+          {user?.other?.type}
+        </Typography>
       </Box>
       <Box sx={styles.chatContainer} ref={chatContainerRef}>
         <Box
@@ -494,16 +502,18 @@ const ChatBody = ({ user, messages }) => {
               <Grid container>
                 {isCurrentUser && (
                   <Avatar>
-                    {user.other.profilePicture
-                      ? user.other.profilePicture
-                      : user?.other?.firstName.split("")[0]}
+                    {user.other.profilePicture ? (
+                      <img src={user.other.profilePicture} alt="user profile" />
+                    ) : (
+                      user?.other?.firstName.charAt(0)
+                    )}
                   </Avatar>
                 )}
                 <Grid
                   key={message.id}
                   sx={{
                     ...styles.messageContainer,
-                    backgroundColor: isCurrentUser ? "purple" : "blue",
+                    backgroundColor: isCurrentUser ? "#fff" : "purple",
                     marginLeft: isCurrentUser ? 0 : "auto",
                     marginRight: isCurrentUser ? "auto" : 0,
                   }}
@@ -512,7 +522,10 @@ const ChatBody = ({ user, messages }) => {
                     message.body !== "Sent a video" &&
                     message.body !== "Sent a file" && (
                       <Grid container justifyContent="space-between">
-                        <Typography variant={styles.messageBody} color="white">
+                        <Typography
+                          variant={styles.messageBody}
+                          color={isCurrentUser ? "#000" : "#fff"}
+                        >
                           {message.body}
                         </Typography>
                         <Box
@@ -817,41 +830,43 @@ const ChatBody = ({ user, messages }) => {
 
       {showAttachmentMenu && (
         <Paper
-          elevation={24}
+          // elevation={24}
           sx={{
-            width: { xs: "120px", md: "165px" },
-            height: { xs: "150px", md: "150px" },
+            // width: { xs: "120px", md: "150px" },
+            // height: { xs: "150px", md: "150px" },
             position: "absolute",
+            bottom: { xs: "70px", md: "80px" },
+            right: 0,
 
-            "@media (max-width: 325px)": {
-              // left: "58%",
-              top: "210%",
-              // buttom: "-40px",
-              right: 5,
-              bottom: 0,
-            },
-            "@media (max-width: 426px) and (min-width: 326px)": {
-              right: 5,
-              top: "210%",
-            },
-            "@media (max-width: 769px) and (min-width: 427px)": {
-              right: 5,
-              top: "105%",
-            },
-            "@media (max-width: 1025px) and (min-width: 770px)": {
-              right: 9,
-              // buttom:-20,
-              top: "99%",
-            },
-            "@media (max-width: 1445px) and (min-width: 1025px)": {
-              right: "10%",
-              // buttom:-20,
-              top: "99%",
-            },
-            "@media (max-width: 2250px) and (min-width: 1445px)": {
-              right: 5,
-              top: "55%",
-            },
+            // "@media (max-width: 325px)": {
+            //   // left: "58%",
+            //   top: "210%",
+            //   // buttom: "-40px",
+            //   right: 5,
+            //   bottom: 0,
+            // },
+            // "@media (max-width: 426px) and (min-width: 326px)": {
+            //   right: 5,
+            //   top: "210%",
+            // },
+            // "@media (max-width: 769px) and (min-width: 427px)": {
+            //   right: 5,
+            //   top: "105%",
+            // },
+            // "@media (max-width: 1025px) and (min-width: 770px)": {
+            //   right: 9,
+            //   // buttom:-20,
+            //   top: "99%",
+            // },
+            // "@media (max-width: 1445px) and (min-width: 1025px)": {
+            //   right: "10%",
+            //   // buttom:-20,
+            //   top: "99%",
+            // },
+            // "@media (max-width: 2250px) and (min-width: 1445px)": {
+            //   right: 5,
+            //   top: "55%",
+            // },
             zIndex: 10,
           }}
         >
@@ -881,7 +896,6 @@ const ChatBody = ({ user, messages }) => {
                 onChange={handleImage}
               />
             </Box>
-
             <Box
               sx={{
                 display: "flex",

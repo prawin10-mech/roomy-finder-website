@@ -10,8 +10,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { NavLink } from "react-router-dom";
 import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { toastOptions } from "../../utils/ToastOptions";
 
@@ -19,26 +17,22 @@ const CityCarousel = () => {
   const [currentCityIndex, setCurrentCityIndex] = useState(0);
   const [carouselCities, setCarouselCities] = useState([]);
   const isMediumScreen = useMediaQuery("(min-width: 768px)");
-  const availableRooms = useSelector((state) => state.search.availableRooms);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const updateCarouselCities = () => {
       const slicedCities = cities.slice(
         currentCityIndex,
-        currentCityIndex + (isMediumScreen ? 5 : 3)
+        currentCityIndex + (isMediumScreen ? 5 : 5)
       );
       const remainingCities = cities.slice(
         0,
-        (isMediumScreen ? 5 : 3) - slicedCities.length
+        (isMediumScreen ? 5 : 5) - slicedCities.length
       );
       setCarouselCities(slicedCities.concat(remainingCities));
     };
 
     updateCarouselCities();
   }, [currentCityIndex, isMediumScreen]);
-
-  console.log(carouselCities);
 
   const handlePrevClick = () => {
     const newIndex =
@@ -105,35 +99,7 @@ const CityCarousel = () => {
     };
 
     return (
-      <Grid
-        item
-        xs={12}
-        sx={{ cursor: "pointer", padding: 0 }}
-        // onClick={async (e) => {
-        //   try {
-        //     console.log(altText);
-        //     if (altText === "UAE") {
-        //       const { data } = await axios.get(
-        //         "http://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/recomended?countryCode=AE"
-        //       );
-        //       console.log(data.propertyAds);
-        //       dispatch(SearchActions.availableRooms(data.propertyAds));
-        //     }
-        //     if (altText === "Saudi") {
-        //       const { data } = await axios.get(
-        //         "http://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/recomended?countryCode=SA"
-        //       );
-
-        //       console.log(data.propertyAds);
-        //       dispatch(SearchActions.availableRooms(data.propertyAds));
-        //     } else {
-        //       dispatch(SearchActions.availableRooms(null));
-        //     }
-        //   } catch (err) {
-        //     console.log(err);
-        //   }
-        // }}
-      >
+      <Grid item xs={12} sx={{ cursor: "pointer", padding: 0 }}>
         {altText === "UAE" ? (
           <NavLink to="/sp">
             <img
@@ -252,7 +218,6 @@ const CityCarousel = () => {
     }
 
     const { imageSrc, altText } = cityImages.find((item) => {
-      console.log(item.city, city);
       return item.city === city;
     });
 

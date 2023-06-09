@@ -7,9 +7,14 @@ import {
   TextField,
   Avatar,
   Container,
+  Button,
+  CircularProgress,
 } from "@mui/material";
 import ChatBody from "../components/Chat/ChatBody";
 import { onMessageListener } from "../firebase/index";
+import TopBackground from "../components/postPropertyComponents/TopBackground";
+import BottomBackground from "../components/postPropertyComponents/BottomBackground";
+import { Send, Attachment } from "@mui/icons-material";
 
 const Chat = () => {
   const [handleSearch, setHandleSearch] = useState("");
@@ -17,9 +22,13 @@ const Chat = () => {
   const [conversationId, setConversationId] = useState(null);
   const token = localStorage.getItem("token");
 
+  const [selectedConversationId, setSelectedConversationId] = useState(null);
+
   const [conversations, setConversations] = useState([]);
+  const [isLoadingMessages, setIsLoadingMessages] = useState(false);
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   const getConversations = async () => {
     try {
@@ -27,6 +36,12 @@ const Chat = () => {
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/conversations",
         { headers: { Authorization: token } }
       );
+      data.sort((a, b) => {
+        const createdAtA = new Date(a.lastMessage.createdAt);
+        const createdAtB = new Date(b.lastMessage.createdAt);
+
+        return createdAtB - createdAtA;
+      });
       setConversations(data);
     } catch (err) {
       console.log(err);
@@ -35,14 +50,18 @@ const Chat = () => {
 
   const getConversationMessages = async (conversation) => {
     try {
+      setIsLoadingMessages(true);
       const { data } = await axios.get(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${conversation.otherId}`,
         { headers: { Authorization: token } }
       );
       setMessages(data);
       setUser(conversation);
+      setUserId(user.id);
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoadingMessages(false);
     }
   };
 
@@ -80,10 +99,6 @@ const Chat = () => {
         },
         { headers: { Authorization: token } }
       );
-
-      console.log(data);
-
-      // Retrieve the updated conversation list
       getConversations();
     } catch (err) {
       console.log(err);
@@ -92,6 +107,7 @@ const Chat = () => {
 
   return (
     <>
+      <TopBackground />
       <Container
         xs={12}
         sm={12}
@@ -100,7 +116,7 @@ const Chat = () => {
           height: "calc(100% - 200px)",
         }}
       >
-        <Typography variant="h4" sx={{ my: 2, mx: 2, pt: 1 }}>
+        <Typography variant="h4" sx={{ my: 2, mx: 2, pt: 1, fontWeight: 600 }}>
           Chat
         </Typography>
         <Grid container xs={12} sx={{ display: "flex", flexDirection: "row" }}>
@@ -117,9 +133,8 @@ const Chat = () => {
           >
             <Box
               sx={{
-                mx: 2,
                 my: 1,
-                width: "100%",
+                width: "90%",
               }}
             >
               <TextField
@@ -132,58 +147,70 @@ const Chat = () => {
               />
               {conversations.map((conversation) => {
                 const createdAt = new Date(conversation?.lastMessage.createdAt);
-                const hours = createdAt.getHours();
-                const minutes = createdAt.getMinutes();
-                const isUnread = !messages.some((msg) => msg.isRead);
-
+                const month = createdAt.toLocaleString("en-US", {
+                  month: "short",
+                });
+                const isSelected =
+                  conversation.otherId === selectedConversationId;
+                const date = createdAt.getDate();
                 return (
                   <Grid
                     container
-                    justifyContent="space-between"
                     sx={{
-                      bgcolor: isUnread ? "grey" : "transparent",
+                      bgcolor: "#fff",
                       my: 1,
+                      ml: isSelected ? 0 : 2,
                       cursor: "pointer",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: isSelected ? "110%" : "100%",
+                      // color: isSelected ? "red" : "inherit",
+                      // margin: "auto",
                     }}
-                    onClick={() => setConversationId(conversation)}
+                    onClick={() => {
+                      setSelectedConversationId(conversation.otherId);
+                      setConversationId(conversation);
+                    }}
                     key={conversation.id}
                   >
                     <Grid
                       container
-                      alignItems="center"
+                      justifyContent="space-between"
+                      // alignItems="center"
                       sx={{
-                        ml: { xs: "3px", md: 2 },
-                        pt: { xs: "3px", md: 1 },
+                        padding: 1,
+                        my: 1,
                       }}
                     >
-                      <Avatar />
-                      <Grid item>
-                        <Grid container>
+                      <Grid sx={{ display: "flex" }}>
+                        <Avatar>
+                          {conversation?.other?.profilePicture ? (
+                            <img
+                              src={conversation?.other?.profilePicture}
+                              alt="profile"
+                            />
+                          ) : (
+                            `${conversation.other.firstName.charAt(
+                              0
+                            )}${conversation.other.lastName.charAt(0)}`
+                          )}
+                        </Avatar>
+                        <Grid item sx={{ ml: { xs: "10px", md: 2 } }}>
                           <Typography sx={{ fontWeight: 600 }}>
                             {conversation?.other?.firstName}{" "}
                             {conversation?.other?.lastName}
                           </Typography>
-                          {/* {!isUnread ? (
-                            <Typography
-                              sx={{
-                                marginLeft: 1,
-                                color: "primary.main",
-                                fontWeight: 900,
-                                fontSize: "3rem", // Increase the font size to make the dot bigger
-                                lineHeight: 0, // Remove line height to prevent extra space around the dot
-                              }}
-                            >
-                              .
-                            </Typography>
-                          ) : null} */}
+                          <Typography>
+                            {conversation?.lastMessage?.body}
+                          </Typography>
                         </Grid>
-                        <Typography>
-                          {conversation?.lastMessage?.body}
-                        </Typography>
                       </Grid>
-                    </Grid>
-                    <Grid item sx={{ ml: { xs: "3px", md: 2 } }}>
-                      <Typography>{`${hours}:${minutes}`}</Typography>
+                      <Grid item sx={{ ml: { xs: "3px", md: 2 } }}>
+                        <Typography
+                          sx={{ color: "slateGrey" }}
+                        >{`${date} ${month}`}</Typography>
+                        {/* <Typography sx={{ color: "red" }}>0</Typography> */}
+                      </Grid>
                     </Grid>
                   </Grid>
                 );
@@ -199,7 +226,77 @@ const Chat = () => {
               pl: 1,
             }}
           >
-            {user && (
+            {!user && (
+              <Grid
+                sx={{ height: "75vh", bgcolor: "#fff", padding: "20px", my: 1 }}
+              >
+                <Grid container justifyContent="space-between">
+                  <Typography sx={{ fontWeight: 600 }}>Roomy FINDER</Typography>
+                  <Typography sx={{ fontWeight: 600 }}>Admin</Typography>
+                </Grid>
+                <hr />
+                <Grid
+                  padding="10px"
+                  height="100%"
+                  container
+                  direction="column"
+                  justifyContent="space-between"
+                >
+                  <Grid sx={{ mt: 3 }}>
+                    <Grid container sx={{ my: 1 }}>
+                      <Avatar />
+                      <Typography
+                        sx={{
+                          mr: 1,
+                          bgcolor: "#E8E8E8",
+                          borderRadius: "15px",
+                          width: "300px",
+                        }}
+                      ></Typography>
+                    </Grid>
+                    <Grid container justifyContent="flex-end" sx={{ my: 1 }}>
+                      <Typography
+                        sx={{
+                          ml: 1,
+                          float: "right",
+                          bgcolor: "purple",
+                          borderRadius: "15px",
+                          width: "300px",
+                        }}
+                      >
+                        .
+                      </Typography>
+                      <Avatar />
+                    </Grid>
+
+                    <Grid container sx={{ my: 1 }}>
+                      <Avatar />
+                      <Typography
+                        sx={{
+                          mr: 1,
+                          bgcolor: "#E8E8E8",
+                          borderRadius: "15px",
+                          width: "300px",
+                        }}
+                      ></Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container alignItems="center">
+                    <Grid sx={{ width: "90%" }}>
+                      <TextField fullWidth disabled />
+                    </Grid>
+                    <Typography sx={{ color: "slateGrey" }}>
+                      <Attachment />
+                    </Typography>
+                    <Avatar sx={{ bgcolor: "purple" }}>
+                      <Send />
+                    </Avatar>
+                  </Grid>
+                </Grid>
+              </Grid>
+            )}
+            {isLoadingMessages && <CircularProgress />}
+            {!isLoadingMessages && user && (
               <ChatBody
                 user={user}
                 messages={messages}
@@ -209,6 +306,7 @@ const Chat = () => {
           </Grid>
         </Grid>
       </Container>
+      <BottomBackground />
     </>
   );
 };

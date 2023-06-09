@@ -120,8 +120,8 @@ const CitiesInUae = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    nextArrow: <CustomNextArrow />, // Add the custom arrow components here
-    prevArrow: <CustomPrevArrow />, // Add the custom arrow components here
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
     responsive: [
       {
         breakpoint: 1280,
@@ -193,8 +193,6 @@ const CitiesInUae = () => {
             </Grid>
           ))}
         </Slider>
-        {/* <CustomPrevArrow />
-        <CustomNextArrow /> */}
       </div>
     </Grid>
   );
