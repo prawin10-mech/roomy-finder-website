@@ -185,13 +185,13 @@ const NewChatBody = () => {
             { headers: { Authorization: token } }
           );
 
-          sendNotification(
-            "Conversation",
-            `${newMessage}`,
-            data12.property.poster.fcmToken,
-            `https://roomyfinder.vercel.app/chat`,
-            "null"
-          );
+          // sendNotification(
+          //   "Conversation",
+          //   `${newMessage}`,
+          //   data12.property.poster.fcmToken,
+          //   `https://roomyfinder.vercel.app/chat`,
+          //   "null"
+          // );
           setIsReplied(false);
           setNewMessage("");
 
@@ -214,13 +214,13 @@ const NewChatBody = () => {
             { headers: { Authorization: token } }
           );
 
-          sendNotification(
-            "Conversation",
-            `Send a image`,
-            data12.property.poster.fcmToken,
-            `https://roomyfinder.vercel.app/chat`,
-            `${selectedFileURL}`
-          );
+          // sendNotification(
+          //   "Conversation",
+          //   `Send a image`,
+          //   data12.property.poster.fcmToken,
+          //   `https://roomyfinder.vercel.app/chat`,
+          //   `${selectedFileURL}`
+          // );
 
           setSelectedFileUrl("");
           setIsReplied(false);
@@ -244,13 +244,13 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
-          sendNotification(
-            "Conversation",
-            `Send a video`,
-            data12.property.poster.fcmToken,
-            `https://roomyfinder.vercel.app/chat`,
-            "null"
-          );
+          // sendNotification(
+          //   "Conversation",
+          //   `Send a video`,
+          //   data12.property.poster.fcmToken,
+          //   `https://roomyfinder.vercel.app/chat`,
+          //   "null"
+          // );
 
           setSelectedFileUrl("");
           setIsReplied(false);
@@ -275,13 +275,13 @@ const NewChatBody = () => {
             { headers: { Authorization: token } }
           );
 
-          sendNotification(
-            "Conversation",
-            `Sent a file`,
-            data12.property.poster.fcmToken,
-            `https://roomyfinder.vercel.app/chat`,
-            "null"
-          );
+          // sendNotification(
+          //   "Conversation",
+          //   `Sent a file`,
+          //   data12.property.poster.fcmToken,
+          //   `https://roomyfinder.vercel.app/chat`,
+          //   "null"
+          // );
 
           setSelectedFileUrl("");
           setIsReplied(false);
@@ -628,11 +628,13 @@ const NewChatBody = () => {
   };
   // console.log(showLoadMore);
   // console.log(loadData);
+
+  console.log(data12);
   return (
     <Box sx={{ position: "absolute", width: "100%" }}>
       <TopBackground />
       <Box sx={styles.container}>
-        <Paper sx={styles.header} elevation={24} >
+        <Paper sx={styles.header} elevation={24}>
           <Box>
             <Typography variant="body1" fontWeight={700} sx={{ color: "#000" }}>
               {data12.type === "roommate"
@@ -673,40 +675,44 @@ const NewChatBody = () => {
             .reverse()
             .map((message) => {
               const isCurrentUser =
-                data12.tpe === "roommate"
+                data12.type === "roommate"
                   ? message?.senderId === data12?.property?.poster?.id
                   : message?.senderId === data12?.property?.client?.id;
+
+              console.log(isCurrentUser);
               return (
                 <Grid container>
-                  {!isCurrentUser && (
-                    <Avatar sx={{mr:1}}>
-                      { data12.property.poster.profilePicture ? (
-                        <img
-                          src={data12.property.poster.profilePicture}
-                          alt="user profile"
-                        />
-                      ) : (
-                        data12?.property?.poster?.firstName.charAt(0)
-                      )}
-                    </Avatar>
-                    // <Avatar>
-                    //   {isCurrentUser === "roommate"
-                    //     ? data12.property.poster.profilePicture
-                    //       ? data12.property.poster.profilePicture
-                    //       : data12.property.poster.firstName.charAt[0]
-                    //     : data12.property.client.profilePicture
-                    //     ? data12.property.client.profilePicture
-                    //     : data12.property.client.firstName.charAt[0]}
+                  {isCurrentUser && (
+                    // <Avatar sx={{ mr: 1 }}>
+                    //   {data12.property.client.profilePicture ? (
+                    //     <img
+                    //       src={data12.property.client.profilePicture}
+                    //       alt="user profile"
+                    //     />
+                    //   ) : (
+                    //     data12?.property?.client?.firstName.charAt(0)
+                    //   )}
                     // </Avatar>
+                    <Avatar>
+                      {data12.type === "landlord"
+                        ? data12?.property?.client?.profilePicture
+                          ? data12.property.client.profilePicture
+                          : data12.property.client.firstName.charAt(0) +
+                            data12.property.client.lastName.charAt(0)
+                        : data12.property.poster.profilePicture
+                        ? data12.property.poster.profilePicture
+                        : data12.property.poster.firstName.charAt(0) +
+                          data12.property.poster.lastName.charAt(0)}
+                    </Avatar>
                   )}
                   <Grid
                     key={message.id}
                     sx={{
                       ...styles.messageContainer,
-                      backgroundColor: !isCurrentUser ? "#E6E6EC" : "#AC84B8",
-                      marginLeft: !isCurrentUser ? 0 : "auto",
-                      marginRight: !isCurrentUser ? "auto" : 0,
-                      color: !isCurrentUser ? "#000" : "#fff",
+                      backgroundColor: isCurrentUser ? "#E6E6EC" : "#AC84B8",
+                      marginLeft: isCurrentUser ? 0 : "auto",
+                      marginRight: isCurrentUser ? "auto" : 0,
+                      color: isCurrentUser ? "#000" : "#fff",
                     }}
                   >
                     {message.body !== "Sent a image" &&
