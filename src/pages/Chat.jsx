@@ -87,23 +87,23 @@ const Chat = () => {
   //     .catch((err) => console.log("failed: ", err));
   // }, [notification]);
 
-  useEffect(() => {
-    const fetchNewMessage = async () => {
-      const newMessage = await onMessageListener();
-      console.log(newMessage);
-      // setMessageReceived(newMessage);
-    };
+  // useEffect(() => {
+  //   const fetchNewMessage = async () => {
+  //     const newMessage = await onMessageListener();
+  //     console.log(newMessage);
+  //     // setMessageReceived(newMessage);
+  //   };
 
-    if (messageReceived) {
-      fetchNewMessage();
-    }
-  }, [messageReceived, conversationId]);
+  //   if (messageReceived) {
+  //     fetchNewMessage();
+  //   }
+  // }, [messageReceived, conversationId]);
 
   useEffect(() => {
     if (conversationId) {
       getConversationMessages(conversationId);
     }
-  }, [conversationId]);
+  }, [conversationId, messageReceived]);
 
   const sendMessage = async (newMessage) => {
     try {
