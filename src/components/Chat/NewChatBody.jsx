@@ -185,13 +185,13 @@ const NewChatBody = () => {
             { headers: { Authorization: token } }
           );
 
-          sendNotification(
-            "Conversation",
-            `${newMessage}`,
-            data12.property.poster.fcmToken,
-            `https://roomyfinder.vercel.app/chat`,
-            "null"
-          );
+          // sendNotification(
+          //   "Conversation",
+          //   `${newMessage}`,
+          //   data12.property.poster.fcmToken,
+          //   `https://roomyfinder.vercel.app/chat`,
+          //   "null"
+          // );
           setIsReplied(false);
           setNewMessage("");
 
@@ -214,13 +214,13 @@ const NewChatBody = () => {
             { headers: { Authorization: token } }
           );
 
-          sendNotification(
-            "Conversation",
-            `Send a image`,
-            data12.property.poster.fcmToken,
-            `https://roomyfinder.vercel.app/chat`,
-            `${selectedFileURL}`
-          );
+          // sendNotification(
+          //   "Conversation",
+          //   `Send a image`,
+          //   data12.property.poster.fcmToken,
+          //   `https://roomyfinder.vercel.app/chat`,
+          //   `${selectedFileURL}`
+          // );
 
           setSelectedFileUrl("");
           setIsReplied(false);
@@ -244,13 +244,13 @@ const NewChatBody = () => {
             },
             { headers: { Authorization: token } }
           );
-          sendNotification(
-            "Conversation",
-            `Send a video`,
-            data12.property.poster.fcmToken,
-            `https://roomyfinder.vercel.app/chat`,
-            "null"
-          );
+          // sendNotification(
+          //   "Conversation",
+          //   `Send a video`,
+          //   data12.property.poster.fcmToken,
+          //   `https://roomyfinder.vercel.app/chat`,
+          //   "null"
+          // );
 
           setSelectedFileUrl("");
           setIsReplied(false);
@@ -275,13 +275,13 @@ const NewChatBody = () => {
             { headers: { Authorization: token } }
           );
 
-          sendNotification(
-            "Conversation",
-            `Sent a file`,
-            data12.property.poster.fcmToken,
-            `https://roomyfinder.vercel.app/chat`,
-            "null"
-          );
+          // sendNotification(
+          //   "Conversation",
+          //   `Sent a file`,
+          //   data12.property.poster.fcmToken,
+          //   `https://roomyfinder.vercel.app/chat`,
+          //   "null"
+          // );
 
           setSelectedFileUrl("");
           setIsReplied(false);
