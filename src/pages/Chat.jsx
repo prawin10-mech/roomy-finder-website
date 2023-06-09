@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 
 const Chat = () => {
   const [handleSearch, setHandleSearch] = useState("");
-  // const [messageReceived, setMessageReceived] = useState(null);
+  const [messageReceived, setMessageReceived] = useState(null);
   const [conversationId, setConversationId] = useState(null);
   const token = localStorage.getItem("token");
 
@@ -72,38 +72,39 @@ const Chat = () => {
     getConversations();
   }, []);
 
-  // useEffect(() => {
-  //   onMessageListener()
-  //     .then((payload) => {
-  //       setNotification({
-  //         title: payload?.notification?.title,
-  //         body: payload?.notification?.body,
-  //         time: Date.now(),
-  //         id: Math.random() * 120 * Math.random(),
-  //       });
-  //       getConversationMessages(conversationId);
-  //       console.log("hello received message");
-  //     })
-  //     .catch((err) => console.log("failed: ", err));
-  // }, [notification]);
+  useEffect(() => {
+    onMessageListener()
+      .then((payload) => {
+        setNotification({
+          title: payload?.notification?.title,
+          body: payload?.notification?.body,
+          time: Date.now(),
+          id: Math.random() * 120 * Math.random(),
+        });
+        getConversations();
+        getConversationMessages(conversationId);
+        console.log("hello received message");
+      })
+      .catch((err) => console.log("failed: ", err));
+  }, [notification]);
 
-  // useEffect(() => {
-  //   const fetchNewMessage = async () => {
-  //     const newMessage = await onMessageListener();
-  //     console.log(newMessage);
-  //     // setMessageReceived(newMessage);
-  //   };
+  useEffect(() => {
+    const fetchNewMessage = async () => {
+      const newMessage = await onMessageListener();
+      console.log(newMessage);
+      setMessageReceived(newMessage);
+    };
 
-  //   if (messageReceived) {
-  //     fetchNewMessage();
-  //   }
-  // }, [messageReceived, conversationId]);
+    if (messageReceived) {
+      fetchNewMessage();
+    }
+  }, [messageReceived, conversationId]);
 
   useEffect(() => {
     if (conversationId) {
       getConversationMessages(conversationId);
     }
-  }, [conversationId, messageReceived]);
+  }, [conversationId]);
 
   const sendMessage = async (newMessage) => {
     try {
