@@ -15,10 +15,11 @@ import { onMessageListener } from "../firebase/index";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
 import { Send, Attachment } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 const Chat = () => {
   const [handleSearch, setHandleSearch] = useState("");
-  const [messageReceived, setMessageReceived] = useState(null);
+  // const [messageReceived, setMessageReceived] = useState(null);
   const [conversationId, setConversationId] = useState(null);
   const token = localStorage.getItem("token");
 
@@ -30,6 +31,7 @@ const Chat = () => {
   const [user, setUser] = useState(null);
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [userId, setUserId] = useState(null);
+  const messageReceived = useSelector((state) => state.user.messageReceived);
 
   const getConversations = async () => {
     try {
@@ -70,27 +72,26 @@ const Chat = () => {
     getConversations();
   }, []);
 
-  useEffect(() => {
-    onMessageListener()
-      .then((payload) => {
-        setNotification({
-          title: payload?.notification?.title,
-          body: payload?.notification?.body,
-          time: Date.now(),
-          id: Math.random() * 120 * Math.random(),
-        });
-        getConversations();
-        getConversationMessages(conversationId);
-        console.log("hello received message");
-      })
-      .catch((err) => console.log("failed: ", err));
-  }, [notification]);
+  // useEffect(() => {
+  //   onMessageListener()
+  //     .then((payload) => {
+  //       setNotification({
+  //         title: payload?.notification?.title,
+  //         body: payload?.notification?.body,
+  //         time: Date.now(),
+  //         id: Math.random() * 120 * Math.random(),
+  //       });
+  //       getConversationMessages(conversationId);
+  //       console.log("hello received message");
+  //     })
+  //     .catch((err) => console.log("failed: ", err));
+  // }, [notification]);
 
   useEffect(() => {
     const fetchNewMessage = async () => {
       const newMessage = await onMessageListener();
       console.log(newMessage);
-      setMessageReceived(newMessage);
+      // setMessageReceived(newMessage);
     };
 
     if (messageReceived) {

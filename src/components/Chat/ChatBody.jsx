@@ -24,6 +24,7 @@ import VideoCameraBackIcon from "@mui/icons-material/VideoCameraBack";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/index";
+import { useSelector } from "react-redux";
 
 import sendNotification from "../NotificationReceive";
 
@@ -32,7 +33,7 @@ import { onMessageListener } from "../../firebase/index";
 const ChatBody = ({ user, messages }) => {
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
-  const [messageReceived, setMessageReceived] = useState("");
+  // const [messageReceived, setMessageReceived] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedFileURL, setSelectedFileUrl] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
@@ -47,6 +48,7 @@ const ChatBody = ({ user, messages }) => {
   const [fileSize, setFileSize] = useState("");
   const [loadData, setloadData] = useState(10);
   const [showLoadMore, setshowLoadMore] = useState(false);
+  const messageReceived = useSelector((state) => state.user.messageReceived);
 
   const chatContainerRef = useRef(null);
   const token = localStorage.getItem("token");
@@ -77,7 +79,7 @@ const ChatBody = ({ user, messages }) => {
     const fetchNewMessage = async () => {
       const newMessage = await onMessageListener();
       console.log("tt", newMessage);
-      setMessageReceived(!messageReceived);
+      // setMessageReceived(!messageReceived);
     };
     if (messageReceived) {
       fetchNewMessage();
