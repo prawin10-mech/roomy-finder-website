@@ -28,6 +28,7 @@ const Chat = () => {
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState(null);
+  const [notification, setNotification] = useState({ title: "", body: "" });
   const [userId, setUserId] = useState(null);
 
   const getConversations = async () => {
@@ -69,7 +70,19 @@ const Chat = () => {
     getConversations();
   }, []);
 
-  console.log(messageReceived);
+  useEffect(() => {
+    onMessageListener()
+      .then((payload) => {
+        setNotification({
+          title: payload?.notification?.title,
+          body: payload?.notification?.body,
+          time: Date.now(),
+          id: Math.random() * 120 * Math.random(),
+        });
+        console.log("hello received message");
+      })
+      .catch((err) => console.log("failed: ", err));
+  }, [notification]);
 
   useEffect(() => {
     const fetchNewMessage = async () => {
