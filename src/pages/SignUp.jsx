@@ -206,27 +206,6 @@ export default function SignUp() {
     " {countryNameEn}: +{countryCallingCode}"
   );
 
-  const verifyNumberOtp = async () => {
-    try {
-      const { data } = await axios.post(
-        "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/verify-otp-code",
-        { phone: countryCode + phone, code: enteredMobileOtp }
-      );
-      setEnteredMobileOtp("");
-      console.log(data);
-      return true;
-    } catch (err) {
-      console.log(err);
-      if (err.response.status === 403) {
-        toast.error("Invalid Otp");
-        return false;
-      } else {
-        toast.error("Otp verification failed", toastOptions);
-        return false;
-      }
-    }
-  };
-
   const sendOtpToNumber = async () => {
     try {
       if (handleVaidation()) {
@@ -247,8 +226,9 @@ export default function SignUp() {
     event.preventDefault();
     try {
       const obj = {
+        otpCode: enteredMobileOtp,
         type,
-        phone:countryCode + phone,
+        phone: countryCode + phone,
         email,
         password,
         firstName,
@@ -258,18 +238,26 @@ export default function SignUp() {
         fcmToken: "123",
         otpCode:enteredMobileOtp,
       };
-      
-        const { data } = await axios.post(
-          "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/credentials",
-          obj
-        );
-        console.log("test123",data);
 
+      const { data } = await axios.post(
+        "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/credentials",
+        obj
+      );
+      if (data) {
+        toast.success("User registered successfully", toastOptions);
+        setMobileOtpVerify(false);
+        setEnteredMobileOtp("");
+        setShowPassword(false);
+        dispatch(SignupActions.clear());
+      }
     } catch (err) {
       if (err.response.status === 409) {
         toast.error("User already exists please login", toastOptions);
       }
-      console.log(err.response.status);
+      if (err.response.status === 403) {
+        toast.error("Please enter valid otp", toastOptions);
+      }
+      console.log(err);
     }
   };
 

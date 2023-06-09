@@ -43,8 +43,6 @@ const AdvancedSearch = () => {
     dispatch(AdvanceSearchActions.clear());
   };
 
-  console.log(searchType);
-
   const advanceSearchHandler = async () => {
     try {
       setLoading(true);

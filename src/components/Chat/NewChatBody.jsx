@@ -680,21 +680,14 @@ const NewChatBody = () => {
                 <Grid container>
                   {!isCurrentUser && (
                     <Avatar sx={{mr:1}}>
-                      { data12.tpe === "roommate" ? (data12.property.poster.profilePicture ? (
+                      { data12.property.poster.profilePicture ? (
                         <img
                           src={data12.property.poster.profilePicture}
                           alt="user profile"
                         />
                       ) : (
                         data12?.property?.poster?.firstName.charAt(0)
-                      )):(data12.property.client.profilePicture ? (
-                        <img
-                          src={data12.property.client.profilePicture}
-                          alt="user profile"
-                        />
-                      ) : (
-                        data12?.property?.client?.firstName.charAt(0)
-                      ))}
+                      )}
                     </Avatar>
                     // <Avatar>
                     //   {isCurrentUser === "roommate"

@@ -12,12 +12,16 @@ const initialState = {
   type: null,
   isLoggedIn: false,
   myBookings: [],
+  messageReceived: false,
 };
 
 const LoginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
+    messageReceived(state) {
+      state.messageReceived = !state.messageReceived;
+    },
     email(state, action) {
       state.email = action.payload;
     },

@@ -12,18 +12,17 @@ import {
 const ImageCarousel1 = ({ images }) => {
   if (images.length === 0) images = [DummyImage];
   return (
-    <Paper sx={{ height: "270px" }}>
-      <Carousel showArrows={false} dynamicHeight={false}>
+    <Paper sx={{ height: "270px", borderRadius: "25px" }}>
+      <Carousel
+        autoplay
+        showArrows={false}
+        // renderIndicator={() => null}
+        showThumbs={false}
+      >
         {images.map((image, index) => (
-          <>
-            <Box key={index} sx={{ borderRadius: "15px", overflow: "hidden" }}>
-              <img
-                src={image}
-                alt={`img ${index}`}
-                style={{ height: "250px" }}
-              />
-            </Box>
-          </>
+          <Box key={index} sx={{ borderRadius: "15px", overflow: "hidden" }}>
+            <img src={image} alt={`img ${index}`} style={{ height: "270px" }} />
+          </Box>
         ))}
       </Carousel>
     </Paper>
@@ -130,7 +129,7 @@ const CarouselWithMultipleImage = (props) => {
                           xs={12}
                           sm={6}
                           md={3}
-                          borderRadius={"15px"}
+                          borderRadius=""
                           // onClick={() =>
                           //   navigate(`/rooms/view-room/${value?.id}`)
                           // }

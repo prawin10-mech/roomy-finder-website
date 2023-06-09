@@ -20,40 +20,6 @@ import RasAlKima from "../../assets/city/RasAlKima.jpg";
 import Sharjah from "../../assets/city/Sharjah.jpg";
 import UmmAlQuwain from "../../assets/city/UmmAlQuwain.jpg";
 
-const CustomNextArrow = (props) => {
-  const { onClick } = props;
-  return (
-    <CustomNextIcon
-      style={{
-        fontSize: 40,
-        position: "absolute",
-        right: -45,
-        top: "50%",
-        transform: "translateY(-50%)",
-        cursor: "pointer",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const CustomPrevArrow = (props) => {
-  const { onClick } = props;
-  return (
-    <CustomPrevIcon
-      style={{
-        fontSize: 40,
-        position: "absolute",
-        left: -45,
-        top: "50%",
-        transform: "translateY(-50%)",
-        cursor: "pointer",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
 const items = [
   { id: 1, image: AbuDhabi, name: "Abu Dhabi", products: "130" },
   { id: 2, image: Ajman, name: "Ajman", products: "100" },
@@ -126,19 +92,19 @@ const CitiesInUae = () => {
       {
         breakpoint: 1280,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 4,
         },
       },
       {
         breakpoint: 960,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
         },
       },
     ],

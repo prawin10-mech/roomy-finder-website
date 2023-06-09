@@ -16,6 +16,7 @@ import { onMessageListener } from "../firebase/index";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
 import { Send, Attachment } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 
 const Chat = () => {
@@ -30,7 +31,9 @@ const Chat = () => {
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState(null);
+  const [notification, setNotification] = useState({ title: "", body: "" });
   const [userId, setUserId] = useState(null);
+  // const messageReceived = useSelector((state) => state.user.messageReceived);
 
   const getConversations = async () => {
     try {
@@ -72,6 +75,22 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
+    onMessageListener()
+      .then((payload) => {
+        setNotification({
+          title: payload?.notification?.title,
+          body: payload?.notification?.body,
+          time: Date.now(),
+          id: Math.random() * 120 * Math.random(),
+        });
+        getConversations();
+        getConversationMessages(conversationId);
+        console.log("hello received message");
+      })
+      .catch((err) => console.log("failed: ", err));
+  }, [notification]);
+
+  useEffect(() => {
     const fetchNewMessage = async () => {
       const newMessage = await onMessageListener();
       console.log(newMessage);
@@ -91,7 +110,7 @@ const Chat = () => {
 
   const sendMessage = async (newMessage) => {
     try {
-      const { data } = await axios.post(
+      await axios.post(
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
         {
           recieverFcmToken: user.other.fcmToken,
@@ -115,6 +134,7 @@ const Chat = () => {
         sm={12}
         sx={{
           backgroundColor: "#F3F3FD",
+          // backgroundColor: "#f5e1f5",
           height: "calc(100% - 200px)",
         }}
       >
@@ -171,6 +191,8 @@ const Chat = () => {
                       display: "flex",
                       justifyContent: "space-between",
                       width: isSelected ? "110%" : {xs:"95%",sm:"95%",md:"96%"},
+                     
+                      boxShadow: "0px 0px 15px  rgba(0,0,0,0.5)",
                       // color: isSelected ? "red" : "inherit",
                       // margin: "auto",
                     }}
@@ -305,7 +327,18 @@ const Chat = () => {
                 </Grid>
               </Grid>
             )}
-            {isLoadingMessages && <CircularProgress />}
+            {isLoadingMessages && (
+              <Box
+                sx={{
+                  height: "75vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            )}
             {!isLoadingMessages && user && (
               <ChatBody
                 user={user}

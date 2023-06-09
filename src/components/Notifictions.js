@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { onMessageListener } from "../firebase/index";
 import notificationAudio from "../assets/sounds/notification.wav";
+import { useDispatch } from "react-redux";
+import { UserActions } from "../store/User";
 
 const Notification = () => {
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [notificationReceived, setNotificationReceived] = useState(false);
+  const dispatch = useDispatch();
 
   const notify = () => {
     try {
@@ -62,6 +65,9 @@ const Notification = () => {
   useEffect(() => {
     if (notification?.title) {
       notify();
+    }
+    if (notification?.title === "message") {
+      dispatch(UserActions.messageReceived);
     }
   }, [notificationReceived]);
 

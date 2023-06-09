@@ -117,13 +117,13 @@ const ChatBody = ({ user, messages }) => {
           { headers: { Authorization: token } }
         );
 
-        sendNotification(
-          "Conversation",
-          `${newMessage}`,
-          user.other.fcmToken,
-          `https://roomyfinder.vercel.app/directchat/${user.id}`,
-          "null"
-        );
+        // sendNotification(
+        //   "Conversation",
+        //   `${newMessage}`,
+        //   user.other.fcmToken,
+        //   `https://roomyfinder.vercel.app/directchat/${user.id}`,
+        //   "null"
+        // );
 
         setIsReplied(false);
         setNewMessage("");
@@ -147,13 +147,13 @@ const ChatBody = ({ user, messages }) => {
           { headers: { Authorization: token } }
         );
 
-        sendNotification(
-          "Conversation",
-          `${"Sent a image"}`,
-          user.other.fcmToken,
-          `https://roomyfinder.vercel.app/directchat/${user.id}`,
-          "null"
-        );
+        // sendNotification(
+        //   "Conversation",
+        //   `${"Sent a image"}`,
+        //   user.other.fcmToken,
+        //   `https://roomyfinder.vercel.app/directchat/${user.id}`,
+        //   "null"
+        // );
 
         setSelectedFileUrl("");
         setIsReplied(false);
@@ -179,13 +179,13 @@ const ChatBody = ({ user, messages }) => {
           { headers: { Authorization: token } }
         );
 
-        sendNotification(
-          "Conversation",
-          `${"Sent a video"}`,
-          user.other.fcmToken,
-          `https://roomyfinder.vercel.app/directchat/${user.id}`,
-          "null"
-        );
+        // sendNotification(
+        //   "Conversation",
+        //   `${"Sent a video"}`,
+        //   user.other.fcmToken,
+        //   `https://roomyfinder.vercel.app/directchat/${user.id}`,
+        //   "null"
+        // );
 
         setSelectedFileUrl("");
         setIsReplied(false);
@@ -211,13 +211,13 @@ const ChatBody = ({ user, messages }) => {
           { headers: { Authorization: token } }
         );
 
-        sendNotification(
-          "Conversation",
-          `${"Sent a file"}`,
-          user.other.fcmToken,
-          `https://roomyfinder.vercel.app/directchat/${user.id}`,
-          "null"
-        );
+        // sendNotification(
+        //   "Conversation",
+        //   `${"Sent a file"}`,
+        //   user.other.fcmToken,
+        //   `https://roomyfinder.vercel.app/directchat/${user.id}`,
+        //   "null"
+        // );
 
         setSelectedFileUrl("");
         setIsReplied(false);
