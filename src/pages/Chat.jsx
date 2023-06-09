@@ -79,6 +79,8 @@ const Chat = () => {
           time: Date.now(),
           id: Math.random() * 120 * Math.random(),
         });
+        getConversations();
+        getConversationMessages(conversationId);
         console.log("hello received message");
       })
       .catch((err) => console.log("failed: ", err));
