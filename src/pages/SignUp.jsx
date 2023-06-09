@@ -248,7 +248,7 @@ export default function SignUp() {
     try {
       const obj = {
         type,
-        phone,
+        phone:countryCode + phone,
         email,
         password,
         firstName,
@@ -256,14 +256,15 @@ export default function SignUp() {
         country,
         gender,
         fcmToken: "123",
+        otpCode:enteredMobileOtp,
       };
-      if (verifyNumberOtp()) {
+      
         const { data } = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/credentials",
           obj
         );
-        console.log(data);
-      }
+        console.log("test123",data);
+
     } catch (err) {
       if (err.response.status === 409) {
         toast.error("User already exists please login", toastOptions);

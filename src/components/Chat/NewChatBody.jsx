@@ -538,7 +538,9 @@ const NewChatBody = () => {
       height: "100% ",
       maxWidth: "70%",
       margin: "auto",
-      bgcolor: "#d8d8d8",
+      bgcolor: "#F3F3FD",
+      position: "relative",
+      // bgcolor: "#F6F4FF",
 
       // paddingBottom: "64px",
     },
@@ -546,16 +548,17 @@ const NewChatBody = () => {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      backgroundColor: "#fff",
+      backgroundColor: "#F6F4FF",
       padding: "8px 16px",
-      color: "#000",
+      color: "#fff",
+      // borderButtom:"5px solod #F6F4FF"
     },
     chatContainer: {
       // height: "calc(100vh )",
       height: "calc(100vh - 200px)",
       overflowY: "auto",
       padding: "16px",
-      backgroundColor: "#F6F4FF",
+      backgroundColor: "#F3F3FD",
     },
     messageContainer: {
       color: "#000",
@@ -629,7 +632,7 @@ const NewChatBody = () => {
     <Box sx={{ position: "absolute", width: "100%" }}>
       <TopBackground />
       <Box sx={styles.container}>
-        <Box sx={styles.header}>
+        <Paper sx={styles.header} elevation={24} >
           <Box>
             <Typography variant="body1" fontWeight={700} sx={{ color: "#000" }}>
               {data12.type === "roommate"
@@ -652,7 +655,8 @@ const NewChatBody = () => {
               ? data12?.property?.poster?.type
               : data12.property?.client?.type}
           </Typography>
-        </Box>
+        </Paper>
+        <hr />
         <Box sx={styles.chatContainer} ref={chatContainerRef}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             {showLoadMore && (
@@ -675,15 +679,22 @@ const NewChatBody = () => {
               return (
                 <Grid container>
                   {!isCurrentUser && (
-                    <Avatar>
-                      {data12.property.poster.profilePicture ? (
+                    <Avatar sx={{mr:1}}>
+                      { data12.tpe === "roommate" ? (data12.property.poster.profilePicture ? (
                         <img
                           src={data12.property.poster.profilePicture}
                           alt="user profile"
                         />
                       ) : (
                         data12?.property?.poster?.firstName.charAt(0)
-                      )}
+                      )):(data12.property.client.profilePicture ? (
+                        <img
+                          src={data12.property.client.profilePicture}
+                          alt="user profile"
+                        />
+                      ) : (
+                        data12?.property?.client?.firstName.charAt(0)
+                      ))}
                     </Avatar>
                     // <Avatar>
                     //   {isCurrentUser === "roommate"
@@ -699,7 +710,7 @@ const NewChatBody = () => {
                     key={message.id}
                     sx={{
                       ...styles.messageContainer,
-                      backgroundColor: !isCurrentUser ? "#fff" : "purple",
+                      backgroundColor: !isCurrentUser ? "#E6E6EC" : "#AC84B8",
                       marginLeft: !isCurrentUser ? 0 : "auto",
                       marginRight: !isCurrentUser ? "auto" : 0,
                       color: !isCurrentUser ? "#000" : "#fff",

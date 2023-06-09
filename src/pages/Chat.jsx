@@ -7,6 +7,7 @@ import {
   TextField,
   Avatar,
   Container,
+  Paper,
   Button,
   CircularProgress,
 } from "@mui/material";
@@ -15,6 +16,7 @@ import { onMessageListener } from "../firebase/index";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
 import { Send, Attachment } from "@mui/icons-material";
+
 
 const Chat = () => {
   const [handleSearch, setHandleSearch] = useState("");
@@ -112,11 +114,11 @@ const Chat = () => {
         xs={12}
         sm={12}
         sx={{
-          backgroundColor: "#E8E8E8",
+          backgroundColor: "#F3F3FD",
           height: "calc(100% - 200px)",
         }}
       >
-        <Typography variant="h4" sx={{ my: 2, mx: 2, pt: 1, fontWeight: 600 }}>
+        <Typography variant="h4" sx={{  mx: 2, pt: 1, fontWeight: 600 }}>
           Chat
         </Typography>
         <Grid container xs={12} sx={{ display: "flex", flexDirection: "row" }}>
@@ -137,14 +139,18 @@ const Chat = () => {
                 width: "90%",
               }}
             >
+            <Paper sx={{ml:2}}>
+
               <TextField
                 fullWidth
+                sx={{backgroundColor:"#F3F3FD"}}
                 id="input-with-icon-textfield"
                 label="Search"
                 name="handleSearch"
                 value={handleSearch}
                 variant="outlined"
               />
+            </Paper>
               {conversations.map((conversation) => {
                 const createdAt = new Date(conversation?.lastMessage.createdAt);
                 const month = createdAt.toLocaleString("en-US", {
@@ -159,11 +165,12 @@ const Chat = () => {
                     sx={{
                       bgcolor: "#fff",
                       my: 1,
+                      mr:2,
                       ml: isSelected ? 0 : 2,
                       cursor: "pointer",
                       display: "flex",
                       justifyContent: "space-between",
-                      width: isSelected ? "110%" : "100%",
+                      width: isSelected ? "110%" : {xs:"95%",sm:"95%",md:"96%"},
                       // color: isSelected ? "red" : "inherit",
                       // margin: "auto",
                     }}
@@ -228,7 +235,7 @@ const Chat = () => {
           >
             {!user && (
               <Grid
-                sx={{ height: "75vh", bgcolor: "#fff", padding: "20px", my: 1 }}
+                sx={{ height: "75vh", bgcolor: "#F3F3FD", padding: "20px", my: 1 }}
               >
                 <Grid container justifyContent="space-between">
                   <Typography sx={{ fontWeight: 600 }}>Roomy FINDER</Typography>
@@ -247,6 +254,7 @@ const Chat = () => {
                       <Avatar />
                       <Typography
                         sx={{
+                          ml:1,
                           mr: 1,
                           bgcolor: "#E8E8E8",
                           borderRadius: "15px",
@@ -257,6 +265,7 @@ const Chat = () => {
                     <Grid container justifyContent="flex-end" sx={{ my: 1 }}>
                       <Typography
                         sx={{
+                          mr:1,
                           ml: 1,
                           float: "right",
                           bgcolor: "purple",
@@ -273,6 +282,7 @@ const Chat = () => {
                       <Avatar />
                       <Typography
                         sx={{
+                          ml:1,
                           mr: 1,
                           bgcolor: "#E8E8E8",
                           borderRadius: "15px",
@@ -282,10 +292,10 @@ const Chat = () => {
                     </Grid>
                   </Grid>
                   <Grid container alignItems="center">
-                    <Grid sx={{ width: "90%" }}>
+                    <Grid sx={{ width: "85%",}}>
                       <TextField fullWidth disabled />
                     </Grid>
-                    <Typography sx={{ color: "slateGrey" }}>
+                    <Typography sx={{ color: "slateGrey",mx:"7px"  }}>
                       <Attachment />
                     </Typography>
                     <Avatar sx={{ bgcolor: "purple" }}>

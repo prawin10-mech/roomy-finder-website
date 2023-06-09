@@ -368,7 +368,7 @@ const ChatBody = ({ user, messages }) => {
   const styles = {
     container: {
       height: "75vh ",
-      bgcolor: "",
+      bgcolor: "#F6F4FF",
       position: "relative",
       // paddingBottom: "64px",
     },
@@ -376,9 +376,10 @@ const ChatBody = ({ user, messages }) => {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      backgroundColor: "#fff",
+      backgroundColor: "#F6F4FF",
       padding: "8px 16px",
       color: "#fff",
+      // borderButtom:"5px solod #F6F4FF"
     },
     chatContainer: {
       height: "calc(55vh)",
@@ -451,7 +452,7 @@ const ChatBody = ({ user, messages }) => {
 
   return (
     <Box sx={styles.container}>
-      <Box sx={styles.header}>
+      <Paper sx={styles.header}>
         <Grid container alignContent="center">
           {/* <Box sx={{ mr: 2 }}>
             <Avatar>{user?.other?.firstName.split("")[0]}</Avatar>
@@ -472,7 +473,7 @@ const ChatBody = ({ user, messages }) => {
         >
           {user?.other?.type}
         </Typography>
-      </Box>
+      </Paper>
       <Box sx={styles.chatContainer} ref={chatContainerRef}>
         <Box
           sx={{
@@ -501,7 +502,7 @@ const ChatBody = ({ user, messages }) => {
             return (
               <Grid container>
                 {isCurrentUser && (
-                  <Avatar>
+                  <Avatar sx={{mr:1}}>
                     {user.other.profilePicture ? (
                       <img src={user.other.profilePicture} alt="user profile" />
                     ) : (
@@ -513,7 +514,7 @@ const ChatBody = ({ user, messages }) => {
                   key={message.id}
                   sx={{
                     ...styles.messageContainer,
-                    backgroundColor: isCurrentUser ? "#fff" : "purple",
+                    backgroundColor: isCurrentUser ? "#E6E6EC" : "#AC84B8",
                     marginLeft: isCurrentUser ? 0 : "auto",
                     marginRight: isCurrentUser ? "auto" : 0,
                   }}
