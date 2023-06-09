@@ -112,7 +112,7 @@ const Chat = () => {
         xs={12}
         sm={12}
         sx={{
-          backgroundColor: "#E8E8E8",
+          backgroundColor: "#f5e1f5",
           height: "calc(100% - 200px)",
         }}
       >
@@ -164,6 +164,7 @@ const Chat = () => {
                       display: "flex",
                       justifyContent: "space-between",
                       width: isSelected ? "110%" : "100%",
+                      boxShadow: "0px 0px 15px  rgba(0,0,0,0.5)",
                       // color: isSelected ? "red" : "inherit",
                       // margin: "auto",
                     }}
@@ -295,7 +296,18 @@ const Chat = () => {
                 </Grid>
               </Grid>
             )}
-            {isLoadingMessages && <CircularProgress />}
+            {isLoadingMessages && (
+              <Box
+                sx={{
+                  height: "75vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            )}
             {!isLoadingMessages && user && (
               <ChatBody
                 user={user}

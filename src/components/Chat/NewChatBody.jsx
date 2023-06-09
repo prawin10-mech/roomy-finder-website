@@ -1016,38 +1016,10 @@ const NewChatBody = () => {
           <Paper
             elevation={24}
             sx={{
-              // width: { xs: "120px", md: "165px" },
-              // height: { xs: "150px", md: "150px" },
               position: "absolute",
               bottom: { xs: "70px", md: "80px" },
               right: 0,
 
-              // "@media (max-width: 325px)": {
-              //   // left: "58%",
-              //   right: 5,
-              // },
-              // "@media (max-width: 426px) and (min-width: 326px)": {
-              //   // left: "60%",
-              //   right: 5,
-              // },
-              // "@media (max-width: 769px) and (min-width: 427px)": {
-              //   // left: "84%",
-              //   right: 5,
-              // },
-              // "@media (max-width: 1025px) and (min-width: 770px)": {
-              //   // left: "83%",
-              //   right: 5,
-              // },
-              // "@media (max-width: 1445px) and (min-width: 1025px)": {
-              //   // left: "87%",
-              //   right: 5,
-              //   top: "59%",
-              // },
-              // "@media (max-width: 2250px) and (min-width: 1445px)": {
-              //   // left: "60%",
-              //   right: 5,
-              //   top: "70%",
-              // },
               zIndex: 10,
             }}
           >

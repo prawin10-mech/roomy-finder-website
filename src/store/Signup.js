@@ -56,6 +56,20 @@ const signUpSlice = createSlice({
     landlordAgrement(state, action) {
       state.landlordAgrement = action.payload;
     },
+    clear(state) {
+      state.type = "landlord";
+      state.firstName = "";
+      state.lastName = "";
+      state.email = "";
+      state.gender = false;
+      state.country = false;
+      state.password = "";
+      state.confirmPassword = "";
+      state.countryCode = "";
+      state.phone = "";
+      state.termAndCondition = false;
+      state.landlordAgrement = false;
+    },
   },
 });
 
