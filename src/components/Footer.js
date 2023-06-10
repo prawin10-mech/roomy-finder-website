@@ -15,10 +15,14 @@ import terms from "../assets/Agreements/t&c_roomy_finder.pdf";
 import appstore from "../assets/app & google play Image/appStore3.png"
 import appstore2 from "../assets/app & google play Image/app-store-1.png"
 import appstore3 from "../assets/app & google play Image/as.jpg"
+import appstore4 from "../assets/app & google play Image/as2.jpeg"
+import appstore5 from "../assets/app & google play Image/as3.svg.webp"
 
 import googleplaystore from "../assets/app & google play Image/google-playStore1.png"
 import googleplaystore2 from "../assets/app & google play Image/google-playStore2.png"
 import googleplaystore3 from "../assets/app & google play Image/gs.jpg"
+import googleplaystore4 from "../assets/app & google play Image/gs2.jpeg"
+import googleplaystore5 from "../assets/app & google play Image/gs3.png"
 import bottomBackground from '../assets/bottomBackground.png'
 
 
