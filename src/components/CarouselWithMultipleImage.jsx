@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Grid, Typography, Paper, Box, Stack } from "@mui/material";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -16,40 +14,6 @@ import {
   NavigateNext as CustomNextIcon,
   NavigateBefore as CustomPrevIcon,
 } from "@mui/icons-material";
-
-const ImageCarousel1 = ({ images }) => {
-  if (images.length === 0) images = [DummyImage];
-  return (
-    <Paper sx={{ height: "270px", borderRadius: "25px" }}>
-      <Carousel
-        autoplay
-        showArrows={false}
-        // renderIndicator={() => null}
-        showThumbs={false}
-      >
-        {images.map((image, index) => (
-          <Box key={index} sx={{ borderRadius: "15px", overflow: "hidden" }}>
-            <img src={image} alt={`img ${index}`} style={{ height: "270px" }} />
-          </Box>
-        ))}
-      </Carousel>
-    </Paper>
-  );
-};
-
-export const MultipleImages0 = ({ images }) => {
-  const [numImages, setNumImages] = useState(4);
-
-  const handleLoadMore = () => {
-    setNumImages(numImages + 4);
-  };
-  return (
-    <ImageCarousel1
-      images={images.images.slice(0, numImages)}
-      key={Math.random()}
-    />
-  );
-};
 
 const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
   const dispatch = useDispatch();
