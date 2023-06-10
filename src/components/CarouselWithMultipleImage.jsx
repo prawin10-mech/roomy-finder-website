@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Grid, Typography, Paper, Box, Stack } from "@mui/material";
+import React from "react";
+import { Grid, Typography, Box } from "@mui/material";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { SearchActions } from "../store/Search";
 
@@ -18,6 +18,8 @@ import {
 const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  console.log(propertyAddAvilableRoom);
 
   const citiesInUae = async (item) => {
     const { data } = await axios.post(
@@ -112,19 +114,28 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
                 }}
               >
                 {item.images.length > 0 ? (
-                  <img
-                    src={item.images[0]}
-                    alt={item.name}
+                  <div
                     style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
                       height: "100%",
-                      objectFit: "cover",
-                      borderRadius: "10px",
                     }}
-                  />
+                  >
+                    {item.images.map((image, index) => (
+                      <img
+                        key={index}
+                        src={image}
+                        alt={item.name}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          borderRadius: "10px",
+                          marginLeft: index !== 0 ? "10px" : 0,
+                        }}
+                      />
+                    ))}
+                  </div>
                 ) : (
                   <img
                     src={DummyImage}
@@ -156,7 +167,7 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
                 >
                   <Typography fontWeight={400}>{item.type}</Typography>
                   <Typography fontWeight={700}>
-                    {item.monthlyPrice} AED / month
+                    {item.monthlyPrice + 0.1 * item.monthlyPrice} AED / month
                   </Typography>
                 </Box>
               </div>
