@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Grid, Typography, Paper, Box, Stack } from "@mui/material";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { SearchActions } from "../store/Search";
+
 import DummyImage from "../assets/demo.jpg";
 import { useNavigate } from "react-router-dom";
 import {
@@ -9,161 +15,156 @@ import {
   NavigateBefore as CustomPrevIcon,
 } from "@mui/icons-material";
 
-const ImageCarousel1 = ({ images }) => {
-  if (images.length === 0) images = [DummyImage];
-  return (
-    <Paper sx={{ height: "270px", borderRadius: "25px" }}>
-      <Carousel
-        autoplay
-        showArrows={false}
-        // renderIndicator={() => null}
-        showThumbs={false}
-      >
-        {images.map((image, index) => (
-          <Box key={index} sx={{ borderRadius: "15px", overflow: "hidden" }}>
-            <img src={image} alt={`img ${index}`} style={{ height: "270px" }} />
-          </Box>
-        ))}
-      </Carousel>
-    </Paper>
-  );
-};
-
-export const MultipleImages0 = ({ images }) => {
-  const [numImages, setNumImages] = useState(4);
-
-  const handleLoadMore = () => {
-    setNumImages(numImages + 4);
-  };
-  return (
-    <ImageCarousel1
-      images={images.images.slice(0, numImages)}
-      key={Math.random()}
-    />
-  );
-};
-
-const CarouselWithMultipleImage = (props) => {
-  let imageSets = [];
+const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  if (props.PartitionAddAvilableRoom) {
-    for (let i = 0; i < props.PartitionAddAvilableRoom.length; i += 4) {
-      imageSets.push(props.PartitionAddAvilableRoom.slice(i, i + 4));
-    }
-  }
-  if (props.propertyAddAvilableRoom) {
-    for (let i = 0; i < props.propertyAddAvilableRoom.length; i += 4) {
-      imageSets.push(props.propertyAddAvilableRoom.slice(i, i + 4));
-    }
-  }
 
-  imageSets = imageSets.reverse();
+  const citiesInUae = async (item) => {
+    const { data } = await axios.post(
+      `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
+      { countryCode: "AE", city: item.name }
+    );
+    console.log(data);
+    dispatch(SearchActions.availableRooms(data));
+    navigate("/sp");
+  };
+
+  const CustomNextArrow = (props) => {
+    const { onClick } = props;
+    return (
+      <CustomNextIcon
+        style={{
+          fontSize: 40,
+          position: "absolute",
+          right: -45,
+          top: "50%",
+          transform: "translateY(-50%)",
+          cursor: "pointer",
+        }}
+        onClick={onClick}
+      />
+    );
+  };
+
+  const CustomPrevArrow = (props) => {
+    const { onClick } = props;
+    return (
+      <CustomPrevIcon
+        style={{
+          fontSize: 40,
+          position: "absolute",
+          left: -45,
+          top: "50%",
+          transform: "translateY(-50%)",
+          cursor: "pointer",
+        }}
+        onClick={onClick}
+      />
+    );
+  };
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
+  };
 
   return (
-    <Stack sx={{ p: 2, my: 2, mx: 1 }} spacing={2}>
-      <Carousel
-        showThumbs={false}
-        showArrows={true}
-        showStatus={false}
-        emulateTouch={false}
-        infiniteLoop={true}
-        // renderArrowPrev={false}
-        // renderArrowNext={false}
-        renderArrowPrev={(onClickHandler, hasPrev, label) =>
-          hasPrev && (
-            <button
-              type="button"
-              onClick={onClickHandler}
-              title={label}
-              style={{
-                position: "absolute",
-                zIndex: 2,
-                left: 15,
-                top: "50%",
-                transform: "translateY(-50%)",
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              <CustomPrevIcon style={{ fontSize: 40 }} />
-            </button>
-          )
-        }
-        renderArrowNext={(onClickHandler, hasNext, label) =>
-          hasNext && (
-            <button
-              type="button"
-              onClick={onClickHandler}
-              title={label}
-              style={{
-                position: "absolute",
-                zIndex: 2,
-                right: 15,
-                top: "50%",
-                transform: "translateY(-50%)",
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              <CustomNextIcon style={{ fontSize: 40 }} />
-            </button>
-          )
-        }
-      >
-        {imageSets.map((imageSet, index) => (
-          <Grid
-            key={index}
-            // onClick={() => navigate("/")}
-            sx={{ cursor: "pointer" }}
-          >
-            <Grid container spacing={2}>
-              {imageSet.map((value, id) =>
-                Object.entries(value).map(([key, val]) => {
-                  if (key === "images") {
-                    if (val.length >= 0) {
-                      return (
-                        <Grid
-                          item
-                          xs={12}
-                          sm={6}
-                          md={3}
-                          borderRadius=""
-                          // onClick={() =>
-                          //   navigate(`/rooms/view-room/${value?.id}`)
-                          // }
-                        >
-                          <MultipleImages0 images={value} />
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "start",
-                              flexDirection: "column",
-                              alignItems: "start",
-                            }}
-                            onClick={() =>
-                              navigate(`/rooms/view-room/${value?.id}`)
-                            }
-                          >
-                            <Typography fontWeight={400}>
-                              {value.type}
-                            </Typography>
-                            <Typography fontWeight={700}>
-                              {value.monthlyPrice} AED / month
-                            </Typography>
-                          </Box>
-                        </Grid>
-                      );
-                    }
-                  }
-                })
-              )}
+    <Grid maxWidth={"90%"} sx={{ margin: "auto" }}>
+      <div style={{ position: "relative" }}>
+        <Slider {...settings}>
+          {propertyAddAvilableRoom?.map((item) => (
+            <Grid key={item.id} sx={{ padding: "15px" }}>
+              {console.log(item)}
+              <div
+                style={{
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                  width: "100%",
+                  position: "relative",
+                  paddingBottom: "75%", // Maintain 4:3 aspect ratio
+                }}
+              >
+                {item.images.length > 0 ? (
+                  <img
+                    src={item.images[0]}
+                    alt={item.name}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      borderRadius: "10px",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={DummyImage}
+                    alt={item.name}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      borderRadius: "10px",
+                    }}
+                  />
+                )}
+              </div>
+              <div
+                style={{ marginTop: "10px", cursor: "pointer" }}
+                onClick={() => citiesInUae(item)}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "start",
+                    flexDirection: "column",
+                    alignItems: "start",
+                  }}
+                  onClick={() => navigate(`/rooms/view-room/${item?.id}`)}
+                >
+                  <Typography fontWeight={400}>{item.type}</Typography>
+                  <Typography fontWeight={700}>
+                    {item.monthlyPrice} AED / month
+                  </Typography>
+                </Box>
+              </div>
             </Grid>
-          </Grid>
-        ))}
-      </Carousel>
-    </Stack>
+          ))}
+        </Slider>
+      </div>
+    </Grid>
   );
 };
 

@@ -150,7 +150,7 @@ const Nav = () => {
           width={70}
           className="mr-2"
         />
-        {/* <Stack sx={{ margin: "auto" }}>
+        <Stack sx={{ margin: "auto" }}>
           <Typography
             variant="h5"
             sx={{
@@ -171,7 +171,7 @@ const Nav = () => {
           >
             FINDER
           </Typography>
-        </Stack> */}
+        </Stack>
       </NavLink>
 
       <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

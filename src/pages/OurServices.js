@@ -18,7 +18,7 @@ import CarouselWithMultipleImage from "../components/CarouselWithMultipleImage";
 import { roomsTypeActions } from "../store/Rooms";
 
 import { requestForToken } from "../firebase/index";
-import headerimage from "../assets/Home/34213422.PNG"
+import headerimage from "../assets/Home/34213422.PNG";
 
 const OurServices = () => {
   const [PartitionAddAvilableRoom, setPartitionAddAvilableRoom] = useState([]);
@@ -99,13 +99,11 @@ const OurServices = () => {
       <Box
         sx={{
           height: { xs: "50%", sm: "50%", md: "55%", lg: "40%", xl: "55%" },
-          backgroundImage:
-          `url(${headerimage})`,
+          backgroundImage: `url(${headerimage})`,
           backgroundPosition: "center", // Add this line
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           marginBottom: "50px",
-          
         }}
       >
         <Box
@@ -117,8 +115,8 @@ const OurServices = () => {
         //   bottom: 0,
         // }}
         >
-          <Grid container justifyContent="space-between" alignItems="center" >
-            <Grid item xs={12} sm={8} >
+          <Grid container justifyContent="space-between" alignItems="center">
+            <Grid item xs={12} sm={8}>
               <Box
                 sx={{
                   pt: { xs: 8, md: 12 },
@@ -149,11 +147,11 @@ const OurServices = () => {
             >
               <Box
                 sx={{
-                  mt:"20%",
+                  mt: "20%",
                   display: "flex",
                   justifyContent: "flex-end",
                   height: "100%",
-                  px:4,
+                  px: 4,
                 }}
               >
                 <FloatingImage />
@@ -161,13 +159,22 @@ const OurServices = () => {
             </Grid>
           </Grid>
 
-          <Box sx={{ pt: { xs: 6 },pl:{md:8,sm:6,xs:4},pr:{md:8,sm:6,xs:4} }}>
+          <Box
+            sx={{
+              pt: { xs: 6 },
+              pl: { md: 8, sm: 6, xs: 4 },
+              pr: { md: 8, sm: 6, xs: 4 },
+            }}
+          >
             <CityCarousel />
             <Rooms />
             <CitiesInUae />
             <Box sx={{ display: "flex", flexDirection: "column", mb: 1 }}>
               <Box sx={{ mb: 1 }}>
-                <Typography variant="h5" sx={{ mb: 1,pl:{md:3,sm:2,xs:1} }}>
+                <Typography
+                  variant="h5"
+                  sx={{ mb: 1, pl: { md: 3, sm: 2, xs: 1 } }}
+                >
                   Top affordable sharing option in UAE
                 </Typography>
                 <CarouselWithMultipleImage
@@ -176,17 +183,26 @@ const OurServices = () => {
               </Box>
 
               <Box sx={{ mt: 1, mb: 1 }}>
-                <Typography variant="h5" sx={{ my: 1,pl:{md:3,sm:2,xs:1} }}>
+                <Typography
+                  variant="h5"
+                  sx={{ my: 1, pl: { md: 3, sm: 2, xs: 1 } }}
+                >
                   Partitions for rent in Sharjah
                 </Typography>
 
                 <CarouselWithMultipleImage
-                  PartitionAddAvilableRoom={PartitionAddAvilableRoom}
+                  propertyAddAvilableRoom={PartitionAddAvilableRoom}
                 />
               </Box>
-              <Box sx={{ mt: 1, mb: "4px" ,pl:{md:3,sm:2,xs:1},pr:{md:3,sm:2,xs:1}}}>
-                
-              <AddWithCarousel />
+              <Box
+                sx={{
+                  mt: 1,
+                  mb: 1,
+                  pl: { md: 3, sm: 2, xs: 1 },
+                  pr: { md: 3, sm: 2, xs: 1 },
+                }}
+              >
+                <AddWithCarousel />
               </Box>
             </Box>
             {/* <AvailableRooms /> */}
