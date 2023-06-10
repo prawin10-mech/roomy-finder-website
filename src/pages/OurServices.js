@@ -165,7 +165,7 @@ const OurServices = () => {
             <CityCarousel />
             <Rooms />
             <CitiesInUae />
-            <Box sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
+            <Box sx={{ display: "flex", flexDirection: "column", mb: 1 }}>
               <Box sx={{ mb: 1 }}>
                 <Typography variant="h5" sx={{ mb: 1,pl:{md:3,sm:2,xs:1} }}>
                   Top affordable sharing option in UAE
@@ -184,7 +184,7 @@ const OurServices = () => {
                   PartitionAddAvilableRoom={PartitionAddAvilableRoom}
                 />
               </Box>
-              <Box sx={{ mt: 1, mb: 1 ,pl:{md:3,sm:2,xs:1},pr:{md:3,sm:2,xs:1}}}>
+              <Box sx={{ mt: 1, mb: "4px" ,pl:{md:3,sm:2,xs:1},pr:{md:3,sm:2,xs:1}}}>
                 
               <AddWithCarousel />
               </Box>

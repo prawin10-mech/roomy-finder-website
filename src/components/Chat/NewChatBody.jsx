@@ -588,6 +588,7 @@ const NewChatBody = () => {
       backgroundColor: "#f0f0f0",
       zIndex: 1,
       flexShrink: 0,
+      mb:"4px"
     },
     iconButton: {
       p: "10px",
@@ -641,7 +642,7 @@ const NewChatBody = () => {
                 ? `${data12?.property.poster?.firstName} ${data12?.property.poster?.lastName}`
                 : `${data12?.property?.client?.firstName} ${data12?.property.client?.lastName}`}
             </Typography>
-            <Typography variant="body1" fontWeight={500} sx={{ color: "#000" }}>
+            <Typography variant="body1" fontWeight={500} sx={{ color: "slateGrey" }}>
               From:{" "}
               {data12.type === "roommate"
                 ? `${data12?.property.poster?.country}`
@@ -650,7 +651,7 @@ const NewChatBody = () => {
           </Box>
           <Typography
             variant="body2"
-            fontWeight={600}
+            fontWeight={500}
             sx={{ color: "slateGrey" }}
           >
             {data12.type === "roommate"
@@ -679,7 +680,7 @@ const NewChatBody = () => {
                   ? message?.senderId === data12?.property?.poster?.id
                   : message?.senderId === data12?.property?.client?.id;
 
-              console.log(isCurrentUser);
+              {/* console.log(isCurrentUser); */}
               return (
                 <Grid container>
                   {isCurrentUser && (
@@ -693,7 +694,7 @@ const NewChatBody = () => {
                     //     data12?.property?.client?.firstName.charAt(0)
                     //   )}
                     // </Avatar>
-                    <Avatar>
+                    <Avatar sx={{mr:1}}>
                       {data12.type === "landlord"
                         ? data12?.property?.client?.profilePicture
                           ? data12.property.client.profilePicture
@@ -1158,7 +1159,7 @@ const NewChatBody = () => {
             </Box>
           </Paper>
         )}
-        <Paper component="form" sx={styles.inputContainer}>
+        <Paper component="form" sx={styles.inputContainer} elevation={8}>
           <InputBase
             sx={styles.input}
             placeholder="Type a message"

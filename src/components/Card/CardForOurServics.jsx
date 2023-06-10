@@ -9,6 +9,7 @@ import bottomBackground from "../../assets/bottomBackground.png";
 import peoples from "../../assets/GCSCorosol/peoples.png";
 import GSCimage from "../../assets/GCSCorosol/GSCimage.png";
 import CommercialCarousal from "./CommercialCarousal";
+import topBackground from "../../assets/topBackground.png"
 
 const AddWithCarasol = (props) => {
   const navigate = useNavigate();
@@ -20,13 +21,12 @@ const AddWithCarasol = (props) => {
         spacing={2}
         sx={{
           py: 3,
-          backgroundImage:
-            " linear-gradient(120deg, #d57eeb 0%, #fccb90 100%);",
-
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          display: "flex",
-          px: 5,
+          backgroundImage:`url(${topBackground})`,
+          backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%", // adjust the backgroundSize property
+        display: "flex",
+        px: 5,
         }}
       >
         <Grid
