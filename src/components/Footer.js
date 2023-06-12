@@ -12,6 +12,21 @@ import axios from "axios";
 import landlord from "../assets/Agreements/landlord_agreement_roomy_finder.pdf";
 import privacy from "../assets/Agreements/privacy_policy_roomy_findner.pdf";
 import terms from "../assets/Agreements/t&c_roomy_finder.pdf";
+import appstore from "../assets/app & google play Image/appStore3.png"
+import appstore2 from "../assets/app & google play Image/app-store-1.png"
+import appstore3 from "../assets/app & google play Image/as.jpg"
+import appstore4 from "../assets/app & google play Image/as2.jpeg"
+import appstore5 from "../assets/app & google play Image/as3.svg.webp"
+
+import googleplaystore from "../assets/app & google play Image/google-playStore1.png"
+import googleplaystore2 from "../assets/app & google play Image/google-playStore2.png"
+import googleplaystore3 from "../assets/app & google play Image/gs.jpg"
+import googleplaystore4 from "../assets/app & google play Image/gs2.jpeg"
+import googleplaystore5 from "../assets/app & google play Image/gs3.png"
+import bottomBackground from '../assets/bottomBackground.png'
+
+
+
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -173,13 +188,29 @@ const Footer = () => {
                 <Box
                   item
                   onClick={() => navigate("/")}
-                  sx={{ cursor: "pointer" }}
+                  sx={{ cursor: "pointer",my:1 }}
                 >
-                  <img src={AppStore} alt="App Store" width={120} />
+                  <img src={appstore3} alt="App Store" width={120} />
+                  {/* <Box sx={{width:"120%",display:"flex",flexDirection:"row",justifyContent:"center",
+                  alignItems:"center"}}>
+                      <Box sx={{width:"40%",}}>
+
+                      </Box>
+                      <Box sx={{width:"80%",display:"flex",flexDirection:"column",justifyContent:"center",
+                      alignItems:"center"}}>
+                      <Typography>
+                        gh
+                      </Typography>
+                      <Typography>
+                        gh
+                      </Typography>
+                        
+                      </Box>
+                  </Box> */}
                 </Box>
                 <Box item>
                   <img
-                    src={GooglePlay}
+                    src={googleplaystore3}
                     alt="Google Play"
                     width={120}
                     onClick={() => navigate("/")}
@@ -194,13 +225,14 @@ const Footer = () => {
       <Grid>
         <Box
           sx={{
-            backgroundColor: "#FAFAFA",
-            backgroundImage:
-              "linear-gradient(90deg, rgba(0,1,36,1) 0%, rgba(73,9,121,1) 35%, rgba(192,0,255,1) 100%);",
-            color: "#fff",
-            height: "20px",
-            position: "relative",
-          }}
+        py: 3,
+        backgroundImage: `url(${bottomBackground})`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%", // adjust the backgroundSize property
+        display: "flex",
+        px: 5,
+      }}
         >
           <Box
             sx={{
@@ -217,7 +249,7 @@ const Footer = () => {
                 position: "absolute",
                 bottom: 0,
                 right: 0,
-              }}
+                mb:"4px"              }}
             >
               <img
                 src={FooterMobile}

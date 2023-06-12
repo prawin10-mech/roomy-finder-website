@@ -461,14 +461,14 @@ const ChatBody = ({ user, messages }) => {
             <Typography variant="body1" fontWeight={700} sx={{ color: "#000" }}>
               {user?.other?.firstName} {user?.other?.lastName}
             </Typography>
-            <Typography variant="body1" fontWeight={500} sx={{ color: "#000" }}>
+            <Typography variant="body1" fontWeight={500} sx={{ color: "slateGrey" }}>
               From: {user?.other?.country}
             </Typography>
           </Box>
         </Grid>
         <Typography
           variant="body2"
-          fontWeight={600}
+          fontWeight={500}
           sx={{ color: "slateGrey" }}
         >
           {user?.other?.type}
@@ -506,7 +506,7 @@ const ChatBody = ({ user, messages }) => {
                     {user.other.profilePicture ? (
                       <img src={user.other.profilePicture} alt="user profile" />
                     ) : (
-                      user?.other?.firstName.charAt(0)
+                      user?.other?.firstName.charAt(0) + user?.other?.lastName.charAt(0)
                     )}
                   </Avatar>
                 )}

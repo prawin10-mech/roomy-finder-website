@@ -169,7 +169,7 @@ const OurServices = () => {
             <CityCarousel />
             <Rooms />
             <CitiesInUae />
-            <Box sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
+            <Box sx={{ display: "flex", flexDirection: "column", mb: 1 }}>
               <Box sx={{ mb: 1 }}>
                 <Typography
                   variant="h5"
