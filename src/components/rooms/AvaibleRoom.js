@@ -105,7 +105,7 @@ const AvailableRoom = memo(({ room }) => {
             )}
             {room.action && (
               <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-                budget AED {room.budget.toLocaleString()}
+                Budget {room.budget.toLocaleString()} AED
               </Typography>
             )}
           </Box>

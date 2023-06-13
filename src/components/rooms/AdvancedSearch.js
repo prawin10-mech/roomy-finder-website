@@ -45,26 +45,18 @@ const AdvancedSearch = () => {
       setLoading(true);
       const obj = { countryCode: "AE" };
 
-      if (type) {
+      if (type && type !== "ALL") {
         obj.type = type;
       }
 
-      if (searchType === "roommate" && action) {
+      if (searchType === "roommate" && action !== "ALL") {
         obj.action = action;
       }
-
-      // if (minBudget) {
-      //   obj.minBudget = minBudget;
-      // }
-
-      // if (maxBudget) {
-      //   obj.maxBudget = maxBudget;
-      // }
 
       if (gender) {
         obj.gender = gender;
       }
-      if (action && action !== "All") {
+      if (action && action !== "ALL") {
         obj.action = action;
       }
 
@@ -96,8 +88,6 @@ const AdvancedSearch = () => {
         } else {
           filteredData = data;
         }
-
-        console.log(filteredData);
         dispatch(SearchActions.availableRooms(filteredData));
       } else {
         console.log("obj is empty");
@@ -124,7 +114,7 @@ const AdvancedSearch = () => {
       >
         Advanced Search
       </Typography>
-      {searchType === "Roommate" && <Action />}
+      {searchType !== "property" && <Action />}
       <PropertyType />
 
       <PreferredRentType />

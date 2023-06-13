@@ -230,24 +230,24 @@ const PropertyType = () => {
                 />
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} visibility="hidden">
+            <Grid item xs={12} sm={6}>
               <Grid
                 container
                 sx={{
                   ...checkboxContainerStyle,
-                  ...(selectedPropertyType === "Bed" && selectedCheckboxStyle),
+                  ...(selectedPropertyType === "ALL" && selectedCheckboxStyle),
                 }}
               >
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={selectedPropertyType === "Bed"}
+                      checked={selectedPropertyType === "ALL"}
                       onChange={handleCheckboxChange}
-                      value="Bed"
+                      value="ALL"
                       sx={{ display: "none" }}
                     />
                   }
-                  label="Bed"
+                  label="ALL"
                   sx={checkboxLabelStyle}
                 />
               </Grid>
