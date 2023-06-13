@@ -23,6 +23,10 @@ import { TenantActions } from "../../store/Tenant";
 import male1 from "../../assets/male and female icon /male1.png"
 import female1 from "../../assets/male and female icon /images.png"
 
+
+import male3 from "../../assets/male and female icon /male3.png"
+import female3 from "../../assets/male and female icon /female3.png"
+
 const pages = [
   "About Us",
   "Contact Us",
@@ -385,7 +389,7 @@ const Nav = () => {
             >
               <Avatar
                 alt={`${user?.firstName} ${user?.lastName}`}
-                src={user?.profilePicture !== null ? user?.profilePicture : user?.gender ==="Male" ? male1 : female1}
+                src={user?.profilePicture !== null ? user?.profilePicture : user?.gender ==="Male" ? male3 : female3}
                 sx={{
                   width: 50,
                   height: 50,
@@ -430,7 +434,7 @@ const Nav = () => {
                 >
                   <Avatar
                     alt={`${user?.firstName} ${user?.lastName}`}
-                    src={user?.profilePicture !== null ? user?.profilePicture : user?.gender ==="Male" ? male1 : female1} 
+                    src={user?.profilePicture !== null ? user?.profilePicture : user?.gender ==="Male" ? male3 : female3} 
                     sx={{
                       width: 50,
                       height: 50,
