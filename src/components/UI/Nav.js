@@ -21,6 +21,11 @@ import Cookies from "js-cookie";
 import Notification from "../Notifictions";
 import { TenantActions } from "../../store/Tenant";
 
+
+
+import male3 from "../../assets/maleAndFemaleImage/male4.png"
+import female3 from "../../assets/maleAndFemaleImage/female4.png"
+
 const pages = [
   "About Us",
   "Contact Us",
@@ -383,7 +388,7 @@ const Nav = () => {
             >
               <Avatar
                 alt={`${user?.firstName} ${user?.lastName}`}
-                src={`${user?.profilePicture}`}
+                src={user?.profilePicture !== null ? user?.profilePicture : user?.gender ==="Male" ? male3 : female3}
                 sx={{
                   width: 50,
                   height: 50,
@@ -428,7 +433,7 @@ const Nav = () => {
                 >
                   <Avatar
                     alt={`${user?.firstName} ${user?.lastName}`}
-                    src={`${user?.profilePicture}`}
+                    src={user?.profilePicture !== null ? user?.profilePicture : user?.gender ==="Male" ? male3 : female3} 
                     sx={{
                       width: 50,
                       height: 50,
@@ -436,8 +441,10 @@ const Nav = () => {
                       border: "2px solid purple",
                     }}
                   >
-                    {user?.firstName?.charAt(0)}
-                    {user?.lastName?.charAt(0)}
+                  {/* {console.log(user,"user1234567")} */}
+                    {/* {user?.firstName?.charAt(0)}
+                    {user?.lastName?.charAt(0)} */}
+                    {/* {user?.gender ==="Male" ? } */}
                   </Avatar>
                 </IconButton>
                 <Typography sx={{ fontWeight: "700" }}>
