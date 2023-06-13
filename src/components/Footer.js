@@ -25,6 +25,12 @@ import googleplaystore4 from "../assets/app & google play Image/gs2.jpeg"
 import googleplaystore5 from "../assets/app & google play Image/gs3.png"
 import bottomBackground from '../assets/bottomBackground.png'
 
+import fb from "../assets/socialmedia/fb2.jpeg"
+import instragram from "../assets/socialmedia/instra3.jpeg"
+import twiter from "../assets/socialmedia/twiter.png"
+import snapchat from "../assets/socialmedia/snapchat4.jpg"
+import ticktok from "../assets/socialmedia/tiktok2.png"
+
 
 
 
@@ -104,7 +110,7 @@ const Footer = () => {
           display: "flex",
           paddingY: "1.75%",
           width: { xs: "50%", sm: "80%", md: "100%" },
-          paddingRight: { xs: 0, sm: "150px" }, // Added paddingRight for image space
+          paddingRight: { xs: 0, sm: "150px" }, 
         }}
       >
         <Grid
@@ -120,6 +126,7 @@ const Footer = () => {
               mt: 2,
             }}
           >
+      
             <Grid item sx={{ display: "flex", mr: 2 }}>
               <NavLink to={"/"}>
                 <img src={logo} alt="Roomy finder logo" width={70} />
@@ -191,22 +198,7 @@ const Footer = () => {
                   sx={{ cursor: "pointer",my:1 }}
                 >
                   <img src={appstore3} alt="App Store" width={120} />
-                  {/* <Box sx={{width:"120%",display:"flex",flexDirection:"row",justifyContent:"center",
-                  alignItems:"center"}}>
-                      <Box sx={{width:"40%",}}>
-
-                      </Box>
-                      <Box sx={{width:"80%",display:"flex",flexDirection:"column",justifyContent:"center",
-                      alignItems:"center"}}>
-                      <Typography>
-                        gh
-                      </Typography>
-                      <Typography>
-                        gh
-                      </Typography>
-                        
-                      </Box>
-                  </Box> */}
+                  
                 </Box>
                 <Box item>
                   <img
@@ -220,6 +212,34 @@ const Footer = () => {
               </Box>
             </Box>
           </Grid>
+        <Grid item sx={{display:"flex",flexDirection:"row"}}>
+        <img
+                src={fb}
+                alt="Facebook"
+                style={{height:"40px", width:"40px",marginLeft:"8px",marginRight:"8px"}}
+              />
+               <img
+                src={instragram}
+                alt="Instragram"
+                style={{height:"40px", width:"40px",marginLeft:"8px",marginRight:"8px"}}
+              />
+               <img
+                src={twiter}
+                alt="Footer mobile"
+                style={{height:"40px", width:"40px",marginLeft:"8px",marginRight:"8px"}}
+              />
+               <img
+                src={snapchat}
+                alt="Footer mobile"
+                style={{height:"40px", width:"40px",marginLeft:"8px",marginRight:"8px"}}
+              />
+               <img
+                src={ticktok}
+                alt="Footer mobile"
+                style={{height:"40px", width:"40px",marginLeft:"8px",marginRight:"8px"}}
+              />
+          
+        </Grid>
         </Grid>
       </Toolbar>
       <Grid>
