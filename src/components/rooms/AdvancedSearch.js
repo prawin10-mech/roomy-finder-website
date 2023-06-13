@@ -19,7 +19,7 @@ const AdvancedSearch = () => {
   const navigate = useNavigate();
   const [advance, setAdvance] = useState(false);
   const dispatch = useDispatch();
-  const searchType = useSelector((state) => state.room.roomsType);
+  const searchType = useSelector((state) => state.search.searchType);
   const [loading, setLoading] = useState(false);
   const type = useSelector((state) => state.advanceSearch.propertyType);
   const minBudget = useSelector((state) => state.advanceSearch.minBudget);
@@ -30,13 +30,10 @@ const AdvancedSearch = () => {
   const preferredRentType = useSelector(
     (state) => state.advanceSearch.preferredRentType
   );
-  const AdvanceSearchOptionsHandler = () => {
-    setAdvance(!advance);
-  };
 
   const handleClearFilter = async () => {
     const { data } = await axios.post(
-      `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
+      `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/${searchType}-ad/available`,
       { countryCode: "AE" }
     );
     dispatch(SearchActions.availableRooms(data));
@@ -67,6 +64,10 @@ const AdvancedSearch = () => {
       if (gender) {
         obj.gender = gender;
       }
+      if (action && action !== "All") {
+        obj.action = action;
+      }
+
       if (preferredRentType) {
         obj.preferedRentType = preferredRentType;
       }
@@ -123,13 +124,14 @@ const AdvancedSearch = () => {
       >
         Advanced Search
       </Typography>
+      {searchType === "Roommate" && <Action />}
       <PropertyType />
-      {searchType === "roommate" && <Action />}
+
       <PreferredRentType />
-      <Gender />
-      <Budget />
       <City />
       <Location />
+      <Gender />
+      <Budget />
 
       <Grid
         container

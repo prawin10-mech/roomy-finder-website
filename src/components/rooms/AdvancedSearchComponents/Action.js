@@ -8,12 +8,12 @@ const Action = () => {
   const action = useSelector((state) => state.advanceSearch.action);
 
   const handleActionSelection = (e) => {
-    if (e.target.value !== "ALL")
-      dispatch(AdvanceSearchActions.action(e.target.value));
+    // if (e.target.value !== "ALL")
+    dispatch(AdvanceSearchActions.action(e.target.value));
   };
 
   const cityOptions = ["NEED ROOM", "HAVE ROOM", "ALL"].map((city) => (
-    <MenuItem key={city} value={city}>
+    <MenuItem key={city} value={city !== "ALL" ? city : ""}>
       {city}
     </MenuItem>
   ));

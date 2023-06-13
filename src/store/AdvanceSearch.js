@@ -48,9 +48,7 @@ const AdvancedSearchSlice = createSlice({
       state.maxBudget = "";
       state.preferredRentType = null;
       state.gender = null;
-      state.action = null;
-
-      console.log(state.minBudget);
+      state.action = "";
     },
   },
 });
