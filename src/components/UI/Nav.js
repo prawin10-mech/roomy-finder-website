@@ -20,12 +20,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Notification from "../Notifictions";
 import { TenantActions } from "../../store/Tenant";
-import male1 from "../../assets/male and female icon /male1.png"
-import female1 from "../../assets/male and female icon /images.png"
 
 
-import male3 from "../../assets/male and female icon /male3.png"
-import female3 from "../../assets/male and female icon /female3.png"
+
+import male3 from "../../assets/maleAndFemaleImage/male4.png"
+import female3 from "../../assets/maleAndFemaleImage/female4.png"
 
 const pages = [
   "About Us",
