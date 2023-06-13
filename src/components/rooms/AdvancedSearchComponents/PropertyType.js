@@ -186,20 +186,20 @@ const PropertyType = () => {
                 container
                 sx={{
                   ...checkboxContainerStyle,
-                  ...(selectedPropertyType === "Apartment" &&
+                  ...(selectedPropertyType === "Appartment" &&
                     selectedCheckboxStyle),
                 }}
               >
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={selectedPropertyType === "Apartment"}
+                      checked={selectedPropertyType === "Appartment"}
                       onChange={handleCheckboxChange}
-                      value="Apartment"
+                      value="Appartment"
                       sx={{ display: "none" }}
                     />
                   }
-                  label="Apartment"
+                  label="Appartment"
                   sx={checkboxLabelStyle}
                 />
               </Grid>

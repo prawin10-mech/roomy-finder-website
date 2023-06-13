@@ -66,6 +66,7 @@ const Notification = () => {
     if (notification?.title) {
       notify();
     }
+    console.log(notification);
     if (notification?.title === "message") {
       dispatch(UserActions.messageReceived);
     }

@@ -11,6 +11,7 @@ import {
   Avatar,
   Button,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import axios from "axios";
@@ -32,7 +33,7 @@ import { onMessageListener } from "../../firebase/index";
 const ChatBody = ({ user, messages }) => {
   const [newMessage, setNewMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
-  const [messageReceived, setMessageReceived] = useState("");
+  // const [messageReceived, setMessageReceived] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedFileURL, setSelectedFileUrl] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
@@ -47,6 +48,7 @@ const ChatBody = ({ user, messages }) => {
   const [fileSize, setFileSize] = useState("");
   const [loadData, setloadData] = useState(10);
   const [showLoadMore, setshowLoadMore] = useState(false);
+  const messageReceived = useSelector((state) => state.user.messageReceived);
 
   const chatContainerRef = useRef(null);
   const token = localStorage.getItem("token");
@@ -73,11 +75,10 @@ const ChatBody = ({ user, messages }) => {
   }, [user.otherId, token]);
 
   useEffect(() => {
-    console.log("last");
     const fetchNewMessage = async () => {
       const newMessage = await onMessageListener();
       console.log("tt", newMessage);
-      setMessageReceived(!messageReceived);
+      // setMessageReceived(!messageReceived);
     };
     if (messageReceived) {
       fetchNewMessage();
@@ -461,7 +462,11 @@ const ChatBody = ({ user, messages }) => {
             <Typography variant="body1" fontWeight={700} sx={{ color: "#000" }}>
               {user?.other?.firstName} {user?.other?.lastName}
             </Typography>
-            <Typography variant="body1" fontWeight={500} sx={{ color: "slateGrey" }}>
+            <Typography
+              variant="body1"
+              fontWeight={500}
+              sx={{ color: "slateGrey" }}
+            >
               From: {user?.other?.country}
             </Typography>
           </Box>
@@ -502,11 +507,12 @@ const ChatBody = ({ user, messages }) => {
             return (
               <Grid container>
                 {isCurrentUser && (
-                  <Avatar sx={{mr:1}}>
+                  <Avatar sx={{ mr: 1 }}>
                     {user.other.profilePicture ? (
                       <img src={user.other.profilePicture} alt="user profile" />
                     ) : (
-                      user?.other?.firstName.charAt(0) + user?.other?.lastName.charAt(0)
+                      user?.other?.firstName.charAt(0) +
+                      user?.other?.lastName.charAt(0)
                     )}
                   </Avatar>
                 )}

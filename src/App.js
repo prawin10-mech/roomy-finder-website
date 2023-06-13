@@ -40,6 +40,7 @@ import About from "./pages/About";
 import Message from "./pages/Message";
 import NewSignUpPage from "./pages/NewSignUpPage";
 import Notification from "./components/Notifictions";
+import WhatsApp from "./components/WhatsApp";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -71,6 +72,16 @@ const App = () => {
     <Router>
       <Box sx={{ maxWidth: "2000px", margin: "auto" }}>
         <Nav />
+        <Box
+          sx={{
+            position: "fixed",
+            bottom: "20px",
+            right: "20px",
+            zIndex: 1500,
+          }}
+        >
+          <WhatsApp />
+        </Box>
         <Routes>
           <Route path="/" element={<OurServices />} />
           <Route path="/aboutUs" element={<AboutUs />} />
@@ -148,7 +159,7 @@ const App = () => {
           <Route path="/allAvailableRooms" element={<AllRooms />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/newsignup" element={<NewSignUpPage />} />
-          
+
           <Route path="/rooms/view-room/:id" element={<ViewRoom />} />
           <Route path="/sp" element={<SecondPage />} />
           <Route path="/login" element={<Login />} />
