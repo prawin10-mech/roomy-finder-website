@@ -75,7 +75,7 @@ const AvailableRoom = memo(({ room }) => {
           flexDirection: "column",
           // justifyContent: "space-between",
           ml: 2,
-          mt:1
+          mt: 1,
         }}
       >
         <Box>
@@ -91,8 +91,16 @@ const AvailableRoom = memo(({ room }) => {
 
             {!room.action && (
               <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-                {room.monthlyPrice.toLocaleString()}{" "}
-                <span style={{ fontSize: "0.8em" }}>AED</span> / Month
+                {room.preferedRentType === "Monthly" &&
+                  (
+                    room.monthlyPrice +
+                    0.1 * room.monthlyPrice
+                  ).toLocaleString()}
+                {room.preferedRentType === "Weekly" &&
+                  (room.weeklyPrice + 0.1 * room.weeklyPrice).toLocaleString()}
+                {room.preferedRentType === "Daily" &&
+                  (room.dailyPrice + 0.05 * room.dailyPrice).toLocaleString()}
+                <span style={{ fontSize: "0.8em" }}> AED</span>
               </Typography>
             )}
             {room.action && (
