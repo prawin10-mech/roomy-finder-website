@@ -135,27 +135,42 @@ const CitiesInUae = () => {
       <div style={{ position: "relative" }}>
         <Slider {...settings}>
           {items.map((item) => (
-            <Grid key={item.id} sx={{ padding: "15px" }}>
-              <div style={{ borderRadius: "10px", overflow: "hidden" }}>
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    borderRadius: "10px",
-                  }}
-                />
-              </div>
-              <div
-                style={{ marginTop: "10px", cursor: "pointer" }}
+            <Grid sx={{ padding: "15px" }}>
+              <Grid
+                key={item.id}
+                sx={{
+                  boxShadow: "0px 0px 7px  rgba(0,0,0,0.5)",
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                  cursor: "pointer",
+                }}
                 onClick={() => citiesInUae(item)}
               >
-                <Typography sx={{ fontWeight: "700" }}>{item.name}</Typography>
-                <Typography sx={{ fontWeight: "400" }}>
-                  {item.products} properties
-                </Typography>
-              </div>
+                <div>
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    marginTop: "10px",
+                    cursor: "pointer",
+                    marginLeft: "0.5rem",
+                  }}
+                >
+                  <Typography sx={{ fontWeight: "700" }}>
+                    {item.name}
+                  </Typography>
+                  <Typography sx={{ fontWeight: "400" }}>
+                    {item.products} properties
+                  </Typography>
+                </div>
+              </Grid>
             </Grid>
           ))}
         </Slider>

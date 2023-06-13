@@ -46,226 +46,214 @@ const MyAds = () => {
 
   const myAdsData =
     type === "landlord"
-      ? myAds
-          ?.slice(0, noOfCount)
-          .reverse()
-          .map((myAd) => (
+      ? myAds?.slice(0, noOfCount).map((myAd) => (
+          <Grid
+            key={myAd._id}
+            item
+            // xs={12}
+            // sm={6}
+            // md={3}
+            sx={{
+              display: "grid",
+              cursor: "pointer",
+              p: 2,
+              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+              gap: "20px",
+              "@media (max-width: 600px)": {
+                gridTemplateColumns: "1fr",
+              },
+            }}
+            // sx={{ cursor: "pointer", p: 2 }}
+          >
             <Grid
-              key={myAd._id}
-              item
-              // xs={12}
-              // sm={6}
-              // md={3}
               sx={{
-                display: "grid",
-                cursor: "pointer",
-                p: 2,
-                gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-                gap: "20px",
-                "@media (max-width: 600px)": {
-                  gridTemplateColumns: "1fr",
-                },
+                width: "300px",
+                backgroundColor: "#f5f5f5",
+                border: "1px solid #ccc",
+                borderRadius: "10px",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
               }}
-              // sx={{ cursor: "pointer", p: 2 }}
             >
-              <Grid
+              <CardMedia
+                component="img"
                 sx={{
-                  width: "300px",
-                  backgroundColor: "#f5f5f5",
-                  border: "1px solid #ccc",
-                  borderRadius: "10px",
-                  position: "relative",
+                  width: "100%",
+                  height: "200px",
+                  padding: "10px",
+                  overflow: "hidden",
+                  borderRadius: "20px ",
+                  objectFit: "cover",
+                }}
+                image={myAd.images.length > 0 ? myAd.images[0] : [DummyImage]}
+                alt={myAd?.id}
+              />
+              <Grid
+                container
+                justifyContent={"space-between"}
+                sx={{ padding: "10px" }}
+              >
+                <Grid>
+                  <Typography variant="subtitle1">
+                    <Typography component="span">{myAd.type}</Typography>
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    <Typography component="span">
+                      {myAd.address.location}
+                    </Typography>
+                  </Typography>
+                </Grid>
+                <Grid sx={{ fontWeight: "900" }}>
+                  AED {myAd.monthlyPrice + 0.1 * myAd.monthlyPrice}
+                </Grid>
+                <hr style={{ borderTop: "1px solid #000", width: "100%" }} />
+              </Grid>
+
+              <Grid
+                container
+                gap={2}
+                sx={{
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
                   alignItems: "center",
                 }}
               >
-                <CardMedia
-                  component="img"
-                  sx={{
-                    width: "100%",
-                    height: "200px",
-                    padding: "10px",
-                    overflow: "hidden",
-                    borderRadius: "20px ",
-                    objectFit: "cover",
-                  }}
-                  image={myAd.images.length > 0 ? myAd.images[0] : [DummyImage]}
-                  alt={myAd?.id}
-                />
-                <Grid
-                  container
-                  justifyContent={"space-between"}
-                  sx={{ padding: "10px" }}
-                >
-                  <Grid>
-                    <Typography variant="subtitle1">
-                      <Typography component="span">{myAd.type}</Typography>
-                    </Typography>
-                    <Typography variant="subtitle1">
-                      <Typography component="span">
-                        {myAd.address.location}
-                      </Typography>
-                    </Typography>
-                  </Grid>
-                  <Grid sx={{ fontWeight: "900" }}>
-                    AED {myAd.monthlyPrice + 0.1 * myAd.monthlyPrice}
-                  </Grid>
-                  <hr style={{ borderTop: "1px solid #000", width: "100%" }} />
+                <Grid sx={{ color: "purple", pl: 1 }}>
+                  Available {myAd.quantity}
                 </Grid>
+                <Grid sx={{ color: "orange" }}>
+                  {" "}
+                  Taken {myAd.quantityTaken}
+                </Grid>
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: "orange",
+                    color: "white",
 
-                <Grid
-                  container
-                  gap={2}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
+                    borderRadius: "15px",
+                    fontWeight: "700",
                   }}
+                  sx={{ borderRadius: "15px", mb: 1, pr: 1 }}
+                  onClick={() =>
+                    navigate(`/rooms/view-room/${myAd.id}/?active=true`)
+                  }
                 >
-                  <Grid sx={{ color: "purple", pl: 1 }}>
-                    Available {myAd.quantity}
-                  </Grid>
-                  <Grid sx={{ color: "orange" }}>
-                    {" "}
-                    Taken {myAd.quantityTaken}
-                  </Grid>
+                  All Details
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        ))
+      : myAds?.slice(0, noOfCount).map((myAd) => (
+          <Grid
+            key={myAd._id}
+            item
+            // xs={12}
+            // sm={6}
+            // md={3}
+            // sx={{ cursor: "pointer", p: 2 }}
+            sx={{
+              display: "grid",
+              cursor: "pointer",
+              p: 2,
+              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+              gap: "20px",
+              "@media (max-width: 600px)": {
+                gridTemplateColumns: "1fr",
+              },
+            }}
+          >
+            <Grid
+              sx={{
+                // width: "30vw",
+                width: "300px",
+                backgroundColor: "#f5f5f5",
+                border: "1px solid #ccc",
+                borderRadius: "10px",
+              }}
+            >
+              <CardMedia
+                component="img"
+                sx={{
+                  width: "100%",
+                  padding: "10px",
+                  height: "200px",
+                  overflow: "hidden",
+                  borderRadius: "20px ",
+                  objectFit: "cover",
+                }}
+                image={myAd.images.length > 0 ? myAd.images[0] : [DummyImage]}
+                alt={myAd?.id}
+              />
+              <Grid
+                container
+                justifyContent={"space-between"}
+                sx={{ padding: "10px" }}
+              >
+                <Grid>
+                  <Typography variant="subtitle1">
+                    <Typography component="span" sx={{ fontWeight: 700 }}>
+                      {myAd?.action}
+                    </Typography>
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    <Typography component="span">
+                      Age({myAd?.aboutYou?.age ? myAd.aboutYou.age : "N/A"})
+                    </Typography>
+                  </Typography>
+                </Grid>
+                <Grid sx={{ px: 2 }}>
                   <Button
-                    variant="contained"
+                    variant={"contained"}
                     style={{
+                      // paddingRight:"16px",
                       backgroundColor: "orange",
                       color: "white",
-
                       borderRadius: "15px",
                       fontWeight: "700",
                     }}
-                    sx={{ borderRadius: "15px", mb: 1, pr: 1 }}
                     onClick={() =>
-                      navigate(`/rooms/view-room/${myAd.id}/?active=true`)
+                      navigate(
+                        `/roommate/view-roommate/${myAd.id}/?active=true`
+                      )
                     }
                   >
-                    All Details
+                    View Ad
                   </Button>
                 </Grid>
+                <hr style={{ borderTop: "1px solid #000", width: "100%" }} />
               </Grid>
-            </Grid>
-          ))
-      : myAds
-          ?.slice(0, noOfCount)
-          .reverse()
-          .map((myAd) => (
-            <Grid
-              key={myAd._id}
-              item
-              // xs={12}
-              // sm={6}
-              // md={3}
-              // sx={{ cursor: "pointer", p: 2 }}
-              sx={{
-                display: "grid",
-                cursor: "pointer",
-                p: 2,
-                gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-                gap: "20px",
-                "@media (max-width: 600px)": {
-                  gridTemplateColumns: "1fr",
-                },
-              }}
-            >
-              <Grid
-                sx={{
-                  // width: "30vw",
-                  width: "300px",
-                  backgroundColor: "#f5f5f5",
-                  border: "1px solid #ccc",
-                  borderRadius: "10px",
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  sx={{
-                    width: "100%",
-                    padding: "10px",
-                    height: "200px",
-                    overflow: "hidden",
-                    borderRadius: "20px ",
-                    objectFit: "cover",
-                  }}
-                  image={myAd.images.length > 0 ? myAd.images[0] : [DummyImage]}
-                  alt={myAd?.id}
-                />
-                <Grid
-                  container
-                  justifyContent={"space-between"}
-                  sx={{ padding: "10px" }}
-                >
-                  <Grid>
-                    <Typography variant="subtitle1">
-                      <Typography component="span" sx={{ fontWeight: 700 }}>
-                        {myAd?.action}
-                      </Typography>
-                    </Typography>
-                    <Typography variant="subtitle1">
-                      <Typography component="span">
-                        Age({myAd?.aboutYou?.age ? myAd.aboutYou.age : "N/A"})
-                      </Typography>
-                    </Typography>
-                  </Grid>
-                  <Grid sx={{ px: 2 }}>
-                    <Button
-                      variant={"contained"}
-                      style={{
-                        // paddingRight:"16px",
-                        backgroundColor: "orange",
-                        color: "white",
-                        borderRadius: "15px",
-                        fontWeight: "700",
-                      }}
-                      onClick={() =>
-                        navigate(
-                          `/roommate/view-roommate/${myAd.id}/?active=true`
-                        )
-                      }
-                    >
-                      View Ad
-                    </Button>
-                  </Grid>
-                  <hr style={{ borderTop: "1px solid #000", width: "100%" }} />
-                </Grid>
 
-                <Grid container justifyContent={"space-between"}>
-                  <Grid item>
-                    <Typography sx={{ pl: 2 }}>Budget </Typography>
-                    <Typography sx={{ fontWeight: 700, pl: 2 }}>
-                      AED {myAd?.budget}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography sx={{ pr: 2 }}>Moving date </Typography>
-                    <Typography sx={{ fontWeight: 700, pr: 2 }}>
-                      {myAd?.movingDate
-                        ? new Date(myAd?.movingDate).toLocaleDateString(
-                            undefined,
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            }
-                          )
-                        : new Date(myAd?.createdAt).toLocaleDateString(
-                            undefined,
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            }
-                          )}
-                    </Typography>
-                  </Grid>
+              <Grid container justifyContent={"space-between"}>
+                <Grid item>
+                  <Typography sx={{ pl: 2 }}>Budget </Typography>
+                  <Typography sx={{ fontWeight: 700, pl: 2 }}>
+                    {myAd?.budget.toLocaleString()} AED
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography sx={{ pr: 2 }}>Moving date </Typography>
+                  <Typography sx={{ fontWeight: 700, pr: 2 }}>
+                    {myAd?.movingDate
+                      ? new Date(myAd?.movingDate).toLocaleDateString(
+                          undefined,
+                          {
+                            weekday: "short",
+                            year: "numeric",
+                            month: "numeric",
+                            day: "numeric",
+                          }
+                        )
+                      : "N/A"}
+                  </Typography>
                 </Grid>
               </Grid>
             </Grid>
-          ));
+          </Grid>
+        ));
 
   useEffect(() => {
     fetchMyAds();

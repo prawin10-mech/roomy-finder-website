@@ -48,7 +48,7 @@ const AboutBooking = () => {
 
   const getStatusColor = (status) => {
     if (status === "offered") {
-      return "green";
+      return "#07da63";
     } else if (status === "pending") {
       return "blue";
     }
@@ -127,13 +127,17 @@ const AboutBooking = () => {
     }
   };
 
-  const handleChatWithClient = async (property,type) => {
+  const handleChatWithClient = async (property, type) => {
     try {
       console.log("property", property);
-      if(type==="landlord"){
-        navigate(`/directchat/${property.client.id}`, { state: {property,type }});
-      }else{
-        navigate(`/directchat/${property.poster.id}`, { state: {property,type } });
+      if (type === "landlord") {
+        navigate(`/directchat/${property.client.id}`, {
+          state: { property, type },
+        });
+      } else {
+        navigate(`/directchat/${property.poster.id}`, {
+          state: { property, type },
+        });
       }
     } catch (error) {
       // Handle any errors that occur during token generation
@@ -225,7 +229,7 @@ const AboutBooking = () => {
               <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
                 Quantity:
               </Typography>
-              <Typography>{property?.quantity}</Typography>
+              <Typography>{property?.quantity} Room</Typography>
             </Grid>
             <Grid
               item
@@ -275,7 +279,7 @@ const AboutBooking = () => {
                   color: getStatusColor(property?.status),
                 }}
               >
-                {!property?.isPayed ? capitalize(property?.status) : "Paid"}
+                {!property?.isPayed ? capitalize(property?.status) : "Offered"}
               </Typography>
             </Grid>
             {property && property.status === "offered" && (
@@ -443,7 +447,7 @@ const AboutBooking = () => {
                     my: 2,
                   }}
                 >
-                  About Client
+                  About Landlord
                 </Typography>
                 <Grid
                   item
@@ -454,7 +458,7 @@ const AboutBooking = () => {
                     Name:
                   </Typography>
                   <Typography>
-                    {property?.client?.firstName}, {property?.client?.lastName}
+                    {property?.client?.firstName} {property?.client?.lastName}
                   </Typography>
                 </Grid>
                 <Grid
@@ -509,9 +513,8 @@ const AboutBooking = () => {
               >
                 <Button
                   variant="contained"
-                  sx={{bgcolor: "orange"}}
-                  
-                  onClick={() => handleChatWithClient(property,"roommate")}
+                  sx={{ bgcolor: "orange" }}
+                  onClick={() => handleChatWithClient(property, "roommate")}
                 >
                   Chat with landlord
                 </Button>
@@ -534,7 +537,7 @@ const AboutBooking = () => {
                       bgcolor: "#ff9900",
                     },
                   }}
-                  onClick={() => handleChatWithClient(property,"landlord")}
+                  onClick={() => handleChatWithClient(property, "landlord")}
                 >
                   Chat with Client
                 </Button>
