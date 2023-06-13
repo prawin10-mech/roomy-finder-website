@@ -20,6 +20,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Notification from "../Notifictions";
 import { TenantActions } from "../../store/Tenant";
+import male1 from "../../assets/male and female icon /male1.png"
+import female1 from "../../assets/male and female icon /images.png"
 
 const pages = [
   "About Us",
@@ -383,7 +385,7 @@ const Nav = () => {
             >
               <Avatar
                 alt={`${user?.firstName} ${user?.lastName}`}
-                src={`${user?.profilePicture}`}
+                src={user?.profilePicture !== null ? user?.profilePicture : user?.gender ==="Male" ? male1 : female1}
                 sx={{
                   width: 50,
                   height: 50,
@@ -428,7 +430,7 @@ const Nav = () => {
                 >
                   <Avatar
                     alt={`${user?.firstName} ${user?.lastName}`}
-                    src={`${user?.profilePicture}`}
+                    src={user?.profilePicture !== null ? user?.profilePicture : user?.gender ==="Male" ? male1 : female1} 
                     sx={{
                       width: 50,
                       height: 50,
@@ -436,8 +438,10 @@ const Nav = () => {
                       border: "2px solid purple",
                     }}
                   >
-                    {user?.firstName?.charAt(0)}
-                    {user?.lastName?.charAt(0)}
+                  {/* {console.log(user,"user1234567")} */}
+                    {/* {user?.firstName?.charAt(0)}
+                    {user?.lastName?.charAt(0)} */}
+                    {/* {user?.gender ==="Male" ? } */}
                   </Avatar>
                 </IconButton>
                 <Typography sx={{ fontWeight: "700" }}>

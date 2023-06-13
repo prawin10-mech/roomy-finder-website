@@ -38,23 +38,24 @@ const notificationStyle = {
 
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
-
+  
   const deleteNotification = (id) => {
     const updatedNotifications = notifications.filter(
       (notification) => notification.id !== id
-    );
-    sessionStorage.setItem(
-      "notifications",
-      JSON.stringify(updatedNotifications)
-    );
-    setNotifications(updatedNotifications);
-  };
-
-  const notificationData = notifications?.map((notification) => {
-    const time = new Date(notification.time).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+      );
+      sessionStorage.setItem(
+        "notifications",
+        JSON.stringify(updatedNotifications)
+        );
+        setNotifications(updatedNotifications);
+      };
+      
+      const notificationData = notifications?.map((notification) => {
+        const time = new Date(notification.time).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        console.log("notification on page",notification);
 
     return (
       <Grid key={notification.id} sx={notificationStyle.container}>
