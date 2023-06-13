@@ -102,75 +102,84 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
       <div style={{ position: "relative" }}>
         <Slider {...settings}>
           {propertyAddAvilableRoom?.map((item) => (
-            <Grid key={item.id} sx={{ padding: "15px" }}>
-              {console.log(item)}
-              <div
-                style={{
-                  borderRadius: "10px",
+            <Grid sx={{ padding: "15px" }}>
+              <Grid
+                key={item.id}
+                sx={{
+                  boxShadow: "0px 0px 7px  rgba(0,0,0,0.5)",
+                  borderRadius: "15px",
                   overflow: "hidden",
-                  width: "100%",
-                  position: "relative",
-                  paddingBottom: "75%", // Maintain 4:3 aspect ratio
+                  cursor: "pointer",
                 }}
+                onClick={() => navigate(`/rooms/view-room/${item?.id}`)}
               >
-                {item.images.length > 0 ? (
-                  <div
-                    style={{
+                {console.log(item)}
+                <div
+                  style={{
+                    overflow: "hidden",
+                    width: "100%",
+                    position: "relative",
+                    paddingBottom: "70%",
+                  }}
+                >
+                  {item.images.length > 0 ? (
+                    <img
+                      src={item.images[0]}
+                      alt={item.name}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        // borderRadius: "15px",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={DummyImage}
+                      alt={item.name}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        // borderRadius: "10px",
+                      }}
+                    />
+                  )}
+                </div>
+                <div
+                  style={{ marginTop: "10px", cursor: "pointer" }}
+                  onClick={() => citiesInUae(item)}
+                >
+                  <Box
+                    sx={{
                       display: "flex",
-                      justifyContent: "space-between",
-                      height: "100%",
+                      justifyContent: "start",
+                      flexDirection: "column",
+                      alignItems: "start",
+                      ml: 1,
                     }}
                   >
-                    {item.images.map((image, index) => (
-                      <img
-                        key={index}
-                        src={image}
-                        alt={item.name}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                          borderRadius: "10px",
-                          marginLeft: index !== 0 ? "10px" : 0,
-                        }}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <img
-                    src={DummyImage}
-                    alt={item.name}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      borderRadius: "10px",
-                    }}
-                  />
-                )}
-              </div>
-              <div
-                style={{ marginTop: "10px", cursor: "pointer" }}
-                onClick={() => citiesInUae(item)}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "start",
-                    flexDirection: "column",
-                    alignItems: "start",
-                  }}
-                  onClick={() => navigate(`/rooms/view-room/${item?.id}`)}
-                >
-                  <Typography fontWeight={400}>{item.type}</Typography>
-                  <Typography fontWeight={700}>
-                    {item.monthlyPrice + 0.1 * item.monthlyPrice} AED / month
-                  </Typography>
-                </Box>
-              </div>
+                    <Typography fontWeight={400}>{item.type}</Typography>
+                    <Typography fontWeight={400}>
+                      {item.address.location + ", " + item.address.city}
+                    </Typography>
+                    <Typography fontWeight={700}>
+                      {item.preferedRentType === "Monthly" &&
+                        item.monthlyPrice + 0.1 * item.monthlyPrice + " AED"}
+                      {item.preferedRentType === "Weekly" &&
+                        item.weeklyPrice + 0.1 * item.weeklyPrice + " AED"}
+                      {item.preferedRentType === "Daily" &&
+                        item.dailyPrice + 0.05 * item.dailyPrice + " AED"}
+                    </Typography>
+                  </Box>
+                </div>
+              </Grid>
             </Grid>
           ))}
         </Slider>

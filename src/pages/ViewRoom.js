@@ -199,25 +199,29 @@ const ViewRoom = () => {
   };
 
   const handleConfirmCancel = async (bookingId) => {
-    await axios.post(
-      "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad/tenant/cancel",
-      { bookingId },
-      { headers: { Authorization: token } }
-    );
-    setIsBooked(false);
-    // sendNotification(
-    //   "booking-cancelled",
-    //   `Dear ${bookedProperty.ad.poster.firstName} ${
-    //     bookedProperty.ad.poster.lastName
-    //   }, a client just cancelled ${
-    //     bookedProperty.poster.gender === "Male" ? "his" : "her"
-    //   } booking of your property ${bookedProperty.ad.type} in ${
-    //     bookedProperty.ad.address.city
-    //   } `,
-    //   `${bookedProperty.ad.poster.fcmToken}`
-    // );
+    try {
+      await axios.post(
+        "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad/tenant/cancel",
+        { bookingId },
+        { headers: { Authorization: token } }
+      );
+      setIsBooked(false);
+      // sendNotification(
+      //   "booking-cancelled",
+      //   `Dear ${bookedProperty.ad.poster.firstName} ${
+      //     bookedProperty.ad.poster.lastName
+      //   }, a client just cancelled ${
+      //     bookedProperty.poster.gender === "Male" ? "his" : "her"
+      //   } booking of your property ${bookedProperty.ad.type} in ${
+      //     bookedProperty.ad.address.city
+      //   } `,
+      //   `${bookedProperty.ad.poster.fcmToken}`
+      // );
 
-    setCancelDialogOpen(false);
+      setCancelDialogOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleRejectCancel = () => {
@@ -226,50 +230,62 @@ const ViewRoom = () => {
   };
 
   const handleCancelBookRoom1 = async (bookingId) => {
-    await axios.post(
-      "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad/tenant/cancel",
-      { bookingId },
-      { headers: { Authorization: token } }
-    );
-    setIsBooked(false);
-    // sendNotification(
-    //   "booking-cancelled",
-    //   `Dear ${bookedProperty.ad.poster.firstName} ${
-    //     bookedProperty.ad.poster.lastName
-    //   }, a client just cancelled ${
-    //     bookedProperty.poster.gender === "Male" ? "his" : "her"
-    //   } booking of your property ${bookedProperty.ad.type} in ${
-    //     bookedProperty.ad.address.city
-    //   } `,
-    //   `${bookedProperty.ad.poster.fcmToken}`
-    // );
+    try {
+      await axios.post(
+        "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad/tenant/cancel",
+        { bookingId },
+        { headers: { Authorization: token } }
+      );
+      setIsBooked(false);
+      // sendNotification(
+      //   "booking-cancelled",
+      //   `Dear ${bookedProperty.ad.poster.firstName} ${
+      //     bookedProperty.ad.poster.lastName
+      //   }, a client just cancelled ${
+      //     bookedProperty.poster.gender === "Male" ? "his" : "her"
+      //   } booking of your property ${bookedProperty.ad.type} in ${
+      //     bookedProperty.ad.address.city
+      //   } `,
+      //   `${bookedProperty.ad.poster.fcmToken}`
+      // );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const gotoEditOption = async (AdId) => {
-    const { data } = await axios.get(
-      `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/my-ads/${AdId}`,
-      { headers: { Authorization: token } }
-    );
-    dispatch(PropertyActions.editedData(data));
-    dispatch(PropertyActions.edit(true));
-    navigate("/postProperty");
+    try {
+      const { data } = await axios.get(
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/my-ads/${AdId}`,
+        { headers: { Authorization: token } }
+      );
+      dispatch(PropertyActions.editedData(data));
+      dispatch(PropertyActions.edit(true));
+      navigate("/postProperty");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const getMyBookings = async () => {
-    const { data } = await axios.get(
-      "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad",
-      { headers: { Authorization: token } }
-    );
-    const filterBookings = data.filter((booking) => {
-      return booking.ad.id === id;
-    });
-    const bookedRoom = filterBookings.find(
-      (booking) => booking.status === "pending"
-    );
+    try {
+      const { data } = await axios.get(
+        "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/bookings/property-ad",
+        { headers: { Authorization: token } }
+      );
+      const filterBookings = data.filter((booking) => {
+        return booking.ad.id === id;
+      });
+      const bookedRoom = filterBookings.find(
+        (booking) => booking.status === "pending"
+      );
 
-    if (bookedRoom) {
-      setIsBooked(true);
-      setBookedProperty(bookedRoom);
+      if (bookedRoom) {
+        setIsBooked(true);
+        setBookedProperty(bookedRoom);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -470,15 +486,20 @@ const ViewRoom = () => {
                     {room?.address?.buildingName}, {room?.address?.location},{" "}
                     {room?.address?.city}
                   </Typography>
-                  <Typography
-                    sx={{ mt: 1, fontWeight: 700, fontSize: "1.2rem" }}
-                  >
-                    {(
-                      room?.monthlyPrice +
-                      0.1 * room?.monthlyPrice
-                    ).toLocaleString()}{" "}
-                    AED / Month
-                  </Typography>
+                  <Grid container>
+                    <Typography
+                      sx={{ mt: 1, fontWeight: 700, fontSize: "1.2rem" }}
+                    >
+                      {(
+                        room?.monthlyPrice +
+                        0.1 * room?.monthlyPrice
+                      ).toLocaleString()}{" "}
+                      <span style={{ fontWeight: 700, fontSize: "0.8rem" }}>
+                        AED{" "}
+                      </span>
+                      / Month
+                    </Typography>
+                  </Grid>
                 </Box>
                 <Box
                   gap={2}

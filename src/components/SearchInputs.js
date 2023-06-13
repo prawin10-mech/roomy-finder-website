@@ -131,6 +131,8 @@ const SearchInputs = () => {
     dispatch(SearchActions.maxPrice(e.target.value));
   };
 
+  console.log(searchType);
+
   const handleSearch = async () => {
     setIsLoading(true);
     setError(null);
@@ -194,7 +196,6 @@ const SearchInputs = () => {
       width: "100%", // Add this line to set the width to 100%
     },
     buttonContainer: {
-      
       flex: { xs: "1 1 100%", lg: "1 1 auto" },
       display: "flex",
       alignItems: "center",
