@@ -197,7 +197,7 @@ const OurServices = () => {
               <Box
                 sx={{
                   mt: 1,
-                  mb: 1,
+                  // mb: 1,
                   pl: { md: 3, sm: 2, xs: 1 },
                   pr: { md: 3, sm: 2, xs: 1 },
                 }}

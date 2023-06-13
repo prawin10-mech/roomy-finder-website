@@ -9,7 +9,7 @@ const WhatsApp = () => {
   return (
     <Grid sx={{ position: "sticky", bottom: 0, right: 0, zIndex: 1550 }}>
       <Button onClick={handleWhatsAppClick}>
-        <img src={logo} alt="whatsApp logo" width="50px" />
+        <img src={logo} alt="whatsApp logo" width="70px" />
       </Button>
     </Grid>
   );
