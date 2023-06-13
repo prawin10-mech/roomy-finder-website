@@ -19,6 +19,7 @@ const Action = () => {
         p: 2,
         borderRadius: "15px",
         boxShadow: "0px 0px 9px  rgba(0,0,0,0.5)",
+        cursor: "pointer",
       }}
       onClick={() => handleActionSelection(data)}
     >
