@@ -144,6 +144,7 @@ const Footer = () => {
             </Grid>
           </Grid>
           {footerSections.map((section) => (
+            <>
             <Grid item key={section.title}>
               <Box>
                 <Typography
@@ -172,7 +173,64 @@ const Footer = () => {
                   ))}
                 </Box>
               </Box>
+              <Box>
+                <Typography
+                  variant="h6"
+                  sx={sectionStyles}
+                  onClick={() => handleFooterClick(section.title)}
+                >
+                  {section.title2}
+                </Typography>
+                <Box>
+                  {section?.items2?.map((item, index) => (
+                    <Box
+                      key={`${section.title}-${index}`}
+                      onClick={() =>
+                        section.links &&
+                        handleFooterSubLink(item, section.links[index])
+                      }
+                      sx={{
+                        cursor: section.items !== "Contact Us" ? "pointer" : "",
+                      }}
+                    >
+                      <Typography variant="subtitle2" sx={itemStyles}>
+                        {item}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
             </Grid>
+            {/* <Grid item key={section?.title2}>
+              <Box>
+                <Typography
+                  variant="h6"
+                  sx={sectionStyles}
+                  onClick={() => handleFooterClick(section.title)}
+                >
+                  {section.title2}
+                </Typography>
+                <Box>
+                  {section?.items2?.map((item, index) => (
+                    <Box
+                      key={`${section.title}-${index}`}
+                      onClick={() =>
+                        section.links &&
+                        handleFooterSubLink(item, section.links[index])
+                      }
+                      sx={{
+                        cursor: section.items !== "Contact Us" ? "pointer" : "",
+                      }}
+                    >
+                      <Typography variant="subtitle2" sx={itemStyles}>
+                        {item}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+            </Grid> */}
+            </>
           ))}
           <Grid item xs={12} sm={3}>
             <Box sx={{ width: "100%" }}>

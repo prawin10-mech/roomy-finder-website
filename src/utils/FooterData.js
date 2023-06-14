@@ -3,6 +3,10 @@ export const footerSections = [
     title: "Our Services",
     items: ["Find Room", "Find Roommate"],
     links: ["/sp", "/sp"],
+    
+      title2: "Blog",
+      items2: ["header","header2"],
+    
   },
   {
     title: "About Us",
@@ -25,8 +29,8 @@ export const footerSections = [
       "Tel: +1 412 403 3921",
     ],
   },
-  {
-    title: "Blog",
-    items: [],
-  },
+  // {
+  //   title: "Blog",
+  //   items: [],
+  // },
 ];
