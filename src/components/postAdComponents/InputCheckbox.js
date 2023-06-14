@@ -50,7 +50,7 @@ const InputCheckbox = ({ values, selectedValues }) => {
               },
               "& .MuiFormControlLabel-label": {
                 border: `2px solid ${
-                  amenities.indexOf(value) !== -1 ? "#3f51b5" : "transparent"
+                  amenities.indexOf(value) !== -1 ? "orange" : "transparent"
                 }`,
                 borderRadius: "5px",
                 padding: "8px 12px",

@@ -200,6 +200,7 @@ const Footer = () => {
               position: "absolute",
               bottom: 0,
               left: 0,
+              mb: "14px",
             }}
           >
             <a href="https://www.facebook.com/roomyfinder?mibextid=ZbWKwL">
@@ -273,7 +274,7 @@ const Footer = () => {
             backgroundImage: `url(${bottomBackground})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            backgroundSize: "100% 100%", // adjust the backgroundSize property
+            backgroundSize: "100% 100%",
             display: "flex",
             px: 5,
           }}

@@ -38,25 +38,22 @@ import { toast, ToastContainer } from "react-toastify";
 import { toastOptions } from "../utils/ToastOptions";
 
 import smokingimg from "../assets/icons/smoking.png";
-import smokingimg2 from "../assets/Roommate Ad display UI/sclkndslj.png";
 
 import drinkingimg from "../assets/icons/drinking.png";
-import drinkingimg2 from "../assets/comfortable with icon in post roommate Ad/1kjnwklcvde.png";
 
 import petsimg from "../assets/icons/pets.png";
-import petsimg2 from "../assets/comfortable with icon in post roommate Ad/s3cdsc.png";
 
 import visitorimg from "../assets/icons/visitors.png";
-import visitorimg2 from "../assets/Roommate Ad display UI/wcdewd.png";
 
 import partyimg from "../assets/icons/party.png";
-import partyimg2 from "../assets/comfortable with in Post property/sclkndslj.png";
 
 import owlimg from "../assets/Lifestyle icon in roommate ad/owl1.png";
-import owlimg2 from "../assets/Lifestyle icon in roommate ad/owl2.png";
 import birdimg from "../assets/Lifestyle icon in roommate ad/bird1.png";
 import birdimg2 from "../assets/Lifestyle icon in roommate ad/bird2.png";
 import CameraIcon from "@mui/icons-material/Camera";
+
+import TopBackground from "../components/postPropertyComponents/TopBackground";
+import BottomBackground from "../components/postPropertyComponents/BottomBackground";
 
 const PostAd = () => {
   const dispatch = useDispatch();
@@ -460,53 +457,15 @@ const PostAd = () => {
               }}
             >
               <Typography sx={{ width: "30%" }}>Astrological Sign</Typography>
-              {/* <Box sx={{ mt: 2 }}> */}
+
               <InputDropDown
-                // label="Astrological Sign"
                 name="yourAstrologicalSign"
                 values={[...astrologySigns]}
                 value={yourAstrologicalSign}
                 sx={{ width: "100%" }}
               />
-              {/* </Box> */}
             </Grid>
-            {/* <Grid item xs={12} sm={6} md={4}>
-              <Box sx={{ mt: 2 }}>
-                <TextField
-                  label="Languages you speak"
-                  name="languages"
-                  select
-                  SelectProps={{
-                    multiple: true,
-                    value: yourLanguages,
-                    onChange: handleLanguageSelection,
-                    renderValue: (selected) => (
-                      <div>
-                        {selected.map((value) => (
-                          <Chip
-                            key={value}
-                            label={value}
-                            style={{ margin: 2 }}
-                            onDelete={() => handleDeleteLanguage(value)}
-                          />
-                        ))}
-                      </div>
-                    ),
-                  }}
-                  variant="outlined"
-                  fullWidth
-                  sx={{ width: "100%" }}
-                >
-                  {availableLanguages.map((language) => (
-                    <MenuItem key={language} value={language}>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <span>{language}</span>
-                      </div>
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Box>
-            </Grid> */}
+
             <Grid
               item
               xs={12}
@@ -585,53 +544,6 @@ const PostAd = () => {
       </Grid>
 
       {action === "NEED ROOM" && (
-        // <Grid xs={12} justifyContent="center" my={2} gap={2} px={2}>
-        //   <Typography mb={2} fontWeight={600}>
-        //     Your LIFESTYLE
-        //   </Typography>
-        //   <Grid container gap={2} justifyContent={"center"}>
-        //     <Typography variant="h6" component="h3">
-        //       <Box
-        //         component="span"
-        //         onClick={() =>
-        //           dispatch(TenantActions.yourLifeStyle("Early Brird"))
-        //         }
-        //         sx={{
-        //           cursor: "pointer",
-        //           fontWeight: "500",
-        //           borderRadius: "15px",
-        //           color: yourLifeStyle === "Early Brird" ? "orange" : "black",
-        //           border: "1px solid",
-        //           borderColor:
-        //             yourLifeStyle === "Early Brird" ? "orange" : "white",
-        //           padding: 1,
-        //         }}
-        //       >
-        //         Early Brird
-        //       </Box>
-        //     </Typography>
-        //     <Typography variant="h6" component="h3">
-        //       <Box
-        //         component="span"
-        //         onClick={() =>
-        //           dispatch(TenantActions.yourLifeStyle("Night Owl"))
-        //         }
-        //         sx={{
-        //           cursor: "pointer",
-        //           fontWeight: "500",
-        //           borderRadius: "15px",
-        //           color: yourLifeStyle === "Night Owl" ? "orange" : "black",
-        //           border: "1px solid",
-        //           borderColor:
-        //             yourLifeStyle === "Night Owl" ? "orange" : "white",
-        //           padding: 1,
-        //         }}
-        //       >
-        //         Night Owl
-        //       </Box>
-        //     </Typography>
-        //   </Grid>
-        // </Grid>
         <Grid container spacing={2}>
           <Grid item>
             <Typography mb={2} sx={{ fontWeight: "600", my: 2 }}>
@@ -643,8 +555,10 @@ const PostAd = () => {
               <Box
                 sx={{
                   color: yourLifeStyle === "Early Brird" ? "orange" : "black",
-                  borderColor:
-                    yourLifeStyle === "Early Brird" ? "orange" : "white",
+                  border:
+                    yourLifeStyle === "Early Brird"
+                      ? "2px solid orange"
+                      : "white",
                   boxShadow: 9,
                   borderRadius: 5,
                   // fontWeight: 500,
@@ -658,26 +572,6 @@ const PostAd = () => {
                   dispatch(TenantActions.yourLifeStyle("Early Brird"))
                 }
               >
-                {/* {yourLifeStyle === "Early Brird" ? (
-                  <img
-                    src={birdimg2}
-                    alt="birdimg"
-                    style={{
-                      width: "70px",
-                      height: "70px",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={birdimg}
-                    alt="birdimg"
-                    style={{
-                      width: "70px",
-                      height: "70px",
-                    }}
-                  />
-                )} */}
-
                 <img
                   src={birdimg}
                   alt="birdimg"
@@ -700,8 +594,10 @@ const PostAd = () => {
               <Box
                 sx={{
                   color: yourLifeStyle === "Night Owl" ? "orange" : "black",
-                  borderColor:
-                    yourLifeStyle === "Night Owl" ? "orange" : "white",
+                  border:
+                    yourLifeStyle === "Night Owl"
+                      ? "2px solid orange"
+                      : "white",
                   boxShadow: 9,
                   borderRadius: 5,
                   // fontWeight: 600,
@@ -716,25 +612,6 @@ const PostAd = () => {
                   dispatch(TenantActions.yourLifeStyle("Night Owl"))
                 }
               >
-                {/* {yourLifeStyle === "Night Owl" ? (
-                  <img
-                    src={owlimg2}
-                    alt="owlimg"
-                    style={{
-                      width: "70px",
-                      height: "70px",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={owlimg}
-                    alt="owlimg"
-                    style={{
-                      width: "70px",
-                      height: "70px",
-                    }}
-                  />
-                )} */}
                 <img
                   src={owlimg}
                   alt="owlimg"
@@ -758,59 +635,6 @@ const PostAd = () => {
       )}
 
       {action === "NEED ROOM" && (
-        // <Grid xs={12} justifyContent="center" my={2} gap={2}>
-        //   <Typography sx={{ fontWeight: "600" }}>
-        //     Please choose your HOBBIES/INTERESTS:{" "}
-        //   </Typography>
-        //   <Grid container xs={12}>
-        //     {interestData.map((interest) => (
-        //       <Grid item xs={12} sm={4} key={interest.value}>
-        //         <Box
-        //           sx={{
-        //             cursor: "pointer",
-        //             fontWeight: "500",
-        //             borderRadius: "15px",
-        //             color: interests.includes(interest.value)
-        //               ? "orange"
-        //               : "black",
-        //             border: "1px solid",
-        //             borderColor: interests.includes(interest.value)
-        //               ? "orange"
-        //               : "purple",
-        //             padding: 1,
-        //             // margin: 1,
-        //             display: "flex",
-        //             flexDirection: "column",
-        //             justifyContent: "center",
-        //             alignItems: "center",
-        //           }}
-        //           onClick={() => {
-        //             const updatedInterests = interests.includes(interest.value)
-        //               ? interests.filter((item) => item !== interest.value)
-        //               : [...interests, interest.value];
-        //             dispatch(TenantActions.interests(updatedInterests));
-        //           }}
-        //         >
-        //           <img
-        //             src={interest.pictureimg}
-        //             alt={interest.value}
-        //             style={{
-        //               height: "40%",
-        //               width: "40%",
-        //             }}
-        //           />
-        //           <Typography
-        //             sx={{
-        //               fontWeight: "500",
-        //             }}
-        //           >
-        //             {interest.value}
-        //           </Typography>
-        //         </Box>
-        //       </Grid>
-        //     ))}
-        //   </Grid>
-        // </Grid>
         <Grid xs={12} justifyContent="center" my={2} gap={2}>
           <Typography sx={{ fontWeight: "600" }}>
             Please choose your HOBBIES/INTERESTS:
@@ -849,25 +673,6 @@ const PostAd = () => {
                     dispatch(TenantActions.interests(updatedInterests));
                   }}
                 >
-                  {/* {interests.includes(interest.value) ? (
-                    <img
-                      src={interest.pictureimg1}
-                      alt={interest.value}
-                      style={{
-                        height: "60%",
-                        width: "60%",
-                      }}
-                    />
-                  ) : (
-                    <img
-                      src={interest.pictureimg}
-                      alt={interest.value}
-                      style={{
-                        height: "60%",
-                        width: "60%",
-                      }}
-                    />
-                  )} */}
                   <img
                     src={interest.pictureimg}
                     alt={interest.value}
@@ -1100,9 +905,13 @@ const PostAd = () => {
                   borderRadius: "15px",
                   fontSize: { xs: "0.7rem", sm: "1rem" },
                   color: amenities.includes(amenity.value) ? "orange" : "black",
-                  boxShadow: amenities.includes(amenity.value)
-                    ? "0px 0px 15px rgba(255, 127, 0, 0.5)"
-                    : "0px 0px 15px rgba(0, 0, 0, 0.5)",
+                  border: amenities.includes(amenity.value)
+                    ? "2px solid orange"
+                    : "",
+                  // boxShadow: amenities.includes(amenity.value)
+                  //   ? "0px 0px 15px rgba(255, 127, 0, 0.5)"
+                  //   : "0px 0px 15px rgba(0, 0, 0, 0.5)",
+                  boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.5)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
@@ -1236,17 +1045,6 @@ const PostAd = () => {
                   }}
                   onClick={() => dispatch(TenantActions.smoking(!smoking))}
                 >
-                  {/* {
-                    smoking ? <img
-                    src={smokingimg2}
-                    alt="Peoples"
-                    style={{ width: "80px", height: "40px" }}
-                  /> : <img
-                    src={smokingimg}
-                    alt="Peoples"
-                    style={{ width: "80px", height: "40px" }}
-                  />
-                  } */}
                   <img
                     src={smokingimg}
                     alt="Peoples"
@@ -1278,19 +1076,6 @@ const PostAd = () => {
                   }}
                   onClick={() => dispatch(TenantActions.drinking(!drinking))}
                 >
-                  {/* {drinking ? (
-                    <img
-                      src={drinkingimg2}
-                      alt="Peoples"
-                      style={{ width: "80px", height: "40px" }}
-                    />
-                  ) : (
-                    <img
-                      src={drinkingimg}
-                      alt="Peoples"
-                      style={{ width: "80px", height: "40px" }}
-                    />
-                  )} */}
                   <img
                     src={drinkingimg}
                     alt="Peoples"
@@ -1322,19 +1107,6 @@ const PostAd = () => {
                   }}
                   onClick={() => dispatch(TenantActions.visitors(!visitors))}
                 >
-                  {/* {visitors ? (
-                    <img
-                      src={visitorimg2}
-                      alt="Peoples"
-                      style={{ width: "80px", height: "40px" }}
-                    />
-                  ) : (
-                    <img
-                      src={visitorimg}
-                      alt="Peoples"
-                      style={{ width: "80px", height: "40px" }}
-                    />
-                  )} */}
                   <img
                     src={visitorimg}
                     alt="Peoples"
@@ -1366,19 +1138,6 @@ const PostAd = () => {
                   }}
                   onClick={() => dispatch(TenantActions.party(!party))}
                 >
-                  {/* {party ? (
-                    <img
-                      src={partyimg2}
-                      alt="Peoples"
-                      style={{ width: "80px", height: "40px" }}
-                    />
-                  ) : (
-                    <img
-                      src={partyimg}
-                      alt="Peoples"
-                      style={{ width: "80px", height: "40px" }}
-                    />
-                  )} */}
                   <img
                     src={partyimg}
                     alt="Peoples"
@@ -1410,19 +1169,6 @@ const PostAd = () => {
                   }}
                   onClick={() => dispatch(TenantActions.pets(!pets))}
                 >
-                  {/* {pets ? (
-                    <img
-                      src={petsimg2}
-                      alt="Peoples"
-                      style={{ width: "80px", height: "40px" }}
-                    />
-                  ) : (
-                    <img
-                      src={petsimg}
-                      alt="Peoples"
-                      style={{ width: "80px", height: "40px" }}
-                    />
-                  )} */}
                   <img
                     src={petsimg}
                     alt="Peoples"
@@ -1594,18 +1340,6 @@ const PostAd = () => {
               </TextField>
               {/* </Box> */}
             </Grid>
-            {/* <Grid item xs={12}>
-              <Box sx={{ mt: 2 }}>
-                <TextField
-                  placeholder="Add description here"
-                  fullWidth
-                  value={description}
-                  onChange={(e) =>
-                    dispatch(TenantActions.description(e.target.value))
-                  }
-                />
-              </Box>
-            </Grid> */}
           </Grid>
         </Grid>
       )}
@@ -1649,25 +1383,6 @@ const PostAd = () => {
                     dispatch(TenantActions.interests(updatedInterests));
                   }}
                 >
-                  {/* {interests.includes(interest.value) ? (
-                    <img
-                      src={interest.pictureimg1}
-                      alt={interest.value}
-                      style={{
-                        height: "60%",
-                        width: "60%",
-                      }}
-                    />
-                  ) : (
-                    <img
-                      src={interest.pictureimg}
-                      alt={interest.value}
-                      style={{
-                        height: "60%",
-                        width: "60%",
-                      }}
-                    />
-                  )} */}
                   <img
                     src={interest.pictureimg}
                     alt={interest.value}
@@ -1702,8 +1417,10 @@ const PostAd = () => {
               <Box
                 sx={{
                   color: yourLifeStyle === "Early Brird" ? "orange" : "black",
-                  borderColor:
-                    yourLifeStyle === "Early Brird" ? "orange" : "white",
+                  border:
+                    yourLifeStyle === "Early Brird"
+                      ? "2px solid orange"
+                      : "white",
                   boxShadow: 9,
                   borderRadius: 5,
                   // fontWeight: 500,
@@ -1717,26 +1434,6 @@ const PostAd = () => {
                   dispatch(TenantActions.yourLifeStyle("Early Brird"))
                 }
               >
-                {/* {yourLifeStyle === "Early Brird" ? (
-                  <img
-                    src={birdimg2}
-                    alt="birdimg"
-                    style={{
-                      width: "70px",
-                      height: "70px",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={birdimg}
-                    alt="birdimg"
-                    style={{
-                      width: "70px",
-                      height: "70px",
-                    }}
-                  />
-                )} */}
-
                 <img
                   src={birdimg}
                   alt="birdimg"
@@ -1759,8 +1456,10 @@ const PostAd = () => {
               <Box
                 sx={{
                   color: yourLifeStyle === "Night Owl" ? "orange" : "black",
-                  borderColor:
-                    yourLifeStyle === "Night Owl" ? "orange" : "white",
+                  border:
+                    yourLifeStyle === "Night Owl"
+                      ? "2px solid orange"
+                      : "white",
                   boxShadow: 9,
                   borderRadius: 5,
                   // fontWeight: 600,
@@ -1775,25 +1474,6 @@ const PostAd = () => {
                   dispatch(TenantActions.yourLifeStyle("Night Owl"))
                 }
               >
-                {/* {yourLifeStyle === "Night Owl" ? (
-                  <img
-                    src={owlimg2}
-                    alt="owlimg"
-                    style={{
-                      width: "70px",
-                      height: "70px",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={owlimg}
-                    alt="owlimg"
-                    style={{
-                      width: "70px",
-                      height: "70px",
-                    }}
-                  />
-                )} */}
                 <img
                   src={owlimg}
                   alt="owlimg"

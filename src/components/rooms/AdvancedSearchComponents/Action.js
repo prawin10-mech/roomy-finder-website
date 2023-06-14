@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem, FormControl, Select, Typography, Grid } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AdvanceSearchActions } from "../../../store/AdvanceSearch";
 
@@ -14,7 +14,7 @@ const Action = () => {
   const cityOptions = ["NEED ROOM", "HAVE ROOM", "ALL"].map((data) => (
     <Grid
       sx={{
-        border: action === data ? "2px solid #800080" : "",
+        border: action === data ? "2px solid orange" : "",
         textAlign: "center",
         p: 2,
         borderRadius: "15px",

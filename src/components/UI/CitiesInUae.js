@@ -24,7 +24,7 @@ const items = [
   { id: 1, image: AbuDhabi, name: "Abu Dhabi", products: "130" },
   { id: 2, image: Ajman, name: "Ajman", products: "100" },
   { id: 3, image: Dubai, name: "Dubai", products: "1200" },
-  { id: 4, image: Jeddah, name: "Jeddah", products: "351" },
+  // { id: 4, image: Jeddah, name: "Jeddah", products: "351" },
   { id: 5, image: RasAlKima, name: "Ras Al Kima", products: "52" },
   { id: 6, image: Sharjah, name: "Sharjah", products: "142" },
   { id: 7, image: UmmAlQuwain, name: "Umm Al Quwain", products: "320" },

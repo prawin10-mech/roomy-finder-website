@@ -25,4 +25,8 @@ export const footerSections = [
       "Tel: +1 412 403 3921",
     ],
   },
+  {
+    title: "Blog",
+    items: [],
+  },
 ];

@@ -37,7 +37,7 @@ const PropertyType = () => {
   };
 
   const selectedCheckboxStyle = {
-    border: "2px solid #800080",
+    border: "2px solid orange",
     bgcolor: "#fff",
   };
 
