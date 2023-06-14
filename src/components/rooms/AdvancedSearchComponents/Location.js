@@ -8,7 +8,6 @@ import {
   rasAlkimaCities,
   ummAlQuwainCities,
   ajmanCities,
-  jeddahCities,
   meccaCities,
   riyadhCities,
 } from "../../../utils/citydata";
@@ -37,8 +36,6 @@ const Location = () => {
       setlocationdata(riyadhCities);
     } else if (searchText === "Mecca") {
       setlocationdata(meccaCities);
-    } else if (searchText === "Jeddah") {
-      setlocationdata(jeddahCities);
     } else {
       setlocationdata([]);
     }

@@ -27,7 +27,6 @@ import {
   rasAlkimaCities,
   ummAlQuwainCities,
   ajmanCities,
-  jeddahCities,
   meccaCities,
   riyadhCities,
 } from "../utils/citydata";
@@ -285,8 +284,6 @@ const PostAd = () => {
       setlocationdata(riyadhCities);
     } else if (city === "Mecca") {
       setlocationdata(meccaCities);
-    } else if (city === "Jeddah") {
-      setlocationdata(jeddahCities);
     } else {
       setlocationdata([]);
     }

@@ -43,6 +43,9 @@ const Footer = () => {
     if (title === "Our Services") {
       navigate("/");
     }
+    if (title === "Blog") {
+      navigate("/blogs");
+    }
   };
 
   const handleFooterSubLink = (item, link) => {

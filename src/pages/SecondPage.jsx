@@ -19,7 +19,6 @@ import {
   rasAlkimaCities,
   ummAlQuwainCities,
   ajmanCities,
-  jeddahCities,
   meccaCities,
   riyadhCities,
 } from "../utils/citydata";
@@ -91,8 +90,6 @@ const SecondPage = () => {
       setLocationData(riyadhCities);
     } else if (city === "Mecca") {
       setLocationData(meccaCities);
-    } else if (city === "Jeddah") {
-      setLocationData(jeddahCities);
     } else {
       setLocationData([]);
     }

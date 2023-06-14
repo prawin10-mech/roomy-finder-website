@@ -21,10 +21,8 @@ import Cookies from "js-cookie";
 import Notification from "../Notifictions";
 import { TenantActions } from "../../store/Tenant";
 
-
-
-import male3 from "../../assets/maleAndFemaleImage/male4.png"
-import female3 from "../../assets/maleAndFemaleImage/female4.png"
+import male3 from "../../assets/maleAndFemaleImage/male4.png";
+import female3 from "../../assets/maleAndFemaleImage/female4.png";
 
 const pages = [
   "About Us",
@@ -45,7 +43,7 @@ const Nav = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [user, setUser] = useState({});
-  const settings = ["Edit Profile", "Home", "My Account", "Logout"];
+  const settings = ["Edit Profile", "Home", "My Account", "Blogs", "Logout"];
 
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const handleClick = (link) => {
@@ -388,7 +386,13 @@ const Nav = () => {
             >
               <Avatar
                 alt={`${user?.firstName} ${user?.lastName}`}
-                src={user?.profilePicture !== null ? user?.profilePicture : user?.gender ==="Male" ? male3 : female3}
+                src={
+                  user?.profilePicture !== null
+                    ? user?.profilePicture
+                    : user?.gender === "Male"
+                    ? male3
+                    : female3
+                }
                 sx={{
                   width: 50,
                   height: 50,
@@ -433,7 +437,13 @@ const Nav = () => {
                 >
                   <Avatar
                     alt={`${user?.firstName} ${user?.lastName}`}
-                    src={user?.profilePicture !== null ? user?.profilePicture : user?.gender ==="Male" ? male3 : female3} 
+                    src={
+                      user?.profilePicture !== null
+                        ? user?.profilePicture
+                        : user?.gender === "Male"
+                        ? male3
+                        : female3
+                    }
                     sx={{
                       width: 50,
                       height: 50,
@@ -441,7 +451,7 @@ const Nav = () => {
                       border: "2px solid purple",
                     }}
                   >
-                  {/* {console.log(user,"user1234567")} */}
+                    {/* {console.log(user,"user1234567")} */}
                     {/* {user?.firstName?.charAt(0)}
                     {user?.lastName?.charAt(0)} */}
                     {/* {user?.gender ==="Male" ? } */}
@@ -466,6 +476,8 @@ const Nav = () => {
                   onClickHandler = () => handleItemClick("/editProfile");
                 } else if (setting === "My Account") {
                   onClickHandler = () => handleItemClick("/myAccount");
+                } else if (setting === "Blogs") {
+                  onClickHandler = () => handleItemClick("/blogs");
                 }
 
                 return (

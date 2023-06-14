@@ -41,6 +41,8 @@ import Message from "./pages/Message";
 import NewSignUpPage from "./pages/NewSignUpPage";
 import Notification from "./components/Notifictions";
 import WhatsApp from "./components/WhatsApp";
+import Blogs from "./pages/Blogs";
+import SingleBlog from "./pages/SingleBlog";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -159,6 +161,8 @@ const App = () => {
           <Route path="/allAvailableRooms" element={<AllRooms />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/newsignup" element={<NewSignUpPage />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/singleBlog/:id" element={<SingleBlog />} />
 
           <Route path="/rooms/view-room/:id" element={<ViewRoom />} />
           <Route path="/sp" element={<SecondPage />} />
