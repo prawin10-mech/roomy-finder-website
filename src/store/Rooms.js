@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { roomsType: "property", rooms: [] };
+const initialState = {
+  roomsType: "property",
+  rooms: [],
+  country: "United Arab Emirates",
+};
 
 const RoomsTypeSlice = createSlice({
   name: "rooms type",
@@ -14,6 +18,9 @@ const RoomsTypeSlice = createSlice({
     },
     availableRooms(state, action) {
       state.rooms = action.payload;
+    },
+    country(state, action) {
+      state.country = action.payload;
     },
   },
 });
