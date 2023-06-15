@@ -69,8 +69,6 @@ const Footer = () => {
     if (item === "Blog") {
       navigate("/blogs");
     }
-
-    console.log(item);
   };
 
   const getRoommatesData = async () => {
@@ -190,7 +188,7 @@ const Footer = () => {
               </Grid>
             </>
           ))}
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={3} sx={{ zIndex: 1 }}>
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" sx={sectionStyles}>
                 Get the app
