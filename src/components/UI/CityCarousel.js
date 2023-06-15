@@ -5,6 +5,8 @@ import USA from "../../assets/cityCarousel/usa.jpg";
 import Saudi from "../../assets/cityCarousel/saudi.jpg";
 import India from "../../assets/cityCarousel/india.jpg";
 import Egypt from "../../assets/cityCarousel/egypt.jpg";
+import Russia from "../../assets/cityCarousel/russia.jpg";
+import Turkey from "../../assets/cityCarousel/turkey.jpg";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -179,6 +181,8 @@ const CityCarousel = () => {
     { city: "India", imageSrc: India, altText: "India" },
     { city: "Egypt", imageSrc: Egypt, altText: "Egypt" },
     { city: "UAE", imageSrc: UAE, altText: "UAE" },
+    { city: "Russia", imageSrc: Russia, altText: "Russia" },
+    { city: "Turkey", imageSrc: Turkey, altText: "Turkey" },
   ];
 
   const carouselItems = carouselCities.map((city, index) => {
