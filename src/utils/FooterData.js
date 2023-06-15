@@ -3,10 +3,10 @@ export const footerSections = [
     title: "Our Services",
     items: ["Find Room", "Find Roommate"],
     links: ["/sp", "/sp"],
-    
-      title2: "Blog",
-      items2: ["header","header2"],
-    
+
+    title2: "Blog",
+    items2: [],
+    links2: ["/blogs"],
   },
   {
     title: "About Us",

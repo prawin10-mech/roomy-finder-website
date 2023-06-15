@@ -133,11 +133,17 @@ const CitiesInUae = () => {
       <div style={{ position: "relative" }}>
         <Slider {...settings}>
           {items.map((item) => (
-            <Grid sx={{ padding: "15px" }}>
+            <Grid
+              key={item.id}
+              sx={{ padding: "15px" }}
+              item
+              xs={12}
+              sm={6}
+              md={4}
+            >
               <Grid
-                key={item.id}
                 sx={{
-                  boxShadow: "0px 0px 7px  rgba(0,0,0,0.5)",
+                  boxShadow: "0px 0px 7px rgba(0,0,0,0.5)",
                   borderRadius: "10px",
                   overflow: "hidden",
                   cursor: "pointer",
@@ -151,6 +157,9 @@ const CitiesInUae = () => {
                     style={{
                       width: "100%",
                       height: "auto",
+                      objectFit: "cover",
+                      minHeight: "200px",
+                      maxHeight: "300px",
                     }}
                   />
                 </div>

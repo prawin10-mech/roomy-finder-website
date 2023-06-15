@@ -33,7 +33,6 @@ const Footer = () => {
   };
 
   const handleFooterClick = (title) => {
-    console.log(title);
     if (title === "Contact Us") {
       navigate("/contactUs");
     }
@@ -67,6 +66,11 @@ const Footer = () => {
     if (item === "Landlord Agreement") {
       window.open(landlord);
     }
+    if (item === "Blog") {
+      navigate("/blogs");
+    }
+
+    console.log(item);
   };
 
   const getRoommatesData = async () => {
@@ -145,91 +149,45 @@ const Footer = () => {
           </Grid>
           {footerSections.map((section) => (
             <>
-            <Grid item key={section.title}>
-              <Box>
-                <Typography
-                  variant="h6"
-                  sx={sectionStyles}
-                  onClick={() => handleFooterClick(section.title)}
-                >
-                  {section.title}
-                </Typography>
+              <Grid item key={section.title}>
                 <Box>
-                  {section.items.map((item, index) => (
-                    <Box
-                      key={`${section.title}-${index}`}
-                      onClick={() =>
-                        section.links &&
-                        handleFooterSubLink(item, section.links[index])
-                      }
-                      sx={{
-                        cursor: section.items !== "Contact Us" ? "pointer" : "",
-                      }}
-                    >
-                      <Typography variant="subtitle2" sx={itemStyles}>
-                        {item}
-                      </Typography>
-                    </Box>
-                  ))}
+                  <Typography
+                    variant="h6"
+                    sx={sectionStyles}
+                    onClick={() => handleFooterClick(section.title)}
+                  >
+                    {section.title}
+                  </Typography>
+                  <Box>
+                    {section.items.map((item, index) => (
+                      <Box
+                        key={`${section.title}-${index}`}
+                        onClick={() =>
+                          section.links &&
+                          handleFooterSubLink(item, section.links[index])
+                        }
+                        sx={{
+                          cursor:
+                            section.items !== "Contact Us" ? "pointer" : "",
+                        }}
+                      >
+                        <Typography variant="subtitle2" sx={itemStyles}>
+                          {item}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
                 </Box>
-              </Box>
-              <Box>
-                <Typography
-                  variant="h6"
-                  sx={sectionStyles}
-                  onClick={() => handleFooterClick(section.title)}
-                >
-                  {section.title2}
-                </Typography>
                 <Box>
-                  {section?.items2?.map((item, index) => (
-                    <Box
-                      key={`${section.title}-${index}`}
-                      onClick={() =>
-                        section.links &&
-                        handleFooterSubLink(item, section.links[index])
-                      }
-                      sx={{
-                        cursor: section.items !== "Contact Us" ? "pointer" : "",
-                      }}
-                    >
-                      <Typography variant="subtitle2" sx={itemStyles}>
-                        {item}
-                      </Typography>
-                    </Box>
-                  ))}
+                  <Typography
+                    variant="h6"
+                    sx={sectionStyles}
+                    onClick={() => navigate("/blogs")}
+                  >
+                    {section.title2}
+                  </Typography>
                 </Box>
-              </Box>
-            </Grid>
-            {/* <Grid item key={section?.title2}>
-              <Box>
-                <Typography
-                  variant="h6"
-                  sx={sectionStyles}
-                  onClick={() => handleFooterClick(section.title)}
-                >
-                  {section.title2}
-                </Typography>
-                <Box>
-                  {section?.items2?.map((item, index) => (
-                    <Box
-                      key={`${section.title}-${index}`}
-                      onClick={() =>
-                        section.links &&
-                        handleFooterSubLink(item, section.links[index])
-                      }
-                      sx={{
-                        cursor: section.items !== "Contact Us" ? "pointer" : "",
-                      }}
-                    >
-                      <Typography variant="subtitle2" sx={itemStyles}>
-                        {item}
-                      </Typography>
-                    </Box>
-                  ))}
-                </Box>
-              </Box>
-            </Grid> */}
+              </Grid>
             </>
           ))}
           <Grid item xs={12} sm={3}>
