@@ -331,9 +331,9 @@ const Nav = () => {
           Message
         </Button>
       </Stack>
-      {/* <Grid>
+      <Grid sx={{ display: "flex", alignItems: "center" }}>
         <Countries />
-      </Grid> */}
+      </Grid>
 
       {!isLoggedIn ||
       !token ||
