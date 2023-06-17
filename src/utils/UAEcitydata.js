@@ -9,6 +9,8 @@ export const citydata = [
   "Riyadh",
 ];
 
+export const SAcitydata = ["Riyadh"];
+
 // Saudi Arabia cities
 export const jeddahCities = [
   "AL-Fayhaa",

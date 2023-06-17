@@ -6,8 +6,6 @@ import {
   Chip,
   MenuItem,
   Button,
-  Paper,
-  Stack,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,7 +15,6 @@ import TextInput from "../components/postAdComponents/TextInput";
 import { allNationalities } from "../utils/AllNationalities";
 import { availableLanguages } from "../utils/availableLanguages";
 import ImageInput from "../components/postAdComponents/ImageInputNew";
-// import CameraInputNew from "../components/postAdComponents/CameraInputNew";
 import VideoInput from "../components/postAdComponents/VideoInputNew";
 import {
   citydata,
@@ -29,7 +26,7 @@ import {
   ajmanCities,
   meccaCities,
   riyadhCities,
-} from "../utils/citydata";
+} from "../utils/UAEcitydata";
 import { astrologySigns } from "../utils/AstorologicalSigns";
 import { allAmenities, interestData } from "../utils/AllAmenities";
 import axios from "axios";
@@ -95,6 +92,7 @@ const PostAd = () => {
     isEdit,
     adId,
   } = useSelector((state) => state.tenant);
+  const countryCode = useSelector((state) => state.room.country);
 
   const handleOptionChange = (option) => {
     dispatch(TenantActions.action(option));
@@ -124,7 +122,7 @@ const PostAd = () => {
       };
 
       const address = {
-        countryCode: "AE",
+        countryCode,
         city,
         location,
       };
@@ -189,7 +187,7 @@ const PostAd = () => {
       };
 
       const address = {
-        countryCode: "AE",
+        countryCode,
         city,
         location,
       };
@@ -248,9 +246,6 @@ const PostAd = () => {
     }
 
     if (!/^\d+$/.test(budget)) {
-      console.log(budget);
-      console.log(/^\d+$/.test("210aa0"));
-      console.log("failed");
       toast.error("Budget must be a number", toastOptions);
       return false;
     }
@@ -268,24 +263,27 @@ const PostAd = () => {
   };
 
   const viewArrayData = () => {
-    if (city === "Dubai") {
-      setlocationdata(dubaiCities);
-    } else if (city === "Abu Dhabi") {
-      setlocationdata(abuDahbiCities);
-    } else if (city === "Sharjah") {
-      setlocationdata(sharjahCities);
-    } else if (city === "Ras Al Kima") {
-      setlocationdata(rasAlkimaCities);
-    } else if (city === "Umm Al-Quwain") {
-      setlocationdata(ummAlQuwainCities);
-    } else if (city === "Ajman") {
-      setlocationdata(ajmanCities);
-    } else if (city === "Riyadh") {
-      setlocationdata(riyadhCities);
-    } else if (city === "Mecca") {
-      setlocationdata(meccaCities);
-    } else {
-      setlocationdata([]);
+    if (countryCode === "AE") {
+      if (city === "Dubai") {
+        setlocationdata(dubaiCities);
+      } else if (city === "Abu Dhabi") {
+        setlocationdata(abuDahbiCities);
+      } else if (city === "Sharjah") {
+        setlocationdata(sharjahCities);
+      } else if (city === "Ras Al Kima") {
+        setlocationdata(rasAlkimaCities);
+      } else if (city === "Umm Al-Quwain") {
+        setlocationdata(ummAlQuwainCities);
+      } else if (city === "Ajman") {
+        setlocationdata(ajmanCities);
+      } else if (city === "Riyadh") {
+        setlocationdata(riyadhCities);
+      } else if (city === "Mecca") {
+        setlocationdata(meccaCities);
+      } else {
+        setlocationdata([]);
+      }
+    } else if (countryCode === "SA") {
     }
   };
   useEffect(() => {

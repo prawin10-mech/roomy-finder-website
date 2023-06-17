@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   roomsType: "property",
   rooms: [],
-  country: "United Arab Emirates",
+  country: "AE",
 };
 
 const RoomsTypeSlice = createSlice({

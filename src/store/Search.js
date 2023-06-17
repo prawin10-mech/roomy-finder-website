@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   searchType: "property",
-  searchText: "Dubai",
+  searchText: "",
   propertyType: null,
   location: null,
   price: null,

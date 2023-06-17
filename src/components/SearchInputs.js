@@ -23,6 +23,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 import {
   citydata,
+  SAcitydata,
   dubaiCities,
   abuDahbiCities,
   sharjahCities,
@@ -31,7 +32,7 @@ import {
   ajmanCities,
   meccaCities,
   riyadhCities,
-} from "../utils/citydata";
+} from "../utils/UAEcitydata";
 
 const SearchInputs = () => {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ const SearchInputs = () => {
   const maxPrice = useSelector((state) => state.search.maxPrice);
   const gender = useSelector((state) => state.search.gender);
   const rentPeriod = useSelector((state) => state.search.PreferredRentType);
+  const countryCode = useSelector((state) => state.room.country);
   const commercialProperty = useSelector(
     (state) => state.search.commercialProperty
   );
@@ -61,38 +63,59 @@ const SearchInputs = () => {
       : ["All", "Studio", "Apartment", "House"];
 
   const viewArrayData = () => {
-    if (searchText === "Dubai") {
-      setlocationdata(dubaiCities);
-    } else if (searchText === "Abu Dhabi") {
-      setlocationdata(abuDahbiCities);
-    } else if (searchText === "Sharjah") {
-      setlocationdata(sharjahCities);
-    } else if (searchText === "Ras Al Kima") {
-      setlocationdata(rasAlkimaCities);
-    } else if (searchText === "Umm Al-Quwain") {
-      setlocationdata(ummAlQuwainCities);
-    } else if (searchText === "Ajman") {
-      setlocationdata(ajmanCities);
-    } else if (searchText === "Riyadh") {
-      setlocationdata(riyadhCities);
-    } else if (searchText === "Mecca") {
-      setlocationdata(meccaCities);
-    } else {
-      setlocationdata([]);
+    if (countryCode === "AE") {
+      if (searchText === "Dubai") {
+        setlocationdata(dubaiCities);
+      } else if (searchText === "Abu Dhabi") {
+        setlocationdata(abuDahbiCities);
+      } else if (searchText === "Sharjah") {
+        setlocationdata(sharjahCities);
+      } else if (searchText === "Ras Al Kima") {
+        setlocationdata(rasAlkimaCities);
+      } else if (searchText === "Umm Al-Quwain") {
+        setlocationdata(ummAlQuwainCities);
+      } else if (searchText === "Ajman") {
+        setlocationdata(ajmanCities);
+      } else if (searchText === "Riyadh") {
+        setlocationdata(riyadhCities);
+      } else if (searchText === "Mecca") {
+        setlocationdata(meccaCities);
+      } else {
+        setlocationdata([]);
+      }
+    } else if (countryCode === "SA") {
     }
   };
+
   useEffect(() => {
     viewArrayData();
-  }, [searchText]);
+
+    const filtered =
+      countryCode === "AE"
+        ? citydata.map((city) => city)
+        : countryCode === "SA"
+        ? SAcitydata.map((city) => city)
+        : "";
+    setFilteredCities(filtered);
+  }, [searchText, countryCode]);
 
   const handleSearchTextChange = (event, value) => {
     const searchText = value || "";
-    const filtered = citydata.filter((city) =>
-      city.toLowerCase().includes(searchText.toLowerCase())
-    );
+    const filtered =
+      countryCode === "AE"
+        ? citydata.filter((city) =>
+            city.toLowerCase().includes(searchText.toLowerCase())
+          )
+        : countryCode === "SA"
+        ? SAcitydata.filter((city) =>
+            city.toLowerCase().includes(searchText.toLowerCase())
+          )
+        : "";
     setFilteredCities(filtered);
     dispatch(SearchActions.searchText(searchText));
   };
+
+  console.log(filteredCities);
 
   const handleCityClick = (event, value) => {
     dispatch(SearchActions.searchText(value));
@@ -133,7 +156,7 @@ const SearchInputs = () => {
     setError(null);
 
     try {
-      const obj = { countryCode: "AE" };
+      const obj = { countryCode };
 
       if (searchText) {
         obj.city = searchText;

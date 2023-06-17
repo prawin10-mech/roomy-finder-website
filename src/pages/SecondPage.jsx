@@ -13,6 +13,7 @@ import { UserActions } from "../store/User";
 import { SearchActions } from "../store/Search";
 import {
   citydata,
+  SAcitydata,
   dubaiCities,
   abuDahbiCities,
   sharjahCities,
@@ -21,7 +22,7 @@ import {
   ajmanCities,
   meccaCities,
   riyadhCities,
-} from "../utils/citydata";
+} from "../utils/UAEcitydata";
 import Ads from "../components/Ads";
 import bottomBackground from "../assets/bottomBackground.png";
 
@@ -34,6 +35,7 @@ const SecondPage = () => {
   const availableRooms = useSelector((state) => state.search.availableRooms);
   const searchType = useSelector((state) => state.search.searchType);
   const action = useSelector((state) => state.search.action);
+  const countryCode = useSelector((state) => state.room.country);
 
   const dispatch = useDispatch();
   const [locationData, setLocationData] = useState([]);
@@ -58,7 +60,7 @@ const SecondPage = () => {
     try {
       const { data } = await axios.post(
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
-        { countryCode: "AE" }
+        { countryCode }
       );
       dispatch(SearchActions.availableRooms(data));
     } catch (err) {
@@ -73,30 +75,40 @@ const SecondPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    getPartitionRoomData();
+  }, [countryCode]);
+
   const viewArrayData = () => {
-    if (city === "Dubai") {
-      setLocationData(dubaiCities);
-    } else if (city === "Abu Dhabi") {
-      setLocationData(abuDahbiCities);
-    } else if (city === "Sharjah") {
-      setLocationData(sharjahCities);
-    } else if (city === "Ras Al Kima") {
-      setLocationData(rasAlkimaCities);
-    } else if (city === "Umm Al-Quwain") {
-      setLocationData(ummAlQuwainCities);
-    } else if (city === "Ajman") {
-      setLocationData(ajmanCities);
-    } else if (city === "Riyadh") {
-      setLocationData(riyadhCities);
-    } else if (city === "Mecca") {
-      setLocationData(meccaCities);
-    } else {
+    if (countryCode === "AE") {
+      if (city === "Dubai") {
+        setLocationData(dubaiCities);
+      } else if (city === "Abu Dhabi") {
+        setLocationData(abuDahbiCities);
+      } else if (city === "Sharjah") {
+        setLocationData(sharjahCities);
+      } else if (city === "Ras Al Kima") {
+        setLocationData(rasAlkimaCities);
+      } else if (city === "Umm Al-Quwain") {
+        setLocationData(ummAlQuwainCities);
+      } else if (city === "Ajman") {
+        setLocationData(ajmanCities);
+      } else if (city === "Riyadh") {
+        setLocationData(riyadhCities);
+      } else if (city === "Mecca") {
+        setLocationData(meccaCities);
+      } else {
+        setLocationData([]);
+      }
+    } else if (countryCode === "SA") {
       setLocationData([]);
     }
   };
   useEffect(() => {
     viewArrayData();
-  }, [city]);
+  }, [city, countryCode]);
+
+  console.log(availableRooms);
 
   return (
     <>
@@ -187,7 +199,13 @@ const SecondPage = () => {
                 <CustomizeSelectBox
                   name={"City"}
                   fn="searchText"
-                  values={[...citydata]}
+                  values={
+                    countryCode === "AE"
+                      ? [...citydata]
+                      : countryCode === "SA"
+                      ? [...SAcitydata]
+                      : ""
+                  }
                 />
                 <CustomizeSelectBox
                   mainbox={{ m: 2 }}

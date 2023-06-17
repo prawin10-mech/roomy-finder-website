@@ -61,6 +61,7 @@ const ViewRoom = () => {
   }
 
   const rooms = useSelector((state) => state.search.availableRooms);
+  const countryCode = useSelector((state) => state.room.country);
   const [room, setRoom] = useState(rooms.find((room) => room.id === id));
 
   // const {
@@ -102,7 +103,7 @@ const ViewRoom = () => {
     try {
       const { data } = await axios.post(
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/roommate-ad/available",
-        { countryCode: "AE" }
+        { countryCode }
       );
 
       dispatch(SearchActions.availableRooms(data));

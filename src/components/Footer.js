@@ -311,7 +311,6 @@ const Footer = () => {
                 position: "absolute",
                 bottom: 0,
                 right: 0,
-                mb: "4px",
               }}
             >
               <img
