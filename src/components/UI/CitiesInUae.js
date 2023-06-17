@@ -98,10 +98,10 @@ const CitiesInUae = () => {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: countryCode === "AE" ? true : false,
     speed: 500,
-    slidesToShow: items.length > 4 ? 4 : items.length,
-    slidesToScroll: items.length > 4 ? 1 : items.length,
+    slidesToShow: 4,
+    slidesToScroll: 4,
     autoplay: true,
     autoplaySpeed: 3000,
     nextArrow: <CustomNextArrow />,
