@@ -115,8 +115,6 @@ const SearchInputs = () => {
     dispatch(SearchActions.searchText(searchText));
   };
 
-  console.log(filteredCities);
-
   const handleCityClick = (event, value) => {
     dispatch(SearchActions.searchText(value));
   };
