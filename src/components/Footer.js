@@ -7,11 +7,14 @@ import { footerSections } from "../utils/FooterData";
 import { useDispatch } from "react-redux";
 import { SearchActions } from "../store/Search";
 import axios from "axios";
+import Tooltip from '@mui/material/Tooltip';
 import landlord from "../assets/Agreements/landlord_agreement_roomy_finder.pdf";
 import privacy from "../assets/Agreements/privacy_policy_roomy_findner.pdf";
 import terms from "../assets/Agreements/t&c_roomy_finder.pdf";
-import appstore3 from "../assets/app & google play Image/as.jpg";
-import googleplaystore3 from "../assets/app & google play Image/gs.jpg";
+import appstore3 from "../assets/store/apple.jpg";
+import googleplaystore3 from "../assets/store/googleStore.jpg";
+import haw from "../assets/store/haw.jpg"
+import ms from "../assets/store/ms.jpg"
 import bottomBackground from "../assets/bottomBackground.png";
 
 import fb from "../assets/socialmedia/fb2.jpeg";
@@ -199,12 +202,35 @@ const Footer = () => {
                   onClick={() => navigate("/")}
                   sx={{ cursor: "pointer", my: 1 }}
                 >
+                <Tooltip title="Coming Soon">
+
                   <img src={appstore3} alt="App Store" width={120} />
+                </Tooltip>
                 </Box>
                 <Box item sx={{ cursor: "pointer", zIndex: 16000 }}>
                   <a href="https://play.google.com/store/apps/details?id=com.gsccapitalgroup.roomy_finder">
                     <img src={googleplaystore3} alt="Google Play" width={120} />
                   </a>
+                </Box>
+                <Box
+                  item
+                  onClick={() => navigate("/")}
+                  sx={{ cursor: "pointer", my: 1 }}
+                >
+                 <Tooltip title="Coming Soon">
+
+                  <img src={haw} alt="App Store" width={120} />
+                 </Tooltip>
+                </Box>
+                <Box
+                  item
+                  onClick={() => navigate("/")}
+                  sx={{ cursor: "pointer", my: 1 }}
+                >
+                 <Tooltip title="Coming Soon">
+
+                  <img src={ms} alt="App Store" width={120} />
+                 </Tooltip>
                 </Box>
               </Box>
             </Box>
@@ -244,6 +270,8 @@ const Footer = () => {
                 }}
               />
             </a>
+            <Tooltip title="Coming Soon">
+
             <a href="#">
               <img
                 src={twiter}
@@ -256,6 +284,7 @@ const Footer = () => {
                 }}
               />
             </a>
+            </Tooltip>
             <a href="https://www.snapchat.com/add/roomyfinder?share_id=ekhRZEdSMng&locale=en-US">
               <img
                 src={snapchat}
