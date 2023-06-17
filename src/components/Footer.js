@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Grid, Toolbar, Typography } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
-import FooterMobile from "../assets/footerMobile.png";
+import FooterMobile from "../assets/footerNewMobile.png";
 import { footerSections } from "../utils/FooterData";
 import { useDispatch } from "react-redux";
 import { SearchActions } from "../store/Search";
@@ -98,7 +98,7 @@ const Footer = () => {
   };
 
   return (
-    <Grid sx={{ display: "block", overflowX: "hidden", pt: "6px" }}>
+    <Grid sx={{ display: "block", overflowX: "hidden", pt: "6px",my:2 }}>
       <Toolbar
         sx={{
           display: "flex",
@@ -316,18 +316,22 @@ const Footer = () => {
       <Grid>
         <Box
           sx={{
-            py: 3,
+            pt: 0,
             backgroundImage: `url(${bottomBackground})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "100% 100%",
             display: "flex",
             px: 5,
+            
           }}
         >
           <Box
             sx={{
+              pt:1,
               position: "relative",
+              mt:{md:9},
+              // mb:4,
               height: "100%",
               display: "block",
               width: "100%",
@@ -335,18 +339,23 @@ const Footer = () => {
           >
             <Box
               sx={{
+                mt:"4px",
+                // py:3,
                 display: "flex",
                 justifyContent: "flex-end",
                 position: "absolute",
                 bottom: 0,
                 right: 0,
+                // height:"100%"
+                // pt:"20%"
               }}
             >
               <img
                 src={FooterMobile}
                 alt="Footer mobile"
                 width="65%"
-                style={{ maxWidth: "100%" }}
+                // height="90%"
+                style={{ maxWidth: "100%"}}
               />
             </Box>
           </Box>

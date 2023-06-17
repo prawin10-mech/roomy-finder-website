@@ -18,15 +18,17 @@ const AddWithCarasol = (props) => {
     <Grid container >
       <Grid
         container
-        spacing={2}
+        spacing={1}
         sx={{
-          py: 3,
+          mt:1,
+          py: 1,
           backgroundImage:`url(${topBackground})`,
           backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% 100%", // adjust the backgroundSize property
         display: "flex",
         px: 5,
+      
         }}
       >
         <Grid
