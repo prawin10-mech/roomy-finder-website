@@ -1,5 +1,5 @@
 import React from "react";
-import { citydata } from "../../../utils/citydata";
+import { citydata } from "../../../utils/UAEcitydata";
 import { Grid, FormControl, Select, MenuItem, Typography } from "@mui/material";
 import { AdvanceSearchActions } from "../../../store/AdvanceSearch";
 import { useDispatch, useSelector } from "react-redux";

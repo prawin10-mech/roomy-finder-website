@@ -12,6 +12,8 @@ import {
   Tooltip,
   Avatar,
   Grid,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector, useDispatch } from "react-redux";
@@ -49,6 +51,9 @@ const Nav = () => {
   const settings = ["Edit Profile", "Home", "My Account", "Blogs", "Logout"];
 
   const selectedCountry = useSelector((state) => state.room.country);
+
+  const theme = useTheme();
+  const isXsScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const handleClick = (link) => {
@@ -367,26 +372,28 @@ const Nav = () => {
           >
             Login
           </Button>
-          <Button
-            variant="contained"
-            color={activeLink === "postProperty" ? "primary" : "inherit"}
-            sx={{
-              borderRadius: "10px",
-              fontWeight: "bold",
-              color: "orange",
-              backgroundColor: "white",
-              border: "2px solid orange",
-              "&:hover": {
-                backgroundColor: "orange",
-                color: "white",
-              },
-            }}
-            onClick={() => handleClick("signUp")}
-            component={NavLink}
-            to={"/signup"}
-          >
-            Sign Up
-          </Button>
+          {isXsScreen && (
+            <Button
+              variant="contained"
+              color={activeLink === "postProperty" ? "primary" : "inherit"}
+              sx={{
+                borderRadius: "10px",
+                fontWeight: "bold",
+                color: "orange",
+                backgroundColor: "white",
+                border: "2px solid orange",
+                "&:hover": {
+                  backgroundColor: "orange",
+                  color: "white",
+                },
+              }}
+              onClick={() => handleClick("signUp")}
+              component={NavLink}
+              to={"/signup"}
+            >
+              Sign Up
+            </Button>
+          )}
         </Stack>
       ) : (
         <Box sx={{ flexGrow: 0, display: "flex" }}>

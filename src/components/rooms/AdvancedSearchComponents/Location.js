@@ -10,7 +10,7 @@ import {
   ajmanCities,
   meccaCities,
   riyadhCities,
-} from "../../../utils/citydata";
+} from "../../../utils/UAEcitydata";
 import { Autocomplete, Grid, TextField, Typography } from "@mui/material";
 import { AdvanceSearchActions } from "../../../store/AdvanceSearch";
 

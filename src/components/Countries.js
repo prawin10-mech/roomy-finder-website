@@ -29,30 +29,22 @@ import OM from "../assets/flags/OM.png";
 // import TR from "../assets/flags/TR.png";
 
 const countries = [
-  { name: "United Arab Emirates", flag: UAE },
-  { name: "Saudi Arabia", flag: SA },
-  { name: "Qatar", flag: QA },
-  { name: "Bahrain", flag: BH },
-  { name: "Kuwait", flag: KW },
-  { name: "Oman", flag: OM },
-  { name: "United States", flag: "🇺🇸" },
-  { name: "United Kingdom", flag: "🇬🇧" },
-  { name: "India", flag: "🇮🇳" },
-  { name: "Turkey", flag: "🇹🇷" },
+  { name: "United Arab Emirates", flag: UAE, code: "AE" },
+  { name: "Saudi Arabia", flag: SA, code: "SA" },
+  { name: "Qatar", flag: QA, code: "QA" },
+  { name: "Bahrain", flag: BH, code: "BH" },
+  { name: "Kuwait", flag: KW, code: "KW" },
+  { name: "Oman", flag: OM, code: "OM" },
+  { name: "United States", flag: "🇺🇸", code: "US" },
+  { name: "United Kingdom", flag: "🇬🇧", code: "GB" },
+  { name: "India", flag: "🇮🇳", code: "IN" },
+  { name: "Turkey", flag: "🇹🇷", code: "TR" },
 ];
 
 const Countries = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const dispatch = useDispatch();
-  const selectedCountry = useSelector((state) => state.room.country);
   const [CountryButton, setCountryButton] = useState(UAE);
-
-  const handleCountryChange = (event) => {
-    console.log("hello");
-    console.log(event.target.value);
-    dispatch(roomsTypeActions.country(selectedCountry));
-    setCountryButton(event.target.value);
-  };
 
   const handleOpenDialog = () => {
     setDialogOpen(true);
@@ -81,7 +73,7 @@ const Countries = () => {
                     country.name === "Saudi Arabia"
                   ) {
                     handleCloseDialog();
-                    dispatch(roomsTypeActions.country(country.name));
+                    dispatch(roomsTypeActions.country(country.code));
                     setCountryButton(country.flag);
                   } else {
                     handleCloseDialog();

@@ -22,7 +22,7 @@ import {
   ajmanCities,
   meccaCities,
   riyadhCities,
-} from "../utils/citydata";
+} from "../utils/UAEcitydata";
 import { toastOptions } from "../utils/ToastOptions";
 import { PropertyActions } from "../store/Property";
 
@@ -31,6 +31,8 @@ const PostProperty = () => {
   const dispatch = useDispatch();
   const [locationdata, setlocationdata] = useState([]);
   const token = localStorage.getItem("token");
+
+  const countryCode = useSelector((state) => state.room.country);
 
   const {
     edit,
@@ -69,7 +71,7 @@ const PostProperty = () => {
     try {
       if (validatioHandler()) {
         const address = {
-          countryCode: "AE",
+          countryCode,
           city,
           location,
           buildingName,
@@ -130,7 +132,7 @@ const PostProperty = () => {
     try {
       if (validatioHandler()) {
         const address = {
-          countryCode: "AE",
+          countryCode,
           city,
           location,
           buildingName,
@@ -180,10 +182,7 @@ const PostProperty = () => {
           obj,
           { headers: { Authorization: token } }
         );
-        console.log("res", data);
         toast.success("Property posted successfully", toastOptions);
-
-        //navigate("/");
       }
     } catch (err) {
       console.log(err);

@@ -69,6 +69,7 @@ const ViewRoom = () => {
   const [isCarouselPlaying, setIsCarouselPlaying] = useState(true);
 
   const rooms = useSelector((state) => state.search.availableRooms);
+  const countryCode = useSelector((state) => state.room.country);
   const [room, setRoom] = useState(rooms.find((room) => room.id === id));
 
   const handleInputChange = (e) => {
@@ -99,7 +100,7 @@ const ViewRoom = () => {
     try {
       const { data } = await axios.post(
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available",
-        { countryCode: "AE" }
+        { countryCode }
       );
       dispatch(SearchActions.availableRooms(data));
 

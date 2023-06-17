@@ -26,6 +26,7 @@ const AdvancedSearch = () => {
   const maxBudget = useSelector((state) => state.advanceSearch.maxBudget);
   const gender = useSelector((state) => state.advanceSearch.gender);
   const action = useSelector((state) => state.advanceSearch.action);
+  const countryCode = useSelector((state) => state.room.country);
 
   const preferredRentType = useSelector(
     (state) => state.advanceSearch.preferredRentType
@@ -43,7 +44,7 @@ const AdvancedSearch = () => {
   const advanceSearchHandler = async () => {
     try {
       setLoading(true);
-      const obj = { countryCode: "AE" };
+      const obj = { countryCode };
 
       if (type && type !== "ALL") {
         obj.type = type;

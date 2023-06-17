@@ -16,33 +16,41 @@ import { UserActions } from "../store/User";
 
 import CarouselWithMultipleImage from "../components/CarouselWithMultipleImage";
 import { roomsTypeActions } from "../store/Rooms";
-
-import { requestForToken } from "../firebase/index";
 import headerimage from "../assets/Home/34213422.PNG";
 
 const OurServices = () => {
-  const [PartitionAddAvilableRoom, setPartitionAddAvilableRoom] = useState([]);
-  const rooms = useSelector((state) => state.room.rooms);
   const roomType = useSelector((state) => state.search.searchType);
+  const countryCode = useSelector((state) => state.room.country);
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const tokenExpiration = localStorage.getItem("tokenExpiration");
+  const [countryRooms, setCountryRooms] = useState([]);
+  const [cityRooms, setCityRooms] = useState([]);
 
   const getAffordableRoomData = async () => {
-    const { data } = await axios.post(
-      `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/${roomType}-ad/available`,
-      { countryCode: "AE" }
-    );
-    dispatch(roomsTypeActions.availableRooms(data));
+    try {
+      const { data } = await axios.post(
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/${roomType}-ad/available`,
+        { countryCode }
+      );
+      setCountryRooms(data);
+      dispatch(roomsTypeActions.availableRooms(data));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const getPartitionRoomData = async () => {
-    const { data } = await axios.post(
-      `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
-      { countryCode: "AE" }
-    );
-    dispatch(SearchActions.availableRooms(data));
-    setPartitionAddAvilableRoom(data);
+    try {
+      const { data } = await axios.post(
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
+        { countryCode, city: countryCode === "AE" ? "Sharjah" : "Riyadh" }
+      );
+      setCityRooms(data);
+      dispatch(SearchActions.availableRooms(data));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const fetchMyBookings = async () => {
@@ -94,27 +102,24 @@ const OurServices = () => {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    getAffordableRoomData();
+    getPartitionRoomData();
+  }, [countryCode]);
+
   return (
     <Box sx={{ position: "relative", width: "100%", height: "100vh" }}>
       <Box
         sx={{
           height: { xs: "50%", sm: "50%", md: "55%", lg: "40%", xl: "55%" },
           backgroundImage: `url(${headerimage})`,
-          backgroundPosition: "center", // Add this line
+          backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           marginBottom: "50px",
         }}
       >
-        <Box
-        // sx={{
-        //   position: "absolute",
-        //   top: 0,
-        //   left: 0,
-        //   right: 0,
-        //   bottom: 0,
-        // }}
-        >
+        <Box>
           <Grid container justifyContent="space-between" alignItems="center">
             <Grid item xs={12} sm={8}>
               <Box
@@ -175,10 +180,11 @@ const OurServices = () => {
                   variant="h5"
                   sx={{ mb: 1, pl: { md: 3, sm: 2, xs: 1 } }}
                 >
-                  Top affordable sharing option in UAE
+                  Top affordable sharing option in{" "}
+                  {countryCode === "AE" ? "UAE" : "Saudi"}
                 </Typography>
                 <CarouselWithMultipleImage
-                  propertyAddAvilableRoom={PartitionAddAvilableRoom}
+                  propertyAddAvilableRoom={countryRooms}
                 />
               </Box>
 
@@ -187,11 +193,12 @@ const OurServices = () => {
                   variant="h5"
                   sx={{ my: 1, pl: { md: 3, sm: 2, xs: 1 } }}
                 >
-                  Partitions for rent in Sharjah
+                  Partitions for rent in{" "}
+                  {countryCode === "AE" ? "Sharjah" : "Riyadh"}
                 </Typography>
 
                 <CarouselWithMultipleImage
-                  propertyAddAvilableRoom={PartitionAddAvilableRoom}
+                  propertyAddAvilableRoom={cityRooms}
                 />
               </Box>
               <Box

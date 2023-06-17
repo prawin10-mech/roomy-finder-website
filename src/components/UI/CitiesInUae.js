@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Typography } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -7,7 +7,7 @@ import {
   NavigateNext as CustomNextIcon,
   NavigateBefore as CustomPrevIcon,
 } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SearchActions } from "../../store/Search";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -18,8 +18,9 @@ import Dubai from "../../assets/city/Dubai.jpg";
 import RasAlKima from "../../assets/city/RasAlKima.jpg";
 import Sharjah from "../../assets/city/Sharjah.jpg";
 import UmmAlQuwain from "../../assets/city/UmmAlQuwain.jpg";
+import Riyadh from "../../assets/city/Riyadh.jpg";
 
-const items = [
+const UAEitems = [
   { id: 1, image: AbuDhabi, name: "Abu Dhabi", products: "130" },
   { id: 2, image: Ajman, name: "Ajman", products: "100" },
   { id: 3, image: Dubai, name: "Dubai", products: "1200" },
@@ -28,19 +29,38 @@ const items = [
   { id: 7, image: UmmAlQuwain, name: "Umm Al Quwain", products: "320" },
 ];
 
+const SAitems = [
+  { id: 8, image: Riyadh, name: "Riyadh", products: "0" },
+  // { id: 1, image: AbuDhabi, name: "Abu Dhabi", products: "130" },
+  // { id: 2, image: Ajman, name: "Ajman", products: "100" },
+  // { id: 3, image: Dubai, name: "Dubai", products: "1200" },
+  // { id: 5, image: RasAlKima, name: "Ras Al Kima", products: "52" },
+  // { id: 6, image: Sharjah, name: "Sharjah", products: "142" },
+  // { id: 7, image: UmmAlQuwain, name: "Umm Al Quwain", products: "320" },
+];
+
 const CitiesInUae = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const countryCode = useSelector((state) => state.room.country);
+  const [items, setItems] = useState([]);
 
   const citiesInUae = async (item) => {
     const { data } = await axios.post(
       `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
-      { countryCode: "AE", city: item.name }
+      { countryCode, city: item.name }
     );
-    console.log(data);
     dispatch(SearchActions.availableRooms(data));
     navigate("/sp");
   };
+
+  useEffect(() => {
+    if (countryCode === "AE") {
+      setItems(UAEitems);
+    } else if (countryCode === "SA") {
+      setItems(SAitems);
+    }
+  }, [countryCode]);
 
   const CustomNextArrow = (props) => {
     const { onClick } = props;
@@ -78,10 +98,10 @@ const CitiesInUae = () => {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: countryCode === "AE" ? true : false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToScroll: 4,
     autoplay: true,
     autoplaySpeed: 3000,
     nextArrow: <CustomNextArrow />,
@@ -119,7 +139,7 @@ const CitiesInUae = () => {
           fontWeight: "600",
         }}
       >
-        Find room for rent in UAE
+        Find room for rent in {countryCode === "AE" ? "UAE" : "Saudi"}
       </Typography>
       <Typography
         sx={{
@@ -128,7 +148,8 @@ const CitiesInUae = () => {
           fontWeight: "500",
         }}
       >
-        Browse through thousands of room listings across different areas in UAE
+        Browse through thousands of room listings across different areas in{" "}
+        {countryCode === "AE" ? "UAE" : "Saudi"}
       </Typography>
       <div style={{ position: "relative" }}>
         <Slider {...settings}>
