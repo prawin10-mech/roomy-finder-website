@@ -145,6 +145,8 @@ const Nav = () => {
     getUserData();
   }, [token]);
 
+  console.log("user?.profilePicture",user?.profilePicture);
+
   return (
     <div className="nav-container p-3 flex justify-between bg-white">
       <Notification />
@@ -390,7 +392,7 @@ const Nav = () => {
               <Avatar
                 alt={`${user?.firstName} ${user?.lastName}`}
                 src={
-                  user?.profilePicture !== null
+                  user?.profilePicture !== undefined || null
                     ? user?.profilePicture
                     : user?.gender === "Male"
                     ? male3
@@ -402,10 +404,10 @@ const Nav = () => {
                   mb: 1,
                   border: "2px solid purple",
                 }}
-              >
-                {user?.firstName?.charAt(0)}
-                {user?.lastName?.charAt(0)}
-              </Avatar>
+             / >
+                {/* {user?.firstName?.charAt(0)}
+                {user?.lastName?.charAt(0)} */}
+              {/* </Avatar> */}
             </IconButton>
           </Tooltip>
           <Menu
@@ -441,7 +443,7 @@ const Nav = () => {
                   <Avatar
                     alt={`${user?.firstName} ${user?.lastName}`}
                     src={
-                      user?.profilePicture !== null
+                      user?.profilePicture !== undefined || null
                         ? user?.profilePicture
                         : user?.gender === "Male"
                         ? male3
@@ -453,12 +455,12 @@ const Nav = () => {
                       mb: 1,
                       border: "2px solid purple",
                     }}
-                  >
+                  />
                     {/* {console.log(user,"user1234567")} */}
                     {/* {user?.firstName?.charAt(0)}
                     {user?.lastName?.charAt(0)} */}
                     {/* {user?.gender ==="Male" ? } */}
-                  </Avatar>
+                  {/* </Avatar> */}
                 </IconButton>
                 <Typography sx={{ fontWeight: "700" }}>
                   {user?.firstName} {user?.lastName}

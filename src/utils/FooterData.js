@@ -5,7 +5,7 @@ export const footerSections = [
     links: ["/sp", "/sp"],
     
       title2: "Blog",
-      items2: ["header","header2"],
+      items2: [],
     
   },
   {
