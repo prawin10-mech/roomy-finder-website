@@ -45,7 +45,10 @@ const Nav = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [user, setUser] = useState({});
+
   const settings = ["Edit Profile", "Home", "My Account", "Blogs", "Logout"];
+
+  const selectedCountry = useSelector((state) => state.room.country);
 
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const handleClick = (link) => {
@@ -330,6 +333,9 @@ const Nav = () => {
           Message
         </Button>
       </Stack>
+      <Grid sx={{ display: "flex", alignItems: "center" }}>
+        <Countries />
+      </Grid>
 
       {!isLoggedIn ||
       !token ||

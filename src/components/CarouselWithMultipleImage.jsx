@@ -19,8 +19,6 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(propertyAddAvilableRoom);
-
   const citiesInUae = async (item) => {
     const { data } = await axios.post(
       `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
@@ -113,7 +111,6 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
                 }}
                 onClick={() => navigate(`/rooms/view-room/${item?.id}`)}
               >
-                {console.log(item)}
                 <div
                   style={{
                     overflow: "hidden",
