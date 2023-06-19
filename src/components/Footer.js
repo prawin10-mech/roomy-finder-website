@@ -246,7 +246,7 @@ const Footer = () => {
               mb: "14px",
             }}
           >
-            <a href="https://www.facebook.com/roomyfinder?mibextid=ZbWKwL">
+            <a href="https://www.facebook.com/profile.php?id=100090096130709&mibextid=LQQJ4d">
               <img
                 src={fb}
                 alt="Facebook"
@@ -344,7 +344,7 @@ const Footer = () => {
                 display: "flex",
                 justifyContent: "flex-end",
                 position: "absolute",
-                bottom: 0,
+                bottom: "15px",
                 right: 0,
                 // height:"100%"
                 // pt:"20%"
@@ -353,9 +353,9 @@ const Footer = () => {
               <img
                 src={FooterMobile}
                 alt="Footer mobile"
-                width="65%"
-                // height="90%"
-                style={{ maxWidth: "100%"}}
+                width="60%"
+                height="95%"
+                style={{ maxWidth: "100%",}}
               />
             </Box>
           </Box>
