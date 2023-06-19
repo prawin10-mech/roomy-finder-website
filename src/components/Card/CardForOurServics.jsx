@@ -9,24 +9,24 @@ import bottomBackground from "../../assets/bottomBackground.png";
 import peoples from "../../assets/GCSCorosol/peoples.png";
 import GSCimage from "../../assets/GCSCorosol/GSCimage.png";
 import CommercialCarousal from "./CommercialCarousal";
-import topBackground from "../../assets/topBackground.png"
+import topBackground from "../../assets/topBackground.png";
 
 const AddWithCarasol = (props) => {
   const navigate = useNavigate();
 
   return (
-    <Grid container >
+    <Grid container>
       <Grid
         container
         spacing={2}
         sx={{
           py: 3,
-          backgroundImage:`url(${topBackground})`,
+          backgroundImage: `url(${topBackground})`,
           backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "100% 100%", // adjust the backgroundSize property
-        display: "flex",
-        px: 5,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "100% 100%", // adjust the backgroundSize property
+          display: "flex",
+          px: 5,
         }}
       >
         <Grid
@@ -86,42 +86,40 @@ const AddWithCarasol = (props) => {
         </Grid>
       </Grid>
 
-      {props.smallcard && (
-        <Box
+      <Box
+        sx={{
+          backgroundImage:
+            "linear-gradient(to right, #43e97b 0%, #38f9d7 100%);",
+          p: 3,
+          width: "100%",
+          maxWidth: "900px",
+          mt: "-40px",
+        }}
+      >
+        <Grid
+          container
+          spacing={2}
           sx={{
-            backgroundImage:
-              "linear-gradient(to right, #43e97b 0%, #38f9d7 100%);",
-            p: 3,
-            width: "100%",
-            maxWidth: "900px",
-            mt: "-40px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <Grid
-            container
-            spacing={2}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Grid item xs={12} md={4}>
-              <Typography variant="subtitle1" gutterBottom>
-                Find Your home in Saudi Arabia!
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography variant="subtitle1" gutterBottom>
-                Find Your home in Saudi Arabia!
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <CityCarousel2 />
-            </Grid>
+          <Grid item xs={12} md={4}>
+            <Typography variant="subtitle1" gutterBottom>
+              Find Your home in Saudi Arabia!
+            </Typography>
           </Grid>
-        </Box>
-      )}
+          <Grid item xs={12} md={4}>
+            <Typography variant="subtitle1" gutterBottom>
+              Find Your home in Saudi Arabia!
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CityCarousel2 />
+          </Grid>
+        </Grid>
+      </Box>
     </Grid>
   );
 };
