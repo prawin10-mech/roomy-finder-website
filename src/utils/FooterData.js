@@ -22,7 +22,9 @@ export const footerSections = [
     items: [
       "United Arab Emirates",
       "Location: Dubai, 16, Misakin St, Al Danah 22213",
-      "Tel: +971 50 601 3921",
+      "Tel: +971 52 613 3921",
+      // "Tel: +971 52 693 3921",
+      // "Tel: +971 58 653 3921",
       "United States of America",
       "Location: Global Strategy Catalyst Group LLc 401",
       "Ryland St, Suit 200-A, Reno, Nv. 89502",

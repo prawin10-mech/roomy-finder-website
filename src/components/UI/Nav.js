@@ -48,7 +48,7 @@ const Nav = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [user, setUser] = useState({});
 
-  const settings = ["Edit Profile", "Home", "My Account", "Blogs", "Logout"];
+  const settings = ["Edit Profile", "Home", "My Account", "Blogs","Privacy Policy","Terms & Conditions", "Logout"];
 
   const selectedCountry = useSelector((state) => state.room.country);
 
@@ -496,6 +496,10 @@ const Nav = () => {
                   onClickHandler = () => handleItemClick("/myAccount");
                 } else if (setting === "Blogs") {
                   onClickHandler = () => handleItemClick("/blogs");
+                }else if (setting === "Privacy Policy") {
+                  onClickHandler = () => handleItemClick("/privacyandpolicy");
+                }else if (setting === "Terms & Conditions") {
+                  onClickHandler = () => handleItemClick("/termandconditions");
                 }
 
                 return (
