@@ -43,9 +43,7 @@ import Notification from "./components/Notifictions";
 import WhatsApp from "./components/WhatsApp";
 import Blogs from "./pages/Blogs";
 import SingleBlog from "./pages/SingleBlog";
-import NewAboutus from "./pages/NewAboutus";
-import PrivacyAndPolicy from './pages/PrivacyAndPolicy'
-import TermsAndConditions from "./pages/TermsAndConditions";
+
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -90,9 +88,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<OurServices />} />
           <Route path="/aboutUs" element={<AboutUs />} />
-          <Route path="/newaboutUs" element={<NewAboutus />} />
-          <Route path="/privacyandpolicy" element={<PrivacyAndPolicy />} />
-          <Route path="/termandconditions" element={<TermsAndConditions />} />
+          
          
           <Route path="/message" element={<Message />} />
           <Route path="/contactUs" element={<ContactUs />} />

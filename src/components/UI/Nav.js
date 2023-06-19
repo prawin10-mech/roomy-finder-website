@@ -25,6 +25,8 @@ import { TenantActions } from "../../store/Tenant";
 
 import male3 from "../../assets/maleAndFemaleImage/male4.png";
 import female3 from "../../assets/maleAndFemaleImage/female4.png";
+import tc_roomy_finder from "../../assets/Agreements/t&c_roomy_finder.pdf"
+import privacy_policy_roomy_findner from "../../assets/Agreements/privacy_policy_roomy_findner.pdf"
 
 import Countries from "../Countries";
 
@@ -94,6 +96,16 @@ const Nav = () => {
     handleCloseUserMenu();
     navigate(`${pageUrl}`);
   };
+  const handleItemClickOpenPDF = (item)=>{
+    if(item ==="Terms & Conditions"){
+
+      window.open(tc_roomy_finder);
+    }
+    if(item ==="Privacy Policy"){
+
+      window.open(privacy_policy_roomy_findner);
+    }
+  }
   let id = null;
   if (
     token &&
@@ -497,9 +509,9 @@ const Nav = () => {
                 } else if (setting === "Blogs") {
                   onClickHandler = () => handleItemClick("/blogs");
                 }else if (setting === "Privacy Policy") {
-                  onClickHandler = () => handleItemClick("/privacyandpolicy");
+                  onClickHandler = () => handleItemClickOpenPDF("Privacy Policy");
                 }else if (setting === "Terms & Conditions") {
-                  onClickHandler = () => handleItemClick("/termandconditions");
+                  onClickHandler = () => handleItemClickOpenPDF("Terms & Conditions");
                 }
 
                 return (
