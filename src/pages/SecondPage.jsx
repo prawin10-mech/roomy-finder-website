@@ -59,7 +59,7 @@ const SecondPage = () => {
   const getPartitionRoomData = async () => {
     try {
       const { data } = await axios.post(
-        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/${searchText}-ad/available`,
         { countryCode }
       );
       dispatch(SearchActions.availableRooms(data));

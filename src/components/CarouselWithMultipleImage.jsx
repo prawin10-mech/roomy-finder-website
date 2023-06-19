@@ -4,7 +4,7 @@ import { Grid, Typography, Box } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { SearchActions } from "../store/Search";
 
@@ -18,6 +18,7 @@ import {
 const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const countryCode = useSelector((state) => state.room.country);
 
   const citiesInUae = async (item) => {
     const { data } = await axios.post(
@@ -26,7 +27,7 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
     );
     console.log(data);
     dispatch(SearchActions.availableRooms(data));
-    navigate("/sp");
+    // navigate("/sp");
   };
 
   const CustomNextArrow = (props) => {
@@ -97,6 +98,17 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
 
   return (
     <Grid maxWidth={"90%"} sx={{ margin: "auto" }}>
+      <Typography
+        variant="h5"
+        sx={{
+          mb: 1,
+          pl: { md: 3, sm: 2, xs: 1 },
+          color: "purple",
+          fontWeight: "600",
+        }}
+      >
+        Top affordable sharing option in {countryCode === "AE" ? "UAE" : "Saudi"}
+      </Typography>
       <div style={{ position: "relative" }}>
         <Slider {...settings}>
           {propertyAddAvilableRoom?.map((item) => (

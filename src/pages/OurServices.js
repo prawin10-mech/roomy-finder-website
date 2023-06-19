@@ -180,15 +180,13 @@ const OurServices = () => {
                   variant="h5"
                   sx={{ mb: 1, pl: { md: 3, sm: 2, xs: 1 } }}
                 >
-                  Top affordable sharing option in{" "}
-                  {countryCode === "AE" ? "UAE" : "Saudi"}
                 </Typography>
                 <CarouselWithMultipleImage
                   propertyAddAvilableRoom={countryRooms}
                 />
               </Box>
 
-              <Box sx={{ mt: 1, mb: 1 }}>
+              {/* <Box sx={{ mt: 1, mb: 1 }}>
                 <Typography
                   variant="h5"
                   sx={{ my: 1, pl: { md: 3, sm: 2, xs: 1 } }}
@@ -200,7 +198,7 @@ const OurServices = () => {
                 <CarouselWithMultipleImage
                   propertyAddAvilableRoom={cityRooms}
                 />
-              </Box>
+              </Box> */}
               <Box
                 sx={{
                   mt: 1,
