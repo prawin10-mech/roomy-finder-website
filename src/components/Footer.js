@@ -344,7 +344,7 @@ const Footer = () => {
                 display: "flex",
                 justifyContent: "flex-end",
                 position: "absolute",
-                bottom: "15px",
+                bottom: "48px",
                 right: 0,
                 // height:"100%"
                 // pt:"20%"
