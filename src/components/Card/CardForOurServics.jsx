@@ -18,13 +18,14 @@ const AddWithCarasol = (props) => {
     <Grid container>
       <Grid
         container
-        spacing={2}
+        spacing={1}
         sx={{
-          py: 3,
+          mt: 1,
+          py: 1,
           backgroundImage: `url(${topBackground})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          backgroundSize: "100% 100%", // adjust the backgroundSize property
+          backgroundSize: "100% 100%",
           display: "flex",
           px: 5,
         }}
@@ -58,6 +59,7 @@ const AddWithCarasol = (props) => {
               backgroundColor: "orange",
               borderRadius: "15px",
               fontWeight: "700",
+              width: "200px",
               color: "#fff",
               "&:hover": {
                 backgroundColor: "#fff",

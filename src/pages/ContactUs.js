@@ -14,6 +14,7 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
+import EmailIcon from '@mui/icons-material/Email';
 import UAE2 from "../assets/contact/UAEFlag1.jpg";
 import USA1 from "../assets/contact/usa4.jpg";
 import { toast, ToastContainer } from "react-toastify";
@@ -21,6 +22,7 @@ import { toastOptions } from "../utils/ToastOptions";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
 import Footer from "../components/Footer";
+import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 
 const ContactUs = () => {
   const [name, setName] = useState("");
@@ -49,13 +51,18 @@ const ContactUs = () => {
           <Grid
             item
             md={6}
-            sx={{
+            
+            
+          >
+          <Paper sx={{
+            width:"70%",
               display: "flex",
               flexDirection: "row",
               justifyContent: "left",
               my: { xs: 1 },
-            }}
-          >
+              ml:7,pl:2
+            }}>
+
             <Box
               sx={{
                 width: "65px",
@@ -80,21 +87,28 @@ const ContactUs = () => {
               <Typography variant="subtitle1">
                 Location: Dubai, 16, Misakin St, Al Danah 22213
               </Typography>
-              <Typography variant="subtitle1">Tel +971 50 601 3921</Typography>
+              <Typography variant="subtitle1">Tel +971 52 613 3921</Typography>
+              <Typography variant="subtitle1">Tel +971 58 653 3921</Typography>
+              <Typography variant="subtitle1">Tel +971 52 693 3921</Typography>
             </Box>
+          </Paper>
           </Grid>
           <Grid
             item
             md={6}
-            sx={{
+            
+          >
+          <Paper sx={{
+            width:"70%",
               display: "flex",
               flexDirection: "row",
               justifyContent: "left",
-            }}
-          >
+              ml:5,pl:2
+            }}>
+
             <Box
               sx={{
-                width: "80px",
+                width: "120px",
                 height: "90px",
                 mt: 1,
                 mr: 2,
@@ -121,7 +135,21 @@ const ContactUs = () => {
                 Tel +1412 403 3921
               </Typography>
             </Box>
+          </Paper>
           </Grid>
+          
+        </Grid>
+        <Grid sx={{display:"flex",justifyContent:"center",alignItems:"center",mb:4}}>
+          <Paper sx={{width:"40%",height:"100px"}}>
+           <Box sx={{width:"100%",height:"100%",display:"flex",flexDirection:"row",justifyContent:"space-between",alignItems:"center",cursor:"pointer"}}>
+            <EmailIcon sx={{mx:2}} />
+            <Typography variant="h6">Support@roomyfinder.com</Typography>
+            <a href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJqSwFHBbjKJvJXslnhdwMkshTnsxvFDJmGmxXBtqTsMBsfVJdjBBvvdbxNWxdHJcJLLNmg">
+
+            <ForwardToInboxIcon sx={{mx:2}} />
+            </a>
+           </Box>
+          </Paper>
         </Grid>
         <Grid
           container

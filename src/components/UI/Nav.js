@@ -25,6 +25,8 @@ import { TenantActions } from "../../store/Tenant";
 
 import male3 from "../../assets/maleAndFemaleImage/male4.png";
 import female3 from "../../assets/maleAndFemaleImage/female4.png";
+import tc_roomy_finder from "../../assets/Agreements/t&c_roomy_finder.pdf"
+import privacy_policy_roomy_findner from "../../assets/Agreements/privacy_policy_roomy_findner.pdf"
 
 import Countries from "../Countries";
 
@@ -48,7 +50,7 @@ const Nav = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [user, setUser] = useState({});
 
-  const settings = ["Edit Profile", "Home", "My Account", "Blogs", "Logout"];
+  const settings = ["Edit Profile", "Home", "My Account", "Blogs","Privacy Policy","Terms & Conditions", "Logout"];
 
   const selectedCountry = useSelector((state) => state.room.country);
 
@@ -94,6 +96,16 @@ const Nav = () => {
     handleCloseUserMenu();
     navigate(`${pageUrl}`);
   };
+  const handleItemClickOpenPDF = (item)=>{
+    if(item ==="Terms & Conditions"){
+
+      window.open(tc_roomy_finder);
+    }
+    if(item ==="Privacy Policy"){
+
+      window.open(privacy_policy_roomy_findner);
+    }
+  }
   let id = null;
   if (
     token &&
@@ -152,6 +164,8 @@ const Nav = () => {
 
     getUserData();
   }, [token]);
+
+  console.log("user?.profilePicture",user?.profilePicture);
 
   return (
     <div className="nav-container p-3 flex justify-between bg-white">
@@ -403,7 +417,7 @@ const Nav = () => {
               <Avatar
                 alt={`${user?.firstName} ${user?.lastName}`}
                 src={
-                  user?.profilePicture !== null
+                  user?.profilePicture !== undefined || null
                     ? user?.profilePicture
                     : user?.gender === "Male"
                     ? male3
@@ -415,10 +429,10 @@ const Nav = () => {
                   mb: 1,
                   border: "2px solid purple",
                 }}
-              >
-                {user?.firstName?.charAt(0)}
-                {user?.lastName?.charAt(0)}
-              </Avatar>
+             / >
+                {/* {user?.firstName?.charAt(0)}
+                {user?.lastName?.charAt(0)} */}
+              {/* </Avatar> */}
             </IconButton>
           </Tooltip>
           <Menu
@@ -454,7 +468,7 @@ const Nav = () => {
                   <Avatar
                     alt={`${user?.firstName} ${user?.lastName}`}
                     src={
-                      user?.profilePicture !== null
+                      user?.profilePicture !== undefined || null
                         ? user?.profilePicture
                         : user?.gender === "Male"
                         ? male3
@@ -466,12 +480,12 @@ const Nav = () => {
                       mb: 1,
                       border: "2px solid purple",
                     }}
-                  >
+                  />
                     {/* {console.log(user,"user1234567")} */}
                     {/* {user?.firstName?.charAt(0)}
                     {user?.lastName?.charAt(0)} */}
                     {/* {user?.gender ==="Male" ? } */}
-                  </Avatar>
+                  {/* </Avatar> */}
                 </IconButton>
                 <Typography sx={{ fontWeight: "700" }}>
                   {user?.firstName} {user?.lastName}
@@ -494,6 +508,10 @@ const Nav = () => {
                   onClickHandler = () => handleItemClick("/myAccount");
                 } else if (setting === "Blogs") {
                   onClickHandler = () => handleItemClick("/blogs");
+                }else if (setting === "Privacy Policy") {
+                  onClickHandler = () => handleItemClickOpenPDF("Privacy Policy");
+                }else if (setting === "Terms & Conditions") {
+                  onClickHandler = () => handleItemClickOpenPDF("Terms & Conditions");
                 }
 
                 return (

@@ -1,10 +1,13 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
-import peoples from "../../assets/GCSCorosol/peoples.png";
-import GSCimage from "../../assets/GCSCorosol/GSCimage.png";
+import commercial1 from "../../assets/commercials/commercial1.jpg";
+import commercial2 from "../../assets/commercials/commercial2.jpg";
+import commercial3 from "../../assets/commercials/commercial3.jpg";
 
-const images = [peoples, GSCimage];
+
+
+const images = [commercial1,commercial2,commercial3];
 
 const CommercialCarousal = (props) => {
   return (
@@ -21,6 +24,7 @@ const CommercialCarousal = (props) => {
             src={item}
             alt={i}
             width="100%"
+            height="200px"
             style={{ borderRadius: "20px" }}
           />
         ))}
