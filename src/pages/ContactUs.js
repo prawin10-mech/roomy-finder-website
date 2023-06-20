@@ -15,8 +15,8 @@ import {
   IconButton,
 } from "@mui/material";
 import EmailIcon from '@mui/icons-material/Email';
-import UAE2 from "../assets/contact/UAEFlag1.jpg";
-import USA1 from "../assets/contact/usa4.jpg";
+import UAE2 from "../assets/contact_flag/UAEFlag1.jpg";
+import USA1 from "../assets/contact_flag/usa4.jpg";
 import { toast, ToastContainer } from "react-toastify";
 import { toastOptions } from "../utils/ToastOptions";
 import TopBackground from "../components/postPropertyComponents/TopBackground";

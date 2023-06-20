@@ -55,7 +55,7 @@ const AddWithCarasol = (props) => {
         spacing={1}
         sx={{
           mt: 1,
-          py: 1,
+          py: 5,
           backgroundImage: `url(${topBackground})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -193,26 +193,38 @@ const AddWithCarasol = (props) => {
           container
           spacing={2}
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            backgroundImage:
+              "linear-gradient(to right, #43e97b 0%, #38f9d7 100%);",
+            // p: 3,
+            width: "100%",
+            maxWidth: "900px",
+            mt: "-3%",
+            ml:"9%"
           }}
         >
-          <Grid item xs={12} md={4}>
-            <Typography variant="subtitle1" gutterBottom>
-              Find Your home in Saudi Arabia!
-            </Typography>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Grid item xs={12} md={3}>
+              <img src={saudi} alt="as" />
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <Typography variant="subtitle1" gutterBottom>
+                Find Your home in Saudi Arabia!
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <CityCarousel />
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <Typography variant="subtitle1" gutterBottom>
-              Find Your home in Saudi Arabia!
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <CityCarousel2 />
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      {/* )} */}
     </Grid>
   );
 };
