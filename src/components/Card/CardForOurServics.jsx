@@ -1,21 +1,19 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import CityCarousel2 from "../UI/CityCarousel2";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useNavigate } from "react-router-dom";
-import topBackground from "../../assets/topBackground.png";
 import React, { useState, useEffect } from "react";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
 import { useSelector } from "react-redux";
 import UserImage from "../../assets/dummyUserImage.jpg";
 import FemaleUserImage from "../../assets/dummyFemaleUserImage.jpg";
+import topBackground from "../../assets/topBackground.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import CityCarousel from "../UI/CityCarousel2";
 
-const AddWithCarasol = (props) => {
+const AddWithCarousel = (props) => {
   const navigate = useNavigate();
   const [roommates, setRoommates] = useState([]);
-
   const [currentRoommate, setCurrentRoommate] = useState(null);
   const countryCode = useSelector((state) => state.room.country);
 
@@ -102,7 +100,7 @@ const AddWithCarasol = (props) => {
                 color: "orange",
               },
             }}
-            onClick={() => handleOpenChat()}
+            onClick={handleOpenChat}
           >
             Chat!
           </Button>
@@ -139,7 +137,7 @@ const AddWithCarasol = (props) => {
                     cursor: "pointer",
                     padding: "15px",
                   }}
-                  key={i} // Added key prop to avoid warning
+                  key={i}
                 >
                   <div
                     style={{
@@ -157,7 +155,7 @@ const AddWithCarasol = (props) => {
                           ? UserImage
                           : roommate.poster.gender === "Female"
                           ? FemaleUserImage
-                          : roommate.poster.firstName
+                          : UserImage
                       }
                       alt={roommate.poster.firstName}
                       style={{
@@ -174,7 +172,6 @@ const AddWithCarasol = (props) => {
               ))}
             </Slider>
           </Grid>
-          {/* <CommercialCarousal /> */}
         </Grid>
       </Grid>
 
@@ -195,11 +192,10 @@ const AddWithCarasol = (props) => {
           sx={{
             backgroundImage:
               "linear-gradient(to right, #43e97b 0%, #38f9d7 100%);",
-            // p: 3,
             width: "100%",
             maxWidth: "900px",
             mt: "-3%",
-            ml:"9%"
+            ml: "9%",
           }}
         >
           <Grid
@@ -212,7 +208,7 @@ const AddWithCarasol = (props) => {
             }}
           >
             <Grid item xs={12} md={3}>
-              <img src={saudi} alt="as" />
+              <img src={""} alt="as" />
             </Grid>
             <Grid item xs={12} md={3}>
               <Typography variant="subtitle1" gutterBottom>
@@ -223,10 +219,10 @@ const AddWithCarasol = (props) => {
               <CityCarousel />
             </Grid>
           </Grid>
-        </Box>
-      {/* )} */}
+        </Grid>
+      </Box>
     </Grid>
   );
 };
 
-export default AddWithCarasol;
+export default AddWithCarousel;
