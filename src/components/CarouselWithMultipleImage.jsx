@@ -92,6 +92,12 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
           slidesToShow: 2,
         },
       },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
     ],
   };
 
@@ -174,11 +180,13 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
                       ml: 1,
                     }}
                   >
-                    <Typography fontWeight={400}>{item.type}</Typography>
-                    <Typography fontWeight={400}>
+                    <Typography fontWeight={400} sx={{ whiteSpace: "nowrap" }}>
+                      {item.type}
+                    </Typography>
+                    <Typography fontWeight={400} sx={{ whiteSpace: "nowrap" }}>
                       {item.address.location + ", " + item.address.city}
                     </Typography>
-                    <Typography fontWeight={700}>
+                    <Typography fontWeight={700} sx={{ whiteSpace: "nowrap" }}>
                       {item.preferedRentType === "Monthly" &&
                         item.monthlyPrice + 0.1 * item.monthlyPrice + " AED"}
                       {item.preferedRentType === "Weekly" &&

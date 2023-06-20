@@ -29,15 +29,7 @@ const UAEitems = [
   { id: 7, image: UmmAlQuwain, name: "Umm Al Quwain", products: "320" },
 ];
 
-const SAitems = [
-  { id: 8, image: Riyadh, name: "Riyadh", products: "0" },
-  // { id: 1, image: AbuDhabi, name: "Abu Dhabi", products: "130" },
-  // { id: 2, image: Ajman, name: "Ajman", products: "100" },
-  // { id: 3, image: Dubai, name: "Dubai", products: "1200" },
-  // { id: 5, image: RasAlKima, name: "Ras Al Kima", products: "52" },
-  // { id: 6, image: Sharjah, name: "Sharjah", products: "142" },
-  // { id: 7, image: UmmAlQuwain, name: "Umm Al Quwain", products: "320" },
-];
+const SAitems = [{ id: 8, image: Riyadh, name: "Riyadh", products: "0" }];
 
 const CitiesInUae = () => {
   const dispatch = useDispatch();
@@ -125,6 +117,12 @@ const CitiesInUae = () => {
           slidesToShow: 2,
         },
       },
+      {
+        breakpoint: 350,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
     ],
   };
 
@@ -137,6 +135,9 @@ const CitiesInUae = () => {
           pl: { md: 3, sm: 2, xs: 1 },
           color: "purple",
           fontWeight: "600",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
         }}
       >
         Find room for rent in {countryCode === "AE" ? "UAE" : "Saudi"}
@@ -146,6 +147,9 @@ const CitiesInUae = () => {
           mb: 1,
           pl: { md: 3, sm: 2, xs: 1 },
           fontWeight: "500",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
         }}
       >
         Browse through thousands of room listings across different areas in{" "}
@@ -191,10 +195,24 @@ const CitiesInUae = () => {
                     marginLeft: "0.5rem",
                   }}
                 >
-                  <Typography sx={{ fontWeight: "700" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "700",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     {item.name}
                   </Typography>
-                  <Typography sx={{ fontWeight: "400" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "400",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     {item.products} properties
                   </Typography>
                 </div>
