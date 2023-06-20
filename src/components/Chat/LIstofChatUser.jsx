@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import {
   Box,
@@ -18,8 +16,6 @@ import {
 import { getSender, getSenderNew } from "../Chat/ChatLogic";
 import ChatBody from "./ChatBody";
 
-
-
 const ListofChatUser = ({ listOfChatUser1, dispatch, setreciver }) => {
   const [senders, setSenders] = useState([]);
   const [selectChatUser, setselectChatUser] = useState("");
@@ -35,7 +31,6 @@ const ListofChatUser = ({ listOfChatUser1, dispatch, setreciver }) => {
 
     fetchSenders();
   }, [listOfChatUser1]);
-  //   console.log(senders, "senders");
   const renderSender = async (val) => {
     if (val.isGroupName) {
       return {
@@ -46,7 +41,6 @@ const ListofChatUser = ({ listOfChatUser1, dispatch, setreciver }) => {
     } else {
       try {
         const sender = await getSender(data, val.users);
-        // console.log("serfre", sender);
         return {
           name: sender.name,
           picture: sender.picture,
@@ -66,7 +60,6 @@ const ListofChatUser = ({ listOfChatUser1, dispatch, setreciver }) => {
         userDetails: getallinfo,
         ChatId: val._id,
       });
-      // console.log("getallinfo============================", getallinfo);
     } catch (err) {
       console.log(err);
     }
@@ -96,7 +89,6 @@ const ListofChatUser = ({ listOfChatUser1, dispatch, setreciver }) => {
               direction="row"
               spacing={2}
               onClick={() => GoTochatui(val, senders, senders[id]?.name)}
-             
               // backgroundColor={selectChatUser !== "" ? "#fff000" : "#00ff00"}
               sx={{
                 pt: 1,
@@ -143,12 +135,9 @@ const ListofChatUser = ({ listOfChatUser1, dispatch, setreciver }) => {
 
 export default ListofChatUser;
 
-
-
-
-const data= {
-        "_id": "646326b53c583365437b5ee7",
-        "name": "Ghulam",
-        "emai": "ghulam@gmail.com",
-        "pic": "https://pbs.twimg.com/profile_images/917631983370461184/bXQjpkDe_400x400.jpg"
-    }
+const data = {
+  _id: "646326b53c583365437b5ee7",
+  name: "Ghulam",
+  emai: "ghulam@gmail.com",
+  pic: "https://pbs.twimg.com/profile_images/917631983370461184/bXQjpkDe_400x400.jpg",
+};

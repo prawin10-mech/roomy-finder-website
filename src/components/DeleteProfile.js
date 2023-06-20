@@ -31,8 +31,6 @@ const DeleteProfile = () => {
     setConfirmationDialogOpen(true);
   };
 
-  console.log(email, password);
-
   const handleConfirmDelete = async () => {
     try {
       const response = await axios.post(
@@ -40,7 +38,6 @@ const DeleteProfile = () => {
         { email, password },
         { headers: { Authorization: token } }
       );
-      console.log(response);
       if (response.status === 200) {
         toast.success(response.data.message, toastOptions);
         localStorage.removeItem("token");

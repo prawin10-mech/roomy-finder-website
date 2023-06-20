@@ -12,8 +12,6 @@ const Notification = () => {
 
   const notify = () => {
     try {
-      console.log("notified");
-
       let receivedNotifications = sessionStorage.getItem("notifications");
       const audio = new Audio(notificationAudio);
       audio.play();
@@ -50,7 +48,6 @@ const Notification = () => {
   useEffect(() => {
     onMessageListener()
       .then((payload) => {
-        console.log("notification received");
         setNotification({
           title: payload?.notification?.title,
           body: payload?.notification?.body,
@@ -66,7 +63,6 @@ const Notification = () => {
     if (notification?.title) {
       notify();
     }
-    console.log(notification);
     if (notification?.title === "message") {
       dispatch(UserActions.messageReceived);
     }

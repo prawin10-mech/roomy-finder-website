@@ -129,7 +129,6 @@ const AboutBooking = () => {
 
   const handleChatWithClient = async (property, type) => {
     try {
-      console.log("property", property);
       if (type === "landlord") {
         navigate(`/directchat/${property.client.id}`, {
           state: { property, type },

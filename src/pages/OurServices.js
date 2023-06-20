@@ -179,8 +179,7 @@ const OurServices = () => {
                 <Typography
                   variant="h5"
                   sx={{ mb: 1, pl: { md: 3, sm: 2, xs: 1 } }}
-                >
-                </Typography>
+                ></Typography>
                 <CarouselWithMultipleImage
                   propertyAddAvilableRoom={countryRooms}
                 />
@@ -211,7 +210,6 @@ const OurServices = () => {
                 <AddWithCarousel />
               </Box>
             </Box>
-            {/* <AvailableRooms /> */}
           </Box>
           <Footer />
         </Box>

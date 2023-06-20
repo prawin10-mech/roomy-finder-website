@@ -63,8 +63,6 @@ const ChatBody = ({ user, messages }) => {
         `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/?otherId=${user.otherId}`,
         { headers: { Authorization: token } }
       );
-      console.log("data rendered");
-      console.log(data);
       setChatMessages(data);
       if (data.length > 10) {
         setshowLoadMore(true);
@@ -77,7 +75,6 @@ const ChatBody = ({ user, messages }) => {
   useEffect(() => {
     const fetchNewMessage = async () => {
       const newMessage = await onMessageListener();
-      console.log("tt", newMessage);
       // setMessageReceived(!messageReceived);
     };
     if (messageReceived) {
@@ -87,7 +84,6 @@ const ChatBody = ({ user, messages }) => {
 
   useEffect(() => {
     setChatMessages(messages);
-    console.log("middle");
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
     }
@@ -98,7 +94,6 @@ const ChatBody = ({ user, messages }) => {
 
   useEffect(() => {
     getMessages();
-    console.log("last");
     if (chatMessages.length > 10) {
       setshowLoadMore(true);
     }
@@ -133,7 +128,6 @@ const ChatBody = ({ user, messages }) => {
         getMessages();
       }
       if (type === "image") {
-        console.log(user);
         await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
           {
@@ -165,7 +159,6 @@ const ChatBody = ({ user, messages }) => {
       }
 
       if (type === "video") {
-        console.log(user);
         await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
           {
@@ -197,7 +190,6 @@ const ChatBody = ({ user, messages }) => {
       }
 
       if (type === "file") {
-        console.log(user);
         await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/messages/send",
           {
@@ -304,8 +296,6 @@ const ChatBody = ({ user, messages }) => {
         .then(() => {
           getDownloadURL(storageRef)
             .then((url) => {
-              console.log("Upload complete");
-              console.log(url);
               setSelectedFileUrl(url);
             })
             .catch((err) => {

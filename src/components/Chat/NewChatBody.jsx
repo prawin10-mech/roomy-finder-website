@@ -66,7 +66,6 @@ const NewChatBody = () => {
   // useEffect(() => {
   //   const fetchNewMessage = async () => {
   //     const newMessage = await onMessageListener();
-  //     console.log("tt", newMessage);
   //     setMessageReceived(newMessage);
   //   };
 
@@ -111,7 +110,6 @@ const NewChatBody = () => {
   //   const res = await axios.post("http://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/verify-otp-code",{
   //     "phone" : "+917899876574"
   // })
-  // console.log("res",res);
   // }
 
   // useEffect(() => {
@@ -127,7 +125,6 @@ const NewChatBody = () => {
       .then((payload) => {
         // newValueAdd,
         setnewValueAdd(payload.data.payload);
-        console.log("message chat received", payload.data.payload);
         setNotification({
           title: payload?.notification?.title,
           body: payload?.notification?.body,
@@ -167,8 +164,6 @@ const NewChatBody = () => {
   }, [notification]);
 
   // mera------------
-
-  console.log(data12);
 
   const sendMessage = async () => {
     try {
@@ -588,7 +583,7 @@ const NewChatBody = () => {
       backgroundColor: "#f0f0f0",
       zIndex: 1,
       flexShrink: 0,
-      mb:"4px"
+      mb: "4px",
     },
     iconButton: {
       p: "10px",
@@ -642,7 +637,11 @@ const NewChatBody = () => {
                 ? `${data12?.property.poster?.firstName} ${data12?.property.poster?.lastName}`
                 : `${data12?.property?.client?.firstName} ${data12?.property.client?.lastName}`}
             </Typography>
-            <Typography variant="body1" fontWeight={500} sx={{ color: "slateGrey" }}>
+            <Typography
+              variant="body1"
+              fontWeight={500}
+              sx={{ color: "slateGrey" }}
+            >
               From:{" "}
               {data12.type === "roommate"
                 ? `${data12?.property.poster?.country}`
@@ -680,7 +679,9 @@ const NewChatBody = () => {
                   ? message?.senderId === data12?.property?.poster?.id
                   : message?.senderId === data12?.property?.client?.id;
 
-              {/* console.log(isCurrentUser); */}
+              {
+                /* console.log(isCurrentUser); */
+              }
               return (
                 <Grid container>
                   {isCurrentUser && (
@@ -694,7 +695,7 @@ const NewChatBody = () => {
                     //     data12?.property?.client?.firstName.charAt(0)
                     //   )}
                     // </Avatar>
-                    <Avatar sx={{mr:1}}>
+                    <Avatar sx={{ mr: 1 }}>
                       {data12.type === "landlord"
                         ? data12?.property?.client?.profilePicture
                           ? data12.property.client.profilePicture

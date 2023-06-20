@@ -190,7 +190,6 @@ const SearchInputs = () => {
         dispatch(SearchActions.availableRooms(data));
         navigate("/sp");
       } else {
-        console.log("obj is empty");
       }
     } catch (error) {
       setError("An error occurred while searching. Please try again.");
