@@ -175,20 +175,15 @@ const AddWithCarousel = (props) => {
           </Grid>
         </Grid>
       </Grid>
-
       <Box
         sx={{
           mt: "-50px",
           marginX: "auto",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          borderRadius: "8px",
+          borderRadius: "25px",
+          boxShadow: "0px 0px 15px  rgba(0,0,0,0.7)",
         }}
       >
-      <Paper elevation={24}>
-
-        <img src={SaudiRoommate} alt={"saudi roommate"} style={{}} />
-      </Paper>
+        <img src={SaudiRoommate} alt={"saudi roommate"} />
       </Box>
     </Grid>
   );
