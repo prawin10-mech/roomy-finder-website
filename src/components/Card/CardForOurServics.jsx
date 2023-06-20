@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
@@ -10,7 +10,7 @@ import topBackground from "../../assets/topBackground.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CityCarousel from "../UI/CityCarousel2";
-import saudi2 from "../../assets/newfile/saudi2.png"
+import SaudiRoommate from "../../assets/saudiRoommate.png";
 
 const AddWithCarousel = (props) => {
   const navigate = useNavigate();
@@ -178,48 +178,17 @@ const AddWithCarousel = (props) => {
 
       <Box
         sx={{
-          backgroundImage:
-            "linear-gradient(to right, #43e97b 0%, #38f9d7 100%);",
-          p: 3,
-          width: "100%",
-          maxWidth: "900px",
-          mt: "-40px",
+          mt: "-50px",
           marginX: "auto",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          borderRadius: "8px",
         }}
       >
-        <Grid
-          container
-          spacing={2}
-          sx={{
-            backgroundColor:"#41844D",
-            width: "100%",
-            maxWidth: "900px",
-            mt: "-3%",
-            ml: "9%",
-          }}
-        >
-          <Grid
-            container
-            spacing={2}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Grid item xs={12} md={3}>
-              <img src={saudi2} alt="as" />
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <Typography variant="h6" gutterBottom sx={{color:"white",fontWeight:"Bold"}}>
-                Find Your home in Saudi Arabia!
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <CityCarousel />
-            </Grid>
-          </Grid>
-        </Grid>
+      <Paper elevation={24}>
+
+        <img src={SaudiRoommate} alt={"saudi roommate"} style={{}} />
+      </Paper>
       </Box>
     </Grid>
   );
