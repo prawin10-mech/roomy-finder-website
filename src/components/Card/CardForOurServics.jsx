@@ -10,6 +10,7 @@ import topBackground from "../../assets/topBackground.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CityCarousel from "../UI/CityCarousel2";
+import saudi2 from "../../assets/newfile/saudi2.png"
 
 const AddWithCarousel = (props) => {
   const navigate = useNavigate();
@@ -207,7 +208,7 @@ const AddWithCarousel = (props) => {
             }}
           >
             <Grid item xs={12} md={3}>
-              <img src={""} alt="as" />
+              <img src={saudi2} alt="as" />
             </Grid>
             <Grid item xs={12} md={3}>
               <Typography variant="h6" gutterBottom sx={{color:"white",fontWeight:"Bold"}}>
