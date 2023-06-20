@@ -238,6 +238,7 @@ const Footer = () => {
           <Grid
             item
             sx={{
+              // mt:{xs:"20%"},
               display: "flex",
               flexDirection: "row",
               position: "absolute",

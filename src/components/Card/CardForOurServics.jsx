@@ -93,9 +93,7 @@ const AddWithCarasol = (props) => {
       {/* {props.smallcard && ( */}
         <Box
           sx={{
-            backgroundImage:
-              "linear-gradient(to right, #43e97b 0%, #38f9d7 100%);",
-            // p: 3,
+            backgroundColor:"#41844D",
             width: "100%",
             maxWidth: "900px",
             mt: "-3%",
@@ -115,7 +113,7 @@ const AddWithCarasol = (props) => {
               <img src={saudi} alt="as" />
             </Grid>
             <Grid item xs={12} md={3}>
-              <Typography variant="subtitle1" gutterBottom>
+              <Typography variant="h6" gutterBottom sx={{color:"white",fontWeight:"Bold"}}>
                 Find Your home in Saudi Arabia!
               </Typography>
             </Grid>
