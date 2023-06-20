@@ -93,7 +93,7 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
         },
       },
       {
-        breakpoint: 400,
+        breakpoint: 350,
         settings: {
           slidesToShow: 1,
         },
