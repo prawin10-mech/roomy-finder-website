@@ -25,7 +25,6 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
       `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad/available`,
       { countryCode: "AE", city: item.name }
     );
-    console.log(data);
     dispatch(SearchActions.availableRooms(data));
     // navigate("/sp");
   };
@@ -107,7 +106,8 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
           fontWeight: "600",
         }}
       >
-        Top affordable sharing option in {countryCode === "AE" ? "UAE" : "Saudi"}
+        Top affordable sharing option in{" "}
+        {countryCode === "AE" ? "UAE" : "Saudi"}
       </Typography>
       <div style={{ position: "relative" }}>
         <Slider {...settings}>

@@ -1,6 +1,4 @@
 const sendNotification = async (title, body, fcmToken, link, imageUrl) => {
-  console.log("hello");
-
   const getNotification = async () => {
     if (fcmToken) {
       fetch("https://fcm.googleapis.com/fcm/send", {
@@ -28,9 +26,7 @@ const sendNotification = async (title, body, fcmToken, link, imageUrl) => {
           }
           return response.json();
         })
-        .then((data) => {
-          console.log("Notification sent:", data);
-        })
+        .then((data) => {})
         .catch((error) => {
           console.error("API Error:", error);
         });

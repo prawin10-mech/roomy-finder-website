@@ -1,18 +1,52 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
-import Carousel from "react-material-ui-carousel";
 import CityCarousel2 from "../UI/CityCarousel2";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import SingleCardCarousel from "./SingleCardCarousel";
 import { useNavigate } from "react-router-dom";
-import bottomBackground from "../../assets/bottomBackground.png";
-import peoples from "../../assets/GCSCorosol/peoples.png";
-import GSCimage from "../../assets/GCSCorosol/GSCimage.png";
-import CommercialCarousal from "./CommercialCarousal";
 import topBackground from "../../assets/topBackground.png";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Slider from "react-slick";
+import { useSelector } from "react-redux";
+import UserImage from "../../assets/dummyUserImage.jpg";
+import FemaleUserImage from "../../assets/dummyFemaleUserImage.jpg";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const AddWithCarasol = (props) => {
   const navigate = useNavigate();
+  const [roommates, setRoommates] = useState([]);
+
+  const [currentRoommate, setCurrentRoommate] = useState(null);
+  const countryCode = useSelector((state) => state.room.country);
+
+  const handleOpenChat = () => {
+    if (currentRoommate) {
+      navigate(`/directchat/${currentRoommate.poster.id}`, {
+        state: { property: currentRoommate, type: currentRoommate.poster.type },
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (roommates.length > 0) {
+      setCurrentRoommate(roommates[0]);
+    }
+  }, [roommates]);
+
+  useEffect(() => {
+    const fetchRoommates = async () => {
+      try {
+        const { data } = await axios.post(
+          `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/roommate-ad/available`,
+          { countryCode }
+        );
+        setRoommates(data);
+      } catch (error) {
+        console.error("Error fetching roommates:", error);
+      }
+    };
+    fetchRoommates();
+  }, [countryCode]);
 
   return (
     <Grid container>
@@ -28,6 +62,7 @@ const AddWithCarasol = (props) => {
           backgroundSize: "100% 100%",
           display: "flex",
           px: 5,
+          pb: 5,
         }}
       >
         <Grid
@@ -67,7 +102,7 @@ const AddWithCarasol = (props) => {
                 color: "orange",
               },
             }}
-            onClick={() => navigate("/chat")}
+            onClick={() => handleOpenChat()}
           >
             Chat!
           </Button>
@@ -84,7 +119,62 @@ const AddWithCarasol = (props) => {
             margin: "auto",
           }}
         >
-          <CommercialCarousal />
+          <Grid
+            sx={{
+              width: { md: "70%", xs: "100%", sm: "85%" },
+            }}
+          >
+            <Slider
+              autoplay={true}
+              autoplaySpeed={10000}
+              fade={true}
+              dots={false}
+              beforeChange={(currentSlide, nextSlide) =>
+                setCurrentRoommate(roommates[nextSlide])
+              }
+            >
+              {roommates.map((roommate, i) => (
+                <Grid
+                  sx={{
+                    cursor: "pointer",
+                    padding: "15px",
+                  }}
+                  key={i} // Added key prop to avoid warning
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      position: "relative",
+                      paddingBottom: "70%",
+                      boxShadow: "7px 7px 7px rgba(0,0,0,0.5)",
+                    }}
+                  >
+                    <img
+                      src={
+                        roommate.poster.profilePicture
+                          ? roommate.poster.profilePicture
+                          : roommate.poster.gender === "Male"
+                          ? UserImage
+                          : roommate.poster.gender === "Female"
+                          ? FemaleUserImage
+                          : roommate.poster.firstName
+                      }
+                      alt={roommate.poster.firstName}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                </Grid>
+              ))}
+            </Slider>
+          </Grid>
+          {/* <CommercialCarousal /> */}
         </Grid>
       </Grid>
 
@@ -96,6 +186,7 @@ const AddWithCarasol = (props) => {
           width: "100%",
           maxWidth: "900px",
           mt: "-40px",
+          marginX: "auto",
         }}
       >
         <Grid
