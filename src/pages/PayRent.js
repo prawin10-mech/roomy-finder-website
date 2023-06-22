@@ -186,7 +186,7 @@ const PayRent = () => {
         <Grid item xs={12}>
           <Grid container justifyContent="space-between">
             <Typography>Service fee</Typography>
-            <Typography>(3%) AED {serviceFee}</Typography>
+            <Typography>(3%) AED {Number(serviceFee.toFixed(2))}</Typography>
           </Grid>
         </Grid>
         <Grid item xs={12}>
