@@ -117,9 +117,9 @@ const PayRent = () => {
 
   const serviceFee = useMemo(() => {
     if (property) {
-      return (
+      return Number(
         0.03 * property.ad.monthlyPrice +
-        0.105 * 0.03 * property.ad.monthlyPrice
+          0.105 * 0.03 * property.ad.monthlyPrice.toFixed(2)
       );
     }
     return 0;
@@ -192,7 +192,9 @@ const PayRent = () => {
         <Grid item xs={12}>
           <Grid container justifyContent="space-between">
             <Typography sx={{ fontWeight: 700 }}>Total</Typography>
-            <Typography sx={{ fontWeight: 700 }}>AED {total}</Typography>
+            <Typography sx={{ fontWeight: 700 }}>
+              AED {Number(total.toFixed(2))}
+            </Typography>
           </Grid>
         </Grid>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
