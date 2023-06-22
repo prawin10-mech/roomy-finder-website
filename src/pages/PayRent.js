@@ -110,14 +110,17 @@ const PayRent = () => {
 
   const vat = useMemo(() => {
     if (property) {
-      return 0.05 * property.ad.monthlyPrice;
+      return 0.1 * (0.05 * property.ad.monthlyPrice);
     }
     return 0;
   }, [property]);
 
   const serviceFee = useMemo(() => {
     if (property) {
-      return 0.03 * property.ad.monthlyPrice;
+      return (
+        0.03 * property.ad.monthlyPrice +
+        0.105 * 0.03 * property.ad.monthlyPrice
+      );
     }
     return 0;
   }, [property]);
@@ -125,8 +128,8 @@ const PayRent = () => {
   const total = useMemo(() => {
     if (property) {
       return (
-        0.0331 * property.ad.monthlyPrice +
-        0.05 * property.ad.monthlyPrice +
+        0.105 * 0.03 * property.ad.monthlyPrice +
+        0.05 * 0.1 * property.ad.monthlyPrice +
         property.ad.monthlyPrice +
         0.1 * property.ad.monthlyPrice
       );
