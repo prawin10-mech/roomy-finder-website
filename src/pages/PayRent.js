@@ -151,7 +151,9 @@ const PayRent = () => {
       >
         <Grid item xs={12}>
           <Grid container justifyContent="space-between">
-            <Typography>Property & quantity</Typography>
+            <Grid container justifyContent="center">
+              <Typography>Property & quantity</Typography>
+            </Grid>
             <Typography>
               {property?.quantity} {property?.ad.type}
             </Typography>
