@@ -29,7 +29,9 @@ import bottomBackground from "../assets/bottomBackground.png";
 import CommercialCarousal from "../components/Card/CommercialCarousal";
 
 const SecondPage = () => {
+
   const city = useSelector((state) => state.search.searchText);
+
   const location = useSelector((state) => state.search.location);
   const searchText = useSelector((state) => state.search.searchText);
   const availableRooms = useSelector((state) => state.search.availableRooms);
@@ -41,6 +43,11 @@ const SecondPage = () => {
   const [locationData, setLocationData] = useState([]);
   const token = localStorage.getItem("token");
   const tokenExpiration = localStorage.getItem("tokenExpiration");
+
+  let city2 = null
+  if(city){
+    city2=city
+  }
 
   const fetchMyBookings = async () => {
     try {
@@ -241,13 +248,28 @@ const SecondPage = () => {
               >
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Typography variant="h5">
-                    {searchType === "property"
+                  {
+                    city2 === null ? (searchType === "property"
+                      ? `Apartments for Rent `
+                      : action === "HAVE ROOM"
+                      ? `HAVE ROOM `
+                      : action === "NEED ROOM"
+                      ? `NEED ROOM `
+                      : `All rooms `) : (searchType === "property"
                       ? `Apartments for Rent in ${city}`
                       : action === "HAVE ROOM"
                       ? `HAVE ROOM in ${city}`
                       : action === "NEED ROOM"
                       ? `NEED ROOM in ${city}`
-                      : `All rooms in ${city}`}
+                      : `All rooms in ${city}`)
+                  }
+                    {/* {searchType === "property"
+                      ? `Apartments for Rent in ${city}`
+                      : action === "HAVE ROOM"
+                      ? `HAVE ROOM in ${city}`
+                      : action === "NEED ROOM"
+                      ? `NEED ROOM in ${city}`
+                      : `All rooms in ${city}`} */}
                   </Typography>
                   {/* <Typography variant="subtitle2">
                     {Object.keys(availableRooms).length} results

@@ -25,9 +25,6 @@ const AddWithCarousel = (props) => {
       });
     }
   };
-  const viewRoommate = () => {
-    navigate(`/roommate/view-roommate/${currentRoommate.id}`);
-  };
 
   useEffect(() => {
     if (roommates.length > 0) {
@@ -57,7 +54,7 @@ const AddWithCarousel = (props) => {
         spacing={1}
         sx={{
           mt: 1,
-          py: 5,
+          // py: 5,
           backgroundImage: `url(${topBackground})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -142,7 +139,6 @@ const AddWithCarousel = (props) => {
                     padding: "15px",
                   }}
                   key={i}
-                  onClick={() => viewRoommate(roommate)}
                 >
                   <div
                     style={{
