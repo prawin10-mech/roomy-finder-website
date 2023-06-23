@@ -13,6 +13,8 @@ const PayRent = () => {
   const [stripeLoading, setStripeLoading] = useState(null);
   const [paypalLoading, setPaypalLoading] = useState(null);
   const [cashLoading, setCashLoading] = useState(null);
+  const [vatPercentage, setVatPercentage] = useState(null);
+  const [serviceFeePercentage, setServiceFeePercentage] = useState(null);
   const token = localStorage.getItem("token");
 
   const baseURL =
@@ -22,6 +24,11 @@ const PayRent = () => {
     const { data } = await axios.get(`${baseURL}/${id}`, {
       headers: { Authorization: token },
     });
+    setVatPercentage(data.client.VAT ? data.client.VAT : 5);
+    // setVatPercentage(5);
+    setServiceFeePercentage(
+      data.client.serviceFee ? data.client.serviceFee : 3
+    );
     setProperty(data);
   };
 
@@ -61,6 +68,8 @@ const PayRent = () => {
       setPaypalLoading(false);
     }
   };
+
+  console.log(property);
 
   const payWithCashHandler = async (bookingId) => {
     try {
@@ -110,7 +119,7 @@ const PayRent = () => {
 
   const vat = useMemo(() => {
     if (property) {
-      return 0.1 * (0.05 * property.ad.monthlyPrice);
+      return 0.1 * ((vatPercentage / 100) * property.ad.monthlyPrice);
     }
     return 0;
   }, [property]);
@@ -118,8 +127,10 @@ const PayRent = () => {
   const serviceFee = useMemo(() => {
     if (property) {
       return Number(
-        0.03 * property.ad.monthlyPrice +
-          0.105 * 0.03 * property.ad.monthlyPrice.toFixed(2)
+        (serviceFeePercentage / 100) * property.ad.monthlyPrice +
+          0.105 *
+            (serviceFeePercentage / 100) *
+            property.ad.monthlyPrice.toFixed(2)
       );
     }
     return 0;
@@ -128,8 +139,8 @@ const PayRent = () => {
   const total = useMemo(() => {
     if (property) {
       return (
-        0.105 * 0.03 * property.ad.monthlyPrice +
-        0.05 * 0.1 * property.ad.monthlyPrice +
+        vat +
+        serviceFee +
         property.ad.monthlyPrice +
         0.1 * property.ad.monthlyPrice
       );
