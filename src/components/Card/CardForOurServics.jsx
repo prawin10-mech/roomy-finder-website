@@ -31,12 +31,10 @@ const AddWithCarousel = (props) => {
   };
 
   const handleNext = () => {
-    // Logic to move to the next slide
     slider.slickNext();
   };
 
   const handlePrev = () => {
-    // Logic to move to the previous slide
     slider.slickPrev();
   };
 
@@ -112,11 +110,6 @@ const AddWithCarousel = (props) => {
         spacing={1}
         sx={{
           mt: 1,
-<<<<<<< HEAD
-
-=======
-          // py: 5,
->>>>>>> 29372c1b52f72a587b416f7c005b5e52ae7aad37
           backgroundImage: `url(${topBackground})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
