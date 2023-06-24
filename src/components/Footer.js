@@ -7,14 +7,14 @@ import { footerSections } from "../utils/FooterData";
 import { useDispatch } from "react-redux";
 import { SearchActions } from "../store/Search";
 import axios from "axios";
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 import landlord from "../assets/Agreements/landlord_agreement_roomy_finder.pdf";
 import privacy from "../assets/Agreements/privacy_policy_roomy_findner.pdf";
 import terms from "../assets/Agreements/t&c_roomy_finder.pdf";
 import appstore3 from "../assets/store/apple.jpg";
 import googleplaystore3 from "../assets/store/googleStore.jpg";
-import haw from "../assets/store/haw.jpg"
-import ms from "../assets/store/ms.jpg"
+import haw from "../assets/store/haw.jpg";
+import ms from "../assets/store/ms.jpg";
 import bottomBackground from "../assets/bottomBackground.png";
 
 import fb from "../assets/socialmedia/fb2.jpeg";
@@ -98,7 +98,7 @@ const Footer = () => {
   };
 
   return (
-    <Grid sx={{ display: "block", overflowX: "hidden", pt: "6px",my:2 }}>
+    <Grid sx={{ display: "block", overflowX: "hidden", pt: "6px", my: 2 }}>
       <Toolbar
         sx={{
           display: "flex",
@@ -202,10 +202,9 @@ const Footer = () => {
                   onClick={() => navigate("/")}
                   sx={{ cursor: "pointer", my: 1 }}
                 >
-                <Tooltip title="Coming Soon">
-
-                  <img src={appstore3} alt="App Store" width={120} />
-                </Tooltip>
+                  <Tooltip title="Coming Soon">
+                    <img src={appstore3} alt="App Store" width={120} />
+                  </Tooltip>
                 </Box>
                 <Box item sx={{ cursor: "pointer", zIndex: 16000 }}>
                   <a href="https://play.google.com/store/apps/details?id=com.gsccapitalgroup.roomy_finder">
@@ -217,20 +216,18 @@ const Footer = () => {
                   onClick={() => navigate("/")}
                   sx={{ cursor: "pointer", my: 1 }}
                 >
-                 <Tooltip title="Coming Soon">
-
-                  <img src={haw} alt="App Store" width={120} />
-                 </Tooltip>
+                  <Tooltip title="Coming Soon">
+                    <img src={haw} alt="App Store" width={120} />
+                  </Tooltip>
                 </Box>
                 <Box
                   item
                   onClick={() => navigate("/")}
                   sx={{ cursor: "pointer", my: 1 }}
                 >
-                 <Tooltip title="Coming Soon">
-
-                  <img src={ms} alt="App Store" width={120} />
-                 </Tooltip>
+                  <Tooltip title="Coming Soon">
+                    <img src={ms} alt="App Store" width={120} />
+                  </Tooltip>
                 </Box>
               </Box>
             </Box>
@@ -238,13 +235,13 @@ const Footer = () => {
           <Grid
             item
             sx={{
-              // mt:{xs:"20%"},
+              // mb: { xs: "-20%" },
               display: "flex",
               flexDirection: "row",
-              position: "absolute",
+              position: "relative",
               bottom: 0,
               left: 0,
-              mb: "14px",
+              // mb: { xs: "-50px", md: "14px" },
             }}
           >
             <a href="https://www.facebook.com/profile.php?id=100090096130709&mibextid=LQQJ4d">
@@ -272,19 +269,18 @@ const Footer = () => {
               />
             </a>
             <Tooltip title="Coming Soon">
-
-            <a href="#">
-              <img
-                src={twiter}
-                alt="Footer mobile"
-                style={{
-                  height: "40px",
-                  width: "40px",
-                  marginLeft: "8px",
-                  marginRight: "8px",
-                }}
-              />
-            </a>
+              <a href="#">
+                <img
+                  src={twiter}
+                  alt="Footer mobile"
+                  style={{
+                    height: "40px",
+                    width: "40px",
+                    marginLeft: "8px",
+                    marginRight: "8px",
+                  }}
+                />
+              </a>
             </Tooltip>
             <a href="https://www.snapchat.com/add/roomyfinder?share_id=ekhRZEdSMng&locale=en-US">
               <img
@@ -324,14 +320,13 @@ const Footer = () => {
             backgroundSize: "100% 100%",
             display: "flex",
             px: 5,
-            
           }}
         >
           <Box
             sx={{
-              pt:1,
+              pt: 1,
               position: "relative",
-              mt:{md:9},
+              mt: { md: 9 },
               // mb:4,
               height: "100%",
               display: "block",
@@ -340,7 +335,7 @@ const Footer = () => {
           >
             <Box
               sx={{
-                mt:"4px",
+                mt: "4px",
                 // py:3,
                 display: "flex",
                 justifyContent: "flex-end",
@@ -356,7 +351,7 @@ const Footer = () => {
                 alt="Footer mobile"
                 width="60%"
                 height="95%"
-                style={{ maxWidth: "100%",}}
+                style={{ maxWidth: "100%" }}
               />
             </Box>
           </Box>

@@ -86,7 +86,7 @@ const Rooms = () => {
             sx={{
               ...backgroundStyles,
               "@media (max-width: 600px)": {
-                height: "30vh",
+                height: "100%",
                 padding: "10px",
               },
             }}
@@ -105,7 +105,7 @@ const Rooms = () => {
               sx={{
                 color: "#fff",
                 fontSize: "20px",
-                maxWidth: { xs: "60%", md: "40%" },
+                maxWidth: { xs: "80%", md: "40%" },
                 wordWrap: "break-word",
                 mb: 1,
               }}
@@ -141,7 +141,7 @@ const Rooms = () => {
             sx={{
               ...backgroundStyles2,
               "@media (max-width: 600px)": {
-                height: "30vh",
+                height: "100%",
                 padding: "10px",
               },
             }}
@@ -160,7 +160,7 @@ const Rooms = () => {
               sx={{
                 color: "purple",
                 fontSize: "20px",
-                maxWidth: { xs: "60%", md: "40%" },
+                maxWidth: { xs: "80%", md: "40%" },
                 wordWrap: "break-word",
                 mb: 1,
               }}
