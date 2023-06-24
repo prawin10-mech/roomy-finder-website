@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Box, Typography, Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SearchActions } from "../store/Search";
 import { roomsTypeActions } from "../store/Rooms";
@@ -77,11 +77,27 @@ const Rooms = () => {
           item
           xs={12}
           sm={6}
-          sx={{ marginBottom: { xs: 2, sm: 0 }, padding: "20px" }}
+          sx={{
+            marginBottom: { xs: 2, sm: 0 },
+            padding: { xs: "10px", sm: "20px" },
+          }}
         >
-          <Box sx={backgroundStyles}>
+          <Box
+            sx={{
+              ...backgroundStyles,
+              "@media (max-width: 600px)": {
+                height: "30vh",
+                padding: "10px",
+              },
+            }}
+          >
             <Typography
-              sx={{ color: "#fff", fontWeight: "700", fontSize: "22px", mb: 1 }}
+              sx={{
+                color: "#fff",
+                fontWeight: "700",
+                fontSize: "22px",
+                mb: 1,
+              }}
             >
               FIND ROOM
             </Typography>
@@ -116,9 +132,20 @@ const Rooms = () => {
           item
           xs={12}
           sm={6}
-          sx={{ marginBottom: { xs: 2, sm: 0 }, padding: "20px" }}
+          sx={{
+            marginBottom: { xs: 2, sm: 0 },
+            padding: { xs: "10px", sm: "20px" },
+          }}
         >
-          <Box sx={backgroundStyles2}>
+          <Box
+            sx={{
+              ...backgroundStyles2,
+              "@media (max-width: 600px)": {
+                height: "30vh",
+                padding: "10px",
+              },
+            }}
+          >
             <Typography
               sx={{
                 color: "purple",
