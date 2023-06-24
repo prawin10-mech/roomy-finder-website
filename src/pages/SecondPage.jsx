@@ -40,6 +40,11 @@ const SecondPage = () => {
   const token = localStorage.getItem("token");
   const tokenExpiration = localStorage.getItem("tokenExpiration");
 
+  let city2 = null;
+  if (city) {
+    city2 = city;
+  }
+
   const fetchMyBookings = async () => {
     try {
       if (token && tokenExpiration && Date.now() < parseInt(tokenExpiration)) {
@@ -233,13 +238,28 @@ const SecondPage = () => {
               >
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Typography variant="h5">
-                    {searchType === "property"
+                    {city2 === null
+                      ? searchType === "property"
+                        ? `Apartments for Rent `
+                        : action === "HAVE ROOM"
+                        ? `HAVE ROOM `
+                        : action === "NEED ROOM"
+                        ? `NEED ROOM `
+                        : `All rooms `
+                      : searchType === "property"
                       ? `Apartments for Rent in ${city}`
                       : action === "HAVE ROOM"
                       ? `HAVE ROOM in ${city}`
                       : action === "NEED ROOM"
                       ? `NEED ROOM in ${city}`
                       : `All rooms in ${city}`}
+                    {/* {searchType === "property"
+                      ? `Apartments for Rent in ${city}`
+                      : action === "HAVE ROOM"
+                      ? `HAVE ROOM in ${city}`
+                      : action === "NEED ROOM"
+                      ? `NEED ROOM in ${city}`
+                      : `All rooms in ${city}`} */}
                   </Typography>
                   {/* <Typography variant="subtitle2">
                     {Object.keys(availableRooms).length} results
