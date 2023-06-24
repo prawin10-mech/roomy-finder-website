@@ -17,8 +17,6 @@ const SingleBlog = () => {
     setBlogPost(data);
   };
 
-  console.log(blogPost);
-
   const blogPostData = (
     <Grid sx={{ margin: "auto", width: "70%", textAlign: "justify" }}>
       <Grid sx={{ height: "200px" }}>

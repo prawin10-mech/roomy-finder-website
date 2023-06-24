@@ -105,9 +105,7 @@ const ViewRoom = () => {
       dispatch(SearchActions.availableRooms(data));
 
       setRoom(data.find((room) => room.id === id));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleDeleteAd = async (adId) => {
@@ -117,12 +115,8 @@ const ViewRoom = () => {
         { headers: { Authorization: token } }
       );
       toast.success("Property deleted successfully", toastOptions);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
-
-  console.log(room);
 
   const handleBookRoom = async () => {
     if (!token && !user && Date.now() < parseInt(tokenExpiration)) {
@@ -220,9 +214,7 @@ const ViewRoom = () => {
       // );
 
       setCancelDialogOpen(false);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleRejectCancel = () => {
@@ -249,9 +241,7 @@ const ViewRoom = () => {
       //   } `,
       //   `${bookedProperty.ad.poster.fcmToken}`
       // );
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const gotoEditOption = async (AdId) => {
@@ -263,9 +253,7 @@ const ViewRoom = () => {
       dispatch(PropertyActions.editedData(data));
       dispatch(PropertyActions.edit(true));
       navigate("/postProperty");
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const getMyBookings = async () => {
@@ -285,9 +273,7 @@ const ViewRoom = () => {
         setIsBooked(true);
         setBookedProperty(bookedRoom);
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {

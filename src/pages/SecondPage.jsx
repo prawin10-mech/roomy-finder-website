@@ -1,6 +1,5 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import SingleCardCarousel from "../components/Card/SingleCardCarousel";
 
 import CustomizeSelectBox from "../components/MUIcomponent/CustomizeSelectBox";
 import IconButtonMUI from "../components/MUIcomponent/IconButtonMUI";
@@ -30,7 +29,6 @@ import CommercialCarousal from "../components/Card/CommercialCarousal";
 
 const SecondPage = () => {
   const city = useSelector((state) => state.search.searchText);
-  const location = useSelector((state) => state.search.location);
   const searchText = useSelector((state) => state.search.searchText);
   const availableRooms = useSelector((state) => state.search.availableRooms);
   const searchType = useSelector((state) => state.search.searchType);
@@ -51,9 +49,7 @@ const SecondPage = () => {
         );
         dispatch(UserActions.myBookings(data));
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const getPartitionRoomData = async () => {
@@ -63,9 +59,7 @@ const SecondPage = () => {
         { countryCode }
       );
       dispatch(SearchActions.availableRooms(data));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -107,8 +101,6 @@ const SecondPage = () => {
   useEffect(() => {
     viewArrayData();
   }, [city, countryCode]);
-
-  console.log(availableRooms);
 
   return (
     <>

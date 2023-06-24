@@ -54,7 +54,6 @@ const ResetPassword = () => {
         toast.success("Verification email sent successfully", toastOptions);
       }
     } catch (err) {
-      console.log(err);
       toast.error("User not found please signup", toastOptions);
     }
   };

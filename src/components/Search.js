@@ -55,7 +55,7 @@ const Search = () => {
             },
           }}
         >
-          Room mate
+          Roommate
         </Button>
       </ButtonGroup>
       <Box sx={{ "@media (max-width: 600px)": { mt: 1 } }}>

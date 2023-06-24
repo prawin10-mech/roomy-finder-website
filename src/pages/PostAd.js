@@ -109,7 +109,6 @@ const PostAd = () => {
   };
 
   const handleEditAd = async () => {
-    console.log(adId);
     try {
       const aboutYou = {
         age: yourAge,
@@ -165,11 +164,9 @@ const PostAd = () => {
         obj,
         { headers: { Authorization: token } }
       );
-      console.log(data);
       toast.success("Ad posted auccessfully", toastOptions);
       dispatch(TenantActions.clear());
     } catch (err) {
-      console.error("Error message:", err);
       toast.error("Please try again after some time", toastOptions);
     }
   };
@@ -229,12 +226,10 @@ const PostAd = () => {
           obj,
           { headers: { Authorization: token } }
         );
-        console.log(data);
         toast.success("Ad posted auccessfully", toastOptions);
         dispatch(TenantActions.clear());
       }
     } catch (err) {
-      console.log(err);
       toast.error("Please try again after some time", toastOptions);
     }
   };
@@ -816,7 +811,6 @@ const PostAd = () => {
               type="date"
               value={movingDate}
               onChange={(event) => {
-                console.log(event.target.value);
                 dispatch(TenantActions.movingDate(event.target.value));
               }}
               InputLabelProps={{

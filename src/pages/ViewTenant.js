@@ -109,9 +109,7 @@ const ViewRoom = () => {
       dispatch(SearchActions.availableRooms(data));
 
       setRoom(data.find((room) => room.id === id));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -126,7 +124,6 @@ const ViewRoom = () => {
       );
       toast.success("Ad deleted successfully", toastOptions);
     } catch (err) {
-      console.log(err);
     } finally {
       setConfirmed(false);
     }
@@ -141,8 +138,6 @@ const ViewRoom = () => {
     dispatch(TenantActions.editTenant(data));
     dispatch(TenantActions.isEdit(true));
     navigate("/postAd");
-
-    console.log(data);
   };
 
   return (

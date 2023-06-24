@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
@@ -9,8 +9,8 @@ import FemaleUserImage from "../../assets/dummyFemaleUserImage.jpg";
 import topBackground from "../../assets/topBackground.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import CityCarousel from "../UI/CityCarousel2";
 import SaudiRoommate from "../../assets/saudiRoommate.png";
+import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
 const AddWithCarousel = (props) => {
   const navigate = useNavigate();
@@ -25,8 +25,19 @@ const AddWithCarousel = (props) => {
       });
     }
   };
+
   const viewRoommate = () => {
     navigate(`/roommate/view-roommate/${currentRoommate.id}`);
+  };
+
+  const handleNext = () => {
+    // Logic to move to the next slide
+    slider.slickNext();
+  };
+
+  const handlePrev = () => {
+    // Logic to move to the previous slide
+    slider.slickPrev();
   };
 
   useEffect(() => {
@@ -50,6 +61,50 @@ const AddWithCarousel = (props) => {
     fetchRoommates();
   }, [countryCode]);
 
+  const NextArrow = ({ onClick }) => {
+    return (
+      <IconButton
+        className="next-button"
+        onClick={onClick}
+        sx={{
+          position: "absolute",
+          top: "50%",
+          right: "15px",
+          transform: "translateY(-60%)",
+          zIndex: 1,
+          "&:hover": {
+            backgroundColor: "#7F7F7F",
+          },
+        }}
+      >
+        <ChevronRight />
+      </IconButton>
+    );
+  };
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <IconButton
+        className="prev-button"
+        onClick={onClick}
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "15px",
+          transform: "translateY(-60%)",
+          zIndex: 1,
+          "&:hover": {
+            backgroundColor: "#7F7F7F",
+          },
+        }}
+      >
+        <ChevronLeft />
+      </IconButton>
+    );
+  };
+
+  let slider;
+
   return (
     <Grid container>
       <Grid
@@ -57,14 +112,13 @@ const AddWithCarousel = (props) => {
         spacing={1}
         sx={{
           mt: 1,
-          py: 5,
+
           backgroundImage: `url(${topBackground})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 100%",
           display: "flex",
           px: 5,
-          pb: 5,
         }}
       >
         <Grid
@@ -80,8 +134,12 @@ const AddWithCarousel = (props) => {
           }}
         >
           <Typography
-            sx={{ textAlign: "center", color: "#fff" }}
-            variant="h4"
+            sx={{
+              textAlign: "center",
+              color: "#fff",
+              fontSize: { xs: "h6", sm: "h5", md: "h4" },
+            }}
+            variant={"h4"}
             gutterBottom
           >
             Roommate looking for shared living in UAE
@@ -115,7 +173,6 @@ const AddWithCarousel = (props) => {
           sm={6}
           md={6}
           sx={{
-            mx: 5,
             display: "flex",
             justifyContent: "center",
             margin: "auto",
@@ -123,7 +180,8 @@ const AddWithCarousel = (props) => {
         >
           <Grid
             sx={{
-              width: { md: "70%", xs: "100%", sm: "85%" },
+              width: { md: "80%", xs: "100%", sm: "85%" },
+              position: "relative",
             }}
           >
             <Slider
@@ -134,22 +192,29 @@ const AddWithCarousel = (props) => {
               beforeChange={(currentSlide, nextSlide) =>
                 setCurrentRoommate(roommates[nextSlide])
               }
+              ref={(c) => (slider = c)}
+              nextArrow={<NextArrow />}
+              prevArrow={<PrevArrow />}
             >
               {roommates.map((roommate, i) => (
                 <Grid
                   sx={{
                     cursor: "pointer",
                     padding: "15px",
+                    maxHeight: "250px",
+                    my: 4,
                   }}
                   key={i}
                   onClick={() => viewRoommate(roommate)}
                 >
                   <div
                     style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                       width: "100%",
                       position: "relative",
                       paddingBottom: "70%",
-                      boxShadow: "7px 7px 7px rgba(0,0,0,0.5)",
                     }}
                   >
                     <img
@@ -169,7 +234,10 @@ const AddWithCarousel = (props) => {
                         left: 0,
                         width: "100%",
                         height: "100%",
+                        maxHeight: "200px",
                         objectFit: "cover",
+                        borderRadius: "20px",
+                        boxShadow: "0px 0px 15px rgba(0,0,0,0.9)",
                       }}
                     />
                   </div>

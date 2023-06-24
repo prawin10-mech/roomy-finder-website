@@ -118,12 +118,10 @@ const PostProperty = () => {
           obj,
           { headers: { Authorization: token } }
         );
-        console.log("res", data);
         toast.success("Property edited successfully", toastOptions);
         //navigate("/");
       }
     } catch (err) {
-      console.log(err);
       toast.error("Something went wrong", toastOptions);
     }
   };
@@ -175,8 +173,6 @@ const PostProperty = () => {
           socialPreferences,
         };
 
-        console.log("test1", obj);
-
         const { data } = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad",
           obj,
@@ -184,9 +180,7 @@ const PostProperty = () => {
         );
         toast.success("Property posted successfully", toastOptions);
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleDepositChange = (e) => {

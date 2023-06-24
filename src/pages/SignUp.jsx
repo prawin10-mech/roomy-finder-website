@@ -187,7 +187,6 @@ export default function SignUp() {
       setSendedOtpToMail(true);
       setSendedOtp(data.code);
     } catch (err) {
-      console.log(err);
       toast.error("Email verification failed", toastOptions);
     } finally {
       setSendedOtpLoading(false);
@@ -213,12 +212,10 @@ export default function SignUp() {
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/send-otp-code",
           { phone: countryCode + phone }
         );
-        console.log(data);
         setMobileOtpVerify(true);
       }
     } catch (err) {
       toast.error("Otp sending failed", toastOptions);
-      console.log(err);
     }
   };
 
@@ -236,7 +233,7 @@ export default function SignUp() {
         country,
         gender,
         fcmToken: "123",
-        otpCode:enteredMobileOtp,
+        otpCode: enteredMobileOtp,
       };
 
       const { data } = await axios.post(
@@ -257,7 +254,6 @@ export default function SignUp() {
       if (err.response.status === 403) {
         toast.error("Please enter valid otp", toastOptions);
       }
-      console.log(err);
     }
   };
 

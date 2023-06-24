@@ -27,7 +27,7 @@ const PayRent = () => {
     setVatPercentage(data.client.VAT ? data.client.VAT : 5);
     // setVatPercentage(5);
     setServiceFeePercentage(
-      data.client.serviceFee ? data.client.serviceFee : 3
+      data.client.serviceFee ? data.client.stripeCharges : 3
     );
     setProperty(data);
   };
@@ -47,7 +47,6 @@ const PayRent = () => {
 
       window.location.href = data.paymentUrl;
     } catch (err) {
-      console.log(err);
     } finally {
       setStripeLoading(false);
     }
@@ -63,13 +62,10 @@ const PayRent = () => {
       );
       window.location.href = data.paymentUrl;
     } catch (err) {
-      console.log(err);
     } finally {
       setPaypalLoading(false);
     }
   };
-
-  console.log(property);
 
   const payWithCashHandler = async (bookingId) => {
     try {
@@ -94,11 +90,8 @@ const PayRent = () => {
         // );
 
         navigate(`/myBookings/aboutBooking/${bookingId}`);
-
-        console.log(data);
       }
     } catch (err) {
-      console.log(err);
     } finally {
       setCashLoading(false);
     }
