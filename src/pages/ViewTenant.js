@@ -16,6 +16,10 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
+import {
+  NavigateNext as CustomNextIcon,
+  NavigateBefore as CustomPrevIcon,
+} from "@mui/icons-material";
 import { Carousel } from "react-responsive-carousel";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -105,32 +109,223 @@ const ViewRoom = () => {
     navigate("/postAd");
   };
 
+  const handleOpenChat = () => {
+    if (room) {
+      navigate(`/directchat/${room.poster.id}`, {
+        state: { property: room, type: room.poster.type },
+      });
+    }
+  };
+
+  console.log(room);
+
   return (
     <Grid sx={{ overFlowX: "hidden" }}>
       <TopBackground />
       <Box
         sx={{
           mx: "auto",
-          maxWidth: { xs: "95%", md: "70%" },
+          maxWidth: { xs: "95%", md: "70%", lg: "60%" },
           my: 3,
           px: 1,
           overFlowX: "hidden",
         }}
       >
-        <Card
+        <Grid
+          container
           sx={{
             display: "flex",
-            // bgcolor: "#f1f1f2",
             borderRadius: "20px",
             width: "100%",
             flexDirection: { xs: "column", sm: "row" },
             alignItems: "center",
+            justifyContent: "space-around",
             mb: 3,
             position: "relative",
-            // boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
-            boxShadow: "0px 0px 15px  rgba(0,0,0,0.5)",
+            boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.5)",
           }}
         >
+          {room && (
+            <Grid>
+              <Carousel
+                autoPlay
+                renderArrowPrev={(onClickHandler, hasPrev, label) =>
+                  hasPrev && (
+                    <button
+                      type="button"
+                      onClick={onClickHandler}
+                      title={label}
+                      style={{
+                        position: "absolute",
+                        zIndex: 2,
+                        left: 15,
+                        top: "60%",
+                        transform: "translateY(-50%)",
+                        background: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <CustomPrevIcon style={{ fontSize: 40 }} />
+                    </button>
+                  )
+                }
+                renderArrowNext={(onClickHandler, hasNext, label) =>
+                  hasNext && (
+                    <button
+                      type="button"
+                      onClick={onClickHandler}
+                      title={label}
+                      style={{
+                        position: "absolute",
+                        zIndex: 2,
+                        right: 15,
+                        top: "60%",
+                        transform: "translateY(-50%)",
+                        background: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <CustomNextIcon style={{ fontSize: 40 }} />
+                    </button>
+                  )
+                }
+              >
+                {room?.images.length > 0 ? (
+                  room.images.map((image, index) => (
+                    <CardMedia
+                      key={index}
+                      component="img"
+                      height="100%"
+                      width="100%"
+                      image={image}
+                      alt={`available room ${index}`}
+                      sx={{
+                        objectFit: "cover",
+                        objectPosition: "center",
+                        mt: 5,
+                        width: "300px",
+                        height: "250px",
+                        borderRadius: "15px",
+                      }}
+                    />
+                  ))
+                ) : (
+                  <CardMedia
+                    component="img"
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      maxHeight: { xs: "250px", sm: "300px", md: "300px" },
+                      padding: "10px",
+                      borderRadius: "20px",
+                      display: "flex",
+                    }}
+                    image={DummyImage}
+                    alt={"DummyImage"}
+                  />
+                )}
+              </Carousel>
+            </Grid>
+          )}
+
+          {room && (
+            <Grid
+            // sx={{
+            //   display: "flex",
+            //   justifyContent: "center",
+            //   alignItems: "center",
+            //   flexDirection: "column",
+            //   margin: "auto",
+            // }}
+            >
+              <Grid
+                gap={1}
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: { xs: "row", sm: "column" },
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: { xs: "center", sm: "left" },
+                }}
+              >
+                <Grid sx={{}}>
+                  <Avatar sx={{ width: 150, height: 150 }}>
+                    {room?.profilePicture ? (
+                      <img src={room.profilePicture} alt="Room Profile" />
+                    ) : (
+                      <img
+                        src={
+                          room?.poster?.gender === "Male"
+                            ? DummyMaleUserImage
+                            : DummyFemaleUserImage
+                        }
+                        alt="Dummy User"
+                      />
+                    )}
+                  </Avatar>
+                </Grid>
+                <Grid
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    ml: { xs: 0, sm: 2 }, // Added marginLeft for spacing on smaller screens
+                  }}
+                >
+                  <Typography sx={{ fontWeight: 700 }}>
+                    {room?.poster?.firstName} {room?.poster?.lastName}
+                  </Typography>
+                  <Typography>{room?.action}</Typography>
+                  <Typography>
+                    {room?.address?.buildingName
+                      ? room?.address?.buildingName
+                      : "N/A"}
+                    , {room?.address?.location}, {room?.address?.city}
+                  </Typography>
+                  <Typography sx={{ mt: 1, fontWeight: 700 }}>
+                    {room?.budget.toLocaleString()} AED Budget
+                  </Typography>
+                </Grid>
+              </Grid>
+              {room && (
+                <Grid
+                  sx={{
+                    height: "30px",
+                    display: "flex",
+                    justifyContent: "center",
+                    mr: { xs: 2, sm: 0 },
+                    mb: 2,
+                  }}
+                >
+                  {!active && (
+                    <Button
+                      variant="contained"
+                      sx={{
+                        borderRadius: 15,
+                        bgcolor: "orange",
+                        width: "100px",
+                        color: "#fff",
+                        fontWeight: "700",
+                        "&:hover": {
+                          bgcolor: "#ff9900",
+                        },
+                      }}
+                      onClick={() => {
+                        handleOpenChat(room.poster.id);
+                      }}
+                    >
+                      Chat
+                    </Button>
+                  )}
+                </Grid>
+              )}
+
+              <Divider orientation="vertical" flexItem />
+            </Grid>
+          )}
           {active && (
             <Button
               style={{
@@ -182,168 +377,8 @@ const ViewRoom = () => {
               </DialogActions>
             </Dialog>
           )}
+        </Grid>
 
-          {room && (
-            <Box
-              sx={{
-                width: { xs: "100%", sm: "60%" },
-                height: "200px",
-                display: "flex",
-                alignItems: "center",
-                p: 2,
-                my: 5,
-              }}
-            >
-              <Carousel autoPlay>
-                {room?.images.length > 0 ? (
-                  room.images.map((image, index) => (
-                    <CardMedia
-                      key={index}
-                      component="img"
-                      height="100%"
-                      width="100%"
-                      image={image}
-                      alt={`available room ${index}`}
-                      sx={{
-                        objectFit: "cover",
-                        objectPosition: "center",
-                        mt: 5,
-                        width: "300px",
-                        height: "250px",
-                        borderRadius: "15px",
-                      }}
-                    />
-                  ))
-                ) : (
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                      maxHeight: { xs: "250px", sm: "300px", md: "300px" },
-                      padding: "10px",
-                      borderRadius: "20px",
-                      display: "flex",
-                    }}
-                    image={DummyImage}
-                    alt={"DummyImage"}
-                  />
-                )}
-              </Carousel>
-            </Box>
-          )}
-
-          {room && (
-            <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-              <Box
-                gap={1}
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: { xs: "row", sm: "column" },
-                  justifyContent: "space-between",
-                }}
-              >
-                <Box sx={{ ml: -3 }}>
-                  <Avatar sx={{ width: 150, height: 150 }}>
-                    {room?.profilePicture ? (
-                      <img src={room.profilePicture} alt="Room Profile" />
-                    ) : (
-                      <img
-                        src={
-                          room?.poster?.gender === "Male"
-                            ? DummyMaleUserImage
-                            : DummyFemaleUserImage
-                        }
-                        alt="Dummy User"
-                      />
-                    )}
-                  </Avatar>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography sx={{ fontWeight: 700 }}>
-                    {room?.poster?.firstName} {room?.poster?.lastName}
-                  </Typography>
-                  <Typography>{room?.action}</Typography>
-                  <Typography>
-                    {room?.address?.buildingName
-                      ? room?.address?.buildingName
-                      : "N/A"}
-                    , {room?.address?.location}, {room?.address?.city}
-                  </Typography>
-                </Box>
-                <Box>
-                  {/* {!active && (
-                    <Button
-                      variant="contained"
-                      sx={{
-                        borderRadius: 15,
-                        bgcolor: "orange",
-                        width: "100px",
-                        color: "#fff",
-                        fontWeight: "700",
-                        "&:hover": {
-                          bgcolor: "#ff9900",
-                        },
-                      }}
-                    >
-                      Chat
-                    </Button>
-                  )} */}
-                  <Typography sx={{ mt: 1, fontWeight: 700 }}>
-                    {room?.budget.toLocaleString()} AED Budget
-                  </Typography>
-                </Box>
-              </Box>
-
-              <Divider orientation="vertical" flexItem />
-              {/* <Box
-                sx={{
-                  p: 2,
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              ></Box> */}
-            </Box>
-          )}
-          {room && (
-            <Box
-              sx={{
-                height: "30px",
-                display: "flex",
-                position: "absolute",
-                mr: "50px",
-                bottom: 0,
-                right: 0,
-                mb: 2,
-              }}
-            >
-              {!active && (
-                <Button
-                  variant="contained"
-                  sx={{
-                    borderRadius: 15,
-                    bgcolor: "orange",
-                    width: "100px",
-                    color: "#fff",
-                    fontWeight: "700",
-                    "&:hover": {
-                      bgcolor: "#ff9900",
-                    },
-                  }}
-                >
-                  Chat
-                </Button>
-              )}
-            </Box>
-          )}
-        </Card>
         <hr style={{ margin: "20px 0" }} />
 
         <Box mb={5}>
@@ -533,7 +568,7 @@ const ViewRoom = () => {
                           wordWrap: "break-word",
                         }}
                       >
-                        {room.aboutYou.languages.join(",")}
+                        {room.aboutYou.languages.join(", ")}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -620,7 +655,7 @@ const ViewRoom = () => {
                     }}
                   >
                     {room?.aboutYou?.languages.length !== 0
-                      ? room?.aboutYou?.languages.join(",")
+                      ? room?.aboutYou?.languages.join(", ")
                       : "N/A"}
                   </Typography>
                 </Grid>
