@@ -30,14 +30,14 @@ import privacy_policy_roomy_findner from "../../assets/Agreements/privacy_policy
 
 import Countries from "../Countries";
 
-const pages = [
-  "About Us",
-  "Contact Us",
-  "Our Services",
-  "Post Property",
-  "Message",
-];
-const pageNavigate = ["aboutUs", "contactUs", "", "postProperty", "chat"];
+// const pages = [
+//   "About Us",
+//   "Contact Us",
+//   "Our Services",
+//   "Post Property",
+//   "Message",
+// ];
+// const pageNavigate = ["aboutUs", "contactUs", "", "postProperty", "chat"];
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -58,6 +58,21 @@ const Nav = () => {
     "Privacy Policy",
     "Terms & Conditions",
     "Logout",
+  ];
+
+  const pages = [
+    "About Us",
+    "Contact Us",
+    "Our Services",
+    user.type === "roommate" ? "Post Ad" : "Post Property",
+    "Message",
+  ];
+  const pageNavigate = [
+    "aboutUs",
+    "contactUs",
+    "",
+    user.type === "roommate" ? "postAd" : "postProperty",
+    "chat",
   ];
 
   const selectedCountry = useSelector((state) => state.room.country);

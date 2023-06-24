@@ -535,31 +535,32 @@ const PostAd = () => {
 
       {action === "NEED ROOM" && (
         <Grid container spacing={2}>
-          <Grid item>
+          <Grid item xs={12}>
             <Typography mb={2} sx={{ fontWeight: "600", my: 2 }}>
               Your LIFESTYLE
             </Typography>
           </Grid>
-          <Grid container sx={{ paddingX: 2 }}>
-            <Grid item gap={2} xs={12} sm={4} md={3}>
+          <Grid container spacing={2} sx={{ paddingX: 2 }}>
+            <Grid item xs={6} sm={4} md={3}>
               <Box
                 sx={{
-                  color: yourLifeStyle === "Early Brird" ? "orange" : "black",
+                  color: yourLifeStyle === "Early Bird" ? "orange" : "black",
                   border:
-                    yourLifeStyle === "Early Brird"
+                    yourLifeStyle === "Early Bird"
                       ? "2px solid orange"
-                      : "white",
+                      : "2px solid white",
                   boxShadow: 9,
                   borderRadius: 5,
-                  // fontWeight: 500,
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
+                  width: "100%",
+                  padding: "10px",
                 }}
                 onClick={() =>
-                  dispatch(TenantActions.yourLifeStyle("Early Brird"))
+                  dispatch(TenantActions.yourLifeStyle("Early Bird"))
                 }
               >
                 <img
@@ -571,32 +572,26 @@ const PostAd = () => {
                   }}
                 />
 
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                  }}
-                >
-                  Early Brird
-                </Typography>
+                <Typography sx={{ fontWeight: 500 }}>Early Bird</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={4} md={3}>
+            <Grid item xs={6} sm={4} md={3}>
               <Box
                 sx={{
                   color: yourLifeStyle === "Night Owl" ? "orange" : "black",
                   border:
                     yourLifeStyle === "Night Owl"
                       ? "2px solid orange"
-                      : "white",
+                      : "2px solid white",
                   boxShadow: 9,
                   borderRadius: 5,
-                  // fontWeight: 600,
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  ml: "10px",
+                  width: "100%",
+                  padding: "10px",
                 }}
                 onClick={() =>
                   dispatch(TenantActions.yourLifeStyle("Night Owl"))
@@ -611,13 +606,7 @@ const PostAd = () => {
                   }}
                 />
 
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                  }}
-                >
-                  Night Owl
-                </Typography>
+                <Typography sx={{ fontWeight: 500 }}>Night Owl</Typography>
               </Box>
             </Grid>
           </Grid>
@@ -631,13 +620,13 @@ const PostAd = () => {
           </Typography>
 
           <Grid container xs={12}>
-            {interestData.map((interest) => (
-              <Grid item xs={12} sm={4} md={3} key={interest.value}>
+            {interestData.map((interest, index) => (
+              <Grid item xs={4} sm={4} md={3} key={interest.value}>
                 <Box
                   sx={{
                     boxShadow: 9,
                     height: "70%",
-                    width: "70%",
+                    width: "80%",
                     cursor: "pointer",
                     fontWeight: "500",
                     borderRadius: "15px",
@@ -653,7 +642,6 @@ const PostAd = () => {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
-                    // ml:"25%",
                     alignItems: "center",
                   }}
                   onClick={() => {
@@ -667,15 +655,11 @@ const PostAd = () => {
                     src={interest.pictureimg}
                     alt={interest.value}
                     style={{
-                      height: "60%",
-                      width: "60%",
+                      height: "40px",
+                      width: "40px",
                     }}
                   />
-                  <Typography
-                    sx={{
-                      fontWeight: "500",
-                    }}
-                  >
+                  <Typography sx={{ fontWeight: "500" }}>
                     {interest.value}
                   </Typography>
                 </Box>
@@ -884,7 +868,7 @@ const PostAd = () => {
         </Typography>
         <Grid container spacing={4} sx={{}}>
           {allAmenities.map((amenity) => (
-            <Grid item xs={3} sm={3} md={3} key={amenity.value}>
+            <Grid item xs={4} sm={4} md={3} key={amenity.value}>
               <Box
                 sx={{
                   height: "100px",
@@ -1017,7 +1001,7 @@ const PostAd = () => {
               Comfortable with:
             </Typography>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={4} md={3}>
+              <Grid item xs={4} sm={4} md={3}>
                 <Box
                   sx={{
                     color: smoking ? "orange" : "black",
@@ -1048,7 +1032,7 @@ const PostAd = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={12} sm={4} md={3}>
+              <Grid item xs={4} sm={4} md={3}>
                 <Box
                   sx={{
                     color: drinking ? "orange" : "black",
@@ -1079,7 +1063,7 @@ const PostAd = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={12} sm={4} md={3}>
+              <Grid item xs={4} sm={4} md={3}>
                 <Box
                   sx={{
                     color: visitors ? "orange" : "black",
@@ -1110,7 +1094,7 @@ const PostAd = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={12} sm={4} md={3}>
+              <Grid item xs={4} sm={4} md={3}>
                 <Box
                   sx={{
                     color: party ? "orange" : "black",
@@ -1141,7 +1125,7 @@ const PostAd = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={12} sm={4} md={3}>
+              <Grid item xs={4} sm={4} md={3}>
                 <Box
                   sx={{
                     color: pets ? "orange" : "black",
@@ -1341,12 +1325,12 @@ const PostAd = () => {
 
           <Grid container xs={12}>
             {interestData.map((interest) => (
-              <Grid item xs={12} sm={4} md={3} key={interest.value}>
+              <Grid item xs={4} sm={4} md={3} key={interest.value}>
                 <Box
                   sx={{
                     boxShadow: 9,
                     height: "70%",
-                    width: "70%",
+                    width: "80%",
                     cursor: "pointer",
                     fontWeight: "500",
                     borderRadius: "15px",
@@ -1396,31 +1380,32 @@ const PostAd = () => {
 
       {action === "HAVE ROOM" && (
         <Grid container spacing={2}>
-          <Grid item>
+          <Grid item xs={12}>
             <Typography mb={2} sx={{ fontWeight: "600", my: 2 }}>
               Your LIFESTYLE
             </Typography>
           </Grid>
-          <Grid container sx={{ paddingX: 2 }}>
-            <Grid item gap={2} xs={12} sm={4} md={3}>
+          <Grid container spacing={2} sx={{ paddingX: 2 }}>
+            <Grid item xs={6} sm={4} md={3}>
               <Box
                 sx={{
-                  color: yourLifeStyle === "Early Brird" ? "orange" : "black",
+                  color: yourLifeStyle === "Early Bird" ? "orange" : "black",
                   border:
-                    yourLifeStyle === "Early Brird"
+                    yourLifeStyle === "Early Bird"
                       ? "2px solid orange"
-                      : "white",
+                      : "2px solid white",
                   boxShadow: 9,
                   borderRadius: 5,
-                  // fontWeight: 500,
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
+                  width: "100%",
+                  padding: "10px",
                 }}
                 onClick={() =>
-                  dispatch(TenantActions.yourLifeStyle("Early Brird"))
+                  dispatch(TenantActions.yourLifeStyle("Early Bird"))
                 }
               >
                 <img
@@ -1432,32 +1417,26 @@ const PostAd = () => {
                   }}
                 />
 
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                  }}
-                >
-                  Early Brird
-                </Typography>
+                <Typography sx={{ fontWeight: 500 }}>Early Bird</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={4} md={3}>
+            <Grid item xs={6} sm={4} md={3}>
               <Box
                 sx={{
                   color: yourLifeStyle === "Night Owl" ? "orange" : "black",
                   border:
                     yourLifeStyle === "Night Owl"
                       ? "2px solid orange"
-                      : "white",
+                      : "2px solid white",
                   boxShadow: 9,
                   borderRadius: 5,
-                  // fontWeight: 600,
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  ml: "10px",
+                  width: "100%",
+                  padding: "10px",
                 }}
                 onClick={() =>
                   dispatch(TenantActions.yourLifeStyle("Night Owl"))
@@ -1472,13 +1451,7 @@ const PostAd = () => {
                   }}
                 />
 
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                  }}
-                >
-                  Night Owl
-                </Typography>
+                <Typography sx={{ fontWeight: 500 }}>Night Owl</Typography>
               </Box>
             </Grid>
           </Grid>

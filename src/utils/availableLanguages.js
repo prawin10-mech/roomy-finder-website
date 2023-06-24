@@ -8,7 +8,7 @@ export const availableLanguages = [
   "Persian",
   "Russian",
   "Spanish",
-  "Tangalog",
+  "Tangelo",
   "Ukrainian",
   "Urdu",
 ];

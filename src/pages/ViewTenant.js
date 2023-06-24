@@ -64,41 +64,6 @@ const ViewRoom = () => {
   const countryCode = useSelector((state) => state.room.country);
   const [room, setRoom] = useState(rooms.find((room) => room.id === id));
 
-  // const {
-  //   type,
-  //   rentType,
-  //   action,
-  //   budget,
-  //   description,
-  //   movingDate,
-  //   images,
-  //   videos,
-  //   amenities,
-  //   interests,
-  //   country,
-  //   city,
-  //   location,
-  //   yourNationality,
-  //   yourAstrologicalSign,
-  //   yourAge,
-  //   yourGender,
-  //   yourOccupation,
-  //   yourLanguages,
-  //   yourLifeStyle,
-
-  //   gender,
-  //   lifeStyle,
-  //   grouping,
-  //   nationality,
-  //   numberOfPeople,
-  //   smoking,
-  //   drinking,
-  //   visitors,
-  //   cooking,
-  //   pets,
-  //   party,
-  // } = useSelector((state) => state.tenant);
-
   const getPartitionRoomData = async () => {
     try {
       const { data } = await axios.post(
@@ -146,7 +111,7 @@ const ViewRoom = () => {
       <Box
         sx={{
           mx: "auto",
-          maxWidth: "70%",
+          maxWidth: { xs: "95%", md: "70%" },
           my: 3,
           px: 1,
           overFlowX: "hidden",
@@ -383,152 +348,249 @@ const ViewRoom = () => {
 
         <Box mb={5}>
           <Typography fontWeight={700}>About Me</Typography>
-          <Grid container spacing={2} sx={{ mx: "auto", px: 1 }}>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems="center" gap={1}>
-                <Grid item>
-                  <img src={people} alt="peoples" width="40px" />
+          {room && (
+            <Grid container spacing={1} sx={{}}>
+              {room?.aboutYou?.age && (
+                <Grid item xs={4} sm={4} md={4}>
+                  <Grid
+                    container
+                    gap={1}
+                    sx={{ flexDirection: { xs: "column", sm: "row" } }}
+                  >
+                    <Grid item>
+                      <img src={people} alt="peoples" width="30px" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        Age
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "600",
+                          fontSize: { xs: "13px", sm: "1rem" },
+                        }}
+                      >
+                        {room.aboutYou.age}
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    Age
-                  </Typography>
-                  <Typography sx={{ fontWeight: "600" }}>
-                    {room?.aboutYou?.age ? room?.aboutYou?.age : "N/A"}
-                  </Typography>
+              )}
+              {room?.aboutYou?.occupation && (
+                <Grid item xs={4} sm={4} md={4}>
+                  <Grid
+                    container
+                    gap={1}
+                    sx={{ flexDirection: { xs: "column", sm: "row" } }}
+                  >
+                    <Grid item>
+                      <img src={occupation} alt="occupation" width="30px" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        Occupation
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "600",
+                          fontSize: { xs: "12px", sm: "1rem" },
+                        }}
+                      >
+                        {room.aboutYou.occupation}
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </Grid>
-              </Grid>
+              )}
+              {room?.aboutYou?.astrologicalSign && (
+                <Grid item xs={4} sm={4} md={4}>
+                  <Grid
+                    container
+                    gap={1}
+                    sx={{ flexDirection: { xs: "column", sm: "row" } }}
+                  >
+                    <Grid item>
+                      <img src={sign} alt="astrological sign" width="30px" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        Sign
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "600",
+                          fontSize: { xs: "12px", sm: "1rem" },
+                        }}
+                      >
+                        {room.aboutYou.astrologicalSign}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              )}
+              {room?.aboutYou?.gender && (
+                <Grid item xs={4} sm={4} md={4}>
+                  <Grid
+                    container
+                    gap={1}
+                    sx={{ flexDirection: { xs: "column", sm: "row" } }}
+                  >
+                    <Grid item>
+                      <img
+                        src={gender}
+                        alt="gender"
+                        width="30px"
+                        color="black"
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        Gender
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "600",
+                          fontSize: { xs: "12px", sm: "1rem" },
+                        }}
+                      >
+                        {room.aboutYou.gender}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              )}
+              {room?.poster?.country && (
+                <Grid item xs={4} sm={4} md={4}>
+                  <Grid
+                    container
+                    gap={1}
+                    sx={{ flexDirection: { xs: "column", sm: "row" } }}
+                  >
+                    <Grid item>
+                      <img src={nationality} alt="nationality" width="25px" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        Nationality
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "600",
+                          fontSize: { xs: "12px", sm: "1rem" },
+                        }}
+                      >
+                        {room.poster.country}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              )}
+              {room?.aboutYou?.lifeStyle && (
+                <Grid item xs={4} sm={4} md={4}>
+                  <Grid
+                    container
+                    gap={1}
+                    sx={{ flexDirection: { xs: "column", sm: "row" } }}
+                  >
+                    <Grid item>
+                      <img src={lifestyle} alt="lifestyle" width="30px" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        Lifestyles:
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "600",
+                          fontSize: { xs: "12px", sm: "1rem" },
+                        }}
+                      >
+                        {room.aboutYou.lifeStyle}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              )}
+              {room?.aboutYou?.languages.length !== 0 && (
+                <Grid item xs={4} sm={4} md={4}>
+                  <Grid
+                    container
+                    gap={1}
+                    sx={{ flexDirection: { xs: "column", sm: "row" } }}
+                  >
+                    <Grid item>
+                      <img src={language} alt="languages" width="30px" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        Languages
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "600",
+                          fontSize: { xs: "12px", sm: "1rem" },
+                          whiteSpace: "pre-wrap",
+                          wordWrap: "break-word",
+                        }}
+                      >
+                        {room.aboutYou.languages.join(",")}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              )}
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems="center" gap={1}>
-                <Grid item>
-                  <img src={occupation} alt="occupation" width="40px" />
-                </Grid>
-                <Grid item>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    Occupation
-                  </Typography>
-                  <Typography sx={{ fontWeight: "600" }}>
-                    {room?.aboutYou?.occupation
-                      ? room?.aboutYou?.occupation
-                      : "N/A"}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems="center" gap={1}>
-                <Grid item>
-                  <img src={sign} alt="astrological sign" width="40px" />
-                </Grid>
-                <Grid item>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    Sign
-                  </Typography>
-                  <Typography sx={{ fontWeight: "600" }}>
-                    {room?.aboutYou?.astrologicalSign
-                      ? room?.aboutYou?.astrologicalSign
-                      : "N/A"}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
-                <Grid>
-                  <img src={gender} alt="gender" width={"40px"} color="black" />
-                </Grid>
-                <Grid>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    Gender
-                  </Typography>
-                  <Typography sx={{ fontWeight: "600" }}>
-                    {room?.aboutYou?.gender ? room?.aboutYou?.gender : "N/A"}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
-                <Grid>
-                  <img src={nationality} alt="nationality" width={"40px"} />
-                </Grid>
-                <Grid>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    Nationality
-                  </Typography>
-                  <Typography sx={{ fontWeight: "600" }}>
-                    {room?.poster?.country ? room?.poster?.country : "N/A"}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
-                <Grid>
-                  <img src={lifestyle} alt="lifestyle" width={"40px"} />
-                </Grid>
-                <Grid>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    Lifestyles:
-                  </Typography>
-                  <Typography sx={{ fontWeight: "600" }}>
-                    {room?.aboutYou?.lifeStyle
-                      ? room?.aboutYou?.lifeStyle
-                      : "N/A"}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
-                <Grid>
-                  <img src={language} alt="languages" width={"40px"} />
-                </Grid>
-                <Grid>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    languages
-                  </Typography>
-                  <Typography sx={{ fontWeight: "600" }}>
-                    {room?.aboutYou?.languages.length !== 0
-                      ? room?.aboutYou?.languages.join(",")
-                      : "N/A"}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
+          )}
         </Box>
+
         <hr style={{ margin: "10px 0" }} />
 
         <Box mb={5}>
           <Typography fontWeight={700}>Preffered Roommate</Typography>
           <Grid container spacing={2} sx={{ mx: "auto" }}>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
+            <Grid item xs={4} sm={4} md={4}>
+              <Grid
+                container
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
-                  <img src={gender} alt="gender" width={"40px"} />
+                  <img src={gender} alt="gender" width={"30px"} />
                 </Grid>
                 <Grid>
                   <Typography variant="body1" sx={{ mb: 1 }}>
                     Gender
                   </Typography>
-                  <Typography sx={{ fontWeight: "600" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: { xs: "12px", sm: "1rem" },
+                    }}
+                  >
                     {room?.aboutYou?.gender ? room?.aboutYou?.gender : "N/A"}
                   </Typography>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
+            <Grid item xs={4} sm={4} md={4}>
+              <Grid
+                container
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
-                  <img src={nationality} alt="nationality" width={"40px"} />
+                  <img src={nationality} alt="nationality" width={"30px"} />
                 </Grid>
                 <Grid>
                   <Typography variant="body1" sx={{ mb: 1 }}>
                     Nationality
                   </Typography>
-                  <Typography sx={{ fontWeight: "600" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: { xs: "12px", sm: "1rem" },
+                    }}
+                  >
                     {room?.aboutYou?.nationality
                       ? room?.aboutYou?.nationality
                       : "N/A"}
@@ -536,16 +598,27 @@ const ViewRoom = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
+            <Grid item xs={4} sm={4} md={4}>
+              <Grid
+                container
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
-                  <img src={language} alt="languages" width={"40px"} />
+                  <img src={language} alt="languages" width={"30px"} />
                 </Grid>
                 <Grid>
                   <Typography variant="body1" sx={{ mb: 1 }}>
                     languages
                   </Typography>
-                  <Typography sx={{ fontWeight: "600" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: { xs: "12px", sm: "1rem" },
+                      display: "flex",
+                      textWrap: "flex-wrap",
+                    }}
+                  >
                     {room?.aboutYou?.languages.length !== 0
                       ? room?.aboutYou?.languages.join(",")
                       : "N/A"}
@@ -562,8 +635,12 @@ const ViewRoom = () => {
             Sharing/Housing Preferences
           </Typography>
           <Grid container spacing={2} alignItems={"center"} sx={{ mx: "auto" }}>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
+            <Grid item xs={4} sm={4} md={4}>
+              <Grid
+                container
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
                   <img src={pets} alt="pets" width={"40px"} />
                 </Grid>
@@ -582,8 +659,12 @@ const ViewRoom = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
+            <Grid item xs={4} sm={4} md={4}>
+              <Grid
+                container
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
                   <img src={smoking} alt="smoking" width={"40px"} />
                 </Grid>
@@ -602,8 +683,12 @@ const ViewRoom = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
+            <Grid item xs={4} sm={4} md={4}>
+              <Grid
+                container
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
                   <img src={party} alt="party" width={"40px"} />
                 </Grid>
@@ -626,8 +711,12 @@ const ViewRoom = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
+            <Grid item xs={4} sm={4} md={4}>
+              <Grid
+                container
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
                   <img src={drinking} alt="drinking" width={"40px"} />
                 </Grid>
@@ -648,8 +737,12 @@ const ViewRoom = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Grid container alignItems={"center"} gap={1}>
+            <Grid item xs={4} sm={4} md={4}>
+              <Grid
+                container
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
                   <img src={visitors} alt="visitors" width={"40px"} />
                 </Grid>
@@ -678,20 +771,27 @@ const ViewRoom = () => {
               Amenities
             </Typography>
             <Grid container spacing={2} sx={{ mx: "auto" }}>
-              {room?.amenities?.map((data) => {
+              {room?.amenities?.map((data, index) => {
                 const amenity = amenitiesData[data];
                 return (
-                  <Grid item key={data} xs={12} sm={6} md={4}>
-                    <Grid container alignItems="center" gap={1}>
+                  <Grid item key={data} xs={4} sm={4} md={4}>
+                    <Grid
+                      container
+                      gap={1}
+                      sx={{ flexDirection: { xs: "column", sm: "row" } }}
+                    >
                       <Grid item>
                         {amenity ? (
-                          <img src={amenity} alt={data} width="40px" />
+                          <img src={amenity} alt={data} width="30px" />
                         ) : (
                           <img src={data} alt={data} width="40px" />
                         )}
                       </Grid>
                       <Grid item>
-                        <Typography variant="body1" sx={{ mb: 1 }}>
+                        <Typography
+                          variant="body1"
+                          sx={{ mb: 1, display: "flex", wrap: "flex-wrap" }}
+                        >
                           {data}
                         </Typography>
                       </Grid>
@@ -701,34 +801,31 @@ const ViewRoom = () => {
               })}
             </Grid>
           </Box>
+
           <hr fontWeight="600" />
 
           <Box mb={5}>
             <Typography fontWeight={700} mb={2}>
               Interests
             </Typography>
-            <Grid
-              container
-              justifyContent={"center"}
-              gap={3}
-              sx={{ mx: "auto" }}
-            >
+            <Grid container justifyContent="center">
               {room?.interests?.map((data) => {
                 const interest = InterestsData[data];
                 return (
                   <Grid
                     item
-                    xs={3} // Change xs={3} to xs={12} sm={6} md={3} to display 4 items per row
-                    sm={2.5}
+                    xs={3.5}
+                    sm={3.5}
                     md={2.5}
                     sx={{
-                      fontSize: { xs: "0.8rem", sm: "1.2rem" },
+                      fontSize: { xs: "0.5rem", sm: "1rem" },
                       borderRadius: "20px",
-                      boxShadow: "0px 0px 15px  rgba(0,0,0,0.5)",
+                      boxShadow: "0px 0px 15px rgba(0,0,0,0.5)",
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
                       justifyContent: "center",
+                      m: { xs: 0.5, sm: 1, md: 2 },
                     }}
                   >
                     <Grid item>

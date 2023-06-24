@@ -203,12 +203,12 @@ const PostProperty = () => {
       return false;
     }
     if (!appartmentNumber) {
-      toast.error("Appartment Number is required", toastOptions);
+      toast.error("Apartment Number is required", toastOptions);
       return false;
     }
 
     if (!numRegex.test(appartmentNumber)) {
-      toast.error("Appartment Number  must be number", toastOptions);
+      toast.error("Apartment Number  must be number", toastOptions);
       return false;
     }
 
@@ -423,7 +423,7 @@ const PostProperty = () => {
                 <Grid item xs={12} sm={6} md={4}>
                   <TextInput
                     label="Apartment Number"
-                    name="appartmentNumber"
+                    name="apartmentNumber"
                     value={appartmentNumber}
                   />
                 </Grid>

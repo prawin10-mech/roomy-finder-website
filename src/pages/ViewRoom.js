@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  useMediaQuery,
 } from "@mui/material";
 import {
   NavigateNext as CustomNextIcon,
@@ -67,6 +68,7 @@ const ViewRoom = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isCarouselPlaying, setIsCarouselPlaying] = useState(true);
+  const isSmallScreen = useMediaQuery("(max-width: 500px)");
 
   const rooms = useSelector((state) => state.search.availableRooms);
   const countryCode = useSelector((state) => state.room.country);
@@ -383,7 +385,7 @@ const ViewRoom = () => {
                         position: "absolute",
                         zIndex: 2,
                         left: 15,
-                        top: "50%",
+                        top: "60%",
                         transform: "translateY(-50%)",
                         background: "transparent",
                         border: "none",
@@ -404,7 +406,7 @@ const ViewRoom = () => {
                         position: "absolute",
                         zIndex: 2,
                         right: 15,
-                        top: "50%",
+                        top: "60%",
                         transform: "translateY(-50%)",
                         background: "transparent",
                         border: "none",
@@ -522,9 +524,18 @@ const ViewRoom = () => {
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <Grid container alignItems={"center"} gap={1}>
+              <Grid
+                container
+                alignItems={"center"}
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
-                  <img src={people} alt="peoples" width={"40px"} />
+                  <img
+                    src={people}
+                    alt="peoples"
+                    width={isSmallScreen ? "30px" : "40px"}
+                  />
                 </Grid>
                 <Grid item>
                   <Typography variant="body1" sx={{ mb: 1 }}>
@@ -537,9 +548,18 @@ const ViewRoom = () => {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <Grid container alignItems={"center"} gap={1}>
+              <Grid
+                container
+                alignItems={"center"}
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
-                  <img src={nationality} alt="nationality" width="40px" />
+                  <img
+                    src={nationality}
+                    alt="nationality"
+                    width={isSmallScreen ? "22px" : "40px"}
+                  />
                 </Grid>
                 <Grid item>
                   <Typography variant="body1" sx={{ mb: 1 }}>
@@ -552,9 +572,18 @@ const ViewRoom = () => {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <Grid container alignItems={"center"} gap={1}>
+              <Grid
+                container
+                alignItems={"center"}
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
-                  <img src={smoking} alt="smoking" width="40px" />
+                  <img
+                    src={smoking}
+                    alt="smoking"
+                    width={isSmallScreen ? "30px" : "40px"}
+                  />
                 </Grid>
                 <Grid item>
                   <Typography variant="body1" sx={{ mb: 1 }}>
@@ -567,9 +596,18 @@ const ViewRoom = () => {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <Grid container alignItems={"center"} gap={1}>
+              <Grid
+                container
+                alignItems={"center"}
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
-                  <img src={people} alt="gender" width="40px" />
+                  <img
+                    src={people}
+                    alt="gender"
+                    width={isSmallScreen ? "30px" : "40px"}
+                  />
                 </Grid>
                 <Grid item>
                   <Typography variant="body1" sx={{ mb: 1 }}>
@@ -582,9 +620,18 @@ const ViewRoom = () => {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <Grid container alignItems={"center"} gap={1}>
+              <Grid
+                container
+                alignItems={"center"}
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
-                  <img src={drinking} alt="drinking" width="40px" />
+                  <img
+                    src={drinking}
+                    alt="drinking"
+                    width={isSmallScreen ? "30px" : "40px"}
+                  />
                 </Grid>
                 <Grid item>
                   <Typography variant="body1" sx={{ mb: 1 }}>
@@ -597,9 +644,18 @@ const ViewRoom = () => {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <Grid container alignItems={"center"} gap={1}>
+              <Grid
+                container
+                alignItems={"center"}
+                gap={1}
+                sx={{ flexDirection: { xs: "column", sm: "row" } }}
+              >
                 <Grid>
-                  <img src={visitors} alt="visitors" width="40px" />
+                  <img
+                    src={visitors}
+                    alt="visitors"
+                    width={isSmallScreen ? "30px" : "40px"}
+                  />
                 </Grid>
                 <Grid item>
                   <Typography variant="body1" sx={{ mb: 1 }}>
@@ -624,8 +680,13 @@ const ViewRoom = () => {
             {room?.amenities?.map((data) => {
               const amenity = amenitiesData[data];
               return (
-                <Grid item key={data} xs={12} sm={6} md={4}>
-                  <Grid container alignItems="center" gap={1}>
+                <Grid item key={data} xs={4} sm={4} md={4} lg={4}>
+                  <Grid
+                    container
+                    alignItems="center"
+                    gap={1}
+                    sx={{ flexDirection: { xs: "column", sm: "row" } }}
+                  >
                     <Grid item>
                       {amenity ? (
                         <img src={amenity} alt={data} width="40px" />
@@ -764,6 +825,16 @@ const ViewRoom = () => {
             <hr style={{ margin: "20px 0" }} />
           </Box>
         )}
+        <Grid item xs={4}>
+          <Grid container alignItems={"center"} gap={1}>
+            <Grid item>
+              <Typography variant="body1" sx={{ mb: 1, fontWeight: "700" }}>
+                Description
+              </Typography>
+              <Typography sx={{}}>{room?.description}</Typography>
+            </Grid>
+          </Grid>
+        </Grid>
 
         <Box sx={{ mt: 5 }}>
           <Typography fontWeight={700} fontSize={"1.3rem"} mb={2}>
@@ -778,6 +849,7 @@ const ViewRoom = () => {
             </Grid>
           </Grid>
         </Box>
+
         {user?.type === "roommate" && !isBooked && (
           <Grid item sx={{ display: "flex", justifyContent: "center" }}>
             <Button
