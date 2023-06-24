@@ -66,17 +66,12 @@ const Rooms = () => {
   };
 
   return (
-    <Grid margin="auto" sx={{ maxWidth: "600px", margin: "auto" }}>
+    <Grid margin="auto">
       <Grid
         container
         justifyContent="space-between"
         alignItems="center"
-        sx={{
-          width: "95%",
-          margin: "auto",
-          my: { xs: 2, sm: 3 },
-          p: { xs: 2, sm: 3 },
-        }}
+        sx={{ width: "95%", margin: "auto", my: 3 }}
       >
         <Grid
           item
