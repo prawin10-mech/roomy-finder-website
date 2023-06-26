@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import React, { useState, useEffect } from "react";
 
 import CustomizeSelectBox from "../components/MUIcomponent/CustomizeSelectBox";
@@ -39,6 +39,7 @@ const SecondPage = () => {
   const [locationData, setLocationData] = useState([]);
   const token = localStorage.getItem("token");
   const tokenExpiration = localStorage.getItem("tokenExpiration");
+  const isSmallScreen = useMediaQuery("(max-width: 500px)");
 
   let city2 = null;
   if (city) {
@@ -122,11 +123,12 @@ const SecondPage = () => {
       >
         <Box
           sx={{
-            width: "50%",
+            width: isSmallScreen ? "100%" : "50%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginLeft: "25%",
+            margin: "auto",
+            // marginLeft: "25%",
           }}
         >
           <CommercialCarousal />
