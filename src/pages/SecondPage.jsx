@@ -1,6 +1,5 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import SingleCardCarousel from "../components/Card/SingleCardCarousel";
 
 import CustomizeSelectBox from "../components/MUIcomponent/CustomizeSelectBox";
 import IconButtonMUI from "../components/MUIcomponent/IconButtonMUI";
@@ -29,10 +28,7 @@ import bottomBackground from "../assets/bottomBackground.png";
 import CommercialCarousal from "../components/Card/CommercialCarousal";
 
 const SecondPage = () => {
-
   const city = useSelector((state) => state.search.searchText);
-
-  const location = useSelector((state) => state.search.location);
   const searchText = useSelector((state) => state.search.searchText);
   const availableRooms = useSelector((state) => state.search.availableRooms);
   const searchType = useSelector((state) => state.search.searchType);
@@ -43,10 +39,11 @@ const SecondPage = () => {
   const [locationData, setLocationData] = useState([]);
   const token = localStorage.getItem("token");
   const tokenExpiration = localStorage.getItem("tokenExpiration");
+  const isSmallScreen = useMediaQuery("(max-width: 500px)");
 
-  let city2 = null
-  if(city){
-    city2=city
+  let city2 = null;
+  if (city) {
+    city2 = city;
   }
 
   const fetchMyBookings = async () => {
@@ -58,21 +55,17 @@ const SecondPage = () => {
         );
         dispatch(UserActions.myBookings(data));
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const getPartitionRoomData = async () => {
     try {
       const { data } = await axios.post(
-        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/${searchText}-ad/available`,
+        `https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/${searchType}-ad/available`,
         { countryCode }
       );
       dispatch(SearchActions.availableRooms(data));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -115,8 +108,6 @@ const SecondPage = () => {
     viewArrayData();
   }, [city, countryCode]);
 
-  console.log(availableRooms);
-
   return (
     <>
       <Box
@@ -132,11 +123,12 @@ const SecondPage = () => {
       >
         <Box
           sx={{
-            width: "50%",
+            width: isSmallScreen ? "100%" : "50%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginLeft: "25%",
+            margin: "auto",
+            // marginLeft: "25%",
           }}
         >
           <CommercialCarousal />
@@ -248,21 +240,21 @@ const SecondPage = () => {
               >
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Typography variant="h5">
-                  {
-                    city2 === null ? (searchType === "property"
-                      ? `Apartments for Rent `
-                      : action === "HAVE ROOM"
-                      ? `HAVE ROOM `
-                      : action === "NEED ROOM"
-                      ? `NEED ROOM `
-                      : `All rooms `) : (searchType === "property"
+                    {city2 === null
+                      ? searchType === "property"
+                        ? `Apartments for Rent `
+                        : action === "HAVE ROOM"
+                        ? `HAVE ROOM `
+                        : action === "NEED ROOM"
+                        ? `NEED ROOM `
+                        : `All rooms `
+                      : searchType === "property"
                       ? `Apartments for Rent in ${city}`
                       : action === "HAVE ROOM"
                       ? `HAVE ROOM in ${city}`
                       : action === "NEED ROOM"
                       ? `NEED ROOM in ${city}`
-                      : `All rooms in ${city}`)
-                  }
+                      : `All rooms in ${city}`}
                     {/* {searchType === "property"
                       ? `Apartments for Rent in ${city}`
                       : action === "HAVE ROOM"

@@ -25,7 +25,6 @@ const UpgradePlan = () => {
       );
       window.location.href = data.paymentUrl;
     } catch (err) {
-      console.log(err);
     } finally {
       setStripeLoading(false);
     }
@@ -44,7 +43,6 @@ const UpgradePlan = () => {
       );
       window.location.href = data.paymentUrl;
     } catch (err) {
-      console.log(err);
     } finally {
       setPaypalLoading(false);
     }

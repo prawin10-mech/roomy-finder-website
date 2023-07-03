@@ -35,9 +35,7 @@ const OurServices = () => {
       );
       setCountryRooms(data);
       dispatch(roomsTypeActions.availableRooms(data));
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) {}
   };
 
   const getPartitionRoomData = async () => {
@@ -48,9 +46,7 @@ const OurServices = () => {
       );
       setCityRooms(data);
       dispatch(SearchActions.availableRooms(data));
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) {}
   };
 
   const fetchMyBookings = async () => {
@@ -68,9 +64,7 @@ const OurServices = () => {
           Cookies.remove("user");
         }
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   let id = null;
@@ -90,9 +84,7 @@ const OurServices = () => {
       Cookies.set("user", JSON.stringify(data), { expires: 365 });
 
       dispatch(UserActions.type(data.type));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -176,28 +168,18 @@ const OurServices = () => {
             <CitiesInUae />
             <Box sx={{ display: "flex", flexDirection: "column", mb: 1 }}>
               <Box sx={{ mb: 1 }}>
-                <Typography
-                  variant="h5"
-                  sx={{ mb: 1, pl: { md: 3, sm: 2, xs: 1 } }}
-                ></Typography>
                 <CarouselWithMultipleImage
                   propertyAddAvilableRoom={countryRooms}
+                  heading={true}
                 />
               </Box>
 
-              {/* <Box sx={{ mt: 1, mb: 1 }}>
-                <Typography
-                  variant="h5"
-                  sx={{ my: 1, pl: { md: 3, sm: 2, xs: 1 } }}
-                >
-                  Partitions for rent in{" "}
-                  {countryCode === "AE" ? "Sharjah" : "Riyadh"}
-                </Typography>
-
+              <Box sx={{ mt: 1, mb: 1 }}>
                 <CarouselWithMultipleImage
                   propertyAddAvilableRoom={cityRooms}
+                  heading={false}
                 />
-              </Box> */}
+              </Box>
               <Box
                 sx={{
                   mt: 1,

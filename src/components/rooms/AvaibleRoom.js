@@ -110,7 +110,19 @@ const AvailableRoom = memo(({ room }) => {
             )}
           </Box>
           <Box sx={{ flex: 1 }}>
-            <Typography variant="body2">{room.description}</Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                display: "-webkit-box",
+                "-webkit-line-clamp": 3,
+                "-webkit-box-orient": "vertical",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                maxHeight: "3em",
+              }}
+            >
+              {room.description}
+            </Typography>
             <Typography
               variant="body2"
               sx={{ display: "flex", alignItems: "center" }}

@@ -118,12 +118,10 @@ const PostProperty = () => {
           obj,
           { headers: { Authorization: token } }
         );
-        console.log("res", data);
         toast.success("Property edited successfully", toastOptions);
         //navigate("/");
       }
     } catch (err) {
-      console.log(err);
       toast.error("Something went wrong", toastOptions);
     }
   };
@@ -175,8 +173,6 @@ const PostProperty = () => {
           socialPreferences,
         };
 
-        console.log("test1", obj);
-
         const { data } = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/ads/property-ad",
           obj,
@@ -184,9 +180,7 @@ const PostProperty = () => {
         );
         toast.success("Property posted successfully", toastOptions);
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleDepositChange = (e) => {
@@ -209,12 +203,12 @@ const PostProperty = () => {
       return false;
     }
     if (!appartmentNumber) {
-      toast.error("Appartment Number is required", toastOptions);
+      toast.error("Apartment Number is required", toastOptions);
       return false;
     }
 
     if (!numRegex.test(appartmentNumber)) {
-      toast.error("Appartment Number  must be number", toastOptions);
+      toast.error("Apartment Number  must be number", toastOptions);
       return false;
     }
 
@@ -429,7 +423,7 @@ const PostProperty = () => {
                 <Grid item xs={12} sm={6} md={4}>
                   <TextInput
                     label="Apartment Number"
-                    name="appartmentNumber"
+                    name="apartmentNumber"
                     value={appartmentNumber}
                   />
                 </Grid>

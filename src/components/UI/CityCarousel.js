@@ -18,23 +18,27 @@ import { toastOptions } from "../../utils/ToastOptions";
 const CityCarousel = () => {
   const [currentCityIndex, setCurrentCityIndex] = useState(0);
   const [carouselCities, setCarouselCities] = useState([]);
-  const isMediumScreen = useMediaQuery("(min-width: 768px)");
+  const isSmallScreen = useMediaQuery("(max-width: 500px)");
 
   useEffect(() => {
     const updateCarouselCities = () => {
-      const slicedCities = cities.slice(
-        currentCityIndex,
-        currentCityIndex + (isMediumScreen ? 5 : 5)
-      );
+      const startIndex = isSmallScreen
+        ? currentCityIndex + 1
+        : currentCityIndex;
+
+      const endIndex = startIndex + (isSmallScreen ? 3 : 5);
+
+      const slicedCities = cities.slice(startIndex, endIndex);
       const remainingCities = cities.slice(
         0,
-        (isMediumScreen ? 5 : 5) - slicedCities.length
+        (isSmallScreen ? 3 : 5) - slicedCities.length
       );
-      setCarouselCities(slicedCities.concat(remainingCities));
+
+      setCarouselCities([...slicedCities, ...remainingCities]);
     };
 
     updateCarouselCities();
-  }, [currentCityIndex, isMediumScreen]);
+  }, [currentCityIndex, isSmallScreen]);
 
   const handlePrevClick = () => {
     const newIndex =
@@ -68,16 +72,17 @@ const CityCarousel = () => {
       zIndex = 1;
       boxShadow =
         "12px 0 15px -4px rgba(0, 0, 0, 0.8), -12px 0 8px -4px rgba(0, 0, 0, 0.8";
+      textAlign = "center";
     } else if (Math.abs(index - 2) === 1) {
       scale = 1.8;
       zIndex = -10;
       boxShadow =
         "12px 0 15px -4px rgba(0, 0, 0, 0.8), -12px 0 8px -4px rgba(0, 0, 0, 0.8";
-    } else if (index === 0) {
+    } else if (index === 0 || (isSmallScreen && index === 2)) {
       scale = 1.6;
       zIndex = -55;
       showCityName = false;
-    } else if (index === 4) {
+    } else if (index === 4 || (isSmallScreen && index === 2)) {
       scale = 1.6;
       zIndex = -55;
       showCityName = false;
@@ -93,10 +98,11 @@ const CityCarousel = () => {
     const cityNameStyles = {
       position: "relative",
       color: "white",
+      fontWeight: 900,
       textAlign: textAlign,
+      zIndex: 2,
       left: "0",
       right: "0",
-      // bottom: "30px",
       textShadow: "6px 6px 5px black",
     };
 
@@ -186,7 +192,7 @@ const CityCarousel = () => {
   ];
 
   const carouselItems = carouselCities.map((city, index) => {
-    const isActive = index === 2;
+    const isActive = isSmallScreen ? index === 1 : index === 2;
 
     let styles = isActive
       ? {
@@ -213,7 +219,7 @@ const CityCarousel = () => {
         scale: 1.8,
         zIndex: 5,
       };
-    } else if (index === 0 || index === 4) {
+    } else if (index === 0 || isSmallScreen ? index === 2 : index === 4) {
       styles = {
         ...styles,
         scale: 1.6,
@@ -274,6 +280,7 @@ const CityCarousel = () => {
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "center",
+          zIndex: 500,
           width: "10%",
         }}
       >
@@ -281,7 +288,7 @@ const CityCarousel = () => {
           sx={{
             height: "50px",
             width: "50px",
-            color: "gray",
+            color: "slateGray",
             cursor: "pointer",
           }}
           onClick={handleNextClick}

@@ -199,7 +199,7 @@ const PropertyType = () => {
                       sx={{ display: "none" }}
                     />
                   }
-                  label="Appartment"
+                  label="Apartment"
                   sx={checkboxLabelStyle}
                 />
               </Grid>

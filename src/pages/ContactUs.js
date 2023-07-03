@@ -1,28 +1,62 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import {
+  Box,
+  Container,
   Grid,
   Paper,
   Typography,
-  Avatar,
   Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   TextField,
-  IconButton,
+  useMediaQuery,
 } from "@mui/material";
-import EmailIcon from '@mui/icons-material/Email';
-import UAE2 from "../assets/contact_flag/UAEFlag1.jpg";
-import USA1 from "../assets/contact_flag/usa4.jpg";
 import { toast, ToastContainer } from "react-toastify";
-import { toastOptions } from "../utils/ToastOptions";
+import EmailIcon from "@mui/icons-material/Email";
+import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
+
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
 import Footer from "../components/Footer";
-import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
+
+import UAEFlag from "../assets/contact_flag/UAEFlag.jpg";
+import USAFlag from "../assets/contact_flag/USAFlag.jpg";
+
+import { toastOptions } from "../utils/ToastOptions";
+
+const ContactLocation = ({ flagSrc, title, location, telNumbers }) => (
+  <Paper
+    sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "1rem",
+      height: "100%",
+    }}
+  >
+    <Box sx={{ width: "100px", height: "auto", mb: 2, mr: 2 }}>
+      <img
+        src={flagSrc}
+        alt="Flag"
+        style={{ width: "100%", height: "100%", objectFit: "contain" }}
+      />
+    </Box>
+    <Box sx={{}}>
+      <Typography
+        variant="subtitle1"
+        sx={{ fontWeight: "bold", fontSize: "1.3rem", mb: 1 }}
+      >
+        {title}
+      </Typography>
+      <Typography variant="subtitle1" sx={{ maxWidth: "200px" }}>
+        Location: {location}
+      </Typography>
+      {telNumbers.map((tel) => (
+        <Typography key={tel} variant="subtitle1">
+          Tel {tel}
+        </Typography>
+      ))}
+    </Box>
+  </Paper>
+);
 
 const ContactUs = () => {
   const [name, setName] = useState("");
@@ -32,14 +66,10 @@ const ContactUs = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Perform form submission logic, e.g., send data to the server
-
-    // Clear form fields
     setName("");
     setEmail("");
     setDescription("");
 
-    // Show success toast
     toast.success("Form submitted successfully!", toastOptions);
   };
 
@@ -47,122 +77,59 @@ const ContactUs = () => {
     <>
       <TopBackground />
       <Container>
-        <Grid container sx={{ my: { md: "5%" } }}>
-          <Grid
-            item
-            md={6}
-            
-            
-          >
-          <Paper sx={{
-            width:"70%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "left",
-              my: { xs: 1 },
-              ml:7,pl:2
-            }}>
-
-            <Box
-              sx={{
-                width: "65px",
-                height: "90px",
-                mt: 1,
-                mr: 2,
-              }}
-            >
-              <img
-                src={UAE2}
-                alt="Peoples"
-                style={{ width: "80px", height: "40px" }}
-              />
-            </Box>
-            <Box>
-              <Typography
-                variant="subtitle1"
-                sx={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                United Arab Emirates
-              </Typography>
-              <Typography variant="subtitle1">
-                Location: Dubai, 16, Misakin St, Al Danah 22213
-              </Typography>
-              <Typography variant="subtitle1">Tel +971 52 613 3921</Typography>
-              <Typography variant="subtitle1">Tel +971 58 653 3921</Typography>
-              <Typography variant="subtitle1">Tel +971 52 693 3921</Typography>
-            </Box>
-          </Paper>
+        <Grid container spacing={2} sx={{ my: { md: "5%" } }}>
+          <Grid item xs={12} md={6}>
+            <ContactLocation
+              flagSrc={UAEFlag}
+              title="United Arab Emirates"
+              location="Dubai, 16, Misakin St, Al Danah 22213"
+              telNumbers={[
+                "+971 52 613 3921",
+                "+971 58 653 3921",
+                "+971 52 693 3921",
+              ]}
+            />
           </Grid>
-          <Grid
-            item
-            md={6}
-            
-          >
-          <Paper sx={{
-            width:"70%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "left",
-              ml:5,pl:2
-            }}>
-
-            <Box
-              sx={{
-                width: "120px",
-                height: "90px",
-                mt: 1,
-                mr: 2,
-              }}
-            >
-              <img
-                src={USA1}
-                alt="Peoples"
-                style={{ width: "80px", height: "40px" }}
-              />
-            </Box>
-            <Box>
-              <Typography
-                variant="subtitle1"
-                sx={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                United States of America
-              </Typography>
-              <Typography variant="subtitle1">
-                Location: Global Strategy Catalyst Group LLc 401 Ryland St, Suit
-                200-A, Reno, Nv. 89502
-              </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 2 }}>
-                Tel +1412 403 3921
-              </Typography>
-            </Box>
-          </Paper>
+          <Grid item xs={12} md={6}>
+            <ContactLocation
+              flagSrc={USAFlag}
+              title="United States of America"
+              location="Global Strategy Catalyst Group LLc 401 Ryland St, Suit 200-A, Reno, Nv. 89502"
+              telNumbers={["+1412 403 3921"]}
+            />
           </Grid>
-          
-        </Grid>
-        <Grid sx={{display:"flex",justifyContent:"center",alignItems:"center",mb:4}}>
-          <Paper sx={{width:"40%",height:"100px"}}>
-           <Box sx={{width:"100%",height:"100%",display:"flex",flexDirection:"row",justifyContent:"space-between",alignItems:"center",cursor:"pointer"}}>
-            <EmailIcon sx={{mx:2}} />
-            <Typography variant="h6">Support@roomyfinder.com</Typography>
-            <a href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJqSwFHBbjKJvJXslnhdwMkshTnsxvFDJmGmxXBtqTsMBsfVJdjBBvvdbxNWxdHJcJLLNmg">
-
-            <ForwardToInboxIcon sx={{mx:2}} />
-            </a>
-           </Box>
-          </Paper>
         </Grid>
         <Grid
           container
-          spacing={2}
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+          xs={12}
+          sm={12}
+          md={6}
+          margin="auto"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ my: "4rem" }}
         >
-          <Grid item xs={12} sm={12} md={6} sx={{ my: { md: "1%" } }}>
-            <Paper sx={{ padding: "2rem" }}>
+          <Paper
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "1rem",
+              height: "100%",
+            }}
+          >
+            <EmailIcon sx={{ mr: "0.5rem" }} />
+            <Typography variant="h6">Support@roomyfinder.com</Typography>
+            <a href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJqSwFHBbjKJvJXslnhdwMkshTnsxvFDJmGmxXBtqTsMBsfVJdjBBvvdbxNWxdHJcJLLNmg">
+              <ForwardToInboxIcon sx={{ ml: "0.5rem" }} />
+            </a>
+          </Paper>
+        </Grid>
+        <Grid container justifyContent="center" sx={{ mb: "4rem" }}>
+          <Grid item xs={12} sm={12} md={6} sx={{ mb: "1%" }}>
+            <Paper sx={{ p: "2rem", height: "100%" }}>
+              {" "}
+              {/* Set a fixed height */}
               <form onSubmit={handleSubmit}>
                 <TextField
                   label="Name"
@@ -194,11 +161,11 @@ const ContactUs = () => {
                   type="submit"
                   variant="contained"
                   sx={{
-                    bgcolor: "orange",
+                    backgroundColor: "orange",
                     color: "#fff",
                     borderRadius: "20px",
                     "&:hover": {
-                      bgcolor: "orange",
+                      backgroundColor: "orange",
                     },
                   }}
                   fullWidth

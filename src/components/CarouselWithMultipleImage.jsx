@@ -1,13 +1,11 @@
 import React from "react";
 import { Grid, Typography, Box } from "@mui/material";
-
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { SearchActions } from "../store/Search";
-
 import DummyImage from "../assets/demo.jpg";
 import { useNavigate } from "react-router-dom";
 import {
@@ -15,7 +13,7 @@ import {
   NavigateBefore as CustomPrevIcon,
 } from "@mui/icons-material";
 
-const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
+const CarouselWithMultipleImage = ({ propertyAddAvilableRoom, heading }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const countryCode = useSelector((state) => state.room.country);
@@ -89,7 +87,7 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1.5,
         },
       },
       {
@@ -103,26 +101,27 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
 
   return (
     <Grid maxWidth={"90%"} sx={{ margin: "auto" }}>
-      <Typography
-        variant="h5"
-        sx={{
-          mb: 1,
-          pl: { md: 3, sm: 2, xs: 1 },
-          color: "purple",
-          fontWeight: "600",
-        }}
-      >
-        Top affordable sharing option in{" "}
-        {countryCode === "AE" ? "UAE" : "Saudi"}
-      </Typography>
+      {heading && (
+        <Typography
+          variant="h5"
+          sx={{
+            mb: 1,
+            pl: { md: 3, sm: 2, xs: 1 },
+            color: "purple",
+            fontWeight: "600",
+          }}
+        >
+          Top affordable sharing option in{" "}
+          {countryCode === "AE" ? "UAE" : "Saudi"}
+        </Typography>
+      )}
       <div style={{ position: "relative" }}>
         <Slider {...settings}>
           {propertyAddAvilableRoom?.map((item) => (
-            <Grid sx={{ padding: "15px" }}>
+            <Grid sx={{ padding: "15px" }} key={item.id}>
               <Grid
-                key={item.id}
                 sx={{
-                  boxShadow: "0px 0px 7px  rgba(0,0,0,0.5)",
+                  boxShadow: "0px 0px 7px rgba(0,0,0,0.5)",
                   borderRadius: "15px",
                   overflow: "hidden",
                   cursor: "pointer",
@@ -148,7 +147,7 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
-                        // borderRadius: "15px",
+                        borderRadius: "15px", // Apply border radius
                       }}
                     />
                   ) : (
@@ -162,7 +161,7 @@ const CarouselWithMultipleImage = ({ propertyAddAvilableRoom }) => {
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
-                        // borderRadius: "10px",
+                        borderRadius: "10px", // Apply border radius
                       }}
                     />
                   )}
