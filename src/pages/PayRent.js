@@ -14,6 +14,7 @@ const PayRent = () => {
   const [paypalLoading, setPaypalLoading] = useState(null);
   const [cashLoading, setCashLoading] = useState(null);
   const [vatPercentage, setVatPercentage] = useState(null);
+  const [commissionPercentage, setCommissionPercentage] = useState(null);
   const [serviceFeePercentage, setServiceFeePercentage] = useState(null);
   const token = localStorage.getItem("token");
 
@@ -28,6 +29,9 @@ const PayRent = () => {
     // setVatPercentage(5);
     setServiceFeePercentage(
       data.client.serviceFee ? data.client.stripeCharges : 3
+    );
+    setCommissionPercentage(
+      data.client.commission ? data.client.commission : 10
     );
     setProperty(data);
   };
@@ -105,14 +109,20 @@ const PayRent = () => {
 
   const totalRentFee = useMemo(() => {
     if (property) {
-      return property.ad.monthlyPrice + 0.1 * property.ad.monthlyPrice;
+      return (
+        property.ad.monthlyPrice +
+        (commissionPercentage / 100) * property.ad.monthlyPrice
+      );
     }
     return 0;
   }, [property]);
 
   const vat = useMemo(() => {
     if (property) {
-      return 0.1 * ((vatPercentage / 100) * property.ad.monthlyPrice);
+      return (
+        (commissionPercentage / 100) *
+        ((vatPercentage / 100) * property.ad.monthlyPrice)
+      );
     }
     return 0;
   }, [property]);
@@ -121,7 +131,7 @@ const PayRent = () => {
     if (property) {
       return Number(
         (serviceFeePercentage / 100) * property.ad.monthlyPrice +
-          0.105 *
+          (commissionPercentage / 100) *
             (serviceFeePercentage / 100) *
             property.ad.monthlyPrice.toFixed(2)
       );

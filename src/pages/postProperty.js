@@ -423,7 +423,7 @@ const PostProperty = () => {
                 <Grid item xs={12} sm={6} md={4}>
                   <TextInput
                     label="Apartment Number"
-                    name="apartmentNumber"
+                    name="appartmentNumber"
                     value={appartmentNumber}
                   />
                 </Grid>
