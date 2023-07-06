@@ -43,6 +43,7 @@ import Notification from "./components/Notifictions";
 import WhatsApp from "./components/WhatsApp";
 import Blogs from "./pages/Blogs";
 import SingleBlog from "./pages/SingleBlog";
+import BlockUser from "./pages/BlockUser";
 
 
 const App = () => {
@@ -88,6 +89,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<OurServices />} />
           <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/blockuser" element={<BlockUser />} />
           
          
           <Route path="/message" element={<Message />} />

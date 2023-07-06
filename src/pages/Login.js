@@ -63,26 +63,32 @@ const Login = () => {
         const fcmToken = (await requestForToken()) || "123456789";
 
         const loginResponse = await axios.post(
-          "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/login",
+          "https://gsccontrolpanelbackend.onrender.com/api/v1/auth/login",
           { email, password, fcmToken }
         );
 
         const { data } = loginResponse;
-        console.log(data);
-        Cookies.set("user", JSON.stringify(data), { expires: 365 });
-        localStorage.setItem("token", `bearer ${response.data.token}`);
-        const expirationTimestamp = Date.parse(response.data.expireAt);
-        localStorage.setItem("tokenExpiration", expirationTimestamp);
+        console.log(data,"op");
+        if(data.isUserBlock !== false){
+          navigate("/blockuser");
+        }else{
 
-        dispatch(UserActions.isLoggedIn(true));
-        dispatch(UserActions.firstName(data.firstName));
-        dispatch(UserActions.lastName(data.lastName));
-        dispatch(UserActions.email(data.email));
-        dispatch(UserActions.fcmToken(data.fcmToken));
-        dispatch(UserActions.gender(data.gender));
-        dispatch(UserActions.country(data.country));
-        toast.success("Login Successfully", toastOptions);
-        navigate("/");
+          Cookies.set("user", JSON.stringify(data), { expires: 365 });
+          localStorage.setItem("token", `bearer ${response.data.token}`);
+          const expirationTimestamp = Date.parse(response.data.expireAt);
+          localStorage.setItem("tokenExpiration", expirationTimestamp);
+  
+          dispatch(UserActions.isLoggedIn(true));
+          dispatch(UserActions.firstName(data.firstName));
+          dispatch(UserActions.lastName(data.lastName));
+          dispatch(UserActions.email(data.email));
+          dispatch(UserActions.fcmToken(data.fcmToken));
+          dispatch(UserActions.gender(data.gender));
+          dispatch(UserActions.country(data.country));
+          toast.success("Login Successfully", toastOptions);
+          navigate("/");
+        }
+        
       } else {
         throw new Error("Please enter valid credentials");
       }
