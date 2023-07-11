@@ -9,6 +9,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { toastOptions } from "../utils/ToastOptions";
 import TopBackground from "../components/postPropertyComponents/TopBackground";
 import BottomBackground from "../components/postPropertyComponents/BottomBackground";
+import { requestForToken } from "../firebase/index";
 
 import DeleteProfile from "../components/DeleteProfile";
 
@@ -40,6 +41,7 @@ const ViewProfile = () => {
 
   const verifyPasswordHandler = async () => {
     try {
+      const fcmToken = (await requestForToken()) || "123456789";
       const { data } = await axios.post(
         "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/login",
         { email: user.email, password, fcmToken: "123" }

@@ -4,6 +4,7 @@ import BottomBackground from "../components/postPropertyComponents/BottomBackgro
 import { Grid, Button, Box, TextField } from "@mui/material";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { requestForToken } from "../firebase/index";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -47,9 +48,10 @@ const ResetPassword = () => {
   const resetPasswordHandler = async () => {
     try {
       if (validations()) {
+        const fcmToken = (await requestForToken()) || "123456789";
         const { data } = await axios.post(
           "https://roomy-finder-evennode.ap-1.evennode.com/api/v1/auth/reset-password",
-          { email, password, fcmToken: "123" }
+          { email, password, fcmToken }
         );
         toast.success("Verification email sent successfully", toastOptions);
       }

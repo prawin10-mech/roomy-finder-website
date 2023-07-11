@@ -43,6 +43,7 @@ import { SignupActions } from "../store/Signup";
 import axios from "axios";
 import { toastOptions } from "../utils/ToastOptions";
 import { toast, ToastContainer } from "react-toastify";
+import { requestForToken } from "../firebase/index";
 
 function Copyright(props) {
   return (
@@ -217,6 +218,7 @@ export default function NewSignUpPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      const fcmToken = (await requestForToken()) || "123456789";
       const obj = {
         type,
         phone,
@@ -226,7 +228,7 @@ export default function NewSignUpPage() {
         lastName,
         country,
         gender,
-        fcmToken: "123",
+        fcmToken,
       };
       if (handleVaidation()) {
         const { data } = await axios.post(
@@ -234,6 +236,7 @@ export default function NewSignUpPage() {
           obj
         );
         console.log(data);
+        toast.success("Signup successfully please login", toastOptions);
       }
     } catch (err) {
       if (err.response.status === 409) {

@@ -40,6 +40,7 @@ import axios from "axios";
 import { toastOptions } from "../utils/ToastOptions";
 import { toast, ToastContainer } from "react-toastify";
 import ConfirmDialog from "../components/ConfirmDialog";
+import { requestForToken } from "../firebase/index";
 
 function Copyright(props) {
   return (
@@ -222,6 +223,7 @@ export default function SignUp() {
   const handleSignupUser = async (event) => {
     event.preventDefault();
     try {
+      const fcmToken = (await requestForToken()) || "123456789";
       const obj = {
         otpCode: enteredMobileOtp,
         type,
@@ -232,7 +234,7 @@ export default function SignUp() {
         lastName,
         country,
         gender,
-        fcmToken: "123",
+        fcmToken,
         otpCode: enteredMobileOtp,
       };
 
